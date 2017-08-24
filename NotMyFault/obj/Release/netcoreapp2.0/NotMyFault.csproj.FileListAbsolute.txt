@@ -1,0 +1,11 @@
+C:\bing\.net core\Projects\NotMyFault\NotMyFault\bin\Release\netcoreapp2.0\NotMyFault.deps.json
+C:\bing\.net core\Projects\NotMyFault\NotMyFault\bin\Release\netcoreapp2.0\NotMyFault.runtimeconfig.json
+C:\bing\.net core\Projects\NotMyFault\NotMyFault\bin\Release\netcoreapp2.0\NotMyFault.runtimeconfig.dev.json
+C:\bing\.net core\Projects\NotMyFault\NotMyFault\bin\Release\netcoreapp2.0\NotMyFault.dll
+C:\bing\.net core\Projects\NotMyFault\NotMyFault\bin\Release\netcoreapp2.0\NotMyFault.pdb
+C:\bing\.net core\Projects\NotMyFault\NotMyFault\obj\Release\netcoreapp2.0\NotMyFault.csprojResolveAssemblyReference.cache
+C:\bing\.net core\Projects\NotMyFault\NotMyFault\obj\Release\netcoreapp2.0\NotMyFault.csproj.CoreCompileInputs.cache
+C:\bing\.net core\Projects\NotMyFault\NotMyFault\obj\Release\netcoreapp2.0\NotMyFault.AssemblyInfoInputs.cache
+C:\bing\.net core\Projects\NotMyFault\NotMyFault\obj\Release\netcoreapp2.0\NotMyFault.AssemblyInfo.cs
+C:\bing\.net core\Projects\NotMyFault\NotMyFault\obj\Release\netcoreapp2.0\NotMyFault.dll
+C:\bing\.net core\Projects\NotMyFault\NotMyFault\obj\Release\netcoreapp2.0\NotMyFault.pdb
