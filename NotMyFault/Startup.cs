@@ -35,7 +35,6 @@ namespace NotMyFault
             services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddEntityFrameworkStores<AppDbContext>();
 
-
             services.AddMvc();
             services.AddMemoryCache();
             services.AddSession();
