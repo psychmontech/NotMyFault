@@ -8,8 +8,10 @@ namespace NotMyFault.Models.ProjRelated
 {
     public class Distribution
     {
+        public int DistributionId { get; set; }
         public string divisor { get; set; }
-        public Project Myproj { get; set; }
-        public IEnumerable<Developer> Associates { get; set; }
+        public virtual Project MyProj { get; set; }
+        public int ProjectForeignKey { get; set; }
+        public List<Developer> Associates { get; set; } 
     }
 }

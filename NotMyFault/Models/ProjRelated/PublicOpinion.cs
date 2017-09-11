@@ -1,4 +1,4 @@
-﻿using NotMyFault.Models.ProjRelated.ConverEntries;
+﻿using NotMyFault.Models.UserRelated;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +8,9 @@ namespace NotMyFault.Models.ProjRelated
 {
     public class PublicOpinion
     {
-        public IEnumerable<InterConvEntry> MyEntries { get; set; }
+        public DateTime Timestamp { get; set; }
+        public Visitor MyVisitor { get; set; }
+        public string Text { get; set; }
+        public virtual Project MyProj { get; set; }
     }
 }

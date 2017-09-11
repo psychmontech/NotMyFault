@@ -8,9 +8,10 @@ namespace NotMyFault.Models.UserRelated
     public class Review
     {
         public string Comments { get; set; }
-        public DateTime Date { get; set; }
+        public DateTime Timestamp { get; set; }
         public string Stars { get; set; }
-        public Developer MyReviewee { get; set; }
-        public Developer MyReviewer { get; set; }
+        public virtual Developer MyReviewee { get; set; }
+        public virtual Developer MyReviewer { get; set; }
+
     }
 }

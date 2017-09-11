@@ -7,8 +7,8 @@ namespace NotMyFault.Models.UserRelated
 {
     public class Endorsment
     {
-        public Developer MyDeveloper { get; set; }
-        public Developer FromDeveloper { get; set; }
+        public Developer MyDev { get; set; }
+        public Developer FromDev { get; set; }
         public string subject { get; set; }
         public DateTime Timestamp { get; set; }
     }

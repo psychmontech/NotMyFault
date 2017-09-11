@@ -1,13 +1,15 @@
-﻿using System;
+﻿using NotMyFault.Models.ProjRelated;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace NotMyFault.Models.TransRelated
 {
-    public class tradeBox
+    public class TradeBox
     {
-        public Transaction Mytran { get; set; }
+        public int TradeBoxId { get; set; }
+        public virtual Transaction Mytran { get; set; }
         public Boolean IsGdInPlc { get; set; }
         public Boolean IsGdVerified { get; set; }
         public Boolean IsMoneyInPlc { get; set; }
@@ -18,6 +20,8 @@ namespace NotMyFault.Models.TransRelated
         public DateTime GdVerifiedTs { get; set; }
         public DateTime MoneyInPlcTs { get; set; }
         public DateTime MoneyVerifiedTs { get; set; }
-        public Byte Goods { get; set; }
+        public byte Goods { get; set; }
+        public Project MyProj { get; set; }
+
     }
 }

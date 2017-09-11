@@ -10,27 +10,23 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using NotMyFault.Models;
+using NotMyFault.Models.Misce;
 
 namespace NotMyFault
 {
     public class Startup
     {
-        private IConfigurationRoot _configurationRoot;
+        public IConfiguration Configuration { get; set; }
 
-        public Startup(IHostingEnvironment hostingEnvironment)
+        public Startup(IConfiguration config)
         {
-            _configurationRoot = new ConfigurationBuilder()
-                           .SetBasePath(hostingEnvironment.ContentRootPath)
-                           .AddJsonFile("appsettings.json")
-                           .Build();
+            Configuration = config;
         }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<AppDbContext>(options =>
-                             options.UseSqlServer(_configurationRoot.GetConnectionString("DefaultConnection")));
+            services.AddDbContextPool<AppDbContext>(options =>
+                             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddEntityFrameworkStores<AppDbContext>();
@@ -40,7 +36,6 @@ namespace NotMyFault
             services.AddSession();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
@@ -50,6 +45,7 @@ namespace NotMyFault
             app.UseStatusCodePages();
             app.UseStaticFiles();
             app.UseMvcWithDefaultRoute();
+            //DbInitializer.Seed(app);
         }
     }
 }

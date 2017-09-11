@@ -9,7 +9,7 @@ namespace NotMyFault.Models.ProjRelated
     public class Like
     {
         public DateTime Timestamp { get; set; }
-        public Project Myproj { get; set; }
+        public virtual Project MyProj { get; set; }
         public User Liker { get; set; }
         public Boolean IsVisitor { get; set; }
     }
