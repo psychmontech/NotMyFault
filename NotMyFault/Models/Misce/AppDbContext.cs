@@ -25,6 +25,18 @@ namespace NotMyFault.Models.Misce
         public DbSet<Project> Projects { get; set; }
         public DbSet<SupptNAlleg> SupptNAllegs{ get; set; }
         public DbSet<InternalConver> InternalConver { get; set; }
+        public DbSet<BankDetails> BankDetails { get; set; }
+        public DbSet<Like> Likes { get; set; }
+        public DbSet<Negotiation> Negotiations { get; set; }
+        public DbSet<PublicOpinion> PublicOpinions { get; set; }
+        public DbSet<Recruitment> Recruitments { get; set; }
+        public DbSet<TradeBox> TradeBoxes { get; set; }
+        public DbSet<Transaction> Transactions { get; set; }
+        public DbSet<Distribution> Distributions { get; set; }
+        public DbSet<Endorsment> Endorsments { get; set; }
+        public DbSet<NegoEntry> NegoEntries { get; set; }
+        public DbSet<CandiRqrmt> CandiRqrmts { get; set; }
+        public DbSet<Interview> Interviews { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -89,6 +101,19 @@ namespace NotMyFault.Models.Misce
                 .HasOne(p => p.MyBankDetails)
                 .WithOne(i => i.MyDev)
                 .HasForeignKey<BankDetails>("DeveloperForeignKey");
+
+            //developer <-> endorsgiven
+            modelBuilder.Entity<Endorsment>()
+                .HasOne(p => p.MyDev)
+                .WithMany(i => i.MyEndors)
+                .HasForeignKey("EndorsGivenForeignKey");
+
+            //developer <-> endorsgiver
+            modelBuilder.Entity<Endorsment>()
+                .HasOne(p => p.FromDev)
+                .WithMany(i => i.EndorsIGive)
+                .HasForeignKey("EndorsGiverForeignKey")
+                .OnDelete(DeleteBehavior.Restrict);
 
             //developer <-> reviews
             modelBuilder.Entity<Review>()
@@ -182,11 +207,13 @@ namespace NotMyFault.Models.Misce
             modelBuilder.Entity<InternalConver>().Property<int>("ProjectForeignKey");
             modelBuilder.Entity<Distribution>().Property<int>("ProjectForeignKey");
             modelBuilder.Entity<Transaction>().Property<int>("ProjectForeignKey");
-            modelBuilder.Entity<CandiRqrmts>().Property<int>("RecruitmentForeignKey");
+            modelBuilder.Entity<CandiRqrmt>().Property<int>("RecruitmentForeignKey");
             modelBuilder.Entity<Interview>().Property<int>("RecruitmentForeignKey");
             modelBuilder.Entity<Review>().Property<int>("RevieweeIdForeignKey");
             modelBuilder.Entity<Review>().Property<int>("ReviewerIdForeignKey");
             modelBuilder.Entity<BankDetails>().Property<int>("DeveloperForeignKey");
+            modelBuilder.Entity<Endorsment>().Property<int>("EndorsGivenForeignKey");
+            modelBuilder.Entity<Endorsment>().Property<int>("EndorsGiverForeignKey");
             modelBuilder.Entity<NegoEntry>().Property<DateTime>("NegoForeignKey");
             modelBuilder.Entity<Negotiation>().Property<int>("ProjectForeignKey");
             modelBuilder.Entity<PublicOpinion>().Property<int>("ProjectForeignKey");

@@ -45,7 +45,7 @@ namespace NotMyFault
             app.UseStatusCodePages();
             app.UseStaticFiles();
             app.UseMvcWithDefaultRoute();
-            //DbInitializer.Seed(app);
+            DbInitializer.Seed(app);
         }
     }
 }

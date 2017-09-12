@@ -26,6 +26,7 @@ namespace NotMyFault.Models.UserRelated
         public string LinkedinUrl { get; set; }
         public int Credit { get; set; } //result of the reviews
         public virtual List<Endorsment> MyEndors { get; set; } //like linkedin
+        public virtual List<Endorsment> EndorsIGive { get; set; } 
         public virtual List<DeveloperProject> MyProjs { get; set; }
         public virtual List<Project> MyLeadingProjs { get; set; }
         public virtual List<Project> MyInitiatedProjs { get; set; }

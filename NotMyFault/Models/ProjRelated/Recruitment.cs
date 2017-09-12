@@ -9,15 +9,15 @@ namespace NotMyFault.Models.ProjRelated
     public class Recruitment
     {
         public int RecruitmentId { get; set; }
-        public CandiRqrmts MyCandiRqrmts { get; set; }
+        public CandiRqrmt MyCandiRqrmts { get; set; }
         public virtual List<DeveloperRecruitment> MyCandis { get; set; }
         public Interview MyInterview { get; set; }
         public string RoleDescription { get; set; }
         public virtual Project MyProj { get; set; }
     }
-    public class CandiRqrmts
+    public class CandiRqrmt
     {
-        public int CandiRqrmtsId { get; set; }
+        public int CandiRqrmtId { get; set; }
         public int Availability { get; set; } // how many other projects that you are working on
         public string Expertise { get; set; } //its a description
         public virtual int MinCredit { get; set; }
