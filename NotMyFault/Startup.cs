@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using NotMyFault.Models;
 using NotMyFault.Models.Misce;
-
+    
 namespace NotMyFault
 {
     public class Startup
@@ -45,7 +45,11 @@ namespace NotMyFault
             app.UseStatusCodePages();
             app.UseStaticFiles();
             app.UseMvcWithDefaultRoute();
-            DbInitializer.Seed(app);
+            app.Run(async (context) =>
+            {
+                await context.Response.WriteAsync("looking good!");
+            });
+            //DbInitializer.Seed(app);
         }
     }
 }

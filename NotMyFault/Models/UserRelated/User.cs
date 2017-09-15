@@ -9,9 +9,9 @@ namespace NotMyFault.Models.UserRelated
 {
     public abstract class User
     {
-        public int UserId { get; set; }
-        public string UserName { get; set; }
-        public string NickName { get; set; }
+        public int Userid { get; set; }
+        public string Username { get; set; }
+        public string Nickname { get; set; }
         public string Country { get; set; }
         public string Region { get; set; }
         public byte Thumbnail { get; set; }
@@ -50,7 +50,7 @@ namespace NotMyFault.Models.UserRelated
     public class DeveloperProject
     {
         public int ProjectId { get; set; }
-        public int UserId { get; set; }
+        public int Userid { get; set; }
         public Developer Dev { get; set; }
         public Project Proj { get; set; }
     }
@@ -58,21 +58,21 @@ namespace NotMyFault.Models.UserRelated
     public class DeveloperRecruitment
     {
         public int RecruitmentId { get; set; }
-        public int UserId { get; set; }
+        public int Userid { get; set; }
         public Developer Dev { get; set; }
         public Recruitment Recruit { get; set; }
     }
     public class UserProject
     {
         public int ProjectId { get; set; }
-        public int UserId { get; set; }
+        public int Userid { get; set; }
         public User User { get; set; }
         public Project Proj { get; set; }
     }
     public class BuyerProject
     {
         public int ProjectId { get; set; }
-        public int UserId { get; set; }
+        public int Userid { get; set; }
         public Buyer Buyer { get; set; }
         public Project Proj { get; set; }
     }

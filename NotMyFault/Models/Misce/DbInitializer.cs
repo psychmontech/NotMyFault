@@ -15,17 +15,13 @@ namespace NotMyFault.Models.Misce
         {
             AppDbContext context = applicationBuilder.ApplicationServices.GetRequiredService<AppDbContext>();
 
-            //Developer FirstDev = new Developer { UserName = "Simon Han", NickName = "taekwomon", Country = "China", Region = "Shenyang", Age = 28, EmailAddr = "simonoutlook@msn.com", Credit = 10000, LinkedinUrl = "https://www.linkedin.com/in/simon-han-62059baa" };
-            //Developer SecDev = new Developer { UserName = "Chris Wu", NickName = "yuanyuan", Country = "NZ", Region = "Can", Age = 28, EmailAddr = "wyy930@hotmail.com", Credit = 10000 };
-            Developer firstDev = context.Devs.Find(2);
-            //List<Project> projects = new List<Project>();
-            //projects.Add(new Project { ProjName = "smarkApp" });
-            //projects.Add(new Project { ProjName = "stupidApp" });
+            Developer firstDev = context.Devs.Find(1);
+            Developer secDev = context.Devs.Find(2);
 
-            BankDetails myBank = new BankDetails { AcctName = "simon han", AcctNo = "123-456" };
-            firstDev.MyBankDetails = myBank;
+            Project proj = new Project { ProjName = "smartApp", BriefDescript = "this app is smart", Initiator = firstDev, ProjLeader = secDev };          
 
-
+            //Developer FirstDev = new Developer { Username = "Simon Han", NickName = "taekwomon", Country = "China", Region = "Shenyang", Age = 28, EmailAddr = "simonoutlook@msn.com", Credit = 10000, LinkedinUrl = "https://www.linkedin.com/in/simon-han-62059baa" };
+            //Developer SecDev = new Developer { Username = "Chris Wu", NickName = "yuanyuan", Country = "NZ", Region = "Can", Age = 28, EmailAddr = "wyy930@hotmail.com", Credit = 10000 };
             //if (!context.Projects.Any())
             //{
             //    context.AddRange
