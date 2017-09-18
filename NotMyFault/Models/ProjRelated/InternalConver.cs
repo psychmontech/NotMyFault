@@ -12,6 +12,5 @@ namespace NotMyFault.Models.ProjRelated
         public DateTime Timestamp { get; set; }
         public string Text { get; set; }
         public virtual Project MyProj { get; set; }
-        public int ProjectForeignKey { get; set; }
     }
 }

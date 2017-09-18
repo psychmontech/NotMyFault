@@ -49,7 +49,7 @@ namespace NotMyFault
             {
                 await context.Response.WriteAsync("looking good!");
             });
-            //DbInitializer.Seed(app);
+            DbInitializer.Seed(app);
         }
     }
 }

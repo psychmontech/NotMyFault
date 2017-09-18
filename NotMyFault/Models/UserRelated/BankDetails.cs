@@ -12,7 +12,6 @@ namespace NotMyFault.Models.UserRelated
         public string AcctNo { get; set; }
         public string BankName { get; set; }
         public string SwiftCode { get; set; }
-        public int DeveloperForeignKey { get; set; }
         public virtual Developer MyDev { get; set; }
     }
 }

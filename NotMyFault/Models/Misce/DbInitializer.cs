@@ -17,11 +17,19 @@ namespace NotMyFault.Models.Misce
 
             Developer firstDev = context.Devs.Find(1);
             Developer secDev = context.Devs.Find(2);
+            Project proj = context.Projects.Find(1);
+            //Project proj = new Project { ProjName = "handyApp", BriefDescript = "this app is handy", Initiator = firstDev, ProjLeader = secDev };
 
-            Project proj = new Project { ProjName = "smartApp", BriefDescript = "this app is smart", Initiator = firstDev, ProjLeader = secDev };          
+            proj.MyDevs = new List<DeveloperProject>
+            {
+                new DeveloperProject {
+                Dev = secDev,
+                Proj = proj,
+                }
+            };
 
-            //Developer FirstDev = new Developer { Username = "Simon Han", NickName = "taekwomon", Country = "China", Region = "Shenyang", Age = 28, EmailAddr = "simonoutlook@msn.com", Credit = 10000, LinkedinUrl = "https://www.linkedin.com/in/simon-han-62059baa" };
-            //Developer SecDev = new Developer { Username = "Chris Wu", NickName = "yuanyuan", Country = "NZ", Region = "Can", Age = 28, EmailAddr = "wyy930@hotmail.com", Credit = 10000 };
+            //Developer FirstDev = new Developer { Username = "Simon Han", Nickname = "taekwomon", Country = "China", Region = "Shenyang", Age = 28, EmailAddr = "simonoutlook@msn.com", Credit = 10000, LinkedinUrl = "https://www.linkedin.com/in/simon-han-62059baa" };
+            //Developer SecDev = new Developer { Username = "Chris Wu", Nickname = "yuanyuan", Country = "NZ", Region = "Can", Age = 28, EmailAddr = "wyy930@hotmail.com", Credit = 10000 };
             //if (!context.Projects.Any())
             //{
             //    context.AddRange
@@ -35,3 +43,31 @@ namespace NotMyFault.Models.Misce
         }
     }
 }
+
+
+
+/*//one to one
+Developer secDev = context.Devs.Find(2);
+BankDetails bankDetails = new BankDetails { AcctName = "simon h", AcctNo = "123-456" };
+secDev.MyBankDetails = bankDetails;
+---------------
+Developer firstDev = context.Devs.Find(1);
+BankDetails bankDetails = new BankDetails { AcctName = "chris w", AcctNo = "123-456", MyDev = firstDev };
+context.BankDetails.Add(bankDetails);*/
+
+/*//one to many
+Project proj = context.Projects.Find(1);
+Like like = new Like { Timestamp = DateTime.Now, MyProj = proj };
+context.Likes.Add(like); --> works
+----------------
+Project proj = context.Projects.Find(1);
+Like like = new Like { Timestamp = DateTime.Now };
+proj.MyLikes.Add(like);   --> doesn't work*/
+
+    //many to many
+
+
+
+/*//remove all the objects            
+foreach (var entity in context.Projects)
+context.Projects.Remove(entity);*/
