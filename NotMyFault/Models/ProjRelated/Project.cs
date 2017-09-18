@@ -22,7 +22,7 @@ namespace NotMyFault.Models.ProjRelated
         public DateTime NextMeetingDate { get; set; }
         public DateTime ProtdCompDate { get; set; } //projected complete date
         public InternalConver MyConver { get; set; } //within devs
-        public byte Thumbnail { get; set; }
+        public byte Thumbnail { get; set; }  //profile photo
         public string RepoLink { get; set; } //github url
         public decimal Progress { get; set; } //percentage
         public long Valuation { get; set; } //how much you expect from the buyer

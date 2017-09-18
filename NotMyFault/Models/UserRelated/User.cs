@@ -41,8 +41,8 @@ namespace NotMyFault.Models.UserRelated
     {
         public string CompanyName { get; set; }
         public string CompanyAddr { get; set; }
-        public virtual List<BuyerProject> MyWatchingProj { get; set; }
-        public long Earnest { get; set; }
+        public virtual List<BuyerProject> ProjsUnderNego { get; set; }
+        public int Earnest { get; set; }
         public virtual List<Negotiation> MyNegos { get; set; }
     }
 

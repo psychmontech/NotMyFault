@@ -196,7 +196,7 @@ namespace NotMyFault.Models.Misce
                 .OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<BuyerProject>()
                 .HasOne(dp => dp.Buyer)
-                .WithMany(p => p.MyWatchingProj)
+                .WithMany(p => p.ProjsUnderNego)
                 .HasForeignKey(dp => dp.Userid)
                 .OnDelete(DeleteBehavior.Restrict);
 

@@ -20,7 +20,6 @@ namespace NotMyFault.Models.UserRelated
         string GetEmailAddrById(int id);
         string GetLinkedinById(int id);
         int GetCreditById(int id);
-        byte GetThumbnailById(int id);
         List<SupptNAlleg> GetMySupNAllegById(int id);
         List<UserProject> GetMyFollowingsById(int id);
         List<Endorsment> GetEndorsById(int id);
@@ -40,6 +39,5 @@ namespace NotMyFault.Models.UserRelated
         void SetRegionById(int id, string region);
         void SetThumbnailById(int id, byte thumbnail);
         void SetMySkillsById(int id, string skills);
-        void SetMyBankDetailsById(int id, BankDetails bankdetails);
     }
 }

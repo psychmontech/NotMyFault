@@ -92,11 +92,5 @@ namespace NotMyFault.Models.UserRelated
             _appDbContext.Devs.FirstOrDefault(p => p.Userid == id).MySkills = skills;
             _appDbContext.SaveChanges();
         }
-
-        public void SetMyBankDetailsById(int id, BankDetails bankdetails)
-        {
-            _appDbContext.Devs.FirstOrDefault(p => p.Userid == id).MyBankDetails = bankdetails;
-            _appDbContext.SaveChanges();
-        }
     }
 }
