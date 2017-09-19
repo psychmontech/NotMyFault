@@ -17,16 +17,19 @@ namespace NotMyFault.Models.Misce
 
             Developer firstDev = context.Devs.Find(1);
             Developer secDev = context.Devs.Find(2);
-            Project proj = context.Projects.Find(1);
-            //Project proj = new Project { ProjName = "handyApp", BriefDescript = "this app is handy", Initiator = firstDev, ProjLeader = secDev };
+            Project proj = new Project { ProjName = "handyApp", BriefDescript = "this app is handy", Initiator = firstDev, ProjLeader = secDev };
+            Developer ThirdDev = new Developer { Username = "js", Nickname = "John S", Country = "CAN", Region = "Wen", Age = 45, EmailAddr = "wyy930@hotmail.com", Credit = 10000 };
 
-            proj.MyDevs = new List<DeveloperProject>
+            ThirdDev.MyProjs = new List<DeveloperProject>
             {
                 new DeveloperProject {
-                Dev = secDev,
+                Dev = ThirdDev,
                 Proj = proj,
+                Userid = ThirdDev.Userid,
+                ProjectId = proj.ProjectId
                 }
             };
+            //context.Devs.Add(ThirdDev);
 
             //Developer FirstDev = new Developer { Username = "Simon Han", Nickname = "taekwomon", Country = "China", Region = "Shenyang", Age = 28, EmailAddr = "simonoutlook@msn.com", Credit = 10000, LinkedinUrl = "https://www.linkedin.com/in/simon-han-62059baa" };
             //Developer SecDev = new Developer { Username = "Chris Wu", Nickname = "yuanyuan", Country = "NZ", Region = "Can", Age = 28, EmailAddr = "wyy930@hotmail.com", Credit = 10000 };
@@ -64,8 +67,19 @@ Project proj = context.Projects.Find(1);
 Like like = new Like { Timestamp = DateTime.Now };
 proj.MyLikes.Add(like);   --> doesn't work*/
 
-    //many to many
-
+/*//many to many
+Developer firstDev = context.Devs.Find(1);
+Developer secDev = context.Devs.Find(2);
+Project proj = new Project { ProjName = "handyApp", BriefDescript = "this app is handy", Initiator = firstDev, ProjLeader = secDev };
+Buyer Buybuy = new Buyer { Username = "Rob L", Nickname = "Bert", Country = "NZ", Region = "AUK", CompanyName = "Taitee" };
+Buybuy.ProjsUnderNego = new List<BuyerProject>
+{
+    new BuyerProject {
+    Buyer = Buybuy,
+    Proj = proj,
+    }
+};
+context.Buyers.Add(Buybuy);*/
 
 
 /*//remove all the objects            

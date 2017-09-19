@@ -5,8 +5,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using NotMyFault.Models.ProjRelated;
 using Microsoft.EntityFrameworkCore;
+using NotMyFault.Models.UserRelated;
 
-namespace NotMyFault.Models.UserRelated
+namespace NotMyFault.Models.Repository
 {
     public class BuyerRepo : IBuyerRepo
     {

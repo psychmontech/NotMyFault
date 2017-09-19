@@ -1,11 +1,12 @@
-﻿using NotMyFault.Models.TransRelated;
+﻿using NotMyFault.Models.ProjRelated;
+using NotMyFault.Models.TransRelated;
 using NotMyFault.Models.UserRelated;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace NotMyFault.Models.ProjRelated
+namespace NotMyFault.Models.Repository
 {
     public interface IProjRepo
     {
