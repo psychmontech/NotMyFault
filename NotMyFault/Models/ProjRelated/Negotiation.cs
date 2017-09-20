@@ -8,7 +8,7 @@ namespace NotMyFault.Models.ProjRelated
 {
     public class Negotiation
     {
-        public Buyer MyBuyer { get; set; }
+        public virtual Buyer MyBuyer { get; set; }
         public virtual Project MyProj { get; set; }
         public virtual List<NegoEntry> MyEntries { get; set; }
         public DateTime Timestamp { get; set; }

@@ -36,7 +36,7 @@ namespace NotMyFault.Models.Misce
         public DbSet<Endorsment> Endorsments { get; set; }
         public DbSet<NegoEntry> NegoEntries { get; set; }
         public DbSet<CandiRqrmt> CandiRqrmts { get; set; }
-        public DbSet<Interview> Interviews { get; set; }
+        public DbSet<Interview> Interviews { get; set; }    
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -140,6 +140,13 @@ namespace NotMyFault.Models.Misce
                 .WithMany(i => i.MyNegos)
                 .HasForeignKey("ProjectForeignKey");
 
+            //buyer <-> negotiations
+            modelBuilder.Entity<Negotiation>()
+                .HasOne(p => p.MyBuyer)
+                .WithMany(i => i.MyNegos)
+                .HasForeignKey("BuyerForeignKey")
+                .OnDelete(DeleteBehavior.Restrict);
+
             //project <-> publicOpinions
             modelBuilder.Entity<PublicOpinion>()
                 .HasOne(p => p.MyProj)
@@ -211,11 +218,12 @@ namespace NotMyFault.Models.Misce
             modelBuilder.Entity<Interview>().Property<int>("RecruitmentForeignKey");
             modelBuilder.Entity<Review>().Property<int>("RevieweeIdForeignKey");
             modelBuilder.Entity<Review>().Property<int>("ReviewerIdForeignKey");
-            modelBuilder.Entity<BankDetails>().Property<int>("DeveloperForeignKey");
+            modelBuilder.Entity<BankDetails>().Property<int>("DeveloperForeignKey");    
             modelBuilder.Entity<Endorsment>().Property<int>("EndorsGivenForeignKey");
             modelBuilder.Entity<Endorsment>().Property<int>("EndorsGiverForeignKey");
             modelBuilder.Entity<NegoEntry>().Property<DateTime>("NegoForeignKey");
             modelBuilder.Entity<Negotiation>().Property<int>("ProjectForeignKey");
+            modelBuilder.Entity<Negotiation>().Property<int>("BuyerForeignKey");
             modelBuilder.Entity<PublicOpinion>().Property<int>("ProjectForeignKey");
             modelBuilder.Entity<Like>().Property<int>("ProjectForeignKey");
             modelBuilder.Entity<TradeBox>().Property<int>("TransactionForeignKey");
