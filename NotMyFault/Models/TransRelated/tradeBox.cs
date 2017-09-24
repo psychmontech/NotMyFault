@@ -21,7 +21,6 @@ namespace NotMyFault.Models.TransRelated
         public DateTime MoneyInPlcTs { get; set; }
         public DateTime MoneyVerifiedTs { get; set; }
         public byte Goods { get; set; }
-        public Project MyProj { get; set; }
 
     }
 }

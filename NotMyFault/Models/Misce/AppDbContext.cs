@@ -24,6 +24,7 @@ namespace NotMyFault.Models.Misce
         public DbSet<Administrator> Admins { get; set; }
         public DbSet<Project> Projects { get; set; }
         public DbSet<SupptNAlleg> SupptNAllegs{ get; set; }
+        public DbSet<SNAEntry> SNAEntries{ get; set; }
         public DbSet<InternalConver> InternalConver { get; set; }
         public DbSet<BankDetails> BankDetails { get; set; }
         public DbSet<Like> Likes { get; set; }
@@ -37,6 +38,7 @@ namespace NotMyFault.Models.Misce
         public DbSet<NegoEntry> NegoEntries { get; set; }
         public DbSet<CandiRqrmt> CandiRqrmts { get; set; }
         public DbSet<Interview> Interviews { get; set; }    
+        public DbSet<Review> Reviews { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -54,11 +56,11 @@ namespace NotMyFault.Models.Misce
                 .WithMany(i => i.MyInitiatedProjs)
                 .HasForeignKey("InitiatorIdForeignKey");
 
-            //project <->conversation
-            modelBuilder.Entity<Project>()
-                .HasOne(p => p.MyConver)
-                .WithOne(i => i.MyProj)
-                .HasForeignKey<InternalConver>("ProjectForeignKey");
+            //project <->interconvers
+            modelBuilder.Entity<InternalConver>()
+                .HasOne(p => p.MyProj)
+                .WithMany(i => i.MyConver)
+                .HasForeignKey("ProjectForeignKey");
 
             //project <-> distribution
             modelBuilder.Entity<Project>()
@@ -70,7 +72,7 @@ namespace NotMyFault.Models.Misce
             modelBuilder.Entity<Project>()
                 .HasOne(p => p.MyTran)
                 .WithOne(i => i.MyProj)
-            .HasForeignKey<Transaction>("ProjectForeignKey");
+                .HasForeignKey<Transaction>("ProjectForeignKey");
 
             //transaction <-> tradebox
             modelBuilder.Entity<Transaction>()
@@ -96,6 +98,20 @@ namespace NotMyFault.Models.Misce
                 .WithOne(i => i.MyRecruit)
                 .HasForeignKey<Interview>("RecruitmentForeignKey");
 
+            //developer <-> interviewer
+            modelBuilder.Entity<Developer>()
+                .HasOne(p => p.MyIntwAsViewer)
+                .WithOne(i => i.Interviewer)
+                .HasForeignKey<Interview>("DevIntwVerForeignKey")
+                .OnDelete(DeleteBehavior.Restrict);
+
+            //developer <-> interviewee
+            modelBuilder.Entity<Developer>()
+                .HasOne(p => p.MyIntwAsViewee)
+                .WithOne(i => i.Interviewee)
+                .HasForeignKey<Interview>("DevIntwVeeForeignKey")
+                .OnDelete(DeleteBehavior.Restrict);
+
             //developer <-> bankdetails
             modelBuilder.Entity<Developer>()
                 .HasOne(p => p.MyBankDetails)
@@ -113,6 +129,13 @@ namespace NotMyFault.Models.Misce
                 .HasOne(p => p.FromDev)
                 .WithMany(i => i.EndorsIGive)
                 .HasForeignKey("EndorsGiverForeignKey")
+                .OnDelete(DeleteBehavior.Restrict);
+
+            //developer <-> interconvers
+            modelBuilder.Entity<InternalConver>()
+                .HasOne(p => p.ByDev)
+                .WithMany(i => i.MyInterconvers)
+                .HasForeignKey("DeveloperForeignKey")
                 .OnDelete(DeleteBehavior.Restrict);
 
             //developer <-> reviews
@@ -147,6 +170,13 @@ namespace NotMyFault.Models.Misce
                 .HasForeignKey("BuyerForeignKey")
                 .OnDelete(DeleteBehavior.Restrict);
 
+            //buyer <-> transactions
+            modelBuilder.Entity<Transaction>()
+                .HasOne(p => p.MyBuyer)
+                .WithMany(i => i.AssociateTrans)
+                .HasForeignKey("BuyerForeignKey")
+                .OnDelete(DeleteBehavior.Restrict);
+
             //project <-> publicOpinions
             modelBuilder.Entity<PublicOpinion>()
                 .HasOne(p => p.MyProj)
@@ -158,6 +188,13 @@ namespace NotMyFault.Models.Misce
                 .HasOne(p => p.MyProj)
                 .WithMany(i => i.MyLikes)
                 .HasForeignKey("ProjectForeignKey");
+
+            //user <-> likes
+            modelBuilder.Entity<Like>()
+                .HasOne(p => p.Liker)
+                .WithMany(i => i.ProjILiked)
+                .HasForeignKey("UserForeignKey")
+                .OnDelete(DeleteBehavior.Restrict);
 
             //projects <-> developers
             modelBuilder.Entity<DeveloperProject>()
@@ -212,20 +249,25 @@ namespace NotMyFault.Models.Misce
             modelBuilder.Entity<Project>().Property<int>("LeaderIdForeignKey");
             modelBuilder.Entity<Project>().Property<int>("InitiatorIdForeignKey");
             modelBuilder.Entity<InternalConver>().Property<int>("ProjectForeignKey");
+            modelBuilder.Entity<InternalConver>().Property<int>("DeveloperForeignKey");
             modelBuilder.Entity<Distribution>().Property<int>("ProjectForeignKey");
             modelBuilder.Entity<Transaction>().Property<int>("ProjectForeignKey");
+            modelBuilder.Entity<Transaction>().Property<int>("BuyerForeignKey");
             modelBuilder.Entity<CandiRqrmt>().Property<int>("RecruitmentForeignKey");
             modelBuilder.Entity<Interview>().Property<int>("RecruitmentForeignKey");
+            modelBuilder.Entity<Interview>().Property<int>("DevIntwVerForeignKey");
+            modelBuilder.Entity<Interview>().Property<int>("DevIntwVeeForeignKey");
             modelBuilder.Entity<Review>().Property<int>("RevieweeIdForeignKey");
             modelBuilder.Entity<Review>().Property<int>("ReviewerIdForeignKey");
             modelBuilder.Entity<BankDetails>().Property<int>("DeveloperForeignKey");    
             modelBuilder.Entity<Endorsment>().Property<int>("EndorsGivenForeignKey");
             modelBuilder.Entity<Endorsment>().Property<int>("EndorsGiverForeignKey");
-            modelBuilder.Entity<NegoEntry>().Property<DateTime>("NegoForeignKey");
+            modelBuilder.Entity<NegoEntry>().Property<int>("NegoForeignKey");
             modelBuilder.Entity<Negotiation>().Property<int>("ProjectForeignKey");
             modelBuilder.Entity<Negotiation>().Property<int>("BuyerForeignKey");
             modelBuilder.Entity<PublicOpinion>().Property<int>("ProjectForeignKey");
             modelBuilder.Entity<Like>().Property<int>("ProjectForeignKey");
+            modelBuilder.Entity<Like>().Property<int>("UserForeignKey");
             modelBuilder.Entity<TradeBox>().Property<int>("TransactionForeignKey");
 
             // Configure Primary Key
@@ -234,7 +276,6 @@ namespace NotMyFault.Models.Misce
             modelBuilder.Entity<Interview>().HasKey(s => s.Time);
             modelBuilder.Entity<Like>().HasKey(s => s.Timestamp);
             modelBuilder.Entity<NegoEntry>().HasKey(s => s.Timestamp);
-            modelBuilder.Entity<Negotiation>().HasKey(s => s.Timestamp);
             modelBuilder.Entity<PublicOpinion>().HasKey(s => s.Timestamp);
             modelBuilder.Entity<Visitor>().HasKey(s => s.NickName);
             modelBuilder.Entity<DeveloperProject>().HasKey(dp => new { dp.Userid, dp.ProjectId });

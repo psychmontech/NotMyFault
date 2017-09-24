@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using NotMyFault.Models.ProjRelated;
 using Microsoft.EntityFrameworkCore;
 using NotMyFault.Models.UserRelated;
+using NotMyFault.Models.Repository.Interface;
 
 namespace NotMyFault.Models.Repository
 {
@@ -18,7 +19,7 @@ namespace NotMyFault.Models.Repository
             _appDbContext = appDbContext;
         }
 
-        public List<Buyer> Buyers => _appDbContext.Buyers.Include(c => c.Userid).ToList();
+        public List<Buyer> Buyers => _appDbContext.Buyers.Include(c => c.Userid).OrderBy(x => x.Userid).ToList();
         public Buyer GetBuyerById(int id) => _appDbContext.Buyers.FirstOrDefault(p => p.Userid == id);
         public int GetIdByName(string Name) => _appDbContext.Buyers.FirstOrDefault(p => p.Username == Name).Userid;
         public string GetUsernameById(int id) => _appDbContext.Buyers.FirstOrDefault(p => p.Userid == id).Username;

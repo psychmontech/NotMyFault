@@ -8,7 +8,7 @@ namespace NotMyFault.Models.ProjRelated
 {
     public class InternalConver
     {
-        public Developer ByDev { get; set; }
+        public virtual Developer ByDev { get; set; }
         public DateTime Timestamp { get; set; }
         public string Text { get; set; }
         public virtual Project MyProj { get; set; }

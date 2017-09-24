@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using NotMyFault.Models.Repository.Interface;
 
 namespace NotMyFault.Models.Repository
 {
@@ -18,7 +19,8 @@ namespace NotMyFault.Models.Repository
         {
             _appDbContext = appDbContext;
         }
-        public List<Project> Projs => _appDbContext.Projects.Include(c => c.ProjectId).ToList();
+        public List<Project> Projs => _appDbContext.Projects.Include(c => c.ProjectId).
+            OrderByDescending(x => x.StartingDate).ToList();
         public Project GetProjById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id);
         public string GetProjnameById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).ProjName;
         public string GetBriefDesById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).BriefDescript;
@@ -42,7 +44,7 @@ namespace NotMyFault.Models.Repository
         public Distribution GetMyDistributById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).MyDistribut;
         public Developer GetProjLeaderById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).ProjLeader;
         public Developer GetInitiatorById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).Initiator;
-        public InternalConver GetMyConverById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).MyConver;
+        public List<InternalConver> GetMyConverById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).MyConver;
 
         public void SetProjNameById(int id, string projName)
         {

@@ -1,4 +1,5 @@
-﻿using NotMyFault.Models.UserRelated;
+﻿using NotMyFault.Models.Repository.Interface;
+using NotMyFault.Models.UserRelated;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,18 +9,16 @@ namespace NotMyFault.Models.ProjRelated
 {
     public class Negotiation
     {
-        public virtual Buyer MyBuyer { get; set; }
+        public int NegotiationId { get; set; }
+        public virtual Buyer MyBuyer { get; set; } //always talk to the leader of the proj
         public virtual Project MyProj { get; set; }
         public virtual List<NegoEntry> MyEntries { get; set; }
-        public DateTime Timestamp { get; set; }
     }
 
     public class NegoEntry
     {
-        public Developer Developer { get; set; }
         public DateTime Timestamp { get; set; }
         public virtual Negotiation MyNego { get; set; }
-        public Buyer Buyer { get; set; }
         public string Text { get; set; }
     }
 }

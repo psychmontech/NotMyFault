@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace NotMyFault.Models.Repository
+namespace NotMyFault.Models.Repository.Interface
 {
     public interface IProjRepo
     {
@@ -34,7 +34,7 @@ namespace NotMyFault.Models.Repository
         Distribution GetMyDistributById(int id);
         Developer GetProjLeaderById(int id);
         Developer GetInitiatorById(int id);
-        InternalConver GetMyConverById(int id);
+        List<InternalConver> GetMyConverById(int id);
 
         void SetProjNameById(int id, string projName);
         void SetBriefDesById(int id, string briefDes);

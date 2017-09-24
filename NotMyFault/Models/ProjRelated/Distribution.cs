@@ -11,6 +11,5 @@ namespace NotMyFault.Models.ProjRelated
         public int DistributionId { get; set; }
         public string Divisor { get; set; }
         public virtual Project MyProj { get; set; }
-        public List<Developer> Associates { get; set; } 
     }
 }

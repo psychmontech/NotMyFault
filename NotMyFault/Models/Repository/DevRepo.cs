@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using NotMyFault.Models.ProjRelated;
 using NotMyFault.Models.UserRelated;
+using NotMyFault.Models.Repository.Interface;
 
 namespace NotMyFault.Models.Repository
 {
@@ -18,7 +19,7 @@ namespace NotMyFault.Models.Repository
             _appDbContext = appDbContext;
         }
 
-        public List<Developer> Devs => _appDbContext.Devs.Include(c => c.Userid).ToList();
+        public List<Developer> Devs => _appDbContext.Devs.Include(c => c.Userid).OrderBy(x => x.Userid).ToList();
         public Developer GetDevById(int id) => _appDbContext.Devs.FirstOrDefault(p => p.Userid == id);
         public string GetUsernameById(int id) => _appDbContext.Devs.FirstOrDefault(p => p.Userid == id).Username;
         public int GetAgeById(int id) => _appDbContext.Devs.FirstOrDefault(p => p.Userid == id).Age;
@@ -34,7 +35,7 @@ namespace NotMyFault.Models.Repository
         public List<Project> GetMyLeadingProjsById(int id) => _appDbContext.Devs.FirstOrDefault(p => p.Userid == id).MyLeadingProjs;
         public List<DeveloperProject> GetMyProjsById(int id) => _appDbContext.Devs.FirstOrDefault(p => p.Userid == id).MyProjs;
         public List<Review> GetMyReviewsById(int id) => _appDbContext.Devs.FirstOrDefault(p => p.Userid == id).MyReviews;
-        public string GetMySkillsById(int id) => _appDbContext.Devs.FirstOrDefault(p => p.Userid == id).MySkills;
+        public string GetMySkillsById(int id) => _appDbContext.Devs.FirstOrDefault(p => p.Userid == id).SelfIntro;
         public List<SupptNAlleg> GetMySupNAllegById(int id) => _appDbContext.Devs.FirstOrDefault(p => p.Userid == id).MySupNAlleg;
         public string GetNickNameById(int id) => _appDbContext.Devs.FirstOrDefault(p => p.Userid == id).Nickname;
         public string GetRegionById(int id) => _appDbContext.Devs.FirstOrDefault(p => p.Userid == id).Region;
@@ -88,9 +89,9 @@ namespace NotMyFault.Models.Repository
             _appDbContext.SaveChanges();
         }
 
-        public void SetMySkillsById(int id, string skills)
+        public void SetMySkillsById(int id, string selfintro)
         {
-            _appDbContext.Devs.FirstOrDefault(p => p.Userid == id).MySkills = skills;
+            _appDbContext.Devs.FirstOrDefault(p => p.Userid == id).SelfIntro = selfintro;
             _appDbContext.SaveChanges();
         }
     }

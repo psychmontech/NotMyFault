@@ -1,5 +1,6 @@
 ﻿using NotMyFault.Models.Misce;
 using NotMyFault.Models.ProjRelated;
+using NotMyFault.Models.TransRelated;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,7 @@ namespace NotMyFault.Models.UserRelated
         public byte Thumbnail { get; set; }
         public virtual List<SupptNAlleg> MySupNAlleg { get; set; }
         public virtual List<UserProject> MyFollowings { get; set; }
+        public virtual List<Like> ProjILiked { get; set; }
     }
 
     public class Developer : User
@@ -25,16 +27,19 @@ namespace NotMyFault.Models.UserRelated
         public string EmailAddr { get; set; }
         public string LinkedinUrl { get; set; }
         public int Credit { get; set; } //result of the reviews
+        public string SelfIntro { get; set; } //self claim
         public virtual List<Endorsment> MyEndors { get; set; } //like linkedin
         public virtual List<Endorsment> EndorsIGive { get; set; } 
         public virtual List<DeveloperProject> MyProjs { get; set; }
         public virtual List<Project> MyLeadingProjs { get; set; }
         public virtual List<Project> MyInitiatedProjs { get; set; }
         public virtual List<DeveloperRecruitment> MyAppliedRoles { get; set; }
-        public virtual string MySkills { get; set; } //self claim
         public virtual BankDetails MyBankDetails { get; set; }
+        public virtual Interview MyIntwAsViewer { get; set; }
+        public virtual Interview MyIntwAsViewee { get; set; }
         public virtual List<Review> MyReviews { get; set; } //reviews by other devs, conducts review -/+ 5 
         public virtual List<Review> MyReviewed { get; set; } //all that reviewed by me 
+        public virtual List<InternalConver> MyInterconvers { get; set; } 
     }
 
     public class Buyer : User
@@ -44,6 +49,7 @@ namespace NotMyFault.Models.UserRelated
         public virtual List<BuyerProject> ProjsUnderNego { get; set; }
         public int Earnest { get; set; }
         public virtual List<Negotiation> MyNegos { get; set; }
+        public virtual List<Transaction> AssociateTrans { get; set; }
     }
 
     //many to many join tables
