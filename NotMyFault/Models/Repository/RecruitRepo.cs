@@ -16,12 +16,11 @@ namespace NotMyFault.Models.Repository
         {
             _appDbContext = appDbContext;
         }
+
         public Recruitment GetRecruitByProjId(int id) => _appDbContext.Recruitments.FirstOrDefault(c => c.MyProj.ProjectId == id);
-        public CandiRqrmt GetCandiRqrmtByRecruitId(int id) => _appDbContext.CandiRqrmts.FirstOrDefault(c => c.MyRecruit.RecruitmentId == id);
-
-        public Interview GetIntwByRecruitId(int id) => _appDbContext.Interviews.FirstOrDefault(c => c.MyRecruit.RecruitmentId == id);
-
         public bool GetRecruitOpenStatusByProjId(int id) => _appDbContext.Recruitments.FirstOrDefault(c => c.MyProj.ProjectId == id).IsOpen;
+        public CandiRqrmt GetCandiRqrmtByRecruitId(int id) => _appDbContext.CandiRqrmts.FirstOrDefault(c => c.MyRecruit.RecruitmentId == id);
+        public Interview GetIntwByRecruitId(int id) => _appDbContext.Interviews.FirstOrDefault(c => c.MyRecruit.RecruitmentId == id);
 
     }
 }

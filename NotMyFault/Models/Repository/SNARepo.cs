@@ -16,6 +16,7 @@ namespace NotMyFault.Models.Repository
         {
             _appDbContext = appDbContext;
         }
+
         public List<SupptNAlleg> GetAllSNA() => _appDbContext.SupptNAllegs.Include(c => c.SupptNAllegId).ToList();
         public List<SupptNAlleg> GetSNAByUserId(int id) => _appDbContext.SupptNAllegs.Include(c => c.MyUser.Userid== id).
             OrderByDescending(x => x.SupptNAllegId).ToList();

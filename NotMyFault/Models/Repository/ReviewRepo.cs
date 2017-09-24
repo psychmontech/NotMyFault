@@ -17,6 +17,7 @@ namespace NotMyFault.Models.Repository
         {
             _appDbContext = appDbContext;
         }
+
         public List<Review> GetRevByUserId(int id) => _appDbContext.Reviews.Include(c => c.MyReviewee.Userid == id).OrderByDescending(x => x.Timestamp).ToList();
     }
 }
