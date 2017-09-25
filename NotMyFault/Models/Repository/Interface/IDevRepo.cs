@@ -17,7 +17,7 @@ namespace NotMyFault.Models.Repository.Interface
         string GetNickNameById(int id);
         string GetCountryById(int id);
         string GetRegionById(int id);
-        int GetAgeById(int id);
+        int GetNumProjWrkOnById(int id);
         string GetEmailAddrById(int id);
         string GetLinkedinById(int id);
         int GetCreditById(int id);
@@ -32,7 +32,7 @@ namespace NotMyFault.Models.Repository.Interface
         BankDetails GetMyBankDetailsById(int id);
 
         void SetLinkedinById(int id, string linkedinUrl);
-        void SetAgeById(int id, int age);
+        void SetNumProjWrkOnById(int id, int age);
         void SetEmailAddrById(int id, string emailAddr);
         void SetUsernameById(int id, string username);
         void SetNickNameById(int id, string nickName);

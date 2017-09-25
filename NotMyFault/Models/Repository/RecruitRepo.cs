@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using NotMyFault.Models.ProjRelated;
 using NotMyFault.Models.Misce;
+using Microsoft.EntityFrameworkCore;
 
 namespace NotMyFault.Models.Repository
 {
@@ -17,10 +18,10 @@ namespace NotMyFault.Models.Repository
             _appDbContext = appDbContext;
         }
 
-        public Recruitment GetRecruitByProjId(int id) => _appDbContext.Recruitments.FirstOrDefault(c => c.MyProj.ProjectId == id);
-        public bool GetRecruitOpenStatusByProjId(int id) => _appDbContext.Recruitments.FirstOrDefault(c => c.MyProj.ProjectId == id).IsOpen;
-        public CandiRqrmt GetCandiRqrmtByRecruitId(int id) => _appDbContext.CandiRqrmts.FirstOrDefault(c => c.MyRecruit.RecruitmentId == id);
-        public Interview GetIntwByRecruitId(int id) => _appDbContext.Interviews.FirstOrDefault(c => c.MyRecruit.RecruitmentId == id);
+        public List<Recruitment> GetRecruitsByProjId(int id) => _appDbContext.Recruitments.Include(c => c.MyProj.ProjectId == id).OrderBy(x => x.RecruitmentId).ToList();
+        public bool GetRecruOpenStatByRecruId(int id) => _appDbContext.Recruitments.FirstOrDefault(c => c.MyProj.ProjectId == id).IsOpen;
+        public CandiRqrmt GetCandiRqrmtByRecruId(int id) => _appDbContext.CandiRqrmts.FirstOrDefault(c => c.MyRecruit.RecruitmentId == id);
+        public Interview GetIntwByRecruId(int id) => _appDbContext.Interviews.FirstOrDefault(c => c.MyRecruit.RecruitmentId == id);
 
     }
 }

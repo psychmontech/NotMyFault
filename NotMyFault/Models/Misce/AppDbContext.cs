@@ -80,12 +80,6 @@ namespace NotMyFault.Models.Misce
                 .WithOne(i => i.Mytran)
                 .HasForeignKey<Transaction>("TransactionForeignKey");
 
-            //project <-> recruitment
-            modelBuilder.Entity<Project>()
-                .HasOne(p => p.MyRecruit)
-                .WithOne(i => i.MyProj)
-                .HasForeignKey<Recruitment>("ProjectForeignKey");
-
             //recruitment <-> candidateRequirement
             modelBuilder.Entity<Recruitment>()
                 .HasOne(p => p.MyCandiRqrmts)
@@ -156,6 +150,13 @@ namespace NotMyFault.Models.Misce
                 .HasOne(p => p.MyNego)
                 .WithMany(i => i.MyEntries)
                 .HasForeignKey("NegoForeignKey");
+
+            //project <-> recruitments
+            modelBuilder.Entity<Recruitment>()
+                .HasOne(p => p.MyProj)
+                .WithMany(i => i.MyRecruits)
+                .HasForeignKey("ProjectForeignKey")
+                .OnDelete(DeleteBehavior.Restrict);
 
             //project <-> negotiations
             modelBuilder.Entity<Negotiation>()

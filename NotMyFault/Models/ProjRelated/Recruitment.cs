@@ -13,6 +13,7 @@ namespace NotMyFault.Models.ProjRelated
         public virtual List<DeveloperRecruitment> MyCandis { get; set; }
         public virtual Interview MyInterview { get; set; }
         public string RoleDescription { get; set; }
+        public string NameOfTheRole { get; set; }
         public virtual Project MyProj { get; set; }
         public Boolean IsOpen { get; set; }
     }
@@ -23,6 +24,7 @@ namespace NotMyFault.Models.ProjRelated
         public string Expertise { get; set; } //its a description
         public int MinCredit { get; set; }
         public virtual Recruitment MyRecruit { get; set; }
+        public int MaxNumPrjWkOn { get; set; }
     }
     public class Interview
     {

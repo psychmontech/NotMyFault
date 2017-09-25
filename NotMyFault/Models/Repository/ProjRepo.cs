@@ -34,7 +34,7 @@ namespace NotMyFault.Models.Repository
         public DateTime GetNxtMeetDateById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).NextMeetingDate;
         public DateTime GetProCompDateById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).ProtdCompDate;
         public List<DeveloperProject> GetMyDevsById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).MyDevs;
-        public Recruitment GetMyRecruitById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).MyRecruit;
+        public List<Recruitment> GetMyRecruitsById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).MyRecruits;
         public List<PublicOpinion> GetMyPubOpinById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).MyPubOpin;
         public List<Negotiation> GetMyNegosById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).MyNegos;
         public List<Like> GetMyLikesById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).MyLikes;

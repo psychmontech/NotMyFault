@@ -24,7 +24,7 @@ namespace NotMyFault.Models.Repository.Interface
         DateTime GetNxtMeetDateById(int id);    
         DateTime GetProCompDateById(int id);
         List<DeveloperProject> GetMyDevsById(int id);
-        Recruitment GetMyRecruitById(int id);
+        List<Recruitment> GetMyRecruitsById(int id);
         List<PublicOpinion> GetMyPubOpinById(int id);
         List<Negotiation> GetMyNegosById(int id);
         List<Like> GetMyLikesById(int id);

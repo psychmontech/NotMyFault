@@ -23,7 +23,7 @@ namespace NotMyFault.Models.UserRelated
 
     public class Developer : User
     {
-        public int Age { get; set; }
+        public int NumProjWrkOn { get; set; }
         public string EmailAddr { get; set; }
         public string LinkedinUrl { get; set; }
         public int Credit { get; set; } //result of the reviews

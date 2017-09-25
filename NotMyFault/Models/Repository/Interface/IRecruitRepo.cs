@@ -8,9 +8,9 @@ namespace NotMyFault.Models.Repository.Interface
 {
     public interface IRecruitRepo
     {
-        Recruitment GetRecruitByProjId(int id);
-        Boolean GetRecruitOpenStatusByProjId(int id);
-        CandiRqrmt GetCandiRqrmtByRecruitId(int id);
-        Interview GetIntwByRecruitId(int id);
+        List<Recruitment> GetRecruitsByProjId(int id);
+        Boolean GetRecruOpenStatByRecruId(int id);
+        CandiRqrmt GetCandiRqrmtByRecruId(int id);
+        Interview GetIntwByRecruId(int id);
     }
 }

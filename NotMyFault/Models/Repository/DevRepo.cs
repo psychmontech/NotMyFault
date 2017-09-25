@@ -22,7 +22,7 @@ namespace NotMyFault.Models.Repository
         public List<Developer> Devs => _appDbContext.Devs.Include(c => c.Userid).OrderBy(x => x.Userid).ToList();
         public Developer GetDevById(int id) => _appDbContext.Devs.FirstOrDefault(p => p.Userid == id);
         public string GetUsernameById(int id) => _appDbContext.Devs.FirstOrDefault(p => p.Userid == id).Username;
-        public int GetAgeById(int id) => _appDbContext.Devs.FirstOrDefault(p => p.Userid == id).Age;
+        public int GetNumProjWrkOnById(int id) => _appDbContext.Devs.FirstOrDefault(p => p.Userid == id).NumProjWrkOn;
         public string GetCountryById(int id) => _appDbContext.Devs.FirstOrDefault(p => p.Userid == id).Country;
         public int GetCreditById(int id) => _appDbContext.Devs.FirstOrDefault(p => p.Userid == id).Credit;
         public string GetEmailAddrById(int id) => _appDbContext.Devs.FirstOrDefault(p => p.Userid == id).EmailAddr;
@@ -47,9 +47,9 @@ namespace NotMyFault.Models.Repository
             _appDbContext.SaveChanges();
         }
 
-        public void SetAgeById(int id, int age)
+        public void SetNumProjWrkOnById(int id, int num)
         {
-            _appDbContext.Devs.FirstOrDefault(p => p.Userid == id).Age= age;
+            _appDbContext.Devs.FirstOrDefault(p => p.Userid == id).NumProjWrkOn = num;
             _appDbContext.SaveChanges();
         }
 
