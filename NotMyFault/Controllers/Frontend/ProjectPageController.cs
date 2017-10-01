@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace NotMyFault.Controllers
+namespace NotMyFault.Controllers.Frontend
 {
-    public class HomeController : Controller
+    public class ProjectPageController : Controller
     {
     }
 }

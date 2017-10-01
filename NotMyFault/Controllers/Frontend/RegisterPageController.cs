@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace NotMyFault.Controllers
+namespace NotMyFault.Controllers.Frontend
 {
-    public class RegisterController : Controller
+    public class RegisterPageController : Controller
     {
     }
 }
