@@ -17,7 +17,7 @@ namespace NotMyFault.Models.Repository
         {
             _appDbContext = appDbContext;
         }
-        public BankDetails GetBkDetailsByUserId(int id) => _appDbContext.BankDetails.FirstOrDefault(c => c.MyDev.Userid == id);
+        public BankDetails GetBkDetailsByUserId(int id) => _appDbContext.BankDetails.FirstOrDefault(c => c.MyDev.UserId == id);
     }
 }
 

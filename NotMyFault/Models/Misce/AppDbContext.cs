@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.Configuration;
@@ -13,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace NotMyFault.Models.Misce
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext : IdentityDbContext<User>
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
@@ -206,14 +208,14 @@ namespace NotMyFault.Models.Misce
             modelBuilder.Entity<DeveloperProject>()
                 .HasOne(dp => dp.Dev)
                 .WithMany(p => p.MyProjs)
-                .HasForeignKey(dp => dp.Userid)
+                .HasForeignKey(dp => dp.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             //Recruitments <-> developers
             modelBuilder.Entity<DeveloperRecruitment>()
                 .HasOne(dp => dp.Recruit)
                 .WithMany(d => d.MyCandis)
-                .HasForeignKey(dp => dp.Userid)
+                .HasForeignKey(dp => dp.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<DeveloperRecruitment>()
                 .HasOne(dp => dp.Dev)
@@ -230,7 +232,7 @@ namespace NotMyFault.Models.Misce
             modelBuilder.Entity<UserProject>()
                 .HasOne(dp => dp.User)
                 .WithMany(p => p.MyFollowings)
-                .HasForeignKey(dp => dp.Userid)
+                .HasForeignKey(dp => dp.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             //projects <-> buyers
@@ -242,7 +244,7 @@ namespace NotMyFault.Models.Misce
             modelBuilder.Entity<BuyerProject>()
                 .HasOne(dp => dp.Buyer)
                 .WithMany(p => p.ProjsUnderNego)
-                .HasForeignKey(dp => dp.Userid)
+                .HasForeignKey(dp => dp.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             // Configure Foreign Key
@@ -272,6 +274,7 @@ namespace NotMyFault.Models.Misce
             modelBuilder.Entity<TradeBox>().Property<int>("TransactionForeignKey");
 
             // Configure Primary Key
+            modelBuilder.Entity<User>().HasKey(s => s.UserName);
             modelBuilder.Entity<SNAEntry>().HasKey(s => s.Timestamp);
             modelBuilder.Entity<InternalConver>().HasKey(s => s.Timestamp);
             modelBuilder.Entity<Interview>().HasKey(s => s.Time);
@@ -279,10 +282,10 @@ namespace NotMyFault.Models.Misce
             modelBuilder.Entity<NegoEntry>().HasKey(s => s.Timestamp);
             modelBuilder.Entity<PublicOpinion>().HasKey(s => s.Timestamp);
             modelBuilder.Entity<Visitor>().HasKey(s => s.NickName);
-            modelBuilder.Entity<DeveloperProject>().HasKey(dp => new { dp.Userid, dp.ProjectId });
-            modelBuilder.Entity<DeveloperRecruitment>().HasKey(dr => new { dr.Userid, dr.RecruitmentId});
-            modelBuilder.Entity<UserProject>().HasKey(dr => new { dr.Userid, dr.ProjectId });
-            modelBuilder.Entity<BuyerProject>().HasKey(dr => new { dr.Userid, dr.ProjectId });
+            modelBuilder.Entity<DeveloperProject>().HasKey(dp => new { dp.UserId, dp.ProjectId });
+            modelBuilder.Entity<DeveloperRecruitment>().HasKey(dr => new { dr.UserId, dr.RecruitmentId});
+            modelBuilder.Entity<UserProject>().HasKey(dr => new { dr.UserId, dr.ProjectId });
+            modelBuilder.Entity<BuyerProject>().HasKey(dr => new { dr.UserId, dr.ProjectId });
             modelBuilder.Entity<Transaction>().HasKey(dr => new { dr.TranId});
             modelBuilder.Entity<Review>().HasKey(dr => new { dr.Timestamp});
         }

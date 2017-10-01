@@ -1,18 +1,20 @@
-﻿using NotMyFault.Models.Misce;
+﻿using Microsoft.AspNetCore.Identity;
+using NotMyFault.Models.Misce;
 using NotMyFault.Models.ProjRelated;
 using NotMyFault.Models.TransRelated;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace NotMyFault.Models.UserRelated
 {
-    public abstract class User
+    public class User : IdentityUser
     {
-        public int Userid { get; set; }
-        public string Username { get; set; }
-        public string Nickname { get; set; }
+        public int UserId { get; set; }
+        public string UserName { get; set; }
+        public string NickName { get; set; }
         public string Country { get; set; }
         public string Region { get; set; }
         public byte Thumbnail { get; set; }
@@ -21,7 +23,7 @@ namespace NotMyFault.Models.UserRelated
         public virtual List<Like> ProjILiked { get; set; }
     }
 
-    public class Developer : User
+    public class Developer : User 
     {
         public int NumProjWrkOn { get; set; }
         public string EmailAddr { get; set; }
@@ -56,7 +58,7 @@ namespace NotMyFault.Models.UserRelated
     public class DeveloperProject
     {
         public int ProjectId { get; set; }
-        public int Userid { get; set; }
+        public int UserId { get; set; }
         public Developer Dev { get; set; }
         public Project Proj { get; set; }
     }
@@ -64,21 +66,21 @@ namespace NotMyFault.Models.UserRelated
     public class DeveloperRecruitment
     {
         public int RecruitmentId { get; set; }
-        public int Userid { get; set; }
+        public int UserId { get; set; }
         public Developer Dev { get; set; }
         public Recruitment Recruit { get; set; }
     }
     public class UserProject
     {
         public int ProjectId { get; set; }
-        public int Userid { get; set; }
+        public int UserId { get; set; }
         public User User { get; set; }
         public Project Proj { get; set; }
     }
     public class BuyerProject
     {
         public int ProjectId { get; set; }
-        public int Userid { get; set; }
+        public int UserId { get; set; }
         public Buyer Buyer { get; set; }
         public Project Proj { get; set; }
     }

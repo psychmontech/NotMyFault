@@ -8,5 +8,9 @@ namespace NotMyFault.Controllers.Frontend
 {
     public class HomepageController : Controller
     {
+        public ViewResult Index()
+        {
+            return View();
+        }
     }
 }

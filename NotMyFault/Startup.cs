@@ -11,7 +11,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using NotMyFault.Models;
 using NotMyFault.Models.Misce;
-    
+using NotMyFault.Models.UserRelated;
+
 namespace NotMyFault
 {
     public class Startup
@@ -28,7 +29,7 @@ namespace NotMyFault
             services.AddDbContextPool<AppDbContext>(options =>
                              options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            //services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
+            services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
 
             services.AddMvc();
             services.AddMemoryCache();
@@ -43,11 +44,15 @@ namespace NotMyFault
             }
             app.UseStatusCodePages();
             app.UseStaticFiles();
-            app.UseMvcWithDefaultRoute();
-            app.Run(async (context) =>
+            app.UseAuthentication();
+
+            app.UseMvc(routes =>
             {
-                await context.Response.WriteAsync("looking good!");
+                routes.MapRoute(
+                name: "default",
+                template: "{controller=Homepage}/{action=Index}/{id?}");
             });
+
             //DbInitializer.Seed(app);
         }
     }
