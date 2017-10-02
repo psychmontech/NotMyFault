@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.Configuration;
 using NotMyFault.Models.ProjRelated;
 using NotMyFault.Models.TransRelated;
@@ -13,7 +12,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace NotMyFault.Models.Misce
+namespace NotMyFault.Models.DataAccessLayer
 {
     public class AppDbContext : IdentityDbContext<User>
     {
@@ -44,6 +43,13 @@ namespace NotMyFault.Models.Misce
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Ignore<IdentityUserLogin<string>>();
+            modelBuilder.Ignore<IdentityUserRole<string>>();
+            modelBuilder.Ignore<IdentityUserClaim<string>>();
+            modelBuilder.Ignore<IdentityUserToken<string>>();
+            modelBuilder.Ignore<IdentityUser<string>>();
+            modelBuilder.Entity<User>().ToTable("Users");
 
             // leader <-> projects 
             modelBuilder.Entity<Project>()
@@ -98,14 +104,14 @@ namespace NotMyFault.Models.Misce
             modelBuilder.Entity<Developer>()
                 .HasOne(p => p.MyIntwAsViewer)
                 .WithOne(i => i.Interviewer)
-                .HasForeignKey<Interview>("DevIntwVerForeignKey")
+                .HasForeignKey<Interview>("DevIntwverForeignKey")
                 .OnDelete(DeleteBehavior.Restrict);
 
             //developer <-> interviewee
             modelBuilder.Entity<Developer>()
                 .HasOne(p => p.MyIntwAsViewee)
                 .WithOne(i => i.Interviewee)
-                .HasForeignKey<Interview>("DevIntwVeeForeignKey")
+                .HasForeignKey<Interview>("DevIntwveeForeignKey")
                 .OnDelete(DeleteBehavior.Restrict);
 
             //developer <-> bankdetails
@@ -258,8 +264,8 @@ namespace NotMyFault.Models.Misce
             modelBuilder.Entity<Transaction>().Property<int>("BuyerForeignKey");
             modelBuilder.Entity<CandiRqrmt>().Property<int>("RecruitmentForeignKey");
             modelBuilder.Entity<Interview>().Property<int>("RecruitmentForeignKey");
-            modelBuilder.Entity<Interview>().Property<int>("DevIntwVerForeignKey");
-            modelBuilder.Entity<Interview>().Property<int>("DevIntwVeeForeignKey");
+            modelBuilder.Entity<Interview>().Property<int>("DevIntwverForeignKey");
+            modelBuilder.Entity<Interview>().Property<int>("DevIntwveeForeignKey");
             modelBuilder.Entity<Review>().Property<int>("RevieweeIdForeignKey");
             modelBuilder.Entity<Review>().Property<int>("ReviewerIdForeignKey");
             modelBuilder.Entity<BankDetails>().Property<int>("DeveloperForeignKey");    
@@ -274,7 +280,6 @@ namespace NotMyFault.Models.Misce
             modelBuilder.Entity<TradeBox>().Property<int>("TransactionForeignKey");
 
             // Configure Primary Key
-            modelBuilder.Entity<User>().HasKey(s => s.UserName);
             modelBuilder.Entity<SNAEntry>().HasKey(s => s.Timestamp);
             modelBuilder.Entity<InternalConver>().HasKey(s => s.Timestamp);
             modelBuilder.Entity<Interview>().HasKey(s => s.Time);

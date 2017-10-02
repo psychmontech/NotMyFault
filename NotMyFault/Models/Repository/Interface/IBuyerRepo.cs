@@ -1,4 +1,4 @@
-﻿using NotMyFault.Models.Misce;
+﻿using NotMyFault.Models.DataAccessLayer;
 using NotMyFault.Models.ProjRelated;
 using NotMyFault.Models.UserRelated;
 using System;

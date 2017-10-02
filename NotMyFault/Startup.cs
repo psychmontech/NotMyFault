@@ -10,7 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using NotMyFault.Models;
-using NotMyFault.Models.Misce;
+using NotMyFault.Models.DataAccessLayer;
 using NotMyFault.Models.UserRelated;
 
 namespace NotMyFault

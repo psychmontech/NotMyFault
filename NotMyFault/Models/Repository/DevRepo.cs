@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using NotMyFault.Models.Misce;
+using NotMyFault.Models.DataAccessLayer;
 using System;
 using System.Collections.Generic;
 using System.Linq;

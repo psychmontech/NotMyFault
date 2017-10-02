@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using NotMyFault.Models.Misce;
+using NotMyFault.Models.DataAccessLayer;
 using NotMyFault.Models.Repository.Interface;
 using NotMyFault.Models.UserRelated;
 using System;

@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using NotMyFault.Models.Misce;
+using NotMyFault.Models.DataAccessLayer;
 using NotMyFault.Models.ProjRelated;
 using NotMyFault.Models.TransRelated;
 using System;
@@ -13,7 +13,7 @@ namespace NotMyFault.Models.UserRelated
     public class User : IdentityUser
     {
         public int UserId { get; set; }
-        public string UserName { get; set; }
+        //public string UserName { get; set; }
         public string NickName { get; set; }
         public string Country { get; set; }
         public string Region { get; set; }

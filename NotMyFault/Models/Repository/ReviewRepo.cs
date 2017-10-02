@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using NotMyFault.Models.UserRelated;
-using NotMyFault.Models.Misce;
+using NotMyFault.Models.DataAccessLayer;
 using Microsoft.EntityFrameworkCore;
 using NotMyFault.Models.Repository.Interface;
 

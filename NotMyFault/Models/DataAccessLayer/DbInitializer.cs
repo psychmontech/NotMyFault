@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using NotMyFault.Models.UserRelated;
 using NotMyFault.Models.ProjRelated;
 
-namespace NotMyFault.Models.Misce
+namespace NotMyFault.Models.DataAccessLayer
 {
     public static class DbInitializer
     {
