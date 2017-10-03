@@ -7,14 +7,10 @@ using NotMyFault.Models.ProjRelated;
 using NotMyFault.Models.TransRelated;
 using NotMyFault.Models.UserRelated;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace NotMyFault.Models.DataAccessLayer
 {
-    public class AppDbContext : IdentityDbContext<User>
+    public class AppDbContext : IdentityDbContext<User, ApplicationRole, int>
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
@@ -44,12 +40,12 @@ namespace NotMyFault.Models.DataAccessLayer
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Ignore<IdentityUserLogin<string>>();
-            modelBuilder.Ignore<IdentityUserRole<string>>();
-            modelBuilder.Ignore<IdentityUserClaim<string>>();
-            modelBuilder.Ignore<IdentityUserToken<string>>();
-            modelBuilder.Ignore<IdentityUser<string>>();
-            modelBuilder.Entity<User>().ToTable("Users");
+            //modelBuilder.Ignore<IdentityUserLogin<string>>();
+            //modelBuilder.Ignore<IdentityUserRole<string>>();
+            //modelBuilder.Ignore<IdentityUserClaim<string>>();
+            //modelBuilder.Ignore<IdentityUserToken<string>>();
+            //modelBuilder.Ignore<IdentityUser<string>>();
+            //modelBuilder.Entity<User>().ToTable("Users");
 
             // leader <-> projects 
             modelBuilder.Entity<Project>()
@@ -214,14 +210,14 @@ namespace NotMyFault.Models.DataAccessLayer
             modelBuilder.Entity<DeveloperProject>()
                 .HasOne(dp => dp.Dev)
                 .WithMany(p => p.MyProjs)
-                .HasForeignKey(dp => dp.UserId)
+                .HasForeignKey(dp => dp.Id)
                 .OnDelete(DeleteBehavior.Restrict);
 
             //Recruitments <-> developers
             modelBuilder.Entity<DeveloperRecruitment>()
                 .HasOne(dp => dp.Recruit)
                 .WithMany(d => d.MyCandis)
-                .HasForeignKey(dp => dp.UserId)
+                .HasForeignKey(dp => dp.Id)
                 .OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<DeveloperRecruitment>()
                 .HasOne(dp => dp.Dev)
@@ -238,7 +234,7 @@ namespace NotMyFault.Models.DataAccessLayer
             modelBuilder.Entity<UserProject>()
                 .HasOne(dp => dp.User)
                 .WithMany(p => p.MyFollowings)
-                .HasForeignKey(dp => dp.UserId)
+                .HasForeignKey(dp => dp.Id)
                 .OnDelete(DeleteBehavior.Restrict);
 
             //projects <-> buyers
@@ -250,7 +246,7 @@ namespace NotMyFault.Models.DataAccessLayer
             modelBuilder.Entity<BuyerProject>()
                 .HasOne(dp => dp.Buyer)
                 .WithMany(p => p.ProjsUnderNego)
-                .HasForeignKey(dp => dp.UserId)
+                .HasForeignKey(dp => dp.Id)
                 .OnDelete(DeleteBehavior.Restrict);
 
             // Configure Foreign Key
@@ -287,10 +283,10 @@ namespace NotMyFault.Models.DataAccessLayer
             modelBuilder.Entity<NegoEntry>().HasKey(s => s.Timestamp);
             modelBuilder.Entity<PublicOpinion>().HasKey(s => s.Timestamp);
             modelBuilder.Entity<Visitor>().HasKey(s => s.NickName);
-            modelBuilder.Entity<DeveloperProject>().HasKey(dp => new { dp.UserId, dp.ProjectId });
-            modelBuilder.Entity<DeveloperRecruitment>().HasKey(dr => new { dr.UserId, dr.RecruitmentId});
-            modelBuilder.Entity<UserProject>().HasKey(dr => new { dr.UserId, dr.ProjectId });
-            modelBuilder.Entity<BuyerProject>().HasKey(dr => new { dr.UserId, dr.ProjectId });
+            modelBuilder.Entity<DeveloperProject>().HasKey(dp => new { dp.Id, dp.ProjectId });
+            modelBuilder.Entity<DeveloperRecruitment>().HasKey(dr => new { dr.Id, dr.RecruitmentId});
+            modelBuilder.Entity<UserProject>().HasKey(dr => new { dr.Id, dr.ProjectId });
+            modelBuilder.Entity<BuyerProject>().HasKey(dr => new { dr.Id, dr.ProjectId });
             modelBuilder.Entity<Transaction>().HasKey(dr => new { dr.TranId});
             modelBuilder.Entity<Review>().HasKey(dr => new { dr.Timestamp});
         }

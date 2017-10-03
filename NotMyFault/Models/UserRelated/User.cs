@@ -1,22 +1,18 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using NotMyFault.Models.DataAccessLayer;
 using NotMyFault.Models.ProjRelated;
 using NotMyFault.Models.TransRelated;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
 
 namespace NotMyFault.Models.UserRelated
 {
-    public class User : IdentityUser
+    public class User : IdentityUser<int>
     {
-        public int UserId { get; set; }
+        //public int Id { get; set; }
         //public string UserName { get; set; }
         public string NickName { get; set; }
         public string Country { get; set; }
-        public string Region { get; set; }
+        public string Region { get; set; }  
         public byte Thumbnail { get; set; }
         public virtual List<SupptNAlleg> MySupNAlleg { get; set; }
         public virtual List<UserProject> MyFollowings { get; set; }
@@ -58,7 +54,7 @@ namespace NotMyFault.Models.UserRelated
     public class DeveloperProject
     {
         public int ProjectId { get; set; }
-        public int UserId { get; set; }
+        public int Id { get; set; }
         public Developer Dev { get; set; }
         public Project Proj { get; set; }
     }
@@ -66,21 +62,21 @@ namespace NotMyFault.Models.UserRelated
     public class DeveloperRecruitment
     {
         public int RecruitmentId { get; set; }
-        public int UserId { get; set; }
+        public int Id { get; set; }
         public Developer Dev { get; set; }
         public Recruitment Recruit { get; set; }
     }
     public class UserProject
     {
         public int ProjectId { get; set; }
-        public int UserId { get; set; }
+        public int Id { get; set; }
         public User User { get; set; }
         public Project Proj { get; set; }
     }
     public class BuyerProject
     {
         public int ProjectId { get; set; }
-        public int UserId { get; set; }
+        public int Id { get; set; }
         public Buyer Buyer { get; set; }
         public Project Proj { get; set; }
     }

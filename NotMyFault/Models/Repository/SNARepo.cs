@@ -19,7 +19,7 @@ namespace NotMyFault.Models.Repository
         }
 
         public List<SupptNAlleg> GetAllSNA() => _appDbContext.SupptNAllegs.Include(c => c.SupptNAllegId).ToList();
-        public List<SupptNAlleg> GetSNAByUserId(int id) => _appDbContext.SupptNAllegs.Include(c => c.MyUser.UserId== id).
+        public List<SupptNAlleg> GetSNAByUserId(int id) => _appDbContext.SupptNAllegs.Include(c => c.MyUser.Id== id).
             OrderByDescending(x => x.SupptNAllegId).ToList();
         public List<SNAEntry> GetSNAEntBySNAId(int id) => _appDbContext.SNAEntries.Include(c => c.MySNA.SupptNAllegId == id).
             OrderByDescending(x => x.Timestamp).ToList();

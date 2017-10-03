@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NotMyFault.Models.DataAccessLayer
 {
-    public class AppUser : IdentityUser
+    public class ApplicationRole : IdentityRole<int>
     {
     }
 }

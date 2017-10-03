@@ -1,11 +1,7 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.AspNetCore.Builder;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using NotMyFault.Models.UserRelated;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
 using NotMyFault.Models.ProjRelated;
+using NotMyFault.Models.UserRelated;
 
 namespace NotMyFault.Models.DataAccessLayer
 {
@@ -32,7 +28,7 @@ namespace NotMyFault.Models.DataAccessLayer
             //    new DeveloperProject {
             //    Dev = ThirdDev,
             //    Proj = proj,
-            //    UserId = ThirdDev.UserId,
+            //    Id = ThirdDev.Id,
             //    ProjectId = proj.ProjectId
             //    }
             //};

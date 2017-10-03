@@ -17,7 +17,7 @@ namespace NotMyFault.Models.Repository
         {
             _appDbContext = appDbContext;
         }
-        public List<Endorsment> GetEndorsByUserId(int id) => _appDbContext.Endorsments.Include(c => c.MyDev.UserId == id).
+        public List<Endorsment> GetEndorsByUserId(int id) => _appDbContext.Endorsments.Include(c => c.MyDev.Id == id).
             OrderByDescending(x => x.Timestamp).ToList();
     }
 }

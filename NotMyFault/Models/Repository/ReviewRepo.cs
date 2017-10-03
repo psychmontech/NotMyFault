@@ -18,6 +18,6 @@ namespace NotMyFault.Models.Repository
             _appDbContext = appDbContext;
         }
 
-        public List<Review> GetRevByUserId(int id) => _appDbContext.Reviews.Include(c => c.MyReviewee.UserId == id).OrderByDescending(x => x.Timestamp).ToList();
+        public List<Review> GetRevByUserId(int id) => _appDbContext.Reviews.Include(c => c.MyReviewee.Id == id).OrderByDescending(x => x.Timestamp).ToList();
     }
 }
