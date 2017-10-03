@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using NotMyFault.Models.UserRelated;
 using NotMyFault.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -11,11 +12,11 @@ namespace NotMyFault.Controllers.Frontend
 {
     public class AccountController : Controller
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
 
-        public AccountController(UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager)
+        public AccountController(UserManager<User> userManager,
+            SignInManager<User> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -66,9 +67,10 @@ namespace NotMyFault.Controllers.Frontend
         [AllowAnonymous]
         public async Task<IActionResult> Register(LoginViewModel loginViewModel)
         {
+            return RedirectToAction("Index", "Homepage");
             if (ModelState.IsValid)
             {
-                var user = new IdentityUser() { UserName = loginViewModel.UserName };
+                var user = new User() { UserName = loginViewModel.UserName };
                 var result = await _userManager.CreateAsync(user, loginViewModel.Password);
 
                 if (result.Succeeded)

@@ -23,7 +23,7 @@ namespace NotMyFault
             services.AddDbContextPool<AppDbContext>(options =>
                              options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddIdentity<User, ApplicationRole>().AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
+            services.AddIdentity<User, ApplicationRole>().AddEntityFrameworkStores<AppDbContext>();
 
 
 
@@ -46,7 +46,7 @@ namespace NotMyFault
             {
                 routes.MapRoute(
                 name: "default",
-                template: "{controller=Homepage}/{action=Index}/{id?}");
+                template: "{controller=Front}/{action=Index}/{id?}");
             });
 
             //DbInitializer.Seed(app);
