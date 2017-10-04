@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,9 +23,6 @@ namespace NotMyFault
                              options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddIdentity<User, ApplicationRole>().AddEntityFrameworkStores<AppDbContext>();
-
-
-
             services.AddMvc();
             services.AddMemoryCache();
             services.AddSession();
@@ -46,7 +42,7 @@ namespace NotMyFault
             {
                 routes.MapRoute(
                 name: "default",
-                template: "{controller=Front}/{action=Index}/{id?}");
+                template: "{controller=Account}/{action=Login}/{id?}");
             });
 
             //DbInitializer.Seed(app);

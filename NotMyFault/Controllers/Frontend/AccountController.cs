@@ -3,8 +3,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using NotMyFault.Models.UserRelated;
 using NotMyFault.ViewModels;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -65,20 +63,24 @@ namespace NotMyFault.Controllers.Frontend
         [HttpPost]
         [ValidateAntiForgeryToken]
         [AllowAnonymous]
-        public async Task<IActionResult> Register(LoginViewModel loginViewModel)
+        public async Task<IActionResult> Register(RegisterViewModel registerViewModel)
         {
-            return RedirectToAction("Index", "Homepage");
             if (ModelState.IsValid)
             {
-                var user = new User() { UserName = loginViewModel.UserName };
-                var result = await _userManager.CreateAsync(user, loginViewModel.Password);
-
-                if (result.Succeeded)
+                var dev = new Developer()
                 {
-                    return RedirectToAction("Index", "Homepage");
-                }
+                    UserName = registerViewModel.UserName,
+                    NickName = registerViewModel.NickName,
+                    EmailAddr = registerViewModel.EmailAddr,
+                    Country = registerViewModel.Country,
+                    Region = registerViewModel.Region,
+                    SelfIntro = registerViewModel.SelfIntro 
+                };
+                var result = await _userManager.CreateAsync(dev, registerViewModel.Password);
+
+                return result.Succeeded? RedirectToAction("Index", "Homepage") : RedirectToAction("Index", "ErrorPage");
             }
-            return View(loginViewModel);
+            return View(registerViewModel);
         }
 
         [HttpPost]

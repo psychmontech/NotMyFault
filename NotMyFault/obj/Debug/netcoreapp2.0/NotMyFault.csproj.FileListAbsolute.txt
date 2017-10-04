@@ -9,3 +9,14 @@ C:\bing\.net core\Projects\NotMyFault\NotMyFault\obj\Debug\netcoreapp2.0\NotMyFa
 C:\bing\.net core\Projects\NotMyFault\NotMyFault\obj\Debug\netcoreapp2.0\NotMyFault.AssemblyInfo.cs
 C:\bing\.net core\Projects\NotMyFault\NotMyFault\obj\Debug\netcoreapp2.0\NotMyFault.dll
 C:\bing\.net core\Projects\NotMyFault\NotMyFault\obj\Debug\netcoreapp2.0\NotMyFault.pdb
+C:\NotMyFault\NotMyFault\bin\Debug\netcoreapp2.0\NotMyFault.deps.json
+C:\NotMyFault\NotMyFault\bin\Debug\netcoreapp2.0\NotMyFault.runtimeconfig.json
+C:\NotMyFault\NotMyFault\bin\Debug\netcoreapp2.0\NotMyFault.runtimeconfig.dev.json
+C:\NotMyFault\NotMyFault\bin\Debug\netcoreapp2.0\NotMyFault.dll
+C:\NotMyFault\NotMyFault\bin\Debug\netcoreapp2.0\NotMyFault.pdb
+C:\NotMyFault\NotMyFault\obj\Debug\netcoreapp2.0\NotMyFault.csprojResolveAssemblyReference.cache
+C:\NotMyFault\NotMyFault\obj\Debug\netcoreapp2.0\NotMyFault.csproj.CoreCompileInputs.cache
+C:\NotMyFault\NotMyFault\obj\Debug\netcoreapp2.0\NotMyFault.AssemblyInfoInputs.cache
+C:\NotMyFault\NotMyFault\obj\Debug\netcoreapp2.0\NotMyFault.AssemblyInfo.cs
+C:\NotMyFault\NotMyFault\obj\Debug\netcoreapp2.0\NotMyFault.dll
+C:\NotMyFault\NotMyFault\obj\Debug\netcoreapp2.0\NotMyFault.pdb

@@ -8,11 +8,11 @@ namespace NotMyFault.ViewModels
 {
     public class LoginViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "The user name is required")]
         [Display(Name = "User name")]
         public string UserName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "The password is required")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
