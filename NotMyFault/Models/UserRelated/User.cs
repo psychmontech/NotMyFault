@@ -8,11 +8,10 @@ namespace NotMyFault.Models.UserRelated
 {
     public class User : IdentityUser<int>
     {
-        //public int Id { get; set; }
-        //public string UserName { get; set; }
         public string NickName { get; set; }
         public string Country { get; set; }
         public string Region { get; set; }  
+        public int Role { get; set; }
         public byte Thumbnail { get; set; }
         public virtual List<SupptNAlleg> MySupNAlleg { get; set; }
         public virtual List<UserProject> MyFollowings { get; set; }
@@ -22,7 +21,6 @@ namespace NotMyFault.Models.UserRelated
     public class Developer : User 
     {
         public int NumProjWrkOn { get; set; }
-        public string EmailAddr { get; set; }
         public string LinkedinUrl { get; set; }
         public int Credit { get; set; } //result of the reviews
         public string SelfIntro { get; set; } //self claim

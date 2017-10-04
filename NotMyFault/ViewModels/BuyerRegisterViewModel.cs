@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace NotMyFault.ViewModels
 {
-    public class RegisterViewModel
+    public class BuyerRegisterViewModel
     {
         [Required(ErrorMessage = "The user name is required"), MaxLength(20)]
         [Display(Name = "User name")]
@@ -28,23 +24,25 @@ namespace NotMyFault.ViewModels
         [Required(ErrorMessage = "The email address is required")]
         [EmailAddress(ErrorMessage = "Invalid Email Address")]
         [Display(Name = "Email")]
-        public string EmailAddr { get; set; }
+        public string Email { get; set; }
 
         [Required(ErrorMessage = "The confirm email address is required")]
         [EmailAddress(ErrorMessage = "Invalid Email Address")]
-        [Compare("EmailAddr", ErrorMessage = "Confirm password doesn't match, Type again !")]
+        [Compare("Email", ErrorMessage = "Confirm password doesn't match, Type again !")]
         [Display(Name = "Confirm Email")]
-        public string ConfirmEmailAddr { get; set; }
+        public string ConfirmEmail { get; set; }
+
+        [Display(Name = "Company name")]
+        public string CompanyName { get; set; }
+
+        [Display(Name = "Company address")]
+        public string CompanyAddr { get; set; }
 
         [Display(Name = "Country")]
         public string Country { get; set; }
 
         [Display(Name = "Region")]
         public string Region { get; set; }
-
-        [MaxLength(400)]
-        [Display(Name = "Self introduction, skills etc")]
-        public string SelfIntro { get; set; }
 
         public string ReturnUrl { get; set; }
     }

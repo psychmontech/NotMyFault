@@ -12,7 +12,7 @@ using System;
 namespace NotMyFault.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20171003214946_test")]
+    [Migration("20171004093158_test")]
     partial class test
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -617,6 +617,8 @@ namespace NotMyFault.Migrations
 
                     b.Property<string>("Region");
 
+                    b.Property<int>("Role");
+
                     b.Property<string>("SecurityStamp");
 
                     b.Property<byte>("Thumbnail");
@@ -690,8 +692,6 @@ namespace NotMyFault.Migrations
                     b.HasBaseType("NotMyFault.Models.UserRelated.User");
 
                     b.Property<int>("Credit");
-
-                    b.Property<string>("EmailAddr");
 
                     b.Property<string>("LinkedinUrl");
 

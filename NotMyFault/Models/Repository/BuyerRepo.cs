@@ -23,7 +23,9 @@ namespace NotMyFault.Models.Repository
         public Buyer GetBuyerById(int id) => _appDbContext.Buyers.FirstOrDefault(p => p.Id == id);
         public int GetIdByName(string Name) => _appDbContext.Buyers.FirstOrDefault(p => p.UserName == Name).Id;
         public string GetUsernameById(int id) => _appDbContext.Buyers.FirstOrDefault(p => p.Id == id).UserName;
+        public int GetRoleById(int id) => _appDbContext.Buyers.FirstOrDefault(p => p.Id == id).Role;
         public string GetNickNameById(int id) => _appDbContext.Buyers.FirstOrDefault(p => p.Id == id).NickName;
+        public string GetEmailById(int id) => _appDbContext.Buyers.FirstOrDefault(p => p.Id == id).Email;
         public string GetRegionById(int id) => _appDbContext.Buyers.FirstOrDefault(p => p.Id == id).Region;
         public byte GetThumbnailById(int id) => _appDbContext.Buyers.FirstOrDefault(p => p.Id == id).Thumbnail;
         public string GetCountryById(int id) => _appDbContext.Buyers.FirstOrDefault(p => p.Id == id).Country;

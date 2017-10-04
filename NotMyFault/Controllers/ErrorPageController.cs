@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace NotMyFault.Controllers.Frontend
+namespace NotMyFault.Controllers
 {
     public class ErrorPageController : Controller
     {

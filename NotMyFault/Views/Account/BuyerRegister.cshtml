@@ -1,14 +1,15 @@
-﻿@model RegisterViewModel
+﻿@model BuyerRegisterViewModel
 
-<form asp-controller="Account" asp-action="Register" method="post" class="form-horizontal" role="form">
+<form asp-controller="Account" asp-action="BuyerRegister" method="post" class="form-horizontal" role="form">
     <h4>Create a new account</h4>
+    <div asp-validation-summary="All" class="text-danger" style="color:red"></div>
     <hr />
     @*<div asp-validation-summary="All" class="text-danger"></div>*@
     <div class="form-group">
         <label asp-for="UserName" class="col-md-2 control-label"></label>
         <div class="col-md-10">
             <input asp-for="UserName" class="form-control" />
-            <span asp-validation-for="UserName" class="text-danger"></span>
+            <span asp-validation-for="UserName" class="text-danger" style="color:red"></span>
         </div>
     </div>
     <br>
@@ -16,7 +17,7 @@
         <label asp-for="Password" class="col-md-2 control-label"></label>
         <div class="col-md-10">
             <input asp-for="Password" class="form-control" />
-            <span asp-validation-for="Password" class="text-danger"></span>
+            <span asp-validation-for="Password" class="text-danger" style="color:red"></span>
         </div>
     </div>
     <br>
@@ -24,7 +25,7 @@
         <label asp-for="ConfirmPassword" class="col-md-2 control-label"></label>
         <div class="col-md-10">
             <input asp-for="ConfirmPassword" class="form-control" />
-            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            <span asp-validation-for="ConfirmPassword" class="text-danger" style="color:red"></span>
         </div>
     </div>
     <br>
@@ -32,23 +33,23 @@
         <label asp-for="NickName" class="col-md-2 control-label"></label>
         <div class="col-md-10">
             <input asp-for="NickName" class="form-control" />
-            <span asp-validation-for="NickName" class="text-danger"></span>
+            <span asp-validation-for="NickName" class="text-danger" style="color:red"></span>
         </div>
     </div>
     <br>
     <div class="form-group">
-        <label asp-for="EmailAddr" class="col-md-2 control-label"></label>
+        <label asp-for="Email" class="col-md-2 control-label"></label>
         <div class="col-md-10">
-            <input asp-for="EmailAddr" class="form-control" />
-            <span asp-validation-for="EmailAddr" class="text-danger"></span>
+            <input asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger" style="color:red"></span>
         </div>
     </div>
     <br>
     <div class="form-group">
-        <label asp-for="ConfirmEmailAddr" class="col-md-2 control-label"></label>
+        <label asp-for="ConfirmEmail" class="col-md-2 control-label"></label>
         <div class="col-md-10">
-            <input asp-for="ConfirmEmailAddr" class="form-control" />
-            <span asp-validation-for="ConfirmEmailAddr" class="text-danger"></span>
+            <input asp-for="ConfirmEmail" class="form-control" />
+            <span asp-validation-for="ConfirmEmail" class="text-danger" style="color:red"></span>
         </div>
     </div>
     <br>
@@ -67,12 +68,17 @@
     </div>
     <br>
     <div class="form-group">
-        <label asp-for="SelfIntro" class="col-md-2 control-label"></label>
+        <label asp-for="CompanyName" class="col-md-2 control-label"></label>
         <div class="col-md-10">
-            <textarea asp-for="SelfIntro" rows="15" cols="50"></textarea>
-            <span asp-validation-for="SelfIntro" class="text-danger"></span>
+            <input asp-for="CompanyName" class="form-control" />
         </div>
-
+    </div>
+    <br>
+    <div class="form-group">
+        <label asp-for="CompanyAddr" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="CompanyAddr" class="form-control" />
+        </div>
     </div>
     <br>
     <div class="form-group">

@@ -616,6 +616,8 @@ namespace NotMyFault.Migrations
 
                     b.Property<string>("Region");
 
+                    b.Property<int>("Role");
+
                     b.Property<string>("SecurityStamp");
 
                     b.Property<byte>("Thumbnail");
@@ -689,8 +691,6 @@ namespace NotMyFault.Migrations
                     b.HasBaseType("NotMyFault.Models.UserRelated.User");
 
                     b.Property<int>("Credit");
-
-                    b.Property<string>("EmailAddr");
 
                     b.Property<string>("LinkedinUrl");
 

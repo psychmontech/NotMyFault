@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace NotMyFault.Controllers.Frontend
+namespace NotMyFault.Controllers
 {
-    public class HomepageController : Controller
+    public class HomeController : Controller
     {
         public ViewResult Index()
         {

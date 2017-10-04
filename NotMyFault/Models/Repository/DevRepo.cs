@@ -22,8 +22,9 @@ namespace NotMyFault.Models.Repository
         public string GetUsernameById(int id) => _appDbContext.Devs.FirstOrDefault(p => p.Id == id).UserName;
         public int GetNumProjWrkOnById(int id) => _appDbContext.Devs.FirstOrDefault(p => p.Id == id).NumProjWrkOn;
         public string GetCountryById(int id) => _appDbContext.Devs.FirstOrDefault(p => p.Id == id).Country;
+        public int GetRoleById(int id) => _appDbContext.Devs.FirstOrDefault(p => p.Id == id).Role;
         public int GetCreditById(int id) => _appDbContext.Devs.FirstOrDefault(p => p.Id == id).Credit;
-        public string GetEmailAddrById(int id) => _appDbContext.Devs.FirstOrDefault(p => p.Id == id).EmailAddr;
+        public string GetEmailById(int id) => _appDbContext.Devs.FirstOrDefault(p => p.Id == id).Email;
         public List<Endorsment> GetEndorsById(int id) => _appDbContext.Devs.FirstOrDefault(p => p.Id == id).MyEndors;
         public int GetIdByName(string Name) => _appDbContext.Devs.FirstOrDefault(p => p.UserName == Name).Id;
         public string GetLinkedinById(int id) => _appDbContext.Devs.FirstOrDefault(p => p.Id == id).LinkedinUrl;
@@ -48,12 +49,6 @@ namespace NotMyFault.Models.Repository
         public void SetNumProjWrkOnById(int id, int num)
         {
             _appDbContext.Devs.FirstOrDefault(p => p.Id == id).NumProjWrkOn = num;
-            _appDbContext.SaveChanges();
-        }
-
-        public void SetEmailAddrById(int id, string emailAddr)
-        {
-            _appDbContext.Devs.FirstOrDefault(p => p.Id == id).EmailAddr = emailAddr;
             _appDbContext.SaveChanges();
         }
 

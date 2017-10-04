@@ -15,10 +15,11 @@ namespace NotMyFault.Models.Repository.Interface
         string GetUsernameById(int id);
         int GetIdByName(string name);
         string GetNickNameById(int id);
+        int GetRoleById(int id);
         string GetCountryById(int id);
         string GetRegionById(int id);
         int GetNumProjWrkOnById(int id);
-        string GetEmailAddrById(int id);
+        string GetEmailById(int id);
         string GetLinkedinById(int id);
         int GetCreditById(int id);
         List<SupptNAlleg> GetMySupNAllegById(int id);
@@ -33,7 +34,6 @@ namespace NotMyFault.Models.Repository.Interface
 
         void SetLinkedinById(int id, string linkedinUrl);
         void SetNumProjWrkOnById(int id, int age);
-        void SetEmailAddrById(int id, string emailAddr);
         void SetUsernameById(int id, string username);
         void SetNickNameById(int id, string nickName);
         void SetCountryById(int id, string country);

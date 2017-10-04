@@ -15,6 +15,8 @@ namespace NotMyFault.Models.Repository.Interface
         string GetUsernameById(int id);
         int GetIdByName(string name);
         string GetNickNameById(int id);
+        int GetRoleById(int id);
+        string GetEmailById(int id);
         string GetCountryById(int id);
         string GetRegionById(int id);
         byte GetThumbnailById(int id);
