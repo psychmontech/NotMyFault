@@ -29,7 +29,7 @@ namespace NotMyFault.Models.Repository.Interface
         List<Project> GetMyLeadingProjsById(int id);
         List<DeveloperRecruitment> GetMyAppliedRolesById(int id);
         List<Review> GetMyReviewsById(int id);
-        string GetMySkillsById(int id);
+        string GetSelfIntroById(int id);
         BankDetails GetMyBankDetailsById(int id);
 
         void SetLinkedinById(int id, string linkedinUrl);
@@ -39,6 +39,6 @@ namespace NotMyFault.Models.Repository.Interface
         void SetCountryById(int id, string country);
         void SetRegionById(int id, string region);
         void SetThumbnailById(int id, byte thumbnail);
-        void SetMySkillsById(int id, string skills);
+        void SetSelfIntroById(int id, string skills);
     }
 }

@@ -34,7 +34,7 @@ namespace NotMyFault.Models.Repository
         public List<Project> GetMyLeadingProjsById(int id) => _appDbContext.Devs.FirstOrDefault(p => p.Id == id).MyLeadingProjs;
         public List<DeveloperProject> GetMyProjsById(int id) => _appDbContext.Devs.FirstOrDefault(p => p.Id == id).MyProjs;
         public List<Review> GetMyReviewsById(int id) => _appDbContext.Devs.FirstOrDefault(p => p.Id == id).MyReviews;
-        public string GetMySkillsById(int id) => _appDbContext.Devs.FirstOrDefault(p => p.Id == id).SelfIntro;
+        public string GetSelfIntroById(int id) => _appDbContext.Devs.FirstOrDefault(p => p.Id == id).SelfIntro;
         public List<SupptNAlleg> GetMySupNAllegById(int id) => _appDbContext.Devs.FirstOrDefault(p => p.Id == id).MySupNAlleg;
         public string GetNickNameById(int id) => _appDbContext.Devs.FirstOrDefault(p => p.Id == id).NickName;
         public string GetRegionById(int id) => _appDbContext.Devs.FirstOrDefault(p => p.Id == id).Region;
@@ -82,7 +82,7 @@ namespace NotMyFault.Models.Repository
             _appDbContext.SaveChanges();
         }
 
-        public void SetMySkillsById(int id, string selfintro)
+        public void SetSelfIntroById(int id, string selfintro)
         {
             _appDbContext.Devs.FirstOrDefault(p => p.Id == id).SelfIntro = selfintro;
             _appDbContext.SaveChanges();

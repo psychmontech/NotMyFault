@@ -4,6 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NotMyFault.Models.DataAccessLayer;
+using NotMyFault.Models.Repository.Interface;
+using NotMyFault.Models.Repository;
 using NotMyFault.Models.UserRelated;
 
 namespace NotMyFault
@@ -21,8 +23,19 @@ namespace NotMyFault
         {
             services.AddDbContextPool<AppDbContext>(options =>
                              options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
             services.AddIdentity<User, ApplicationRole>().AddEntityFrameworkStores<AppDbContext>();
+            services.AddTransient<IBankDetailsRepo, BankDetailsRepo>();
+            services.AddTransient<IBuyerRepo, BuyerRepo>();
+            services.AddTransient<IDevRepo, DevRepo>();
+            services.AddTransient<IDistributRepo, DistributRepo>();
+            services.AddTransient<IEndorsRepo, EndorsRepo>();
+            services.AddTransient<IInterConverRepo, InterConverRepo>();
+            services.AddTransient<ILikeRepo, LikeRepo>();
+            services.AddTransient<INegoRepo, NegoRepo>();
+            services.AddTransient<IProjRepo, ProjRepo>();
+            services.AddTransient<IReviewRepo, ReviewRepo>();
+            services.AddTransient<IRecruitRepo, RecruitRepo>();
+            services.AddTransient<ISNARepo, SNARepo>();
             services.AddMvc();
             services.AddMemoryCache();
             services.AddSession();
@@ -45,7 +58,7 @@ namespace NotMyFault
                 template: "{controller=Account}/{action=Login}/{id?}");
             });
 
-            //DbInitializer.Seed(app);
+            DbInitializer.Seed(app);
         }
     }
 }

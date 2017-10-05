@@ -11,16 +11,16 @@ namespace NotMyFault.Models.DataAccessLayer
         {
             AppDbContext context = applicationBuilder.ApplicationServices.GetRequiredService<AppDbContext>();
 
-            //Developer firstDev = context.Devs.Find(1);
+            Developer firstDev = context.Devs.Find(1);
             //Developer secDev = context.Devs.Find(2);
-            //Project proj = new Project { ProjName = "handyApp", BriefDescript = "this app is handy", Initiator = firstDev, ProjLeader = secDev };
-            Project proj = context.Projects.Find(1);
-            Buyer Buybuy = new Buyer { UserName = "Rob L", NickName = "Bert", Country = "NZ", Region = "AUK", CompanyName = "Taitee" };
-            Negotiation nego = context.Negotiations.Find(1);
-            nego.MyBuyer = Buybuy;
+            Project proj = new Project { ProjName = "handyApp", BriefDescript = "this app is handy", Initiator = firstDev, ProjLeader = firstDev };
+            //Project proj = context.Projects.Find(1);
+            //Buyer Buybuy = new Buyer { UserName = "Rob L", NickName = "Bert", Country = "NZ", Region = "AUK", CompanyName = "Taitee" };
+            //Negotiation nego = context.Negotiations.Find(1);
+            //nego.MyBuyer = Buybuy;
             //Negotiation nego = new Negotiation { Timestamp = DateTime.Now, MyProj = proj, MyBuyer=Buybuy};
             //context.Negotiations.Add(nego);
-            //context.Projects.Add(proj);
+            context.Projects.Add(proj);
             //Developer ThirdDev = new Developer { UserName = "js", NickName = "John S", Country = "CAN", Region = "Wen", Age = 45, EmailAddr = "wyy930@hotmail.com", Credit = 10000 };
 
             //ThirdDev.MyProjs = new List<DeveloperProject>
