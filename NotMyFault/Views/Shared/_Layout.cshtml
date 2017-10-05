@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <form asp-controller="Account" asp-action="Logout" method="post" class="form-horizontal" role="form">
+        <div class="form-group">         
+            <div class="col-md-offset-2 col-md-10">
+                <label>
+                    <font size="3" color="blue">
+                        If you accidentally changed the world, remember it's not your fault &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </font> 
+                </label>
+                <input type="submit" name="Logout" value="Logout"/>                                                                                                                                                                                                                                                                                
+            </div>
+        </div>
+    </form>
+    <hr />
+    <div>
+        @RenderBody()
+    </div>
+</body>
+</html>

@@ -1,9 +1,12 @@
 ﻿@model LoginViewModel
+@{
+    Layout = null;
+}
 
 <form asp-controller="Account" asp-action="Login" method="post" class="form-horizontal" role="form">
     <h4>Pleaes enter your username and password</h4>
-    <div asp-validation-summary="All" class="text-danger" style="color:red"></div>
     <hr />
+    <div asp-validation-summary="All" class="text-danger" style="color:red"></div>
     <input type="hidden" asp-for="ReturnUrl" />
 
     <div class="form-group">
@@ -30,6 +33,7 @@
 </form>
 <br>
 <br>
+<br>
 <h4>Register for a new developer</h4>
 <hr />
 <form asp-controller="Account" asp-action="DevRegister" method="get" class="form-horizontal" role="form">
@@ -39,6 +43,7 @@
         </div>
     </div>
 </form>
+<br>
 <br>
 <br>
 <h4>Register for a new investor</h4>
