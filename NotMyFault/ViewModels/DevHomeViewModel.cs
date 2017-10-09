@@ -11,6 +11,5 @@ namespace NotMyFault.ViewModels
         public List<Project> MyWatchingProjects { get; set; }
         public Interview MyComingupIntws { get; set; }
         public List<Endorsment> MyEndors{ get; set; }
-        public int MyCredits { get; set; } 
     }
 }

@@ -25,10 +25,11 @@ namespace NotMyFault.Controllers
             var devHomeViewModel = new DevHomeViewModel
             {
                 MyLeadingProjects = _DevRepo.GetMyLeadingProjsById(userId),
-                MyEndors = _DevRepo.GetEndorsById(userId),
-                MyCredits = _DevRepo.GetCreditById(userId)
+                //MyEndors = _DevRepo.GetEndorsById(userId),
+                //MyCredits = _DevRepo.GetCreditById(userId)
             };
-            return View();  
+            //System.Diagnostics.Debug.WriteLine(devHomeViewModel.MyLeadingProjects[1].ProjName);
+            return View(devHomeViewModel);  
         }
     }
 }

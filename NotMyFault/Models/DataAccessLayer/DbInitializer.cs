@@ -2,6 +2,8 @@
 using Microsoft.Extensions.DependencyInjection;
 using NotMyFault.Models.ProjRelated;
 using NotMyFault.Models.UserRelated;
+using System;
+using System.Collections.Generic;
 
 namespace NotMyFault.Models.DataAccessLayer
 {
@@ -11,18 +13,16 @@ namespace NotMyFault.Models.DataAccessLayer
         {
             AppDbContext context = applicationBuilder.ApplicationServices.GetRequiredService<AppDbContext>();
 
-            Developer firstDev = context.Devs.Find(1);
+            //Developer firstDev = context.Devs.Find(1);
             //Developer secDev = context.Devs.Find(2);
-            Project proj = new Project { ProjName = "handyApp", BriefDescript = "this app is handy", Initiator = firstDev, ProjLeader = firstDev };
             //Project proj = context.Projects.Find(1);
             //Buyer Buybuy = new Buyer { UserName = "Rob L", NickName = "Bert", Country = "NZ", Region = "AUK", CompanyName = "Taitee" };
             //Negotiation nego = context.Negotiations.Find(1);
             //nego.MyBuyer = Buybuy;
             //Negotiation nego = new Negotiation { Timestamp = DateTime.Now, MyProj = proj, MyBuyer=Buybuy};
             //context.Negotiations.Add(nego);
-            context.Projects.Add(proj);
+            //context.Projects.Add(proj);
             //Developer ThirdDev = new Developer { UserName = "js", NickName = "John S", Country = "CAN", Region = "Wen", Age = 45, EmailAddr = "wyy930@hotmail.com", Credit = 10000 };
-
             //ThirdDev.MyProjs = new List<DeveloperProject>
             //{
             //    new DeveloperProject {
@@ -34,13 +34,17 @@ namespace NotMyFault.Models.DataAccessLayer
             //};
             //context.Devs.Add(ThirdDev);
 
-            //Developer FirstDev = new Developer { UserName = "Simon Han", NickName = "taekwomon", Country = "China", Region = "Shenyang", Age = 28, EmailAddr = "simonoutlook@msn.com", Credit = 10000, LinkedinUrl = "https://www.linkedin.com/in/simon-han-62059baa" };
-            //Developer SecDev = new Developer { UserName = "Chris Wu", NickName = "yuanyuan", Country = "NZ", Region = "Can", Age = 28, EmailAddr = "wyy930@hotmail.com", Credit = 10000 };
-            //context.AddRange
-            //(
-            //    FirstDev,
-            //    SecDev
-            //);
+            Developer firstDev = new Developer { UserName = "Simon Han", NickName = "taekwomon", Country = "China", Region = "Shenyang", Email = "simonoutlook@msn.com", Credit = 10000, LinkedinUrl = "https://www.linkedin.com/in/simon-han-62059baa" };
+            Developer secDev = new Developer { UserName = "Chris Wu", NickName = "yuanyuan", Country = "NZ", Region = "Can", Email = "wyy930@hotmail.com", Credit = 10000 };
+            Project proj1 = new Project { ProjName = "handyApp3", BriefDescript = "this app is handy", Initiator = firstDev, ProjLeader = secDev };
+            Project proj2 = new Project { ProjName = "handyApp4", BriefDescript = "this app is handy", Initiator = firstDev, ProjLeader = secDev };
+            context.AddRange
+            (
+                firstDev,
+                secDev,
+                proj1,
+                proj2
+            );
 
             context.SaveChanges();
         }

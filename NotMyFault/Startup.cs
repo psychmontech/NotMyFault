@@ -58,7 +58,7 @@ namespace NotMyFault
                 template: "{controller=Account}/{action=Login}/{id?}");
             });
 
-            DbInitializer.Seed(app);
+            //DbInitializer.Seed(app);
         }
     }
 }

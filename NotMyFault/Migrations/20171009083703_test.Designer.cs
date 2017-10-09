@@ -12,7 +12,7 @@ using System;
 namespace NotMyFault.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20171004093158_test")]
+    [Migration("20171009083703_test")]
     partial class test
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
