@@ -17,7 +17,7 @@ namespace NotMyFault.Models.Repository
             _appDbContext = appDbContext;
         }
 
-        public List<Developer> Devs => _appDbContext.Devs.Include(c => c.Id).OrderBy(x => x.Id).ToList();
+        public ICollection<Developer> Devs => _appDbContext.Devs.Include(c => c.Id).OrderBy(x => x.Id).ToList();
         public Developer GetDevById(int id) => _appDbContext.Devs.FirstOrDefault(p => p.Id == id);
         public string GetUsernameById(int id) => _appDbContext.Devs.FirstOrDefault(p => p.Id == id).UserName;
         public int GetNumProjWrkOnById(int id) => _appDbContext.Devs.FirstOrDefault(p => p.Id == id).NumProjWrkOn;
@@ -25,18 +25,17 @@ namespace NotMyFault.Models.Repository
         public int GetRoleById(int id) => _appDbContext.Devs.FirstOrDefault(p => p.Id == id).Role;
         public int GetCreditById(int id) => _appDbContext.Devs.FirstOrDefault(p => p.Id == id).Credit;
         public string GetEmailById(int id) => _appDbContext.Devs.FirstOrDefault(p => p.Id == id).Email;
-        public List<Endorsment> GetEndorsById(int id) => _appDbContext.Devs.FirstOrDefault(p => p.Id == id).MyEndors;
+        public ICollection<Endorsment> GetEndorsById(int id) => _appDbContext.Endorsments.Include(P => P.MyDev).ToList().FindAll(c => c.MyDev.Id == id); 
         public int GetIdByName(string Name) => _appDbContext.Devs.FirstOrDefault(p => p.UserName == Name).Id;
         public string GetLinkedinById(int id) => _appDbContext.Devs.FirstOrDefault(p => p.Id == id).LinkedinUrl;
-        public List<DeveloperRecruitment> GetMyAppliedRolesById(int id) => _appDbContext.Devs.FirstOrDefault(p => p.Id == id).MyAppliedRoles;
-        public BankDetails GetMyBankDetailsById(int id) => _appDbContext.Devs.FirstOrDefault(p => p.Id == id).MyBankDetails;
-        public List<UserProject> GetMyFollowingsById(int id) => _appDbContext.Devs.FirstOrDefault(p => p.Id == id).MyFollowings;
-        public List<Project> GetMyLeadingProjsById(int id) => _appDbContext.Projects.Include(P => P.ProjLeader).ToList().FindAll(c => c.ProjLeader.Id == id);   //look at me :)
-        public List<Project> GetMyProjsById(int id) => _appDbContext.DevProjs.Include(p=> p.Proj).Where(p => p.Id == id).Select(pt=>pt.Proj).ToList(); //look at me :))
-        //public List<DeveloperProject> GetMyProjsById(int id) => _appDbContext.Devs.FirstOrDefault(p => p.Id == id).MyProjs;
-        public List<Review> GetMyReviewsById(int id) => _appDbContext.Devs.FirstOrDefault(p => p.Id == id).MyReviews;
+        public ICollection<Recruitment> GetMyAppliedRolesById(int id) => _appDbContext.DevRecruits.Include(p => p.Recruit).Where(p => p.Id == id).Select(pt => pt.Recruit).ToList(); 
+        public BankDetails GetMyBankDetailsById(int id) => _appDbContext.BankDetails.Include(P => P.MyDev).ToList().FirstOrDefault(c => c.MyDev.Id == id);
+        public ICollection<Project> GetMyFollowingsById(int id) => _appDbContext.UserProjs.Include(p => p.Proj).Where(p => p.Id == id).Select(pt => pt.Proj).ToList();
+        public ICollection<Project> GetMyLeadingProjsById(int id) => _appDbContext.Projects.Include(P => P.ProjLeader).ToList().FindAll(c => c.ProjLeader.Id == id);   //look at me :)
+        public ICollection<Project> GetMyProjsById(int id) => _appDbContext.DevProjs.Include(p=> p.Proj).Where(p => p.Id == id).Select(pt=>pt.Proj).ToList(); //look at me :))
+        public ICollection<Review> GetMyReviewsById(int id) => _appDbContext.Reviews.Include(P => P.MyReviewee).ToList().FindAll(c => c.MyReviewee.Id == id);
         public string GetSelfIntroById(int id) => _appDbContext.Devs.FirstOrDefault(p => p.Id == id).SelfIntro;
-        public List<SupptNAlleg> GetMySupNAllegById(int id) => _appDbContext.Devs.FirstOrDefault(p => p.Id == id).MySupNAlleg;
+        public ICollection<SupptNAlleg> GetMySupNAllegById(int id) => _appDbContext.SupptNAllegs.Include(P => P.MyUser).ToList().FindAll(c => c.MyUser.Id == id);
         public string GetNickNameById(int id) => _appDbContext.Devs.FirstOrDefault(p => p.Id == id).NickName;
         public string GetRegionById(int id) => _appDbContext.Devs.FirstOrDefault(p => p.Id == id).Region;
         public byte GetThumbnailById(int id) => _appDbContext.Devs.FirstOrDefault(p => p.Id == id).Thumbnail;

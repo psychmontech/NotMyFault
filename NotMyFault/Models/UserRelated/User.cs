@@ -13,9 +13,9 @@ namespace NotMyFault.Models.UserRelated
         public string Region { get; set; }  
         public int Role { get; set; }
         public byte Thumbnail { get; set; }
-        public virtual List<SupptNAlleg> MySupNAlleg { get; set; }
-        public virtual List<UserProject> MyFollowings { get; set; }
-        public virtual List<Like> ProjILiked { get; set; }
+        public virtual ICollection<SupptNAlleg> MySupNAlleg { get; set; }
+        public virtual ICollection<UserProject> MyFollowings { get; set; }
+        public virtual ICollection<Like> ProjILiked { get; set; }
     }
 
     public class Developer : User 
@@ -24,28 +24,28 @@ namespace NotMyFault.Models.UserRelated
         public string LinkedinUrl { get; set; }
         public int Credit { get; set; } //result of the reviews
         public string SelfIntro { get; set; } //self claim
-        public virtual List<Endorsment> MyEndors { get; set; } //like linkedin
-        public virtual List<Endorsment> EndorsIGive { get; set; } 
-        public virtual List<DeveloperProject> MyProjs { get; set; }
-        public virtual List<Project> MyLeadingProjs { get; set; }
-        public virtual List<Project> MyInitiatedProjs { get; set; }
-        public virtual List<DeveloperRecruitment> MyAppliedRoles { get; set; }
+        public virtual ICollection<Endorsment> MyEndors { get; set; } //like linkedin
+        public virtual ICollection<Endorsment> EndorsIGive { get; set; } 
+        public virtual ICollection<DeveloperProject> MyProjs { get; set; }
+        public virtual ICollection<Project> MyLeadingProjs { get; set; }
+        public virtual ICollection<Project> MyInitiatedProjs { get; set; }
+        public virtual ICollection<DeveloperRecruitment> MyAppliedRoles { get; set; }
         public virtual BankDetails MyBankDetails { get; set; }
         public virtual Interview MyIntwAsViewer { get; set; }
         public virtual Interview MyIntwAsViewee { get; set; }
-        public virtual List<Review> MyReviews { get; set; } //reviews by other devs, conducts review -/+ 5 
-        public virtual List<Review> MyReviewed { get; set; } //all that reviewed by me 
-        public virtual List<InternalConver> MyInterconvers { get; set; } 
+        public virtual ICollection<Review> MyReviews { get; set; } //reviews by other devs, conducts review -/+ 5 
+        public virtual ICollection<Review> MyReviewed { get; set; } //all that reviewed by me 
+        public virtual ICollection<InternalConver> MyInterconvers { get; set; } 
     }
 
     public class Buyer : User
     {
         public string CompanyName { get; set; }
         public string CompanyAddr { get; set; }
-        public virtual List<BuyerProject> ProjsUnderNego { get; set; }
+        public virtual ICollection<BuyerProject> ProjsUnderNego { get; set; }
         public int Earnest { get; set; }
-        public virtual List<Negotiation> MyNegos { get; set; }
-        public virtual List<Transaction> AssociateTrans { get; set; }
+        public virtual ICollection<Negotiation> MyNegos { get; set; }
+        public virtual ICollection<Transaction> AssociateTrans { get; set; }
     }
 
     //many to many join tables

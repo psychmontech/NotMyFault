@@ -10,7 +10,7 @@ namespace NotMyFault.Models.Repository.Interface
 {
     public interface IDevRepo
     {
-        List<Developer> Devs { get; }
+        ICollection<Developer> Devs { get; }
         Developer GetDevById(int id);
         string GetUsernameById(int id);
         int GetIdByName(string name);
@@ -22,13 +22,13 @@ namespace NotMyFault.Models.Repository.Interface
         string GetEmailById(int id);
         string GetLinkedinById(int id);
         int GetCreditById(int id);
-        List<SupptNAlleg> GetMySupNAllegById(int id);
-        List<UserProject> GetMyFollowingsById(int id);
-        List<Endorsment> GetEndorsById(int id);
-        List<Project> GetMyProjsById(int id);
-        List<Project> GetMyLeadingProjsById(int id);
-        List<DeveloperRecruitment> GetMyAppliedRolesById(int id);
-        List<Review> GetMyReviewsById(int id);
+        ICollection<SupptNAlleg> GetMySupNAllegById(int id);
+        ICollection<Project> GetMyFollowingsById(int id);
+        ICollection<Endorsment> GetEndorsById(int id);
+        ICollection<Project> GetMyProjsById(int id);
+        ICollection<Project> GetMyLeadingProjsById(int id);
+        ICollection<Recruitment> GetMyAppliedRolesById(int id);
+        ICollection<Review> GetMyReviewsById(int id);
         string GetSelfIntroById(int id);
         BankDetails GetMyBankDetailsById(int id);
 

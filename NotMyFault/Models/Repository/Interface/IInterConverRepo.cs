@@ -8,6 +8,6 @@ namespace NotMyFault.Models.Repository.Interface
 {
     public interface IInterConverRepo
     {
-        List<InternalConver> GetInterConverByProjId(int id);
+        ICollection<InternalConver> GetInterConverByProjId(int id);
     }
 }

@@ -16,7 +16,7 @@ namespace NotMyFault.Models.Repository
         {
             _appDbContext = appDbContext;
         }
-        public List<PublicOpinion> GetPubOpinByProjId (int id) => _appDbContext.PublicOpinions.Include(c => c.MyProj.ProjectId == id).
+        public ICollection<PublicOpinion> GetPubOpinByProjId (int id) => _appDbContext.PublicOpinions.Include(c => c.MyProj.ProjectId == id).
             OrderByDescending(x => x.Timestamp).ToList();
         
     }

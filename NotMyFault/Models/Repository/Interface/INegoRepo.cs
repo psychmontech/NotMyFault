@@ -8,7 +8,7 @@ namespace NotMyFault.Models.Repository.Interface
 {
     public interface INegoRepo
     {
-        List<Negotiation> GetNegoByProjId(int id);
-        List<NegoEntry> GetNegoEntByNegoId(int id);
+        ICollection<Negotiation> GetNegoByProjId(int id);
+        ICollection<NegoEntry> GetNegoEntByNegoId(int id);
     }
 }

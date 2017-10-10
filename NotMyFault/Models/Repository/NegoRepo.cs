@@ -17,9 +17,9 @@ namespace NotMyFault.Models.Repository
         {
             _appDbContext = appDbContext;
         }
-        public List<Negotiation> GetNegoByProjId(int id) => _appDbContext.Negotiations.Include(c => c.MyProj.ProjectId == id).
+        public ICollection<Negotiation> GetNegoByProjId(int id) => _appDbContext.Negotiations.Include(c => c.MyProj.ProjectId == id).
             OrderByDescending(x => x.NegotiationId).ToList();
-        public List<NegoEntry> GetNegoEntByNegoId(int id) => _appDbContext.NegoEntries.Include(c => c.MyNego.NegotiationId == id).
+        public ICollection<NegoEntry> GetNegoEntByNegoId(int id) => _appDbContext.NegoEntries.Include(c => c.MyNego.NegotiationId == id).
             OrderByDescending(x => x.Timestamp).ToList();
 
     }

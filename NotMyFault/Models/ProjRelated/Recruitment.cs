@@ -10,7 +10,7 @@ namespace NotMyFault.Models.ProjRelated
     {
         public int RecruitmentId { get; set; }
         public virtual CandiRqrmt MyCandiRqrmts { get; set; }
-        public virtual List<DeveloperRecruitment> MyCandis { get; set; }
+        public virtual ICollection<DeveloperRecruitment> MyCandis { get; set; }
         public virtual Interview MyInterview { get; set; }
         public string RoleDescription { get; set; }
         public string NameOfTheRole { get; set; }

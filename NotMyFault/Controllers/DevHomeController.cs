@@ -26,6 +26,8 @@ namespace NotMyFault.Controllers
             {
                 MyLeadingProjects = _DevRepo.GetMyLeadingProjsById(userId),
                 MyInvolvedProjects = _DevRepo.GetMyProjsById(userId),
+                MyFollowingProjects = _DevRepo.GetMyFollowingsById(userId),
+                MyEndors= _DevRepo.GetEndorsById(userId),
             };
             //System.Diagnostics.Debug.WriteLine(devHomeViewModel.MyLeadingProjects[1].ProjName);
             return View(devHomeViewModel);  

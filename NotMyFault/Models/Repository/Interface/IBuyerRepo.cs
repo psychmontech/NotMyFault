@@ -10,7 +10,7 @@ namespace NotMyFault.Models.Repository.Interface
 {
     public interface IBuyerRepo
     {
-        List<Buyer> Buyers { get; }
+        ICollection<Buyer> Buyers { get; }
         Buyer GetBuyerById(int id);
         string GetUsernameById(int id);
         int GetIdByName(string name);
@@ -23,10 +23,10 @@ namespace NotMyFault.Models.Repository.Interface
         string GetCompNameById(int id);
         string GetCompAddrById(int id);
         int GetEarnestById(int id);
-        List<SupptNAlleg> GetMySupNAllegById(int id);
-        List<UserProject> GetMyFollowingsById(int id); 
-        List<BuyerProject> GetProjsUnderNego(int id);
-        List<Negotiation> GetMyNegos(int id);
+        ICollection<SupptNAlleg> GetMySupNAllegById(int id);
+        ICollection<UserProject> GetMyFollowingsById(int id); 
+        ICollection<BuyerProject> GetProjsUnderNego(int id);
+        ICollection<Negotiation> GetMyNegos(int id);
 
         void SetUsernameById(int id, string username);
         void SetNickNameById(int id, string nickName);

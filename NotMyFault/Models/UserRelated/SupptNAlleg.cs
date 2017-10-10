@@ -11,7 +11,7 @@ namespace NotMyFault.Models.UserRelated
     {
         public int SupptNAllegId { get; set; }
         public virtual User MyUser { get; set; }
-        public virtual List<SNAEntry> MyEntries { get; set; }
+        public virtual ICollection<SNAEntry> MyEntries { get; set; }
     }
 
     public class SNAEntry

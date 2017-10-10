@@ -8,6 +8,6 @@ namespace NotMyFault.Models.Repository.Interface
 {
     public interface IEndorsRepo
     {
-        List<Endorsment> GetEndorsByUserId(int id);
+        ICollection<Endorsment> GetEndorsByUserId(int id);
     }
 }

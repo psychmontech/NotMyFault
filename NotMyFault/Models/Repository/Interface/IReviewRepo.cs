@@ -8,6 +8,6 @@ namespace NotMyFault.Models.Repository.Interface
 {
     public interface IReviewRepo
     {
-        List<Review> GetRevByUserId(int id);
+        ICollection<Review> GetRevByUserId(int id);
     }
 }

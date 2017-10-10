@@ -19,7 +19,7 @@ namespace NotMyFault.Models.Repository
             _appDbContext = appDbContext;
         }
 
-        public List<Buyer> Buyers => _appDbContext.Buyers.Include(c => c.Id).OrderBy(x => x.Id).ToList();
+        public ICollection<Buyer> Buyers => _appDbContext.Buyers.Include(c => c.Id).OrderBy(x => x.Id).ToList();
         public Buyer GetBuyerById(int id) => _appDbContext.Buyers.FirstOrDefault(p => p.Id == id);
         public int GetIdByName(string Name) => _appDbContext.Buyers.FirstOrDefault(p => p.UserName == Name).Id;
         public string GetUsernameById(int id) => _appDbContext.Buyers.FirstOrDefault(p => p.Id == id).UserName;
@@ -32,10 +32,10 @@ namespace NotMyFault.Models.Repository
         public string GetCompNameById(int id) => _appDbContext.Buyers.FirstOrDefault(p => p.Id == id).CompanyName;
         public string GetCompAddrById(int id) => _appDbContext.Buyers.FirstOrDefault(p => p.Id == id).CompanyAddr;
         public int GetEarnestById(int id) => _appDbContext.Buyers.FirstOrDefault(p => p.Id == id).Earnest;
-        public List<UserProject> GetMyFollowingsById(int id) => _appDbContext.Buyers.FirstOrDefault(p => p.Id == id).MyFollowings;
-        public List<SupptNAlleg> GetMySupNAllegById(int id) => _appDbContext.Buyers.FirstOrDefault(p => p.Id == id).MySupNAlleg;
-        public List<BuyerProject> GetProjsUnderNego(int id) => _appDbContext.Buyers.FirstOrDefault(p => p.Id == id).ProjsUnderNego;
-        public List<Negotiation> GetMyNegos(int id) => _appDbContext.Buyers.FirstOrDefault(p => p.Id == id).MyNegos;
+        public ICollection<UserProject> GetMyFollowingsById(int id) => _appDbContext.Buyers.FirstOrDefault(p => p.Id == id).MyFollowings;
+        public ICollection<SupptNAlleg> GetMySupNAllegById(int id) => _appDbContext.Buyers.FirstOrDefault(p => p.Id == id).MySupNAlleg;
+        public ICollection<BuyerProject> GetProjsUnderNego(int id) => _appDbContext.Buyers.FirstOrDefault(p => p.Id == id).ProjsUnderNego;
+        public ICollection<Negotiation> GetMyNegos(int id) => _appDbContext.Buyers.FirstOrDefault(p => p.Id == id).MyNegos;
 
         public void SetUsernameById(int id, string username)
         {

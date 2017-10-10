@@ -8,6 +8,6 @@ namespace NotMyFault.Models.Repository.Interface
 {
     public interface ILikeRepo
     {
-        List<Like> GetLikesByProjId(int id);
+        ICollection<Like> GetLikesByProjId(int id);
     }
 }

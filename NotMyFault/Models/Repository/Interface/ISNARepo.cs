@@ -8,8 +8,8 @@ namespace NotMyFault.Models.Repository.Interface
 {
     public interface ISNARepo
     {
-        List<SupptNAlleg> GetAllSNA();
-        List<SupptNAlleg> GetSNAByUserId(int id);
-        List<SNAEntry> GetSNAEntBySNAId(int id);
+        ICollection<SupptNAlleg> GetAllSNA();
+        ICollection<SupptNAlleg> GetSNAByUserId(int id);
+        ICollection<SNAEntry> GetSNAEntBySNAId(int id);
     }
 }

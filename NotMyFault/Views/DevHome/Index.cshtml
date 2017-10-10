@@ -1,9 +1,41 @@
 ﻿@model DevHomeViewModel
 
-<h2>This is dev Home page</h2>
+<h1>This is developer Home page</h1>
+<h3>My working projects</h3>
+<table>
+    @foreach (var proj in Model.MyInvolvedProjects)
+    {
+        <tr><td>@proj.ProjName</td></tr>
+    }
+</table>
+<br>
+<h3>My leading projects</h3>
+<table>
+    @foreach (var proj in Model.MyLeadingProjects)
+    {
+        <tr><td>@proj.ProjName</td></tr>
+    }
+</table>
+<br>
+<h3>My following projects</h3>
+<table>
+    @foreach (var proj in Model.MyFollowingProjects)
+    {
+        <tr><td>@proj.ProjName</td></tr>
+    }
+</table>
+<br>
+<h3>My endorsments</h3>
+<table>
+    @foreach (var endors in Model.MyEndors)
+    {
+        <tr><td>@endors.Subject</td></tr>
+    }
+</table>
 
 
-@foreach (var proj in Model.MyInvolvedProjects)
-{
-    <h2>@proj.ProjName</h2>;
-}
+
+
+
+
+

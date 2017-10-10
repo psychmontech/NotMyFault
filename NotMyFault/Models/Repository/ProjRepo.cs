@@ -19,7 +19,7 @@ namespace NotMyFault.Models.Repository
         {
             _appDbContext = appDbContext;
         }
-        public List<Project> Projs => _appDbContext.Projects.Include(c => c.ProjectId).
+        public ICollection<Project> Projs => _appDbContext.Projects.Include(c => c.ProjectId).
             OrderByDescending(x => x.StartingDate).ToList();
         public Project GetProjById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id);
         public string GetProjnameById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).ProjName;
@@ -33,18 +33,18 @@ namespace NotMyFault.Models.Repository
         public DateTime GetStartDateById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).StartingDate;
         public DateTime GetNxtMeetDateById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).NextMeetingDate;
         public DateTime GetProCompDateById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).ProtdCompDate;
-        public List<DeveloperProject> GetMyDevsById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).MyDevs;
-        public List<Recruitment> GetMyRecruitsById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).MyRecruits;
-        public List<PublicOpinion> GetMyPubOpinById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).MyPubOpin;
-        public List<Negotiation> GetMyNegosById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).MyNegos;
-        public List<Like> GetMyLikesById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).MyLikes;
-        public List<BuyerProject> GetMyWatchersById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).MyWatchers;
-        public List<UserProject> GetMyFollowersById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).MyFollowers;
+        public ICollection<DeveloperProject> GetMyDevsById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).MyDevs;
+        public ICollection<Recruitment> GetMyRecruitsById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).MyRecruits;
+        public ICollection<PublicOpinion> GetMyPubOpinById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).MyPubOpin;
+        public ICollection<Negotiation> GetMyNegosById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).MyNegos;
+        public ICollection<Like> GetMyLikesById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).MyLikes;
+        public ICollection<BuyerProject> GetMyWatchersById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).MyWatchers;
+        public ICollection<UserProject> GetMyFollowersById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).MyFollowers;
         public Transaction GetMyTranById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).MyTran;
         public Distribution GetMyDistributById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).MyDistribut;
         public Developer GetProjLeaderById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).ProjLeader;
         public Developer GetInitiatorById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).Initiator;
-        public List<InternalConver> GetMyConverById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).MyConver;
+        public ICollection<InternalConver> GetMyConverById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).MyConver;
 
         public void SetProjNameById(int id, string projName)
         {

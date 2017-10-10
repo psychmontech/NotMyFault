@@ -16,41 +16,31 @@ namespace NotMyFault.Models.DataAccessLayer
             Developer firstDev = context.Devs.Find(1);
             Developer secDev = context.Devs.Find(2);
             Developer thirdDev = context.Devs.Find(3);
-            //Project proj = context.Projects.Find(1);
 
-            //context.Devs.Add(new Developer
-            //{
-            //    UserName = "wawa",
-            //    NickName = "wawawa",
-            //    MyLeadingProjs = new List<Project>
-            //    {
-            //        new Project
-            //        {
-            //            ProjName = "wawaproject1",
-            //            BriefDescript = "this is wawa project1",
-            //            ProjLeader = firstDev,
-            //            Initiator = firstDev
-            //        },
-            //        new Project
-            //        {
-            //            ProjName = "wawaproject2",
-            //            BriefDescript = "this is wawa project2",
-            //            ProjLeader = firstDev,
-            //            Initiator = firstDev
-            //        }
-            //    }
-            //});
+            ICollection<UserProject> userproj1 = new List<UserProject> { new UserProject { User = thirdDev }, new UserProject { User = secDev } };
+            ICollection<UserProject> userproj2 = new List<UserProject> { new UserProject { User = thirdDev }, new UserProject { User = secDev } };
+
+            Project proj1 = new Project { ProjName = "dummyProj1", BriefDescript = "i am being watched", Initiator = thirdDev, ProjLeader = thirdDev, MyFollowers = userproj1 };
+            Project proj2 = new Project { ProjName = "dummyProj2", BriefDescript = "i am being watched as well", Initiator = firstDev, ProjLeader = secDev, MyFollowers = userproj2 };
+
+            //context.Endorsments.AddRange
+            //(
+            //    new Endorsment { FromDev = firstDev, Subject = "drinking", Timestamp = DateTime.Now, MyDev = thirdDev },
+            //    new Endorsment { FromDev = firstDev, Subject = "sleeping", Timestamp = DateTime.Now, MyDev = thirdDev }
+            //);
+
             //Developer firstDev = new Developer { UserName = "Simon Han", NickName = "taekwomon", Country = "China", Region = "Shenyang", Email = "simonoutlook@msn.com", Credit = 10000, LinkedinUrl = "https://www.linkedin.com/in/simon-han-62059baa" };
             //Developer secDev = new Developer { UserName = "Chris Wu", NickName = "yuanyuan", Country = "NZ", Region = "Can", Email = "wyy930@hotmail.com", Credit = 10000 };
-            List<DeveloperProject> devproj = new List<DeveloperProject> { new DeveloperProject { Dev = thirdDev }, new DeveloperProject { Dev = secDev } };
-            Project proj1 = new Project { ProjName = "handyApp3", BriefDescript = "this app is handy", Initiator = thirdDev, ProjLeader = thirdDev, MyDevs = devproj };
-            //Project proj2 = new Project { ProjName = "handyApp4", BriefDescript = "this app is handy", Initiator = firstDev, ProjLeader = secDev };
+            //ICollection<DeveloperProject> devproj1 = new List<DeveloperProject> { new DeveloperProject { Dev = thirdDev }, new DeveloperProject { Dev = secDev } };
+            //ICollection<DeveloperProject> devproj2 = new List<DeveloperProject> { new DeveloperProject { Dev = thirdDev }, new DeveloperProject { Dev = secDev } };
+            //Project proj1 = new Project { ProjName = "handyApp3", BriefDescript = "this app is handy", Initiator = thirdDev, ProjLeader = thirdDev, MyDevs = devproj1 };
+            //Project proj2 = new Project { ProjName = "handyApp4", BriefDescript = "this app is handy", Initiator = firstDev, ProjLeader = secDev, MyDevs = devproj2 };
             context.AddRange
             (
                 //firstDev,
                 //secDev
-                proj1
-                //proj2
+                proj1,
+                proj2
             );
 
             context.SaveChanges();
@@ -83,7 +73,7 @@ Developer firstDev = context.Devs.Find(1);
 Developer secDev = context.Devs.Find(2);
 Project proj = new Project { ProjName = "handyApp", BriefDescript = "this app is handy", Initiator = firstDev, ProjLeader = secDev };
 Buyer Buybuy = new Buyer { UserName = "Rob L", NickName = "Bert", Country = "NZ", Region = "AUK", CompanyName = "Taitee" };
-Buybuy.ProjsUnderNego = new List<BuyerProject>
+Buybuy.ProjsUnderNego = new ICollection<BuyerProject>
 {
     new BuyerProject {
     Buyer = Buybuy,

@@ -10,7 +10,7 @@ namespace NotMyFault.Models.Repository.Interface
 {
     public interface IProjRepo
     {
-        List<Project> Projs { get; }
+        ICollection<Project> Projs { get; }
         Project GetProjById(int id);
         string GetProjnameById(int id);
         string GetBriefDesById(int id);
@@ -23,18 +23,18 @@ namespace NotMyFault.Models.Repository.Interface
         DateTime GetStartDateById(int id);
         DateTime GetNxtMeetDateById(int id);    
         DateTime GetProCompDateById(int id);
-        List<DeveloperProject> GetMyDevsById(int id);
-        List<Recruitment> GetMyRecruitsById(int id);
-        List<PublicOpinion> GetMyPubOpinById(int id);
-        List<Negotiation> GetMyNegosById(int id);
-        List<Like> GetMyLikesById(int id);
-        List<BuyerProject> GetMyWatchersById(int id);
-        List<UserProject> GetMyFollowersById(int id);
+        ICollection<DeveloperProject> GetMyDevsById(int id);
+        ICollection<Recruitment> GetMyRecruitsById(int id);
+        ICollection<PublicOpinion> GetMyPubOpinById(int id);
+        ICollection<Negotiation> GetMyNegosById(int id);
+        ICollection<Like> GetMyLikesById(int id);
+        ICollection<BuyerProject> GetMyWatchersById(int id);
+        ICollection<UserProject> GetMyFollowersById(int id);
         Transaction GetMyTranById(int id);
         Distribution GetMyDistributById(int id);
         Developer GetProjLeaderById(int id);
         Developer GetInitiatorById(int id);
-        List<InternalConver> GetMyConverById(int id);
+        ICollection<InternalConver> GetMyConverById(int id);
 
         void SetProjNameById(int id, string projName);
         void SetBriefDesById(int id, string briefDes);

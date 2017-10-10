@@ -8,6 +8,6 @@ namespace NotMyFault.Models.Repository.Interface
 {
     public interface IPubOpinRepo
     {
-        List<PublicOpinion> GetPubOpinByProjId(int id);
+        ICollection<PublicOpinion> GetPubOpinByProjId(int id);
     }
 }

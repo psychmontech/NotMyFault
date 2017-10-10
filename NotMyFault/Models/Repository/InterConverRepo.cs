@@ -17,7 +17,7 @@ namespace NotMyFault.Models.Repository
         {
             _appDbContext = appDbContext;
         }
-        public List<InternalConver> GetInterConverByProjId (int id) => _appDbContext.InternalConver.Include(c => c.MyProj.ProjectId == id).
+        public ICollection<InternalConver> GetInterConverByProjId (int id) => _appDbContext.InternalConver.Include(c => c.MyProj.ProjectId == id).
             OrderByDescending(x => x.Timestamp).ToList();
     }
 }
