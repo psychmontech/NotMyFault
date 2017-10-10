@@ -25,7 +25,7 @@ namespace NotMyFault.Models.Repository.Interface
         List<SupptNAlleg> GetMySupNAllegById(int id);
         List<UserProject> GetMyFollowingsById(int id);
         List<Endorsment> GetEndorsById(int id);
-        List<DeveloperProject> GetMyProjsById(int id);
+        List<Project> GetMyProjsById(int id);
         List<Project> GetMyLeadingProjsById(int id);
         List<DeveloperRecruitment> GetMyAppliedRolesById(int id);
         List<Review> GetMyReviewsById(int id);

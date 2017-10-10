@@ -36,6 +36,10 @@ namespace NotMyFault.Models.DataAccessLayer
         public DbSet<CandiRqrmt> CandiRqrmts { get; set; }
         public DbSet<Interview> Interviews { get; set; }    
         public DbSet<Review> Reviews { get; set; }
+        public DbSet<DeveloperProject> DevProjs{ get; set; }
+        public DbSet<DeveloperRecruitment> DevRecruits { get; set; }
+        public DbSet<UserProject> UserProjs { get; set; }
+        public DbSet<DeveloperProject> BuyerProjs { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

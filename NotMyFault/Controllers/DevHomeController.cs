@@ -25,8 +25,7 @@ namespace NotMyFault.Controllers
             var devHomeViewModel = new DevHomeViewModel
             {
                 MyLeadingProjects = _DevRepo.GetMyLeadingProjsById(userId),
-                //MyEndors = _DevRepo.GetEndorsById(userId),
-                //MyCredits = _DevRepo.GetCreditById(userId)
+                MyInvolvedProjects = _DevRepo.GetMyProjsById(userId),
             };
             //System.Diagnostics.Debug.WriteLine(devHomeViewModel.MyLeadingProjects[1].ProjName);
             return View(devHomeViewModel);  

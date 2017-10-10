@@ -12,7 +12,7 @@ using System;
 namespace NotMyFault.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20171009083703_test")]
+    [Migration("20171009221730_test")]
     partial class test
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -498,7 +498,7 @@ namespace NotMyFault.Migrations
 
                     b.HasIndex("RecruitmentId");
 
-                    b.ToTable("DeveloperRecruitment");
+                    b.ToTable("DevRecruits");
                 });
 
             modelBuilder.Entity("NotMyFault.Models.UserRelated.Endorsment", b =>
@@ -653,7 +653,7 @@ namespace NotMyFault.Migrations
 
                     b.HasIndex("ProjectId");
 
-                    b.ToTable("UserProject");
+                    b.ToTable("UserProjs");
                 });
 
             modelBuilder.Entity("NotMyFault.Models.UserRelated.Visitor", b =>

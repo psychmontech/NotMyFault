@@ -497,7 +497,7 @@ namespace NotMyFault.Migrations
 
                     b.HasIndex("RecruitmentId");
 
-                    b.ToTable("DeveloperRecruitment");
+                    b.ToTable("DevRecruits");
                 });
 
             modelBuilder.Entity("NotMyFault.Models.UserRelated.Endorsment", b =>
@@ -652,7 +652,7 @@ namespace NotMyFault.Migrations
 
                     b.HasIndex("ProjectId");
 
-                    b.ToTable("UserProject");
+                    b.ToTable("UserProjs");
                 });
 
             modelBuilder.Entity("NotMyFault.Models.UserRelated.Visitor", b =>

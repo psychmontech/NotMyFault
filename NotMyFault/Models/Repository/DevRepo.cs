@@ -32,7 +32,7 @@ namespace NotMyFault.Models.Repository
         public BankDetails GetMyBankDetailsById(int id) => _appDbContext.Devs.FirstOrDefault(p => p.Id == id).MyBankDetails;
         public List<UserProject> GetMyFollowingsById(int id) => _appDbContext.Devs.FirstOrDefault(p => p.Id == id).MyFollowings;
         public List<Project> GetMyLeadingProjsById(int id) => _appDbContext.Projects.Include(P => P.ProjLeader).ToList().FindAll(c => c.ProjLeader.Id == id);   //look at me :)
-        public List<DeveloperProject> GetMyProjsById(int id) => _appDbContext.Devs.FirstOrDefault(p => p.Id == id).MyProjs;
+        public List<Project> GetMyProjsById(int id) => _appDbContext.DevProjs.Include(p=> p.Proj).Where(p => p.Id == id).Select(pt=>pt.Proj).ToList(); //look at me :))
         //public List<DeveloperProject> GetMyProjsById(int id) => _appDbContext.Devs.FirstOrDefault(p => p.Id == id).MyProjs;
         public List<Review> GetMyReviewsById(int id) => _appDbContext.Devs.FirstOrDefault(p => p.Id == id).MyReviews;
         public string GetSelfIntroById(int id) => _appDbContext.Devs.FirstOrDefault(p => p.Id == id).SelfIntro;

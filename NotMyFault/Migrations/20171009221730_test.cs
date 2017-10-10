@@ -618,7 +618,7 @@ namespace NotMyFault.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserProject",
+                name: "UserProjs",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false),
@@ -626,15 +626,15 @@ namespace NotMyFault.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserProject", x => new { x.Id, x.ProjectId });
+                    table.PrimaryKey("PK_UserProjs", x => new { x.Id, x.ProjectId });
                     table.ForeignKey(
-                        name: "FK_UserProject_AspNetUsers_Id",
+                        name: "FK_UserProjs_AspNetUsers_Id",
                         column: x => x.Id,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_UserProject_Projects_ProjectId",
+                        name: "FK_UserProjs_Projects_ProjectId",
                         column: x => x.ProjectId,
                         principalTable: "Projects",
                         principalColumn: "ProjectId",
@@ -687,7 +687,7 @@ namespace NotMyFault.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "DeveloperRecruitment",
+                name: "DevRecruits",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false),
@@ -695,15 +695,15 @@ namespace NotMyFault.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DeveloperRecruitment", x => new { x.Id, x.RecruitmentId });
+                    table.PrimaryKey("PK_DevRecruits", x => new { x.Id, x.RecruitmentId });
                     table.ForeignKey(
-                        name: "FK_DeveloperRecruitment_Recruitments_Id",
+                        name: "FK_DevRecruits_Recruitments_Id",
                         column: x => x.Id,
                         principalTable: "Recruitments",
                         principalColumn: "RecruitmentId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_DeveloperRecruitment_AspNetUsers_RecruitmentId",
+                        name: "FK_DevRecruits_AspNetUsers_RecruitmentId",
                         column: x => x.RecruitmentId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
@@ -798,8 +798,8 @@ namespace NotMyFault.Migrations
                 column: "ProjectId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DeveloperRecruitment_RecruitmentId",
-                table: "DeveloperRecruitment",
+                name: "IX_DevRecruits_RecruitmentId",
+                table: "DevRecruits",
                 column: "RecruitmentId");
 
             migrationBuilder.CreateIndex(
@@ -947,8 +947,8 @@ namespace NotMyFault.Migrations
                 filter: "[TransactionForeignKey] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserProject_ProjectId",
-                table: "UserProject",
+                name: "IX_UserProjs_ProjectId",
+                table: "UserProjs",
                 column: "ProjectId");
         }
 
@@ -979,7 +979,7 @@ namespace NotMyFault.Migrations
                 name: "DeveloperProject");
 
             migrationBuilder.DropTable(
-                name: "DeveloperRecruitment");
+                name: "DevRecruits");
 
             migrationBuilder.DropTable(
                 name: "Distributions");
@@ -1012,7 +1012,7 @@ namespace NotMyFault.Migrations
                 name: "Transactions");
 
             migrationBuilder.DropTable(
-                name: "UserProject");
+                name: "UserProjs");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
