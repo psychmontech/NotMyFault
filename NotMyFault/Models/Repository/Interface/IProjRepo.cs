@@ -35,7 +35,7 @@ namespace NotMyFault.Models.Repository.Interface
         Developer GetProjLeaderById(int id);
         Developer GetInitiatorById(int id);
         ICollection<InternalConver> GetMyConverById(int id);
-
+        int SaveProj(Project proj);
         void SetProjNameById(int id, string projName);
         void SetBriefDesById(int id, string briefDes);
         void SetFullDesById(int id, string fullDes);

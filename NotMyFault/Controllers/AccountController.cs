@@ -80,7 +80,7 @@ namespace NotMyFault.Controllers
                     SelfIntro = devRegisterViewModel.SelfIntro 
                 };
                 var result = await _userManager.CreateAsync(dev, devRegisterViewModel.Password);
-                return result.Succeeded? RedirectToAction("Index", "DevHome") : RedirectToAction("Index", "ErrorPage");
+                return result.Succeeded? RedirectToAction("Login", "Account") : RedirectToAction("Index", "ErrorPage");
             }
             return View(devRegisterViewModel);
         }
@@ -109,7 +109,7 @@ namespace NotMyFault.Controllers
                     Region = buyerRegisterViewModel.Region,
                 };
                 var result = await _userManager.CreateAsync(dev, buyerRegisterViewModel.Password);
-                return result.Succeeded ? RedirectToAction("Index", "BuyerHome") : RedirectToAction("Index", "ErrorPage");
+                return result.Succeeded ? RedirectToAction("Login", "Account") : RedirectToAction("Index", "ErrorPage");
             }
             return View(buyerRegisterViewModel);
         }

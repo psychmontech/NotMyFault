@@ -46,6 +46,12 @@ namespace NotMyFault.Models.Repository
         public Developer GetInitiatorById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).Initiator;
         public ICollection<InternalConver> GetMyConverById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).MyConver;
 
+        public int SaveProj(Project proj)
+        {
+            _appDbContext.Projects.Add(proj);
+            return _appDbContext.SaveChanges();
+        }
+
         public void SetProjNameById(int id, string projName)
         {
             _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).ProjName = projName;

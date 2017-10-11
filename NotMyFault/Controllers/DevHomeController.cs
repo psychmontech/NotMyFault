@@ -16,21 +16,21 @@ namespace NotMyFault.Controllers
     {
         public IDevRepo _DevRepo { get; set; }
         public IHttpContextAccessor _HttpContextAccessor { get; set; }
-        public int UserId { get; set; }
-        public DevHomeController(IDevRepo DevRepo, IHttpContextAccessor httpContextAccessor)
+        private readonly UserManager<User> _userManager;
+        public DevHomeController(IDevRepo DevRepo, UserManager<User> userManager)
         {
             _DevRepo = DevRepo;
-            _HttpContextAccessor = httpContextAccessor;
-            UserId = Int32.Parse(_HttpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            _userManager = userManager;
         }
-        public ViewResult Index()
+        public async Task<IActionResult> Index()
         {
+            var user = await _userManager.GetUserAsync(User);
             var devHomeViewModel = new DevHomeViewModel
             {
-                MyLeadingProjects = _DevRepo.GetMyLeadingProjsById(UserId),
-                MyInvolvedProjects = _DevRepo.GetMyProjsById(UserId),
-                MyFollowingProjects = _DevRepo.GetMyFollowingsById(UserId),
-                MyEndors= _DevRepo.GetEndorsById(UserId),
+                MyLeadingProjects = _DevRepo.GetMyLeadingProjsById(user.Id),
+                MyInvolvedProjects = _DevRepo.GetMyProjsById(user.Id),
+                MyFollowingProjects = _DevRepo.GetMyFollowingsById(user.Id),
+                MyEndors= _DevRepo.GetEndorsById(user.Id),
             };
             //System.Diagnostics.Debug.WriteLine(devHomeViewModel.MyLeadingProjects[1].ProjName);
             return View(devHomeViewModel);  

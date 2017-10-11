@@ -36,6 +36,8 @@ namespace NotMyFault.Controllers
             if (ModelState.IsValid)
             {
                 User user = await _userManager.GetUserAsync(User);
+                Developer thisDev = (Developer)user;
+                ICollection<DeveloperProject> devproj = new List<DeveloperProject> { new DeveloperProject { Dev = thisDev } };
                 Project proj = new Project
                 {
                     ProjName = createProjectViewModel.ProjName,
@@ -43,9 +45,11 @@ namespace NotMyFault.Controllers
                     FullDescript = createProjectViewModel.FullDescript,
                     Valuation = createProjectViewModel.Valuation,
                     Visibility = createProjectViewModel.Visibility,
-                    ProjLeader = (Developer)user,
-                    Initiator = (Developer)user,                    
+                    ProjLeader = thisDev,
+                    Initiator = thisDev,
+                    MyDevs = devproj
                 };
+                _ProjRepo.SaveProj(proj);
                 return RedirectToAction("Index", "Project");
             }
             return View(createProjectViewModel);
