@@ -1,6 +1,14 @@
 ﻿@model DevHomeViewModel
 
 <h1>This is developer Home page</h1>
+<form asp-controller="Project" asp-action="CreateProject" method="get" class="form-horizontal" role="form">
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" name="newProject" value="New Project" />
+        </div>
+    </div>
+</form>
+<br>
 <h3>My working projects</h3>
 <table>
     @foreach (var proj in Model.MyInvolvedProjects)

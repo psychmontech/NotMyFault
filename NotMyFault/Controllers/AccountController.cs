@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using NotMyFault.Models.Constants;
+using NotMyFault.Constants;
 using NotMyFault.Models.UserRelated;
 using NotMyFault.ViewModels;
 using System.Linq;

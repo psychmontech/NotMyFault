@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace NotMyFault.Models.Constants
+namespace NotMyFault.Constants
 {
     public static class ProjVisibility
     {
