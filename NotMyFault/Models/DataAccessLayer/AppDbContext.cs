@@ -39,7 +39,7 @@ namespace NotMyFault.Models.DataAccessLayer
         public DbSet<DeveloperProject> DevProjs{ get; set; }
         public DbSet<DeveloperRecruitment> DevRecruits { get; set; }
         public DbSet<UserProject> UserProjs { get; set; }
-        public DbSet<DeveloperProject> BuyerProjs { get; set; }
+        public DbSet<BuyerProject> BuyerProjs { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

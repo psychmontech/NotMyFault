@@ -378,7 +378,7 @@ namespace NotMyFault.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "BuyerProject",
+                name: "BuyerProjs",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false),
@@ -386,15 +386,15 @@ namespace NotMyFault.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BuyerProject", x => new { x.Id, x.ProjectId });
+                    table.PrimaryKey("PK_BuyerProjs", x => new { x.Id, x.ProjectId });
                     table.ForeignKey(
-                        name: "FK_BuyerProject_AspNetUsers_Id",
+                        name: "FK_BuyerProjs_AspNetUsers_Id",
                         column: x => x.Id,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_BuyerProject_Projects_ProjectId",
+                        name: "FK_BuyerProjs_Projects_ProjectId",
                         column: x => x.ProjectId,
                         principalTable: "Projects",
                         principalColumn: "ProjectId",
@@ -402,7 +402,7 @@ namespace NotMyFault.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "DeveloperProject",
+                name: "DevProjs",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false),
@@ -410,15 +410,15 @@ namespace NotMyFault.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DeveloperProject", x => new { x.Id, x.ProjectId });
+                    table.PrimaryKey("PK_DevProjs", x => new { x.Id, x.ProjectId });
                     table.ForeignKey(
-                        name: "FK_DeveloperProject_AspNetUsers_Id",
+                        name: "FK_DevProjs_AspNetUsers_Id",
                         column: x => x.Id,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_DeveloperProject_Projects_ProjectId",
+                        name: "FK_DevProjs_Projects_ProjectId",
                         column: x => x.ProjectId,
                         principalTable: "Projects",
                         principalColumn: "ProjectId",
@@ -788,13 +788,13 @@ namespace NotMyFault.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_BuyerProject_ProjectId",
-                table: "BuyerProject",
+                name: "IX_BuyerProjs_ProjectId",
+                table: "BuyerProjs",
                 column: "ProjectId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DeveloperProject_ProjectId",
-                table: "DeveloperProject",
+                name: "IX_DevProjs_ProjectId",
+                table: "DevProjs",
                 column: "ProjectId");
 
             migrationBuilder.CreateIndex(
@@ -973,10 +973,10 @@ namespace NotMyFault.Migrations
                 name: "BankDetails");
 
             migrationBuilder.DropTable(
-                name: "BuyerProject");
+                name: "BuyerProjs");
 
             migrationBuilder.DropTable(
-                name: "DeveloperProject");
+                name: "DevProjs");
 
             migrationBuilder.DropTable(
                 name: "DevRecruits");

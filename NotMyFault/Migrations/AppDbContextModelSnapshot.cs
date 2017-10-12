@@ -471,7 +471,7 @@ namespace NotMyFault.Migrations
 
                     b.HasIndex("ProjectId");
 
-                    b.ToTable("BuyerProject");
+                    b.ToTable("BuyerProjs");
                 });
 
             modelBuilder.Entity("NotMyFault.Models.UserRelated.DeveloperProject", b =>
@@ -484,7 +484,7 @@ namespace NotMyFault.Migrations
 
                     b.HasIndex("ProjectId");
 
-                    b.ToTable("DeveloperProject");
+                    b.ToTable("DevProjs");
                 });
 
             modelBuilder.Entity("NotMyFault.Models.UserRelated.DeveloperRecruitment", b =>
@@ -886,7 +886,7 @@ namespace NotMyFault.Migrations
             modelBuilder.Entity("NotMyFault.Models.UserRelated.BuyerProject", b =>
                 {
                     b.HasOne("NotMyFault.Models.UserRelated.Buyer", "Buyer")
-                        .WithMany("ProjsUnderNego")
+                        .WithMany("MyWatchingProj")
                         .HasForeignKey("Id")
                         .OnDelete(DeleteBehavior.Restrict);
 

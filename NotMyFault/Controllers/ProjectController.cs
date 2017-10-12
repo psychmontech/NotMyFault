@@ -30,8 +30,8 @@ namespace NotMyFault.Controllers
                 Capacity = _ProjRepo.GetCapacityById(id),
                 RepoLink = _ProjRepo.GetRepoLinkById(id),
                 ProtdCompDate = _ProjRepo.GetProCompDateById(id),
-                ProjLeader = _ProjRepo.GetProjLeaderById(id)
-                //MyDevs = _ProjRepo.GetMyDevsById(id)
+                ProjLeader = _ProjRepo.GetProjLeaderById(id),
+                MyDevs = _ProjRepo.GetMyDevsById(id)
 
             };
             //System.Diagnostics.Debug.WriteLine(devHomeViewModel.MyLeadingProjects[1].ProjName);

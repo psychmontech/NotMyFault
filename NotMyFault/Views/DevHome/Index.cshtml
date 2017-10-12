@@ -13,7 +13,11 @@
 <table>
     @foreach (var proj in Model.MyInvolvedProjects)
     {
-        <tr><td>@proj.ProjName</td></tr>
+        <tr>
+            <td>
+                <a asp-controller="Project" asp-action="Index" asp-route-id="@proj.ProjectId">@proj.ProjName</a> 
+            </td>
+        </tr>
     }
 </table>
 <br>
@@ -21,7 +25,11 @@
 <table>
     @foreach (var proj in Model.MyLeadingProjects)
     {
-        <tr><td>@proj.ProjName</td></tr>
+        <tr>
+            <td>
+                <a asp-controller="Project" asp-action="Index" asp-route-id="@proj.ProjectId">@proj.ProjName</a>
+            </td>
+        </tr>
     }
 </table>
 <br>
@@ -29,7 +37,11 @@
 <table>
     @foreach (var proj in Model.MyFollowingProjects)
     {
-        <tr><td>@proj.ProjName</td></tr>
+        <tr>
+            <td>
+                <a asp-controller="Project" asp-action="Index" asp-route-id="@proj.ProjectId">@proj.ProjName</a>
+            </td>
+        </tr>
     }
 </table>
 <br>

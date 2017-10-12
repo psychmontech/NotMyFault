@@ -23,13 +23,13 @@ namespace NotMyFault.Models.Repository.Interface
         DateTime GetStartDateById(int id);
         DateTime GetNxtMeetDateById(int id);    
         DateTime GetProCompDateById(int id);
-        ICollection<DeveloperProject> GetMyDevsById(int id);
+        ICollection<Developer> GetMyDevsById(int id);
         ICollection<Recruitment> GetMyRecruitsById(int id);
         ICollection<PublicOpinion> GetMyPubOpinById(int id);
         ICollection<Negotiation> GetMyNegosById(int id);
         ICollection<Like> GetMyLikesById(int id);
-        ICollection<BuyerProject> GetMyWatchersById(int id);
-        ICollection<UserProject> GetMyFollowersById(int id);
+        ICollection<Buyer> GetMyWatchersById(int id);
+        ICollection<User> GetMyFollowersById(int id);
         Transaction GetMyTranById(int id);
         Distribution GetMyDistributById(int id);
         Developer GetProjLeaderById(int id);
