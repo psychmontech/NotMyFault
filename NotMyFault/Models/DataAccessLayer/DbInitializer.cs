@@ -73,7 +73,7 @@ Developer firstDev = context.Devs.Find(1);
 Developer secDev = context.Devs.Find(2);
 Project proj = new Project { ProjName = "handyApp", BriefDescript = "this app is handy", Initiator = firstDev, ProjLeader = secDev };
 Buyer Buybuy = new Buyer { UserName = "Rob L", NickName = "Bert", Country = "NZ", Region = "AUK", CompanyName = "Taitee" };
-Buybuy.ProjsUnderNego = new ICollection<BuyerProject>
+Buybuy.MyWatchingProj = new ICollection<BuyerProject>
 {
     new BuyerProject {
     Buyer = Buybuy,

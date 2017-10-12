@@ -42,7 +42,7 @@ namespace NotMyFault.Models.UserRelated
     {
         public string CompanyName { get; set; }
         public string CompanyAddr { get; set; }
-        public virtual ICollection<BuyerProject> ProjsUnderNego { get; set; }
+        public virtual ICollection<BuyerProject> MyWatchingProj { get; set; }
         public int Earnest { get; set; }
         public virtual ICollection<Negotiation> MyNegos { get; set; }
         public virtual ICollection<Transaction> AssociateTrans { get; set; }

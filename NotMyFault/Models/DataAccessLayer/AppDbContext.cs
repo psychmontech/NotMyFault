@@ -243,7 +243,7 @@ namespace NotMyFault.Models.DataAccessLayer
                 .OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<BuyerProject>()
                 .HasOne(dp => dp.Buyer)
-                .WithMany(p => p.ProjsUnderNego)
+                .WithMany(p => p.MyWatchingProj)
                 .HasForeignKey(dp => dp.Id)
                 .OnDelete(DeleteBehavior.Restrict);
 

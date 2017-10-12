@@ -34,7 +34,7 @@ namespace NotMyFault.Models.Repository
         public int GetEarnestById(int id) => _appDbContext.Buyers.FirstOrDefault(p => p.Id == id).Earnest;
         public ICollection<UserProject> GetMyFollowingsById(int id) => _appDbContext.Buyers.FirstOrDefault(p => p.Id == id).MyFollowings;
         public ICollection<SupptNAlleg> GetMySupNAllegById(int id) => _appDbContext.Buyers.FirstOrDefault(p => p.Id == id).MySupNAlleg;
-        public ICollection<BuyerProject> GetProjsUnderNego(int id) => _appDbContext.Buyers.FirstOrDefault(p => p.Id == id).ProjsUnderNego;
+        public ICollection<BuyerProject> GetMyWatchingProjs(int id) => _appDbContext.Buyers.FirstOrDefault(p => p.Id == id).MyWatchingProj;
         public ICollection<Negotiation> GetMyNegos(int id) => _appDbContext.Buyers.FirstOrDefault(p => p.Id == id).MyNegos;
 
         public void SetUsernameById(int id, string username)

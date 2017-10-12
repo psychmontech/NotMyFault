@@ -15,7 +15,6 @@ namespace NotMyFault.Controllers
     public class DevHomeController : Controller
     {
         public IDevRepo _DevRepo { get; set; }
-        public IHttpContextAccessor _HttpContextAccessor { get; set; }
         private readonly UserManager<User> _userManager;
         public DevHomeController(IDevRepo DevRepo, UserManager<User> userManager)
         {

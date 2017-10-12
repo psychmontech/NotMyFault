@@ -25,7 +25,7 @@ namespace NotMyFault.Models.Repository.Interface
         int GetEarnestById(int id);
         ICollection<SupptNAlleg> GetMySupNAllegById(int id);
         ICollection<UserProject> GetMyFollowingsById(int id); 
-        ICollection<BuyerProject> GetProjsUnderNego(int id);
+        ICollection<BuyerProject> GetMyWatchingProjs(int id);
         ICollection<Negotiation> GetMyNegos(int id);
 
         void SetUsernameById(int id, string username);

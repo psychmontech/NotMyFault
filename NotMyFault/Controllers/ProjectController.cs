@@ -20,9 +20,22 @@ namespace NotMyFault.Controllers
             _userManager = userManager;
             _ProjRepo = ProjRepo;
         }
-        public ViewResult Index()
+        public ViewResult Index(int id)
         {
-            return View();
+            var projectDevViewModel = new ProjectDevViewModel
+            {
+                ProjName = _ProjRepo.GetProjnameById(id),
+                BriefDescript = _ProjRepo.GetBriefDesById(id),
+                Progress = _ProjRepo.GetProgressById(id),
+                Capacity = _ProjRepo.GetCapacityById(id),
+                RepoLink = _ProjRepo.GetRepoLinkById(id),
+                ProtdCompDate = _ProjRepo.GetProCompDateById(id),
+                ProjLeader = _ProjRepo.GetProjLeaderById(id)
+                //MyDevs = _ProjRepo.GetMyDevsById(id)
+
+            };
+            //System.Diagnostics.Debug.WriteLine(devHomeViewModel.MyLeadingProjects[1].ProjName);
+            return View(projectDevViewModel);
         }
 
         public ViewResult CreateProject()

@@ -1,5 +1,28 @@
-﻿<h1>This is Project page</h1>
+﻿@model ProjectDevViewModel
 
+<h1>This is project @Model.ProjName</h1>
+<h3>@Model.BriefDescript</h3>
+<br>
+<h3>We currently have @Model.Capacity developers working on it</h3>
+<br>
+<h3>The projected complete date is @Model.ProtdCompDate</h3>
+<br>
+<h3>We have completed @Model.Progress of this project</h3>
+<br>
+<h3>Our developers are </h3>
+<table>
+    @foreach (var Dev in Model.MyDevs)
+    {
+        <tr><td>@Dev.NickName</td></tr>
+    }
+</table>
+<br>
+<h3>Our project leader is @Model.ProjLeader.NickName</h3>
+<br>
+<h3>Our work repository is @Model.RepoLink</h3>
+<br>
 <h3>
     <a asp-controller="DevHome" asp-action="Index" asp-route-id="home">Home</a>
 </h3>
+
+
