@@ -25,11 +25,11 @@ namespace NotMyFault.Models.Repository
         public string GetProjnameById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).ProjName;
         public string GetBriefDesById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).BriefDescript;
         public string GetFullDesById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).FullDescript;
-        public int GetCapacityById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).Capacity;
+        public int GetCapacityById(int id) => _appDbContext.DevProjs.Include(d => d.Dev).Where(p => p.ProjectId == id).ToList().Count;
         public byte GetThumbnailById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).Thumbnail;
         public byte GetGallaryById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).MyGallery;
         public string GetRepoLinkById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).RepoLink;
-        public decimal GetProgressById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).Progress;
+        public int GetProgressById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).Progress;
         public DateTime GetStartDateById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).StartingDate;
         public DateTime GetNxtMeetDateById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).NextMeetingDate;
         public DateTime GetProCompDateById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).ProtdCompDate;
@@ -42,8 +42,8 @@ namespace NotMyFault.Models.Repository
         public ICollection<User> GetMyFollowersById(int id) => _appDbContext.UserProjs.Include(b => b.User).Where(p => p.ProjectId == id).Select(d => d.User).ToList(); 
         public Transaction GetMyTranById(int id) => _appDbContext.Transactions.Include(p => p.MyProj).ToList().FirstOrDefault(c => c.MyProj.ProjectId == id);
         public Distribution GetMyDistributById(int id) => _appDbContext.Distributions.Include(p => p.MyProj).ToList().FirstOrDefault(c => c.MyProj.ProjectId == id);
-        public Developer GetProjLeaderById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).ProjLeader;
-        public Developer GetInitiatorById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).Initiator;
+        public Developer GetProjLeaderById(int id) => _appDbContext.Devs.Include(d => d.MyLeadingProjs).FirstOrDefault(d => d.MyLeadingProjs.Any(p => p.ProjectId == id));  //look at me
+        public Developer GetInitiatorById(int id) => _appDbContext.Devs.Include(d => d.MyInitiatedProjs).FirstOrDefault(d => d.MyInitiatedProjs.Any(p => p.ProjectId == id));
         public ICollection<InternalConver> GetMyConverById(int id) => _appDbContext.InternalConver.Include(p => p.MyProj).ToList().FindAll(c => c.MyProj.ProjectId == id);
 
         public int SaveProj(Project proj)
@@ -94,7 +94,7 @@ namespace NotMyFault.Models.Repository
             _appDbContext.SaveChanges();
         }
 
-        public void SetProgressById(int id, decimal progress)
+        public void SetProgressById(int id, int progress)
         {
             _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).Progress = progress;
             _appDbContext.SaveChanges();

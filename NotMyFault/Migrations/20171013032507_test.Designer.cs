@@ -12,7 +12,7 @@ using System;
 namespace NotMyFault.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20171012100804_test")]
+    [Migration("20171013032507_test")]
     partial class test
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -280,7 +280,7 @@ namespace NotMyFault.Migrations
 
                     b.Property<DateTime>("NextMeetingDate");
 
-                    b.Property<decimal>("Progress");
+                    b.Property<int>("Progress");
 
                     b.Property<string>("ProjName");
 

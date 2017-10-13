@@ -279,7 +279,7 @@ namespace NotMyFault.Migrations
 
                     b.Property<DateTime>("NextMeetingDate");
 
-                    b.Property<decimal>("Progress");
+                    b.Property<int>("Progress");
 
                     b.Property<string>("ProjName");
 

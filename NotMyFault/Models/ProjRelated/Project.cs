@@ -23,7 +23,7 @@ namespace NotMyFault.Models.ProjRelated
         public DateTime ProtdCompDate { get; set; } //projected complete date
         public byte Thumbnail { get; set; }  //profile photo
         public string RepoLink { get; set; } //github url
-        public decimal Progress { get; set; } //percentage
+        public int Progress { get; set; } //percentage
         public long Valuation { get; set; } //how much you expect from the buyer
         public virtual ICollection<Recruitment> MyRecruits { get; set; } //its a list because you may have a few vacancies 
         public virtual ICollection<InternalConver> MyConver { get; set; } //within devs

@@ -304,7 +304,7 @@ namespace NotMyFault.Migrations
                     LeaderIdForeignKey = table.Column<int>(type: "int", nullable: false),
                     MyGallery = table.Column<byte>(type: "tinyint", nullable: false),
                     NextMeetingDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Progress = table.Column<decimal>(type: "decimal(18, 2)", nullable: false),
+                    Progress = table.Column<int>(type: "int", nullable: false),
                     ProjName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ProtdCompDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     RepoLink = table.Column<string>(type: "nvarchar(max)", nullable: true),

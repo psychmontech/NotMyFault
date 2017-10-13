@@ -19,7 +19,7 @@ namespace NotMyFault.Models.Repository.Interface
         byte GetThumbnailById(int id);
         byte GetGallaryById(int id);
         string GetRepoLinkById(int id);
-        decimal GetProgressById(int id);
+        int GetProgressById(int id);
         DateTime GetStartDateById(int id);
         DateTime GetNxtMeetDateById(int id);    
         DateTime GetProCompDateById(int id);
@@ -43,7 +43,7 @@ namespace NotMyFault.Models.Repository.Interface
         void SetThumbnailById(int id, byte thumbnail);
         void SetGallaryById(int id, byte gallary);
         void SetRepoLinkById(int id, string repoLink);
-        void SetProgressById(int id, decimal progress);
+        void SetProgressById(int id, int progress);
         void SetStartDateById(int id, DateTime startingDate);
         void SetNxtMeetDateById(int id, DateTime meetingDate);
         void SetProCompDateById(int id, DateTime compDate);

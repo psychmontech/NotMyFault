@@ -31,8 +31,8 @@ namespace NotMyFault.Controllers
                 RepoLink = _ProjRepo.GetRepoLinkById(id),
                 ProtdCompDate = _ProjRepo.GetProCompDateById(id),
                 ProjLeader = _ProjRepo.GetProjLeaderById(id),
-                MyDevs = _ProjRepo.GetMyDevsById(id)
-
+                MyDevs = _ProjRepo.GetMyDevsById(id),
+                ProjStartingDate = DateTime.Now
             };
             //System.Diagnostics.Debug.WriteLine(devHomeViewModel.MyLeadingProjects[1].ProjName);
             return View(projectDevViewModel);
@@ -60,10 +60,14 @@ namespace NotMyFault.Controllers
                     Visibility = createProjectViewModel.Visibility,
                     ProjLeader = thisDev,
                     Initiator = thisDev,
-                    MyDevs = devproj
+                    MyDevs = devproj,
+                    ProtdCompDate = createProjectViewModel.ProtdCompDate,
+                    StartingDate = DateTime.Now,
+                    RepoLink = createProjectViewModel.RepoLink,
+                    Progress = 0
                 };
                 _ProjRepo.SaveProj(proj);
-                return RedirectToAction("Index", "Project");
+                return RedirectToAction("Index", "Project", new { id = proj.ProjectId });
             }
             return View(createProjectViewModel);
         }

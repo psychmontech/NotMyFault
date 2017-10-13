@@ -14,9 +14,10 @@ namespace NotMyFault.ViewModels
         public string BriefDescript { get; set; }
         public int Capacity { get; set; }
         public string RepoLink { get; set; }
-        public decimal Progress { get; set; }
+        public int Progress { get; set; }
         public Developer ProjLeader { get; set; }
         public ICollection<Developer> MyDevs { get; set; }
         public DateTime ProtdCompDate { get; set; }
+        public DateTime ProjStartingDate { get; set; }
     }
 }
