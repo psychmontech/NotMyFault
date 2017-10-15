@@ -4,6 +4,7 @@ using NotMyFault.Models.ProjRelated;
 using NotMyFault.Models.Repository.Interface;
 using NotMyFault.Models.UserRelated;
 using NotMyFault.ViewModels;
+using NotMyFault.Constants;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -70,6 +71,25 @@ namespace NotMyFault.Controllers
                 return RedirectToAction("Index", "Project", new { id = proj.ProjectId });
             }
             return View(createProjectViewModel);
+        }
+
+        public ViewResult SearchProjects()
+        {
+            SearchProjectsViewModel SearchProjectsViewModel = new SearchProjectsViewModel
+            {
+                Projects = _ProjRepo.GetProjs(ProjSearchCriteria.ByOpenDate, ProjSearchCriteria.OpenOnly, null)
+            };
+            return View(SearchProjectsViewModel);
+        }
+
+        [HttpPost]
+        public ViewResult SearchProjects(SearchProjectsViewModel SearchProjectsViewModel)
+        {
+            SearchProjectsViewModel SearchProjectsViewModel_New = new SearchProjectsViewModel
+            {
+                Projects = _ProjRepo.GetProjs(SearchProjectsViewModel.SortBy, SearchProjectsViewModel.Status, SearchProjectsViewModel.words)
+            };
+            return View(SearchProjectsViewModel_New);
         }
     }
 }

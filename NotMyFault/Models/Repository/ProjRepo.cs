@@ -19,8 +19,22 @@ namespace NotMyFault.Models.Repository
         {
             _appDbContext = appDbContext;
         }
-        public ICollection<Project> Projs => _appDbContext.Projects.Include(c => c.ProjectId).
-            OrderByDescending(x => x.StartingDate).ToList();
+
+
+
+        /**********************  under construction *****************************************************/
+        public ICollection<Project> GetProjs(int by, int status, string words)
+        {
+            return _appDbContext.Projects.OrderByDescending(x => x.StartingDate).ToList();
+        }
+        public ICollection<Project> GetProjsByStartDate => _appDbContext.Projects.OrderByDescending(x => x.StartingDate).ToList();
+        public ICollection<Project> GetProjsByValuation => _appDbContext.Projects.OrderByDescending(x => x.Valuation).ToList();
+        public ICollection<Project> GetProjsByPopularity => _appDbContext.Projects.OrderByDescending(x => x.MyLikes.Count).ToList();
+        public ICollection<Project> GetProjsByProgress => _appDbContext.Projects.OrderByDescending(x => x.Progress).ToList();
+        /**********************  under construction *****************************************************/
+
+
+
         public Project GetProjById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id);
         public string GetProjnameById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).ProjName;
         public string GetBriefDesById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).BriefDescript;

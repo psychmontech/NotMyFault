@@ -5,7 +5,7 @@
 <br>
 <h3>We currently have @Model.Capacity developers working on it</h3>
 <br>
-<h3>This project was started on @Model.ProjStartingDate and the projected complete date is @Model.ProtdCompDate. We have completed @Model.Progress% of it</h3>
+<h3>This project was started on @Model.ProjStartingDate.ToString("dd/MM/yyy") and we have completed @Model.Progress%. The projected complete date is @Model.ProtdCompDate.ToString("dd/MM/yyy").</h3>
 <br>
 <h3>Our developers are </h3>
 <table>
@@ -20,7 +20,7 @@
 <h3>Our work repository is @Model.RepoLink</h3>
 <br>
 <h3>
-    <a asp-controller="DevHome" asp-action="Index" asp-route-id="home">Home</a>
+    <a asp-controller="DevHome" asp-action="Index">Home</a>
 </h3>
 
 

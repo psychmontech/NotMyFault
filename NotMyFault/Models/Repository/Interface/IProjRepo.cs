@@ -10,7 +10,7 @@ namespace NotMyFault.Models.Repository.Interface
 {
     public interface IProjRepo
     {
-        ICollection<Project> Projs { get; }
+        ICollection<Project> GetProjs(int by, int status, string words);
         Project GetProjById(int id);
         string GetProjnameById(int id);
         string GetBriefDesById(int id);
