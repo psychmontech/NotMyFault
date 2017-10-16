@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using NotMyFault.Models.Repository.Interface;
+using NotMyFault.Constants;
 
 namespace NotMyFault.Models.Repository
 {
@@ -20,20 +21,70 @@ namespace NotMyFault.Models.Repository
             _appDbContext = appDbContext;
         }
 
-
-
-        /**********************  under construction *****************************************************/
         public ICollection<Project> GetProjs(int by, int status, string words)
         {
-            return _appDbContext.Projects.OrderByDescending(x => x.StartingDate).ToList();
+            List<int> st = new List<int>();
+            switch (status)
+            {
+                case  ProjSearchCriteria.CompletedOnly:
+                    st.Add(ProjStatus.Completed);
+                    break;
+
+                case ProjSearchCriteria.All:
+                    st.Add(ProjStatus.Completed);
+                    st.Add(ProjStatus.Preparing);
+                    st.Add(ProjStatus.Recruiting);
+                    st.Add(ProjStatus.Under_Development);
+                    st.Add(ProjStatus.Under_Negotiation);
+                    st.Add(ProjStatus.Transaction_Processing);
+                    break;
+
+                case ProjSearchCriteria.OpenInclSusp:
+                    st.Add(ProjStatus.Preparing);
+                    st.Add(ProjStatus.Recruiting);
+                    st.Add(ProjStatus.Under_Development);
+                    st.Add(ProjStatus.Under_Negotiation);
+                    st.Add(ProjStatus.Transaction_Processing);
+                    st.Add(ProjStatus.Suspended);
+                    break;
+
+                case ProjSearchCriteria.AllInclSusp:
+                    st.Add(ProjStatus.Completed);
+                    st.Add(ProjStatus.Preparing);
+                    st.Add(ProjStatus.Recruiting);
+                    st.Add(ProjStatus.Under_Development);
+                    st.Add(ProjStatus.Under_Negotiation);
+                    st.Add(ProjStatus.Transaction_Processing);
+                    st.Add(ProjStatus.Suspended);
+                    break;
+
+                default:
+                    st.Add(ProjStatus.Preparing);
+                    st.Add(ProjStatus.Recruiting);
+                    st.Add(ProjStatus.Under_Development);
+                    st.Add(ProjStatus.Under_Negotiation);
+                    st.Add(ProjStatus.Transaction_Processing);
+                    break;
+            }
+            switch (by)
+            {
+                case ProjSearchCriteria.ByPopularity:
+                    return _appDbContext.Projects.Where(x => st.Contains(x.Status) && (words == null || (x.ProjName.Contains(words) 
+                        || x.BriefDescript.Contains(words) || x.FullDescript.Contains(words)))).OrderByDescending(x => x.MyLikes.Count).ToList();
+
+                case ProjSearchCriteria.ByProgress:
+                    return _appDbContext.Projects.Where(x => st.Contains(x.Status) && (words == null || (x.ProjName.Contains(words) 
+                        || x.BriefDescript.Contains(words) || x.FullDescript.Contains(words)))).OrderByDescending(x => x.Progress).ToList();
+
+                case ProjSearchCriteria.ByValuation:
+                    return _appDbContext.Projects.Where(x => st.Contains(x.Status) && (words == null || (x.ProjName.Contains(words) 
+                        || x.BriefDescript.Contains(words) || x.FullDescript.Contains(words)))).OrderByDescending(x => x.Valuation).ToList();
+
+                default:
+                    return _appDbContext.Projects.Where(x => st.Contains(x.Status) && (words == null || (x.ProjName.Contains(words) 
+                        || x.BriefDescript.Contains(words) || x.FullDescript.Contains(words)))).OrderByDescending(x => x.StartingDate).ToList();
+            }
         }
-        public ICollection<Project> GetProjsByStartDate => _appDbContext.Projects.OrderByDescending(x => x.StartingDate).ToList();
-        public ICollection<Project> GetProjsByValuation => _appDbContext.Projects.OrderByDescending(x => x.Valuation).ToList();
-        public ICollection<Project> GetProjsByPopularity => _appDbContext.Projects.OrderByDescending(x => x.MyLikes.Count).ToList();
-        public ICollection<Project> GetProjsByProgress => _appDbContext.Projects.OrderByDescending(x => x.Progress).ToList();
-        /**********************  under construction *****************************************************/
-
-
 
         public Project GetProjById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id);
         public string GetProjnameById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).ProjName;

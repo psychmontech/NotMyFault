@@ -25,10 +25,10 @@
         <label asp-for="Visibility" class="col-md-2 control-label"></label>
         <div class="col-md-10">
             <select asp-for="Visibility">
-                <option value=3>Visible To Everyone</option>
-                <option value=2>Visible To All Users</option>
-                <option value=1>Only Visible To Buyers</option>
-                <option value=0>Invisible</option>
+                <option value=@ProjVisibility.Visible_To_Everyone>Visible To Everyone</option>
+                <option value=@ProjVisibility.Visible_To_All_Users>Visible To All Users</option>
+                <option value=@ProjVisibility.Only_Visible_To_Buyers>Only Visible To Buyers</option>
+                <option value=@ProjVisibility.Invisible>Invisible</option>
             </select>
         </div>
     </div>

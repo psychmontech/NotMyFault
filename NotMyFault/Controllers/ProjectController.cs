@@ -62,10 +62,11 @@ namespace NotMyFault.Controllers
                     ProjLeader = thisDev,
                     Initiator = thisDev,
                     MyDevs = devproj,
+                    Status = ProjStatus.Preparing,
                     ProtdCompDate = createProjectViewModel.ProtdCompDate,
                     StartingDate = DateTime.Now,
                     RepoLink = createProjectViewModel.RepoLink,
-                    Progress = 0
+                    Progress = 1
                 };
                 _ProjRepo.SaveProj(proj);
                 return RedirectToAction("Index", "Project", new { id = proj.ProjectId });
@@ -87,7 +88,7 @@ namespace NotMyFault.Controllers
         {
             SearchProjectsViewModel SearchProjectsViewModel_New = new SearchProjectsViewModel
             {
-                Projects = _ProjRepo.GetProjs(SearchProjectsViewModel.SortBy, SearchProjectsViewModel.Status, SearchProjectsViewModel.words)
+                Projects = _ProjRepo.GetProjs(SearchProjectsViewModel.SortBy, SearchProjectsViewModel.StatusFilter, SearchProjectsViewModel.words)
             };
             return View(SearchProjectsViewModel_New);
         }
