@@ -14,6 +14,6 @@ namespace NotMyFault.ViewModels
         public int SortBy { get; set; }
         [Display(Name = "Status filter")]
         public int StatusFilter { get; set; }
-        public string words { get; set; }
+        public string KeyWords { get; set; }
     }
 }

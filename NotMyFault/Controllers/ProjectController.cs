@@ -66,7 +66,7 @@ namespace NotMyFault.Controllers
                     ProtdCompDate = createProjectViewModel.ProtdCompDate,
                     StartingDate = DateTime.Now,
                     RepoLink = createProjectViewModel.RepoLink,
-                    Progress = 1
+                    Progress = 0
                 };
                 _ProjRepo.SaveProj(proj);
                 return RedirectToAction("Index", "Project", new { id = proj.ProjectId });
@@ -76,21 +76,21 @@ namespace NotMyFault.Controllers
 
         public ViewResult SearchProjects()
         {
-            SearchProjectsViewModel SearchProjectsViewModel = new SearchProjectsViewModel
+            SearchProjectsViewModel searchProjectsViewModel = new SearchProjectsViewModel
             {
                 Projects = _ProjRepo.GetProjs(ProjSearchCriteria.ByOpenDate, ProjSearchCriteria.OpenOnly, null)
             };
-            return View(SearchProjectsViewModel);
+            return View(searchProjectsViewModel);
         }
 
         [HttpPost]
-        public ViewResult SearchProjects(SearchProjectsViewModel SearchProjectsViewModel)
+        public ViewResult SearchProjects(SearchProjectsViewModel searchProjectsViewModel)
         {
-            SearchProjectsViewModel SearchProjectsViewModel_New = new SearchProjectsViewModel
+            SearchProjectsViewModel searchProjectsViewModel_New = new SearchProjectsViewModel
             {
-                Projects = _ProjRepo.GetProjs(SearchProjectsViewModel.SortBy, SearchProjectsViewModel.StatusFilter, SearchProjectsViewModel.words)
+                Projects = _ProjRepo.GetProjs(searchProjectsViewModel.SortBy, searchProjectsViewModel.StatusFilter, searchProjectsViewModel.KeyWords)
             };
-            return View(SearchProjectsViewModel_New);
+            return View(searchProjectsViewModel_New);
         }
     }
 }

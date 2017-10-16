@@ -27,7 +27,8 @@
     </div>
     <br>
     <div class="form-actions no-color">
-        Search projects with key words: <input type="text" name="SearchString" value=@Model.words />
+        Search projects with key words: 
+        <input asp-for="KeyWords" class="form-control" />
         <input type="submit" value="Search" class="btn btn-default" /> |
         <a asp-action="SearchProjects">Back to Recently opened</a> | 
         <a asp-controller="DevHome" asp-action="Index">Home</a>
@@ -35,18 +36,15 @@
 </form>
 <br>
 <table>
+    <tr>
+        <th>Project Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+        <th>Starting Date&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+        <th>Valuation&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+        <th>Status&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+        <th>Progress&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+    </tr>
     @foreach (var proj in Model.Projects)
     {
-        <tr>
-            <th>Project Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-            <th>Starting Date&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-            <th>Status&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-            <th>Progress&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-        </tr>
-
-
-
-
         <tr>
             <td>
                 <a asp-controller="Project" asp-action="Index" asp-route-id="@proj.ProjectId">@proj.ProjName</a>
@@ -56,61 +54,63 @@
                 @proj.StartingDate.ToString("dd/MM/yyy")
             </td>
 
+            <td>
+                @proj.Valuation
+            </td>
+
             @switch (proj.Status)
             {
                 case ProjStatus.Aborted:
                     <td>
                         Abort
                     </td>
-                    return;
+                    break;
 
                 case ProjStatus.Completed:
                     <td>
                         Complelted
                     </td>
-                    return;
+                    break;
 
                 case ProjStatus.Preparing:
                     <td>
                         Preparing
                     </td>
-                    return;
+                    break;
 
                 case ProjStatus.Recruiting:
                     <td>
                         Recruiting
                     </td>
-                    return;
+                    break;
 
                 case ProjStatus.Suspended:
                     <td>
                         Suspended
                     </td>
-                    return;
+                    break;
 
                 case ProjStatus.Transaction_Processing:
                     <td>
                         Transaction Processing
                     </td>
-                    return;
+                    break;
 
                 case ProjStatus.Under_Development:
                     <td>
                         Under Development
                     </td>
-                    return;
+                    break;
 
                 case ProjStatus.Under_Negotiation:
                     <td>
                         Under Negotiation
                     </td>
-                    return;
+                    break;
             }
-
             <td>
-                @proj.Progress
+                @proj.Progress%
             </td>
-
         </tr>
     }
 </table>
