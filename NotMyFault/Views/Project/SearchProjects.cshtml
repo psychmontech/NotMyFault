@@ -30,7 +30,7 @@
         Search projects with key words: 
         <input asp-for="KeyWords" class="form-control" />
         <input type="submit" value="Search" class="btn btn-default" /> |
-        <a asp-action="SearchProjects">Back to Recently opened</a> | 
+        <a asp-controller="Project" asp-action="SearchProjects">Back to Recently opened</a> | 
         <a asp-controller="DevHome" asp-action="Index">Home</a>
     </div>
 </form>

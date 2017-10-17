@@ -22,6 +22,18 @@ namespace NotMyFault.Controllers
         }
 
         [AllowAnonymous]
+        public async Task<IActionResult> Start()
+        {
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            if (_signInManager.IsSignedIn(HttpContext.User))
+            {
+                if (user.Role == UserRole.Dev) return RedirectToAction("Index", "DevHome");
+                if (user.Role == UserRole.Buyer) return RedirectToAction("Index", "BuyerHome");
+            }
+            return View();
+        }
+
+        [AllowAnonymous]
         public IActionResult Login(string returnUrl)
         {
             return View(new LoginViewModel
@@ -85,6 +97,7 @@ namespace NotMyFault.Controllers
             return View(devRegisterViewModel);
         }
 
+        [AllowAnonymous]
         public IActionResult BuyerRegister()
         {
             return View();
@@ -118,7 +131,7 @@ namespace NotMyFault.Controllers
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
-            return RedirectToAction("Login", "Account");
+            return RedirectToAction("Start", "Account");
         }
     }
 }

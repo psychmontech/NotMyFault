@@ -55,7 +55,7 @@ namespace NotMyFault
             {
                 routes.MapRoute(
                 name: "default",
-                template: "{controller=Account}/{action=Login}/{id?}");
+                template: "{controller=Account}/{action=Start}/{id?}");
             });
 
             //DbInitializer.Seed(app);

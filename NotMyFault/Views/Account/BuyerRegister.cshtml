@@ -1,7 +1,10 @@
 ﻿@model BuyerRegisterViewModel
+@{
+    Layout = null;
+}
 
 <form asp-controller="Account" asp-action="BuyerRegister" method="post" class="form-horizontal" role="form">
-    <h4>Create a new account</h4>
+    Create a new investor account | <a asp-controller="Account" asp-action="Start">Cancel</a> 
     <div asp-validation-summary="All" class="text-danger" style="color:red"></div>
     <hr />
     @*<div asp-validation-summary="All" class="text-danger"></div>*@

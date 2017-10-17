@@ -1,0 +1,28 @@
+﻿@model User
+
+<form asp-area="" asp-controller="Account" asp-action="Logout" method="post" id="logoutForm" class="navbar-right">
+    <div class="form-group">
+        <font size="3" color="blue">
+            Hi
+        </font>
+
+        <font size="3" color="red">
+            @Model.NickName
+        </font>
+        
+        @if (Model.Role == UserRole.Dev)
+        {
+            <font size="3" color="blue">
+                , remember if you accidentally changed the world it's not your fault!
+            </font>
+        }
+        else
+        {
+            <font size="3" color="blue">
+                , have a nice day!
+            </font>
+        }
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="submit" name="login" value="Log off" />
+    </div>
+</form>

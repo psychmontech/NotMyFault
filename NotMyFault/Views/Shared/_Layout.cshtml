@@ -5,20 +5,9 @@
     <title>@ViewBag.Title</title>
 </head>
 <body>
-    <form asp-controller="Account" asp-action="Logout" method="post" class="form-horizontal" role="form">
-        <div class="form-group">         
-            <div class="col-md-offset-2 col-md-10">
-                <label>
-                    <font size="3" color="blue">
-                        If you accidentally changed the world, remember it's not your fault &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        sign in as @ViewBag.userName
-                    </font> 
-                </label>
-                <input type="submit" name="Logout" value="Log out"/>                                                                                                                                                                                                                                                                                
-            </div>
-        </div>
-    </form>
+    <div class="navbar-collapse collapse">
+        <vc:login-status></vc:login-status>
+    </div>  
     <hr />
     <div>
         @RenderBody()

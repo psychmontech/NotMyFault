@@ -35,7 +35,7 @@ namespace NotMyFault.Controllers
                 MyDevs = _ProjRepo.GetMyDevsById(id),
                 ProjStartingDate = DateTime.Now
             };
-            //System.Diagnostics.Debug.WriteLine(devHomeViewModel.MyLeadingProjects[1].ProjName);
+            //System.Diagnostics.Debug.WriteLine("$$$$$$$$$$$$$$$$$$$$$" + "Hello world");
             return View(projectDevViewModel);
         }
 
