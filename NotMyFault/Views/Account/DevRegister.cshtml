@@ -1,13 +1,7 @@
 ﻿@model DevRegisterViewModel
-@{
-    Layout = null;
-}
 
 <form asp-controller="Account" asp-action="DevRegister" method="post" class="form-horizontal" role="form">
-    Create a new developer account | <a asp-controller="Account" asp-action="Start">Cancel</a> 
     <div asp-validation-summary="All" class="text-danger" style="color:red"></div>
-    <hr />
-    @*<div asp-validation-summary="All" class="text-danger"></div>*@
     <div class="form-group">
         <label asp-for="UserName" class="col-md-2 control-label"></label>
         <div class="col-md-10">

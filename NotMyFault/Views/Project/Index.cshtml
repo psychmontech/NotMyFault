@@ -1,26 +1,26 @@
 ﻿@model ProjectDevViewModel
 
-<h1>This is project @Model.ProjName</h1>
-<h3>@Model.BriefDescript</h3>
+<a asp-controller="DevHome" asp-action="Index">Home</a>
+
+<h1>Project @Model.ProjName</h1>
+@Model.BriefDescript
 <br>
-<h3>We currently have @Model.Capacity developers working on it</h3>
+We currently have @Model.Capacity developers working on it
 <br>
-<h3>This project was started on @Model.ProjStartingDate.ToString("dd/MM/yyy") and we have completed @Model.Progress%. The projected complete date is @Model.ProtdCompDate.ToString("dd/MM/yyy").</h3>
+This project was started on @Model.ProjStartingDate.ToString("dd/MM/yyy") and we have completed @Model.Progress%. The projected complete date is @Model.ProtdCompDate.ToString("dd/MM/yyy").
 <br>
-<h3>Our developers are </h3>
-<table>
-    @foreach (var Dev in Model.MyDevs)
-    {
-        <tr><td>@Dev.NickName</td></tr>
-    }
-</table>
+Developers are:
+@foreach (var Dev in Model.MyDevs)
+{
+    <font>@Dev.NickName&nbsp;</font>
+}
 <br>
-<h3>Our project leader is @Model.ProjLeader.NickName</h3>
+Project leader is @Model.ProjLeader.NickName
 <br>
-<h3>Our work repository is @Model.RepoLink</h3>
+Our work repository is @Model.RepoLink
 <br>
-<h3>
-    <a asp-controller="DevHome" asp-action="Index">Home</a>
-</h3>
+
+
+
 
 

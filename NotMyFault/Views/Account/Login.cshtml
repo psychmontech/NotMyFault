@@ -1,11 +1,6 @@
 ﻿@model LoginViewModel
-@{
-    Layout = null;
-}
 
 <form asp-controller="Account" asp-action="Login" method="post" class="form-horizontal" role="form">
-    Pleaes enter your username and password | <a asp-controller="Account" asp-action="Start">Cancel</a> 
-    <hr />
     <div asp-validation-summary="All" class="text-danger" style="color:red"></div>
     <input type="hidden" asp-for="ReturnUrl" />
 
@@ -26,8 +21,6 @@
     </div>
     <br>
     <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" name="login" value="Log in" />
-        </div>
+        <input type="submit" name="login" value="Log in" />
     </div>
 </form>

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using NotMyFault.Models.UserRelated;
+using Microsoft.AspNetCore.Http.Extensions;
 using NotMyFault.ViewModels;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -20,9 +21,6 @@ namespace NotMyFault.Components
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            //string Category = RouteData.Values["id"] as string;
-            //@await Component.InvokeAsync("LatestArticle", new { parameter = "test" })
-            //@Context.Request.Host @Context.Request.Path
             if (_signInManager.IsSignedIn(HttpContext.User))
             {
                 var user = await _userManager.GetUserAsync(HttpContext.User);
@@ -30,7 +28,14 @@ namespace NotMyFault.Components
             }
             else
             {
-                return View();
+                NonLoggedInViewModel nonLoggedInViewModel = new NonLoggedInViewModel
+                {
+                    Controller = ViewContext.RouteData.Values["controller"].ToString(),
+                    Action = ViewContext.RouteData.Values["action"].ToString()
+                };
+
+                System.Diagnostics.Debug.WriteLine("$$$$$$$$$$$$$$$$$$$$$" + nonLoggedInViewModel.Controller + nonLoggedInViewModel.Action);
+                return View(nonLoggedInViewModel);
             }
         }
     }
