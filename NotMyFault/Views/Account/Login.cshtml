@@ -1,26 +1,26 @@
 ﻿@model LoginViewModel
 
-<form asp-controller="Account" asp-action="Login" method="post" class="form-horizontal" role="form">
-    <div asp-validation-summary="All" class="text-danger" style="color:red"></div>
+<form asp-controller="Account" asp-action="Login" method="post" role="form">
+    <div asp-validation-summary="All" style="color:red"></div>
     <input type="hidden" asp-for="ReturnUrl" />
 
-    <div class="form-group">
-        <label asp-for="UserName" class="col-md-2 control-label"></label>
-        <div class="col-md-10">
-            <input asp-for="UserName" class="form-control" />
-            <span asp-validation-for="UserName" class="text-danger" style="color:red"></span>
+    <div >
+        <label asp-for="UserName"></label>
+        <div>
+            <input asp-for="UserName"/>
+            <span asp-validation-for="UserName" style="color:red"></span>
         </div>
     </div>
     <br>
-    <div class="form-group">
-        <label asp-for="Password" class="col-md-2 control-label"></label>
-        <div class="col-md-10">
-            <input asp-for="Password" class="form-control" />
-            <span asp-validation-for="Password" class="text-danger" style="color:red"></span>
+    <div >
+        <label asp-for="Password"></label>
+        <div>
+            <input asp-for="Password"/>
+            <span asp-validation-for="Password" style="color:red"></span>
         </div>
     </div>
     <br>
-    <div class="form-group">
+    <div>
         <input type="submit" name="login" value="Log in" />
     </div>
 </form>

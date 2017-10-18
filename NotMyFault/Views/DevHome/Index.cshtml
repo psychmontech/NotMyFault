@@ -1,9 +1,9 @@
 ﻿@model DevHomeViewModel
 
 <h1>This is developer Home page</h1>
-<form asp-controller="Project" asp-action="CreateProject" method="get" class="form-horizontal" role="form">
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
+<form asp-controller="Project" asp-action="CreateProject" method="get" role="form">
+    <div>
+        <div>
             <input type="submit" name="newProject" value="New Project" /> |
             <a asp-controller="Project" asp-action="SearchProjects">Recently opened projects</a>
         </div>

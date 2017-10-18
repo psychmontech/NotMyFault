@@ -1,9 +1,9 @@
 ﻿@model SearchProjectsViewModel
 
-<form asp-controller="Project" asp-action="SearchProjects" method="post" class="form-horizontal" role="form">
-    <div class="form-group">
-        <label asp-for="SortBy" class="col-md-2 control-label"></label>
-        <div class="col-md-10">
+<form asp-controller="Project" asp-action="SearchProjects" method="post" role="form">
+    <div>
+        <label asp-for="SortBy"></label>
+        <div>
             <select asp-for="SortBy">
                 <option value=@ProjSearchCriteria.ByOpenDate>OpenDate</option>
                 <option value=@ProjSearchCriteria.ByPopularity>Popularity</option>
@@ -13,9 +13,9 @@
         </div>
     </div>
     <br>
-    <div class="form-group">
-        <label asp-for="StatusFilter" class="col-md-2 control-label"></label>
-        <div class="col-md-10">
+    <div>
+        <label asp-for="StatusFilter"></label>
+        <div>
             <select asp-for="StatusFilter">
                 <option value=@ProjSearchCriteria.OpenOnly>Open Only</option>
                 <option value=@ProjSearchCriteria.All>All</option>
@@ -26,10 +26,10 @@
         </div>
     </div>
     <br>
-    <div class="form-actions no-color">
+    <div>
         Search projects with key words: 
-        <input asp-for="KeyWords" class="form-control" />
-        <input type="submit" value="Search" class="btn btn-default" /> |
+        <input asp-for="KeyWords"/>
+        <input type="submit" value="Search"/> |
         <a asp-controller="Project" asp-action="SearchProjects">Recently opened</a> | 
         <a asp-controller="DevHome" asp-action="Index">Home</a>
     </div>

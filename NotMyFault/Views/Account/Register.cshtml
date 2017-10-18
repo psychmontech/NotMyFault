@@ -16,103 +16,103 @@
     }
 </script>
 
-<form asp-controller="Account" asp-action="Register" method="post" class="form-horizontal" role="form">
-    <div asp-validation-summary="All" class="text-danger" style="color:red"></div>
-    <div class="form-group">
-        <label asp-for="Role" class="col-md-2 control-label"></label>
-        <div class="col-md-10">
+<form asp-controller="Account" asp-action="Register" method="post" role="form">
+    <div asp-validation-summary="All" style="color:red"></div>
+    <div>
+        <label asp-for="Role"></label>
+        <div>
             Developer <input asp-for="Role" type="radio" value="@UserRole.Dev" onclick="javascript:devBuyerCheck();" id="devCheck">
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             Investor <input asp-for="Role" type="radio" value="@UserRole.Buyer" onclick="javascript:devBuyerCheck();" id="buyerCheck">
-            <span asp-validation-for="Role" class="text-danger" style="color:red"></span>
+            <span asp-validation-for="Role" style="color:red"></span>
         </div>
     </div>
     <br>
-    <div class="form-group">
-        <label asp-for="UserName" class="col-md-2 control-label"></label>
-        <div class="col-md-10">
-            <input asp-for="UserName" class="form-control" />
-            <span asp-validation-for="UserName" class="text-danger" style="color:red"></span>
+    <div>
+        <label asp-for="UserName"></label>
+        <div>
+            <input asp-for="UserName" />
+            <span asp-validation-for="UserName" style="color:red"></span>
         </div>
     </div>
     <br>
-    <div class="form-group">
-        <label asp-for="Password" class="col-md-2 control-label"></label>
-        <div class="col-md-10">
-            <input asp-for="Password" class="form-control" />
-            <span asp-validation-for="Password" class="text-danger" style="color:red"></span>
+    <div>
+        <label asp-for="Password"></label>
+        <div>
+            <input asp-for="Password" />
+            <span asp-validation-for="Password" style="color:red"></span>
         </div>
     </div>
     <br>
-    <div class="form-group">
-        <label asp-for="ConfirmPassword" class="col-md-2 control-label"></label>
-        <div class="col-md-10">
-            <input asp-for="ConfirmPassword" class="form-control" />
-            <span asp-validation-for="ConfirmPassword" class="text-danger" style="color:red"></span>
+    <div>
+        <label asp-for="ConfirmPassword"></label>
+        <div>
+            <input asp-for="ConfirmPassword" />
+            <span asp-validation-for="ConfirmPassword" style="color:red"></span>
         </div>
     </div>
     <br>
-    <div class="form-group">
-        <label asp-for="NickName" class="col-md-2 control-label"></label>
-        <div class="col-md-10">
-            <input asp-for="NickName" class="form-control" />
-            <span asp-validation-for="NickName" class="text-danger" style="color:red"></span>
+    <div>
+        <label asp-for="NickName"></label>
+        <div>
+            <input asp-for="NickName" />
+            <span asp-validation-for="NickName" style="color:red"></span>
         </div>
     </div>
     <br>
-    <div class="form-group">
-        <label asp-for="Email" class="col-md-2 control-label"></label>
-        <div class="col-md-10">
-            <input asp-for="Email" class="form-control" />
-            <span asp-validation-for="Email" class="text-danger" style="color:red"></span>
+    <div>
+        <label asp-for="Email"></label>
+        <div>
+            <input asp-for="Email" />
+            <span asp-validation-for="Email" style="color:red"></span>
         </div>
     </div>
     <br>
-    <div class="form-group">
-        <label asp-for="ConfirmEmail" class="col-md-2 control-label"></label>
-        <div class="col-md-10">
-            <input asp-for="ConfirmEmail" class="form-control" />
-            <span asp-validation-for="ConfirmEmail" class="text-danger" style="color:red"></span>
+    <div>
+        <label asp-for="ConfirmEmail"></label>
+        <div>
+            <input asp-for="ConfirmEmail" />
+            <span asp-validation-for="ConfirmEmail" style="color:red"></span>
         </div>
     </div>
     <br>
-    <div class="form-group">
-        <label asp-for="Country" class="col-md-2 control-label"></label>
-        <div class="col-md-10">
-            <input asp-for="Country" class="form-control" />
+    <div>
+        <label asp-for="Country"></label>
+        <div>
+            <input asp-for="Country" />
         </div>
     </div>
     <br>
-    <div class="form-group">
-        <label asp-for="Region" class="col-md-2 control-label"></label>
-        <div class="col-md-10">
-            <input asp-for="Region" class="form-control" />
+    <div>
+        <label asp-for="Region"></label>
+        <div>
+            <input asp-for="Region" />
         </div>
     </div>
     <br>
-    <div class="form-group" id="ifBuyer" style="display:none">
-        <label asp-for="CompanyName" class="col-md-2 control-label"></label>
-        <div class="col-md-10">
-            <input asp-for="CompanyName" class="form-control" />
+    <div id="ifBuyer" style="display:none">
+        <label asp-for="CompanyName"></label>
+        <div>
+            <input asp-for="CompanyName" />
         </div>
         <br>
-        <label asp-for="CompanyAddr" class="col-md-2 control-label"></label>
-        <div class="col-md-10">
-            <input asp-for="CompanyAddr" class="form-control" />
+        <label asp-for="CompanyAddr"></label>
+        <div>
+            <input asp-for="CompanyAddr" />
         </div>
         <br>
     </div>
-    <div class="form-group" id="ifDev" style="display:none">
-        <label asp-for="SelfIntro" class="col-md-2 control-label"></label>
-        <div class="col-md-10">
+    <div id="ifDev" style="display:none">
+        <label asp-for="SelfIntro"></label>
+        <div>
             <textarea asp-for="SelfIntro" rows="15" cols="50"></textarea>
-            <span asp-validation-for="SelfIntro" class="text-danger" style="color:red"></span>
+            <span asp-validation-for="SelfIntro" style="color:red"></span>
         </div>
         <br>
     </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-primary" value="Register" />
+    <div>
+        <div>
+            <input type="submit" value="Register" />
         </div>
     </div>
 </form>
