@@ -98,13 +98,13 @@ namespace NotMyFault.Models.Repository
         public DateTime GetStartDateById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).StartingDate;
         public DateTime GetNxtMeetDateById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).NextMeetingDate;
         public DateTime GetProCompDateById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).ProtdCompDate;
-        public ICollection<Developer> GetMyDevsById(int id) => _appDbContext.DevProjs.Include(d => d.Dev).Where(p => p.ProjectId == id).Select(d => d.Dev).ToList(); //look at me
+        public ICollection<Developer> GetMyDevsById(int id) => _appDbContext.DevProjs.Where(p => p.ProjectId == id).Select(d => d.Dev).ToList(); //look at me
         public ICollection<Recruitment> GetMyRecruitsById(int id) => _appDbContext.Recruitments.Include(p => p.MyProj).ToList().FindAll(c => c.MyProj.ProjectId == id);
         public ICollection<PublicOpinion> GetMyPubOpinById(int id) => _appDbContext.PublicOpinions.Include(p => p.MyProj).ToList().FindAll(c => c.MyProj.ProjectId == id); //look at me
         public ICollection<Negotiation> GetMyNegosById(int id) => _appDbContext.Negotiations.Include(p => p.MyProj).ToList().FindAll(c => c.MyProj.ProjectId == id);
         public ICollection<Like> GetMyLikesById(int id) => _appDbContext.Likes.Include(p => p.MyProj).ToList().FindAll(c => c.MyProj.ProjectId == id);
-        public ICollection<Buyer> GetMyWatchersById(int id) => _appDbContext.BuyerProjs.Include(b => b.Buyer).Where(p => p.ProjectId == id).Select(d => d.Buyer).ToList(); 
-        public ICollection<User> GetMyFollowersById(int id) => _appDbContext.UserProjs.Include(b => b.User).Where(p => p.ProjectId == id).Select(d => d.User).ToList(); 
+        public ICollection<Buyer> GetMyWatchersById(int id) => _appDbContext.BuyerProjs.Where(p => p.ProjectId == id).Select(d => d.Buyer).ToList(); 
+        public ICollection<User> GetMyFollowersById(int id) => _appDbContext.UserProjs.Where(p => p.ProjectId == id).Select(d => d.User).ToList(); 
         public Transaction GetMyTranById(int id) => _appDbContext.Transactions.Include(p => p.MyProj).ToList().FirstOrDefault(c => c.MyProj.ProjectId == id);
         public Distribution GetMyDistributById(int id) => _appDbContext.Distributions.Include(p => p.MyProj).ToList().FirstOrDefault(c => c.MyProj.ProjectId == id);
         public Developer GetProjLeaderById(int id) => _appDbContext.Devs.Include(d => d.MyLeadingProjs).FirstOrDefault(d => d.MyLeadingProjs.Any(p => p.ProjectId == id));  //look at me

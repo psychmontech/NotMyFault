@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 namespace NotMyFault.Controllers
 {
@@ -16,13 +17,16 @@ namespace NotMyFault.Controllers
     {
         private readonly UserManager<User> _userManager;
         public IProjRepo _ProjRepo { get; set; }
-        public ProjectController(UserManager<User> userManager, IProjRepo ProjRepo)
+        private readonly ILogger _logger;
+        public ProjectController(UserManager<User> userManager, IProjRepo ProjRepo, ILogger<ProjectController> logger)
         {
             _userManager = userManager;
             _ProjRepo = ProjRepo;
+            _logger = logger;
         }
         public ViewResult Index(int id)
         {
+            //_logger.LogCritical(1002, "Getting item {ID}", id);
             var projectDevViewModel = new ProjectDevViewModel
             {
                 ProjName = _ProjRepo.GetProjnameById(id),
@@ -35,7 +39,6 @@ namespace NotMyFault.Controllers
                 MyDevs = _ProjRepo.GetMyDevsById(id),
                 ProjStartingDate = DateTime.Now
             };
-            //System.Diagnostics.Debug.WriteLine("$$$$$$$$$$$$$$$$$$$$$" + "Hello world");
             return View(projectDevViewModel);
         }
 

@@ -9,6 +9,7 @@ using System.Security.Claims;
 using System;
 using System.Threading.Tasks;
 using NotMyFault.Models.ProjRelated;
+using Microsoft.Extensions.Logging;
 
 namespace NotMyFault.Controllers
 {
@@ -16,10 +17,13 @@ namespace NotMyFault.Controllers
     {
         public IDevRepo _DevRepo { get; set; }
         private readonly UserManager<User> _userManager;
-        public DevHomeController(IDevRepo DevRepo, UserManager<User> userManager)
+        private readonly ILogger _logger;
+
+        public DevHomeController(IDevRepo DevRepo, UserManager<User> userManager, ILogger<ProjectController> logger)
         {
             _DevRepo = DevRepo;
             _userManager = userManager;
+            _logger = logger;
         }
         public async Task<IActionResult> Index()
         {
@@ -31,7 +35,6 @@ namespace NotMyFault.Controllers
                 MyFollowingProjects = _DevRepo.GetMyFollowingsById(user.Id),
                 MyEndors= _DevRepo.GetEndorsById(user.Id),
             };
-            //System.Diagnostics.Debug.WriteLine(devHomeViewModel.MyLeadingProjects[1].ProjName);
             return View(devHomeViewModel);  
         }
     }

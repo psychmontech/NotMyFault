@@ -28,11 +28,11 @@ namespace NotMyFault.Models.Repository
         public ICollection<Endorsment> GetEndorsById(int id) => _appDbContext.Endorsments.Include(P => P.MyDev).ToList().FindAll(c => c.MyDev.Id == id); 
         public int GetIdByName(string Name) => _appDbContext.Devs.FirstOrDefault(p => p.UserName == Name).Id;
         public string GetLinkedinById(int id) => _appDbContext.Devs.FirstOrDefault(p => p.Id == id).LinkedinUrl;
-        public ICollection<Recruitment> GetMyAppliedRolesById(int id) => _appDbContext.DevRecruits.Include(p => p.Recruit).Where(p => p.Id == id).Select(pt => pt.Recruit).ToList(); 
+        public ICollection<Recruitment> GetMyAppliedRolesById(int id) => _appDbContext.DevRecruits.Where(p => p.Id == id).Select(pt => pt.Recruit).ToList(); 
         public BankDetails GetMyBankDetailsById(int id) => _appDbContext.BankDetails.Include(P => P.MyDev).ToList().FirstOrDefault(c => c.MyDev.Id == id);
-        public ICollection<Project> GetMyFollowingsById(int id) => _appDbContext.UserProjs.Include(p => p.Proj).Where(p => p.Id == id).Select(pt => pt.Proj).ToList();
+        public ICollection<Project> GetMyFollowingsById(int id) => _appDbContext.UserProjs.Where(p => p.Id == id).Select(pt => pt.Proj).ToList();
         public ICollection<Project> GetMyLeadingProjsById(int id) => _appDbContext.Projects.Include(P => P.ProjLeader).ToList().FindAll(c => c.ProjLeader.Id == id);   //look at me :)
-        public ICollection<Project> GetMyProjsById(int id) => _appDbContext.DevProjs.Include(p=> p.Proj).Where(p => p.Id == id).Select(pt=>pt.Proj).ToList(); //look at me :))
+        public ICollection<Project> GetMyProjsById(int id) => _appDbContext.DevProjs.Where(p => p.Id == id).Select(pt=>pt.Proj).ToList(); //look at me :))
         public ICollection<Review> GetMyReviewsById(int id) => _appDbContext.Reviews.Include(P => P.MyReviewee).ToList().FindAll(c => c.MyReviewee.Id == id);
         public string GetSelfIntroById(int id) => _appDbContext.Devs.FirstOrDefault(p => p.Id == id).SelfIntro;
         public ICollection<SupptNAlleg> GetMySupNAllegById(int id) => _appDbContext.SupptNAllegs.Include(P => P.MyUser).ToList().FindAll(c => c.MyUser.Id == id);
