@@ -1,7 +1,33 @@
-﻿@model DevRegisterViewModel
+﻿@model RegisterViewModel
 
-<form asp-controller="Account" asp-action="DevRegister" method="post" class="form-horizontal" role="form">
+<script type="text/javascript">
+    function devBuyerCheck()
+    {
+        if (document.getElementById('devCheck').checked)
+        {
+            document.getElementById('ifDev').style.display = 'block';
+            document.getElementById('ifBuyer').style.display = 'none';
+        }
+        else
+        {
+            document.getElementById('ifDev').style.display = 'none';
+            document.getElementById('ifBuyer').style.display = 'block';
+        }
+    }
+</script>
+
+<form asp-controller="Account" asp-action="Register" method="post" class="form-horizontal" role="form">
     <div asp-validation-summary="All" class="text-danger" style="color:red"></div>
+    <div class="form-group">
+        <label asp-for="Role" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            Developer <input asp-for="Role" type="radio" value="@UserRole.Dev" onclick="javascript:devBuyerCheck();" id="devCheck">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Investor <input asp-for="Role" type="radio" value="@UserRole.Buyer" onclick="javascript:devBuyerCheck();" id="buyerCheck">
+            <span asp-validation-for="Role" class="text-danger" style="color:red"></span>
+        </div>
+    </div>
+    <br>
     <div class="form-group">
         <label asp-for="UserName" class="col-md-2 control-label"></label>
         <div class="col-md-10">
@@ -64,15 +90,26 @@
         </div>
     </div>
     <br>
-    <div class="form-group">
+    <div class="form-group" id="ifBuyer" style="display:none">
+        <label asp-for="CompanyName" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="CompanyName" class="form-control" />
+        </div>
+        <br>
+        <label asp-for="CompanyAddr" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="CompanyAddr" class="form-control" />
+        </div>
+        <br>
+    </div>
+    <div class="form-group" id="ifDev" style="display:none">
         <label asp-for="SelfIntro" class="col-md-2 control-label"></label>
         <div class="col-md-10">
             <textarea asp-for="SelfIntro" rows="15" cols="50"></textarea>
             <span asp-validation-for="SelfIntro" class="text-danger" style="color:red"></span>
         </div>
-
+        <br>
     </div>
-    <br>
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <input type="submit" class="btn btn-primary" value="Register" />

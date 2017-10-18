@@ -1,9 +1,18 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using NotMyFault.Constants;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace NotMyFault.ViewModels
 {
-    public class BuyerRegisterViewModel
+    public class RegisterViewModel
     {
+        [Range(UserRole.Dev, UserRole.Buyer, ErrorMessage = "Please select one")]
+        [Display(Name = "Please select the type of account to register")]
+        public int Role { get; set; }
+
         [Required(ErrorMessage = "The user name is required"), MaxLength(20)]
         [Display(Name = "User name")]
         public string UserName { get; set; }
@@ -32,18 +41,20 @@ namespace NotMyFault.ViewModels
         [Display(Name = "Confirm Email")]
         public string ConfirmEmail { get; set; }
 
-        [Display(Name = "Company name")]
-        public string CompanyName { get; set; }
-
-        [Display(Name = "Company address")]
-        public string CompanyAddr { get; set; }
-
         [Display(Name = "Country")]
         public string Country { get; set; }
 
         [Display(Name = "Region")]
         public string Region { get; set; }
 
-        public string ReturnUrl { get; set; }
+        [Display(Name = "Company name")]
+        public string CompanyName { get; set; }
+
+        [Display(Name = "Company address")]
+        public string CompanyAddr { get; set; }
+
+        [MaxLength(400)]
+        [Display(Name = "Self introduction, skills etc")]
+        public string SelfIntro { get; set; }
     }
 }

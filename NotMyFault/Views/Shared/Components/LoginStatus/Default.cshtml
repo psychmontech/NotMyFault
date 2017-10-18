@@ -10,20 +10,10 @@
     </div>
 }
 
-else if (Model.Controller == "Account" && Model.Action == "DevRegister")
+else if (Model.Controller == "Account" && Model.Action == "Register")
 {
     <div style="text-align:left;">
-        Create a new developer account
-        <span style="float:right;">
-            <a asp-controller="Account" asp-action="Start">Cancel</a>
-        </span>
-    </div>
-}
-
-else if (Model.Controller == "Account" && Model.Action == "BuyerRegister")
-{
-    <div style="text-align:left;">
-        Create a new investor account
+        Create a new account
         <span style="float:right;">
             <a asp-controller="Account" asp-action="Start">Cancel</a>
         </span>
@@ -33,9 +23,7 @@ else if (Model.Controller == "Account" && Model.Action == "BuyerRegister")
 else
 {
     <div align="right">
-        <a asp-area="" asp-controller="Account" asp-action="DevRegister">Register for developer</a>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <a asp-area="" asp-controller="Account" asp-action="BuyerRegister">Register for investor</a>
+        <a asp-area="" asp-controller="Account" asp-action="Register">Register</a>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <a asp-area="" asp-controller="Account" asp-action="Login">Log in</a>
     </div>

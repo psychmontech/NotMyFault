@@ -14,8 +14,7 @@ namespace NotMyFault.Controllers
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
 
-        public AccountController(UserManager<User> userManager,
-            SignInManager<User> signInManager)
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -69,7 +68,7 @@ namespace NotMyFault.Controllers
         }
 
         [AllowAnonymous]
-        public IActionResult DevRegister()
+        public IActionResult Register()
         {
             return View();
         }
@@ -77,54 +76,43 @@ namespace NotMyFault.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [AllowAnonymous]
-        public async Task<IActionResult> DevRegister(DevRegisterViewModel devRegisterViewModel)
+        public async Task<IActionResult> Register(RegisterViewModel registerViewModel)
         {
             if (ModelState.IsValid)
             {
-                var dev = new Developer()
+                if (registerViewModel.Role == UserRole.Dev)
                 {
-                    UserName = devRegisterViewModel.UserName,
-                    Role = UserRole.Dev,
-                    NickName = devRegisterViewModel.NickName,
-                    Email = devRegisterViewModel.Email,
-                    Country = devRegisterViewModel.Country,
-                    Region = devRegisterViewModel.Region,
-                    SelfIntro = devRegisterViewModel.SelfIntro 
-                };
-                var result = await _userManager.CreateAsync(dev, devRegisterViewModel.Password);
-                return result.Succeeded? RedirectToAction("Login", "Account") : RedirectToAction("Index", "ErrorPage");
-            }
-            return View(devRegisterViewModel);
-        }
-
-        [AllowAnonymous]
-        public IActionResult BuyerRegister()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [AllowAnonymous]
-        public async Task<IActionResult> BuyerRegister(BuyerRegisterViewModel buyerRegisterViewModel)
-        {
-            if (ModelState.IsValid)
-            {
-                var dev = new Buyer()
+                    var dev = new Developer()
+                    {
+                        UserName = registerViewModel.UserName,
+                        Role = UserRole.Dev,
+                        NickName = registerViewModel.NickName,
+                        Email = registerViewModel.Email,
+                        Country = registerViewModel.Country,
+                        Region = registerViewModel.Region,
+                        SelfIntro = registerViewModel.SelfIntro
+                    };
+                    var result = await _userManager.CreateAsync(dev, registerViewModel.Password);
+                    return result.Succeeded ? RedirectToAction("Login", "Account") : RedirectToAction("Index", "ErrorPage");
+                }
+                else if (registerViewModel.Role == UserRole.Buyer)
                 {
-                    UserName = buyerRegisterViewModel.UserName,
-                    Role = UserRole.Buyer,
-                    NickName = buyerRegisterViewModel.NickName,
-                    Email = buyerRegisterViewModel.Email,
-                    CompanyName = buyerRegisterViewModel.CompanyName,
-                    CompanyAddr = buyerRegisterViewModel.CompanyAddr,
-                    Country = buyerRegisterViewModel.Country,
-                    Region = buyerRegisterViewModel.Region,
-                };
-                var result = await _userManager.CreateAsync(dev, buyerRegisterViewModel.Password);
-                return result.Succeeded ? RedirectToAction("Login", "Account") : RedirectToAction("Index", "ErrorPage");
+                    var buyer = new Buyer()
+                    {
+                        UserName = registerViewModel.UserName,
+                        Role = UserRole.Buyer,
+                        NickName = registerViewModel.NickName,
+                        Email = registerViewModel.Email,
+                        CompanyName = registerViewModel.CompanyName,
+                        CompanyAddr = registerViewModel.CompanyAddr,
+                        Country = registerViewModel.Country,
+                        Region = registerViewModel.Region,
+                    };
+                    var result = await _userManager.CreateAsync(buyer, registerViewModel.Password);
+                    return result.Succeeded ? RedirectToAction("Login", "Account") : RedirectToAction("Index", "ErrorPage");
+                }
             }
-            return View(buyerRegisterViewModel);
+            return View(registerViewModel);
         }
 
         public async Task<IActionResult> Logout()

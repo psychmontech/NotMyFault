@@ -34,7 +34,6 @@ namespace NotMyFault.Components
                     Action = ViewContext.RouteData.Values["action"].ToString()
                 };
 
-                System.Diagnostics.Debug.WriteLine("$$$$$$$$$$$$$$$$$$$$$" + nonLoggedInViewModel.Controller + nonLoggedInViewModel.Action);
                 return View(nonLoggedInViewModel);
             }
         }
