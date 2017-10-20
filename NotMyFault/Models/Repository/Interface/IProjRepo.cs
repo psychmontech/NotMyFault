@@ -20,6 +20,9 @@ namespace NotMyFault.Models.Repository.Interface
         byte GetGallaryById(int id);
         string GetRepoLinkById(int id);
         int GetProgressById(int id);
+        long GetValuationById(int id);
+        int GetVisibilityById(int id);
+        int GetStatusById(int id);
         DateTime GetStartDateById(int id);
         DateTime GetNxtMeetDateById(int id);    
         DateTime GetProCompDateById(int id);
@@ -35,11 +38,11 @@ namespace NotMyFault.Models.Repository.Interface
         Developer GetProjLeaderById(int id);
         Developer GetInitiatorById(int id);
         ICollection<InternalConver> GetMyConverById(int id);
-        int SaveProj(Project proj);
+        int AddProj(Project proj);
+        int UpdateProj(Project proj);
         void SetProjNameById(int id, string projName);
         void SetBriefDesById(int id, string briefDes);
         void SetFullDesById(int id, string fullDes);
-        void SetCapacityById(int id, int capacity);
         void SetThumbnailById(int id, byte thumbnail);
         void SetGallaryById(int id, byte gallary);
         void SetRepoLinkById(int id, string repoLink);

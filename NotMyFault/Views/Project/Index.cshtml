@@ -1,13 +1,52 @@
 ﻿@model ProjectDevViewModel
 
-<a asp-controller="DevHome" asp-action="Index">Home</a>
+<a asp-controller="DevHome" asp-action="Index">Home</a> &nbsp;|
+<a asp-controller="Project" asp-action="UpdateProject" asp-route-id="@Model.projId">Updatae project</a>
 
 <h1>Project @Model.ProjName</h1>
 @Model.BriefDescript
 <br>
 We currently have @Model.Capacity developers working on it
 <br>
-This project was started on @Model.ProjStartingDate.ToString("dd/MM/yyy") and we have completed @Model.Progress%. The projected complete date is @Model.ProtdCompDate.ToString("dd/MM/yyy").
+This project was started on @Model.ProjStartingDate.ToString("dd/MM/yyy") and we have completed @Model.Progress%. The complete date is @Model.ProtdCompDate.ToString("dd/MM/yyy").
+This project is currently 
+@switch (Model.Status)
+{
+    case ProjStatus.Aborted:
+        <font>Abort</font>
+        break;
+
+    case ProjStatus.Completed:
+        <font>Complelted</font>
+        break;
+
+    case ProjStatus.Preparing:
+        <font>Preparing</font>
+        break;
+
+    case ProjStatus.Recruiting:
+        <font>Recruiting</font>
+        break;
+
+    case ProjStatus.Suspended:
+        <font>Suspended</font>
+        break;
+
+    case ProjStatus.Transaction_Processing:
+        <font>Transaction Processing</font>
+        break;
+
+    case ProjStatus.Under_Development:
+        <font>Under Development</font>
+        break;
+
+    case ProjStatus.Under_Negotiation:
+        <font>Under Negotiation</font>
+        break;
+}
+
+<br>
+This project is evaluated at $@Model.Valuation. 
 <br>
 Developers are:
 @foreach (var Dev in Model.MyDevs)

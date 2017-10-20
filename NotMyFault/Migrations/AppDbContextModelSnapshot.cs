@@ -265,8 +265,6 @@ namespace NotMyFault.Migrations
 
                     b.Property<string>("BriefDescript");
 
-                    b.Property<int>("Capacity");
-
                     b.Property<int>("DeveloperForeignKey");
 
                     b.Property<string>("FullDescript");

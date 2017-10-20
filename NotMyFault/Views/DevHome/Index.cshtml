@@ -1,14 +1,10 @@
 ﻿@model DevHomeViewModel
 
 <h1>This is developer Home page</h1>
-<form asp-controller="Project" asp-action="CreateProject" method="get" role="form">
-    <div>
-        <div>
-            <input type="submit" name="newProject" value="New Project" /> |
-            <a asp-controller="Project" asp-action="SearchProjects">Recently opened projects</a>
-        </div>
-    </div>
-</form>
+<a asp-controller="Project" asp-action="CreateProject">Create a project</a> &nbsp;|
+<a asp-controller="Project" asp-action="SearchProjects">View other people's projects</a> &nbsp;|
+<a asp-controller="Account" asp-action="EditUserProfile">Edit profile</a>
+
 <br>
 <h3>My working projects</h3>
 <table>

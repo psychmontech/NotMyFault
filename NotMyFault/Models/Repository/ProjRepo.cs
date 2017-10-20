@@ -95,6 +95,9 @@ namespace NotMyFault.Models.Repository
         public byte GetGallaryById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).MyGallery;
         public string GetRepoLinkById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).RepoLink;
         public int GetProgressById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).Progress;
+        public int GetStatusById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).Status;
+        public int GetVisibilityById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).Visibility;
+        public long GetValuationById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).Valuation;
         public DateTime GetStartDateById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).StartingDate;
         public DateTime GetNxtMeetDateById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).NextMeetingDate;
         public DateTime GetProCompDateById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).ProtdCompDate;
@@ -111,9 +114,14 @@ namespace NotMyFault.Models.Repository
         public Developer GetInitiatorById(int id) => _appDbContext.Devs.Include(d => d.MyInitiatedProjs).FirstOrDefault(d => d.MyInitiatedProjs.Any(p => p.ProjectId == id));
         public ICollection<InternalConver> GetMyConverById(int id) => _appDbContext.InternalConver.Include(p => p.MyProj).ToList().FindAll(c => c.MyProj.ProjectId == id);
 
-        public int SaveProj(Project proj)
+        public int AddProj(Project proj)
         {
             _appDbContext.Projects.Add(proj);
+            return _appDbContext.SaveChanges();
+        }
+
+        public int UpdateProj(Project proj)
+        {
             return _appDbContext.SaveChanges();
         }
 
@@ -132,12 +140,6 @@ namespace NotMyFault.Models.Repository
         public void SetFullDesById(int id, string fullDes)
         {
             _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).FullDescript = fullDes;
-            _appDbContext.SaveChanges();
-        }
-
-        public void SetCapacityById(int id, int capacity)
-        {
-            _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).Capacity = capacity;
             _appDbContext.SaveChanges();
         }
 

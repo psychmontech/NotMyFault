@@ -27,17 +27,21 @@ namespace NotMyFault.Controllers
         public ViewResult Index(int id)
         {
             //_logger.LogCritical(1002, "Getting item {ID}", id);
+            var proj = _ProjRepo.GetProjById(id);
             var projectDevViewModel = new ProjectDevViewModel
             {
-                ProjName = _ProjRepo.GetProjnameById(id),
-                BriefDescript = _ProjRepo.GetBriefDesById(id),
-                Progress = _ProjRepo.GetProgressById(id),
+                projId = id,
+                ProjName = proj.ProjName,
+                BriefDescript = proj.BriefDescript,
+                Progress = proj.Progress,
+                RepoLink = proj.RepoLink,
+                Valuation = proj.Valuation,
+                Status = proj.Status,
+                ProtdCompDate = proj.ProtdCompDate,
+                ProjStartingDate = proj.StartingDate,
                 Capacity = _ProjRepo.GetCapacityById(id),
-                RepoLink = _ProjRepo.GetRepoLinkById(id),
-                ProtdCompDate = _ProjRepo.GetProCompDateById(id),
                 ProjLeader = _ProjRepo.GetProjLeaderById(id),
-                MyDevs = _ProjRepo.GetMyDevsById(id),
-                ProjStartingDate = DateTime.Now
+                MyDevs = _ProjRepo.GetMyDevsById(id)
             };
             return View(projectDevViewModel);
         }
@@ -71,7 +75,7 @@ namespace NotMyFault.Controllers
                     RepoLink = createProjectViewModel.RepoLink,
                     Progress = 0
                 };
-                _ProjRepo.SaveProj(proj);
+                _ProjRepo.AddProj(proj);
                 return RedirectToAction("Index", "Project", new { id = proj.ProjectId });
             }
             return View(createProjectViewModel);
@@ -94,6 +98,45 @@ namespace NotMyFault.Controllers
                 Projects = _ProjRepo.GetProjs(searchProjectsViewModel.SortBy, searchProjectsViewModel.StatusFilter, searchProjectsViewModel.KeyWords)
             };
             return View(searchProjectsViewModel_New);
+        }
+
+        public ViewResult UpdateProject(int id)
+        {
+            var proj = _ProjRepo.GetProjById(id);
+            UpdateProjectViewModel updateProjectViewModel = new UpdateProjectViewModel
+            {
+                ProjId = id,
+                ProtdCompDate = proj.ProtdCompDate,
+                FullDescript = proj.FullDescript,
+                Progress = proj.Progress,
+                RepoLink = proj.RepoLink,
+                Valuation = proj.Valuation,
+                Visibility = proj.Visibility,
+                Status = proj.Status
+            };
+            return View(updateProjectViewModel);
+        }
+
+        [HttpPost]
+        public IActionResult UpdateProject(UpdateProjectViewModel updateProjectViewModel)
+        {
+            var proj = _ProjRepo.GetProjById(updateProjectViewModel.ProjId);
+
+            if (ModelState.IsValid)
+            {
+                proj.ProtdCompDate = updateProjectViewModel.ProtdCompDate;
+                proj.FullDescript = updateProjectViewModel.FullDescript;
+                proj.Progress = updateProjectViewModel.Progress;
+                proj.RepoLink = updateProjectViewModel.RepoLink;
+                proj.Valuation = updateProjectViewModel.Valuation;
+                proj.Visibility = updateProjectViewModel.Visibility;
+                proj.Status = updateProjectViewModel.Status;
+
+                _ProjRepo.UpdateProj(proj);
+                return RedirectToAction("Index", "Project", new { id = proj.ProjectId });
+            }
+
+            return View(updateProjectViewModel);
         }
     }
 }

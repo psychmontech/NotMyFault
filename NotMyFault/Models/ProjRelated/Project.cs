@@ -15,7 +15,6 @@ namespace NotMyFault.Models.ProjRelated
         public string FullDescript { get; set; }
         public virtual ICollection<DeveloperProject> MyDevs { get; set; }
         public DateTime StartingDate { get; set; }
-        public int Capacity { get; set; } //how many developers
         public Developer ProjLeader { get; set; }
         public Developer Initiator { get; set; }
         public byte MyGallery { get; set; } //for ad

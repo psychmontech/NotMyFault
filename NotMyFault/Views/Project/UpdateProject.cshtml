@@ -1,0 +1,80 @@
+﻿@model UpdateProjectViewModel
+
+<a asp-controller="DevHome" asp-action="Index">Cancel</a>
+
+<form asp-controller="Project" asp-action="UpdateProject" method="post" role="form">
+    <div asp-validation-summary="All" style="color:red"></div>
+    <div>
+        <label asp-for="ProtdCompDate"></label>
+        <div>
+            <input asp-for="ProtdCompDate" />
+            <span asp-validation-for="ProtdCompDate" style="color:red"></span>
+        </div>
+    </div>
+    <br>
+    <div>
+        <label asp-for="Visibility"></label>
+        <div>
+            <select asp-for="Visibility">
+                <option value=@ProjVisibility.Visible_To_Everyone>Visible To Everyone</option>
+                <option value=@ProjVisibility.Visible_To_All_Users>Visible To All Users</option>
+                <option value=@ProjVisibility.Only_Visible_To_Buyers>Only Visible To Buyers</option>
+                <option value=@ProjVisibility.Invisible>Invisible</option>
+            </select>
+        </div>
+    </div>
+    <br>
+    <div>
+        <label asp-for="Status"></label>
+        <div>
+            <select asp-for="Status">
+                <option value=@ProjStatus.Aborted>Aborted</option>
+                <option value=@ProjStatus.Completed>Completed</option>
+                <option value=@ProjStatus.Preparing>Preparing</option>
+                <option value=@ProjStatus.Recruiting>Recruiting</option>
+                <option value=@ProjStatus.Suspended>Suspended</option>
+                <option value=@ProjStatus.Transaction_Processing>Transaction Processing</option>
+                <option value=@ProjStatus.Under_Development>Under Development</option>
+                <option value=@ProjStatus.Under_Negotiation>Under Negotiation</option>
+            </select>
+        </div>
+    </div>
+    <br>
+    <div>
+        <label asp-for="RepoLink"></label>
+        <div>
+            <input asp-for="RepoLink" />
+            <span asp-validation-for="RepoLink" style="color:red"></span>
+        </div>
+    </div>
+    <br>
+    <div>
+        <label asp-for="Valuation"></label>
+        <div>
+            <input asp-for="Valuation" />
+            <span asp-validation-for="Valuation" style="color:red"></span>
+        </div>
+    </div>
+    <br>
+    <div>
+        <label asp-for="Progress"></label>
+        <div>
+            <input asp-for="Progress" />
+            <span asp-validation-for="Progress" style="color:red"></span>
+        </div>
+    </div>
+    <br>
+    <div>
+        <label asp-for="FullDescript"></label>
+        <div>
+            <textarea asp-for="FullDescript" rows="15" cols="50"></textarea>
+            <span asp-validation-for="FullDescript" style="color:red"></span>
+        </div>
+    </div>
+    <br>
+    @*//need to ProjId inside the form otherwise it will become 0/null*@
+    <input type="hidden" asp-for="ProjId" name="ProjId" /> 
+    <div>
+        <input type="submit" value="Save" />
+    </div>
+</form>

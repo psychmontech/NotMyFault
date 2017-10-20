@@ -1,0 +1,83 @@
+﻿@model EditUserProfileViewModel
+
+<script type="text/javascript">
+    function devBuyerCheck()
+    {
+        if (@Model.Role == @UserRole.Dev)
+        {
+            document.getElementById('ifDev').style.display = 'block';
+            document.getElementById('ifBuyer').style.display = 'none';
+        }
+        else
+        {
+            document.getElementById('ifDev').style.display = 'none';
+            document.getElementById('ifBuyer').style.display = 'block';
+        }
+    }
+</script>
+
+@if (Model.Role == @UserRole.Dev)
+{<a asp-area="" asp-controller="DevHome" asp-action="Index">Cancel</a>}
+@if (Model.Role == @UserRole.Buyer)
+{<a asp-area="" asp-controller="BuyerHome" asp-action="Index">Cancel</a>}
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a asp-area="" asp-controller="Account" asp-action="ChangePassword">Change Password</a>
+
+<form asp-controller="Account" asp-action="EditUserProfile" method="post" role="form" onload="javascript: devBuyerCheck();">
+    <div asp-validation-summary="All" style="color:red"></div>
+    <div>
+        <label asp-for="NickName"></label>
+        <div>
+            <input asp-for="NickName" />
+            <span asp-validation-for="NickName" style="color:red"></span>
+        </div>
+    </div>
+    <br>
+    <div>
+        <label asp-for="Email"></label>
+        <div>
+            <input asp-for="Email" />
+            <span asp-validation-for="Email" style="color:red"></span>
+        </div>
+    </div>
+    <br>
+    <div>
+        <label asp-for="Country"></label>
+        <div>
+            <input asp-for="Country" />
+        </div>
+    </div>
+    <br>
+    <div>
+        <label asp-for="Region"></label>
+        <div>
+            <input asp-for="Region" />
+        </div>
+    </div>
+    <br>
+    <div id="ifBuyer" style="display:none">
+        <label asp-for="CompanyName"></label>
+        <div>
+            <input asp-for="CompanyName" />
+        </div>
+        <br>
+        <label asp-for="CompanyAddr"></label>
+        <div>
+            <input asp-for="CompanyAddr" />
+        </div>
+        <br>
+    </div>
+    <div id="ifDev" style="display:none">
+        <label asp-for="SelfIntro"></label>
+        <div>
+            <textarea asp-for="SelfIntro" rows="15" cols="50"></textarea>
+            <span asp-validation-for="SelfIntro" style="color:red"></span>
+        </div>
+        <br>
+    </div>
+    @*//need to Role inside the form otherwise it will become 0/null*@
+    <input type="hidden" asp-for="Role" name="Role" /> 
+    <div>
+        <input type="submit" value="Save" />
+    </div>
+</form>
