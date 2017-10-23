@@ -530,7 +530,7 @@ namespace NotMyFault.Migrations
 
                     b.Property<int>("ReviewerIdForeignKey");
 
-                    b.Property<string>("Stars");
+                    b.Property<int>("Stars");
 
                     b.HasKey("Timestamp");
 
@@ -688,11 +688,7 @@ namespace NotMyFault.Migrations
                 {
                     b.HasBaseType("NotMyFault.Models.UserRelated.User");
 
-                    b.Property<int>("Credit");
-
                     b.Property<string>("LinkedinUrl");
-
-                    b.Property<int>("NumProjWrkOn");
 
                     b.Property<string>("SelfIntro");
 

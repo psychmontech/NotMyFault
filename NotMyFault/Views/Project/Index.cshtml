@@ -1,6 +1,6 @@
 ﻿@model ProjectDevViewModel
 
-<a asp-controller="DevHome" asp-action="Index">Home</a> &nbsp;|
+<a asp-controller="Dev" asp-action="Index">Home</a> &nbsp;|
 <a asp-controller="Project" asp-action="UpdateProject" asp-route-id="@Model.projId">Updatae project</a>
 
 <h1>Project @Model.ProjName</h1>
@@ -51,10 +51,11 @@ This project is evaluated at $@Model.Valuation.
 Developers are:
 @foreach (var Dev in Model.MyDevs)
 {
-    <font>@Dev.NickName&nbsp;</font>
+    <a asp-controller="Dev" asp-action="ViewDevProfile" asp-route-id="@Dev.Id">@Dev.NickName&nbsp;</a>
 }
 <br>
-Project leader is @Model.ProjLeader.NickName
+Project leader is 
+<a asp-controller="Dev" asp-action="ViewDevProfile" asp-route-id="@Model.ProjLeader.Id">@Model.ProjLeader.NickName&nbsp;</a>
 <br>
 Our work repository is @Model.RepoLink
 <br>

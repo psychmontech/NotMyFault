@@ -1,0 +1,59 @@
+﻿@model DevHomeViewModel
+
+<h1>This is developer Home page</h1>
+<a asp-controller="Project" asp-action="CreateProject">Create a project</a> &nbsp;|
+<a asp-controller="Project" asp-action="SearchProjects">View other people's projects</a> &nbsp;|
+<a asp-controller="Account" asp-action="EditUserProfile">Edit profile</a>
+
+<br>
+<h3>My working projects</h3>
+<table>
+    @foreach (var proj in Model.MyInvolvedProjects)
+    {
+        <tr>
+            <td>
+                <a asp-controller="Project" asp-action="Index" asp-route-id="@proj.ProjectId">@proj.ProjName</a> 
+            </td>
+        </tr>
+    }
+</table>
+<br>
+<h3>My leading projects</h3>
+<table>
+    @foreach (var proj in Model.MyLeadingProjects)
+    {
+        <tr>
+            <td>
+                <a asp-controller="Project" asp-action="Index" asp-route-id="@proj.ProjectId">@proj.ProjName</a>
+            </td>
+        </tr>
+    }
+</table>
+<br>
+<h3>My following projects</h3>
+<table>
+    @foreach (var proj in Model.MyFollowingProjects)
+    {
+        <tr>
+            <td>
+                <a asp-controller="Project" asp-action="Index" asp-route-id="@proj.ProjectId">@proj.ProjName</a>
+            </td>
+        </tr>
+    }
+</table>
+<br>
+<h3>My endorsments</h3>
+<table>
+    @foreach (var endors in Model.MyEndors)
+    {
+        <tr><td>@endors.Subject</td></tr>
+    }
+</table>
+
+
+
+
+
+
+
+

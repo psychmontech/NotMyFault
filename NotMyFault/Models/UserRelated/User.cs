@@ -20,9 +20,7 @@ namespace NotMyFault.Models.UserRelated
 
     public class Developer : User 
     {
-        public int NumProjWrkOn { get; set; }
         public string LinkedinUrl { get; set; }
-        public int Credit { get; set; } //result of the reviews
         public string SelfIntro { get; set; } //self claim
         public virtual ICollection<Endorsment> MyEndors { get; set; } //like linkedin
         public virtual ICollection<Endorsment> EndorsIGive { get; set; } 

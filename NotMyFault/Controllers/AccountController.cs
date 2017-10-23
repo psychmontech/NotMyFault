@@ -29,8 +29,8 @@ namespace NotMyFault.Controllers
             var user = await _userManager.GetUserAsync(HttpContext.User);
             if (_signInManager.IsSignedIn(HttpContext.User))
             {
-                if (user.Role == UserRole.Dev) return RedirectToAction("Index", "DevHome");
-                if (user.Role == UserRole.Buyer) return RedirectToAction("Index", "BuyerHome");
+                if (user.Role == UserRole.Dev) return RedirectToAction("Index", "Dev");
+                if (user.Role == UserRole.Buyer) return RedirectToAction("Index", "Buyer");
             }
             return View();
         }
@@ -59,8 +59,8 @@ namespace NotMyFault.Controllers
                     {
                         if (string.IsNullOrEmpty(loginViewModel.ReturnUrl))
                         {
-                            if (user.Role == UserRole.Dev) return RedirectToAction("Index", "DevHome");
-                            if (user.Role == UserRole.Buyer) return RedirectToAction("Index", "BuyerHome");
+                            if (user.Role == UserRole.Dev) return RedirectToAction("Index", "Dev");
+                            if (user.Role == UserRole.Buyer) return RedirectToAction("Index", "Buyer");
                         }
                         return Redirect(loginViewModel.ReturnUrl);
                     }
@@ -172,7 +172,7 @@ namespace NotMyFault.Controllers
                     dev.SelfIntro = editUserProfileViewModel.SelfIntro;
 
                     var result = await _userManager.UpdateAsync(dev);
-                    return result.Succeeded ? RedirectToAction("Index", "DevHome") : RedirectToAction("Index", "ErrorPage");
+                    return result.Succeeded ? RedirectToAction("Index", "Dev") : RedirectToAction("Index", "ErrorPage");
                 }
                 else if (user.Role == UserRole.Buyer)
                 {
@@ -185,7 +185,7 @@ namespace NotMyFault.Controllers
                     buyer.CompanyAddr = editUserProfileViewModel.CompanyAddr;
 
                     var result = await _userManager.UpdateAsync(buyer);
-                    return result.Succeeded ? RedirectToAction("Index", "BuyerHome") : RedirectToAction("Index", "ErrorPage");
+                    return result.Succeeded ? RedirectToAction("Index", "Buyer") : RedirectToAction("Index", "ErrorPage");
                 }
             }
 

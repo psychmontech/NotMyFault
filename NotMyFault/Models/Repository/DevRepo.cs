@@ -20,10 +20,9 @@ namespace NotMyFault.Models.Repository
         public ICollection<Developer> Devs => _appDbContext.Devs.Include(c => c.Id).OrderBy(x => x.Id).ToList();
         public Developer GetDevById(int id) => _appDbContext.Devs.FirstOrDefault(p => p.Id == id);
         public string GetUsernameById(int id) => _appDbContext.Devs.FirstOrDefault(p => p.Id == id).UserName;
-        public int GetNumProjWrkOnById(int id) => _appDbContext.Devs.FirstOrDefault(p => p.Id == id).NumProjWrkOn;
+        public int GetNumProjWrkOnById(int id) => _appDbContext.DevProjs.Where(p => p.Id == id).Select(pt => pt.Proj).Count();
         public string GetCountryById(int id) => _appDbContext.Devs.FirstOrDefault(p => p.Id == id).Country;
         public int GetRoleById(int id) => _appDbContext.Devs.FirstOrDefault(p => p.Id == id).Role;
-        public int GetCreditById(int id) => _appDbContext.Devs.FirstOrDefault(p => p.Id == id).Credit;
         public string GetEmailById(int id) => _appDbContext.Devs.FirstOrDefault(p => p.Id == id).Email;
         public ICollection<Endorsment> GetEndorsById(int id) => _appDbContext.Endorsments.Include(P => P.MyDev).ToList().FindAll(c => c.MyDev.Id == id); 
         public int GetIdByName(string Name) => _appDbContext.Devs.FirstOrDefault(p => p.UserName == Name).Id;
@@ -39,16 +38,21 @@ namespace NotMyFault.Models.Repository
         public string GetNickNameById(int id) => _appDbContext.Devs.FirstOrDefault(p => p.Id == id).NickName;
         public string GetRegionById(int id) => _appDbContext.Devs.FirstOrDefault(p => p.Id == id).Region;
         public byte GetThumbnailById(int id) => _appDbContext.Devs.FirstOrDefault(p => p.Id == id).Thumbnail;
+        public int GetCreditById(int id)
+        {
+            ICollection<Review> Reviews = GetMyReviewsById(id);
+            int sum = 0;
+            foreach (Review rev in Reviews)
+            {
+                sum += rev.Stars;
+            }
+            return sum;
+        }
+
 
         public void SetLinkedinById(int id, string linkedinUrl)
         {
             _appDbContext.Devs.FirstOrDefault(p => p.Id == id).LinkedinUrl = linkedinUrl;
-            _appDbContext.SaveChanges();
-        }
-
-        public void SetNumProjWrkOnById(int id, int num)
-        {
-            _appDbContext.Devs.FirstOrDefault(p => p.Id == id).NumProjWrkOn = num;
             _appDbContext.SaveChanges();
         }
 

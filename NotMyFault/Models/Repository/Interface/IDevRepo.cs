@@ -33,7 +33,6 @@ namespace NotMyFault.Models.Repository.Interface
         BankDetails GetMyBankDetailsById(int id);
 
         void SetLinkedinById(int id, string linkedinUrl);
-        void SetNumProjWrkOnById(int id, int age);
         void SetUsernameById(int id, string username);
         void SetNickNameById(int id, string nickName);
         void SetCountryById(int id, string country);

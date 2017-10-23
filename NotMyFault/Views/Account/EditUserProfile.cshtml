@@ -17,9 +17,9 @@
 </script>
 
 @if (Model.Role == @UserRole.Dev)
-{<a asp-area="" asp-controller="DevHome" asp-action="Index">Cancel</a>}
+{<a asp-area="" asp-controller="Dev" asp-action="Index">Cancel</a>}
 @if (Model.Role == @UserRole.Buyer)
-{<a asp-area="" asp-controller="BuyerHome" asp-action="Index">Cancel</a>}
+{<a asp-area="" asp-controller="Buyer" asp-action="Index">Cancel</a>}
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <a asp-area="" asp-controller="Account" asp-action="ChangePassword">Change Password</a>
 

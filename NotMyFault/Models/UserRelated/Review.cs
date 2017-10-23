@@ -9,7 +9,7 @@ namespace NotMyFault.Models.UserRelated
     {
         public string Comments { get; set; }
         public DateTime Timestamp { get; set; }
-        public string Stars { get; set; }
+        public int Stars { get; set; }
         public virtual Developer MyReviewee { get; set; }
         public virtual Developer MyReviewer { get; set; }
 
