@@ -1,5 +1,21 @@
 ﻿@model ProjectDevViewModel
 
+<script type="text/javascript">
+    window.onload = function IsCurrentDevInvolvedCheck()
+    {
+        if (@Model.IsCurrentDevInvolved)
+        {
+            document.getElementById('ifInvolved').style.display = 'block';
+            document.getElementById('ifNotInvolved').style.display = 'none';
+        }
+        else
+        {
+            document.getElementById('ifInvolved').style.display = 'none';
+            document.getElementById('ifNotInvolved').style.display = 'block';
+        }
+    }
+</script>
+
 <a asp-controller="Dev" asp-action="Index">Home</a> &nbsp;|
 <a asp-controller="Project" asp-action="UpdateProject" asp-route-id="@Model.projId">Update project</a>
 
@@ -59,8 +75,12 @@ Project leader is
 <br>
 Our work repository is @Model.RepoLink
 <br>
-
-
-
-
+@if (!Model.IsCurrentDevInvolved)
+{
+    <font id="ifInvolved" style="display:block">@Model.FullDescript</font>
+    <br>
+    <form asp-controller="Project" asp-action="Like" method="post" role="form" id="ifInvolved" style="display:block">
+        <input type="submit" value="Like" />
+    </form>
+}
 

@@ -1,7 +1,7 @@
 ﻿@model EditUserProfileViewModel
 
 <script type="text/javascript">
-    function devBuyerCheck()
+    window.onload = function devBuyerCheck()
     {
         if (@Model.Role == @UserRole.Dev)
         {
@@ -16,6 +16,7 @@
     }
 </script>
 
+
 @if (Model.Role == @UserRole.Dev)
 {<a asp-area="" asp-controller="Dev" asp-action="Index">Cancel</a>}
 @if (Model.Role == @UserRole.Buyer)
@@ -23,7 +24,7 @@
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <a asp-area="" asp-controller="Account" asp-action="ChangePassword">Change Password</a>
 
-<form asp-controller="Account" asp-action="EditUserProfile" method="post" role="form" onload="javascript: devBuyerCheck();">
+<form asp-controller="Account" asp-action="EditUserProfile" method="post" role="form">
     <div asp-validation-summary="All" style="color:red"></div>
     <div>
         <label asp-for="NickName"></label>

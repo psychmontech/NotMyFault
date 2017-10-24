@@ -1,15 +1,14 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using NotMyFault.Constants;
 using NotMyFault.Models.ProjRelated;
 using NotMyFault.Models.Repository.Interface;
 using NotMyFault.Models.UserRelated;
 using NotMyFault.ViewModels;
-using NotMyFault.Constants;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
 
 namespace NotMyFault.Controllers
 {
@@ -28,7 +27,8 @@ namespace NotMyFault.Controllers
         {
             //_logger.LogCritical(1002, "Getting item {ID}", id);
             var proj = _ProjRepo.GetProjById(id);
-            var dev = (Developer) await _userManager.GetUserAsync(User);
+            var thisDev = (Developer) await _userManager.GetUserAsync(User);
+            _logger.LogCritical(1002, "Getting item {ID}", _ProjRepo.IsThisDevInvolved(thisDev, id));
             var projectDevViewModel = new ProjectDevViewModel
             {
                 projId = id,
@@ -44,7 +44,7 @@ namespace NotMyFault.Controllers
                 ProjLeader = _ProjRepo.GetProjLeaderById(id),
                 MyDevs = _ProjRepo.GetMyDevsById(id),
                 FullDescript = proj.FullDescript,
-                IsCurrentDevInvolved = _ProjRepo.IsThisDevInvolved(dev, id)
+                IsCurrentDevInvolved = _ProjRepo.IsThisDevInvolved(thisDev, id)
             };
             return View(projectDevViewModel);
         }
@@ -59,8 +59,7 @@ namespace NotMyFault.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = await _userManager.GetUserAsync(User);
-                Developer thisDev = (Developer)user;
+                Developer thisDev = (Developer) await _userManager.GetUserAsync(User);
                 ICollection<DeveloperProject> devproj = new List<DeveloperProject> { new DeveloperProject { Dev = thisDev } };
                 Project proj = new Project
                 {
