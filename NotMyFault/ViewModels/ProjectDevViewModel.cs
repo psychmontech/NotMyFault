@@ -15,6 +15,7 @@ namespace NotMyFault.ViewModels
         public string BriefDescript { get; set; }
         public int Capacity { get; set; }
         public string RepoLink { get; set; }
+        public string FullDescript { get; set; }
         public int Progress { get; set; }
         public int Status { get; set; }
         public long Valuation { get; set; }
@@ -22,5 +23,6 @@ namespace NotMyFault.ViewModels
         public ICollection<Developer> MyDevs { get; set; }
         public DateTime ProtdCompDate { get; set; }
         public DateTime ProjStartingDate { get; set; }
+        public bool IsCurrentDevInvolved { get; set; }
     }
 }

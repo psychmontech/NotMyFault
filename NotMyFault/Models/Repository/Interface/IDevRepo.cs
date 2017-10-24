@@ -31,13 +31,5 @@ namespace NotMyFault.Models.Repository.Interface
         ICollection<Review> GetMyReviewsById(int id);
         string GetSelfIntroById(int id);
         BankDetails GetMyBankDetailsById(int id);
-
-        void SetLinkedinById(int id, string linkedinUrl);
-        void SetUsernameById(int id, string username);
-        void SetNickNameById(int id, string nickName);
-        void SetCountryById(int id, string country);
-        void SetRegionById(int id, string region);
-        void SetThumbnailById(int id, byte thumbnail);
-        void SetSelfIntroById(int id, string skills);
     }
 }

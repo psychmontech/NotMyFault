@@ -38,17 +38,8 @@ namespace NotMyFault.Models.Repository.Interface
         Developer GetProjLeaderById(int id);
         Developer GetInitiatorById(int id);
         ICollection<InternalConver> GetMyConverById(int id);
+        bool IsThisDevInvolved(Developer Dev, int id); 
         int AddProj(Project proj);
         int UpdateProj(Project proj);
-        void SetProjNameById(int id, string projName);
-        void SetBriefDesById(int id, string briefDes);
-        void SetFullDesById(int id, string fullDes);
-        void SetThumbnailById(int id, byte thumbnail);
-        void SetGallaryById(int id, byte gallary);
-        void SetRepoLinkById(int id, string repoLink);
-        void SetProgressById(int id, int progress);
-        void SetStartDateById(int id, DateTime startingDate);
-        void SetNxtMeetDateById(int id, DateTime meetingDate);
-        void SetProCompDateById(int id, DateTime compDate);
     }
 }

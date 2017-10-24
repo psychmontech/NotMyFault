@@ -24,10 +24,11 @@ namespace NotMyFault.Controllers
             _ProjRepo = ProjRepo;
             _logger = logger;
         }
-        public ViewResult Index(int id)
+        public async Task<ViewResult> Index(int id)
         {
             //_logger.LogCritical(1002, "Getting item {ID}", id);
             var proj = _ProjRepo.GetProjById(id);
+            var dev = (Developer) await _userManager.GetUserAsync(User);
             var projectDevViewModel = new ProjectDevViewModel
             {
                 projId = id,
@@ -41,7 +42,9 @@ namespace NotMyFault.Controllers
                 ProjStartingDate = proj.StartingDate,
                 Capacity = _ProjRepo.GetCapacityById(id),
                 ProjLeader = _ProjRepo.GetProjLeaderById(id),
-                MyDevs = _ProjRepo.GetMyDevsById(id)
+                MyDevs = _ProjRepo.GetMyDevsById(id),
+                FullDescript = proj.FullDescript,
+                IsCurrentDevInvolved = _ProjRepo.IsThisDevInvolved(dev, id)
             };
             return View(projectDevViewModel);
         }

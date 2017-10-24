@@ -48,48 +48,5 @@ namespace NotMyFault.Models.Repository
             }
             return sum;
         }
-
-
-        public void SetLinkedinById(int id, string linkedinUrl)
-        {
-            _appDbContext.Devs.FirstOrDefault(p => p.Id == id).LinkedinUrl = linkedinUrl;
-            _appDbContext.SaveChanges();
-        }
-
-        public void SetUsernameById(int id, string username)
-        {
-            _appDbContext.Devs.FirstOrDefault(p => p.Id == id).UserName = username;
-            _appDbContext.SaveChanges();
-        }
-
-        public void SetNickNameById(int id, string nickName)
-        {
-            _appDbContext.Devs.FirstOrDefault(p => p.Id == id).NickName = nickName;
-            _appDbContext.SaveChanges();
-        }
-
-        public void SetCountryById(int id, string country)
-        {
-            _appDbContext.Devs.FirstOrDefault(p => p.Id == id).Country = country;
-            _appDbContext.SaveChanges();
-        }
-
-        public void SetRegionById(int id, string region)
-        {
-            _appDbContext.Devs.FirstOrDefault(p => p.Id == id).Region = region;
-            _appDbContext.SaveChanges();
-        }
-
-        public void SetThumbnailById(int id, byte thumbnail)
-        {
-            _appDbContext.Devs.FirstOrDefault(p => p.Id == id).Thumbnail= thumbnail;
-            _appDbContext.SaveChanges();
-        }
-
-        public void SetSelfIntroById(int id, string selfintro)
-        {
-            _appDbContext.Devs.FirstOrDefault(p => p.Id == id).SelfIntro = selfintro;
-            _appDbContext.SaveChanges();
-        }
     }
 }
