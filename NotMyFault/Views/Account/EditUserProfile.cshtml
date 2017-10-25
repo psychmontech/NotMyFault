@@ -10,8 +10,8 @@
         }
         else
         {
-            document.getElementById('ifDev').style.display = 'none';
             document.getElementById('ifBuyer').style.display = 'block';
+            document.getElementById('ifDev').style.display = 'none';
         }
     }
 </script>
@@ -77,7 +77,7 @@
         <br>
     </div>
     @*//need to Role inside the form otherwise it will become 0/null*@
-    <input type="hidden" asp-for="Role" name="Role" /> 
+    <input type="hidden" asp-for="Role" name="Role" />
     <div>
         <input type="submit" value="Save" />
     </div>

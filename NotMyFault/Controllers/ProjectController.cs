@@ -28,7 +28,6 @@ namespace NotMyFault.Controllers
             //_logger.LogCritical(1002, "Getting item {ID}", id);
             var proj = _ProjRepo.GetProjById(id);
             var thisDev = (Developer) await _userManager.GetUserAsync(User);
-            _logger.LogCritical(1002, "Getting item {ID}", _ProjRepo.IsThisDevInvolved(thisDev, id));
             var projectDevViewModel = new ProjectDevViewModel
             {
                 projId = id,
@@ -139,6 +138,12 @@ namespace NotMyFault.Controllers
             }
 
             return View(updateProjectViewModel);
+        }
+
+        [HttpPost]
+        public IActionResult Like()
+        {
+            return View();
         }
     }
 }
