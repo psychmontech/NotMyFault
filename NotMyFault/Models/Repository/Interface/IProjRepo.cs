@@ -38,7 +38,8 @@ namespace NotMyFault.Models.Repository.Interface
         Developer GetProjLeaderById(int id);
         Developer GetInitiatorById(int id);
         ICollection<InternalConver> GetMyConverById(int id);
-        bool IsThisDevInvolved(Developer Dev, int id); 
+        bool IsThisDevInvolved(Developer Dev, int id);
+        bool HasThisUserLiked(Developer dev, int id);
         int AddProj(Project proj);
         int UpdateProj(Project proj);
     }

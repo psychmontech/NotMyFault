@@ -114,6 +114,8 @@ namespace NotMyFault.Models.Repository
         public Developer GetInitiatorById(int id) => _appDbContext.Devs.Include(d => d.MyInitiatedProjs).FirstOrDefault(d => d.MyInitiatedProjs.Any(p => p.ProjectId == id));
         public ICollection<InternalConver> GetMyConverById(int id) => _appDbContext.InternalConver.Include(p => p.MyProj).ToList().FindAll(c => c.MyProj.ProjectId == id);
         public bool IsThisDevInvolved(Developer dev, int id) => GetMyDevsById(id).Contains(dev);
+        public bool HasThisUserLiked(Developer dev, int id) => _appDbContext.Likes.Include(l => l.MyProj).Include(l => l.Liker).ToList().
+                                                               FindAll(l => l.MyProj.ProjectId == id).FirstOrDefault(l => l.Liker == dev) != null;
         public int AddProj(Project proj)
         {
             _appDbContext.Projects.Add(proj);

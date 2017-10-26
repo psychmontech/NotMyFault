@@ -16,11 +16,14 @@ namespace NotMyFault.Controllers
     {
         private readonly UserManager<User> _userManager;
         public IProjRepo _ProjRepo { get; set; }
+        public ILikeRepo _LikeRepo { get; set; }
         private readonly ILogger _logger;
-        public ProjectController(UserManager<User> userManager, IProjRepo ProjRepo, ILogger<ProjectController> logger)
+        public ProjectController(UserManager<User> userManager, IProjRepo ProjRepo, ILogger<ProjectController> logger,
+                                ILikeRepo LikeRepo)
         {
             _userManager = userManager;
             _ProjRepo = ProjRepo;
+            _LikeRepo = LikeRepo;
             _logger = logger;
         }
         public async Task<ViewResult> Index(int id)
@@ -43,7 +46,8 @@ namespace NotMyFault.Controllers
                 ProjLeader = _ProjRepo.GetProjLeaderById(id),
                 MyDevs = _ProjRepo.GetMyDevsById(id),
                 FullDescript = proj.FullDescript,
-                IsCurrentDevInvolved = _ProjRepo.IsThisDevInvolved(thisDev, id)
+                IsCurrentDevInvolved = _ProjRepo.IsThisDevInvolved(thisDev, id),
+                HasCurrentUserLiked = _ProjRepo.HasThisUserLiked(thisDev, id)
             };
             return View(projectDevViewModel);
         }
@@ -140,10 +144,19 @@ namespace NotMyFault.Controllers
             return View(updateProjectViewModel);
         }
 
-        [HttpPost]
-        public IActionResult Like()
+        public async Task<IActionResult> Like(int projId)
         {
-            return View();
+            var thisProj = _ProjRepo.GetProjById(projId);
+            var thisUser = await _userManager.GetUserAsync(User);
+            Like like = new Like
+            {
+                MyProj = thisProj,
+                Liker = thisUser,
+                Timestamp = DateTime.Now,
+                IsVisitor = false
+            };
+            _LikeRepo.AddThisLike(like);
+            return RedirectToAction("Index", "Project", new { id = projId });
         }
     }
 }

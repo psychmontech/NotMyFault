@@ -24,5 +24,6 @@ namespace NotMyFault.ViewModels
         public DateTime ProtdCompDate { get; set; }
         public DateTime ProjStartingDate { get; set; }
         public bool IsCurrentDevInvolved { get; set; }
+        public bool HasCurrentUserLiked { get; set; }
     }
 }

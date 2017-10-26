@@ -9,5 +9,6 @@ namespace NotMyFault.Models.Repository.Interface
     public interface ILikeRepo
     {
         ICollection<Like> GetLikesByProjId(int id);
+        int AddThisLike(Like like);
     }
 }

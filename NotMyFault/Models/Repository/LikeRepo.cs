@@ -19,5 +19,11 @@ namespace NotMyFault.Models.Repository
         }
         public ICollection<Like> GetLikesByProjId (int id) => _appDbContext.Likes.Include(c => c.MyProj.ProjectId == id).
             OrderByDescending(x=>x.Timestamp).ToList();
+
+        public int AddThisLike(Like like)
+        {
+            _appDbContext.Likes.Add(like);
+            return _appDbContext.SaveChanges();
+        }
     }
 }

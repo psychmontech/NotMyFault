@@ -82,6 +82,15 @@ Our work repository is @Model.RepoLink
 <br>
 <font id="notInvolved1" style="display:none">@Model.FullDescript</font>
 <br>
-<form asp-controller="Project" asp-action="Like" method="post" role="form">
-    <input type="submit" value="Like" id="notInvolved2" style="display:none"/>
-</form>
+<div id="notInvolved2" style="display:none">
+    @if (@Model.HasCurrentUserLiked)
+    { <font>Liked</font>}
+    else
+    {
+        <form asp-controller="Project" asp-action="Like" asp-route-projId="@Model.projId" method="post" role="form">
+            <input type="submit" value="Like"/>
+        </form>
+    }
+</div>
+
+
