@@ -8,7 +8,7 @@ namespace NotMyFault.ViewModels
 {
     public class CreateProjectViewModel
     {
-        [Required(ErrorMessage = "The project name is required"), MaxLength(20)]
+        [Required(ErrorMessage = "The project name is required"), MaxLength(40)]
         [Display(Name = "Project name")]
         public string ProjName { get; set; }
 

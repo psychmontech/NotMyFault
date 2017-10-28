@@ -25,5 +25,6 @@ namespace NotMyFault.ViewModels
         public DateTime ProjStartingDate { get; set; }
         public bool IsCurrentDevInvolved { get; set; }
         public bool HasCurrentUserLiked { get; set; }
+        public bool HasCurrentUserFollowed { get; set; }
     }
 }

@@ -12,8 +12,8 @@ using System;
 namespace NotMyFault.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20171023091002_ini")]
-    partial class ini
+    [Migration("20171028095914_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

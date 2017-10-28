@@ -1,6 +1,12 @@
 ﻿@model RegisterViewModel
 
 <script type="text/javascript">
+    window.onload = function resetRadioButton()
+    {
+        document.getElementById('devCheck').checked = false;
+        document.getElementById('buyerCheck').checked = false;
+    }
+
     function devBuyerCheck()
     {
         if (document.getElementById('devCheck').checked)
@@ -8,7 +14,7 @@
             document.getElementById('ifDev').style.display = 'block';
             document.getElementById('ifBuyer').style.display = 'none';
         }
-        else
+        else if (document.getElementById('buyerCheck').checked)
         {
             document.getElementById('ifBuyer').style.display = 'block';
             document.getElementById('ifDev').style.display = 'none';
@@ -31,7 +37,7 @@
     <div>
         <label asp-for="UserName"></label>
         <div>
-            <input asp-for="UserName" />
+            <input asp-for="UserName" placeholder="max 20 char"/>
             <span asp-validation-for="UserName" style="color:red"></span>
         </div>
     </div>
@@ -55,7 +61,7 @@
     <div>
         <label asp-for="NickName"></label>
         <div>
-            <input asp-for="NickName" />
+            <input asp-for="NickName" placeholder="max 20 char"/>
             <span asp-validation-for="NickName" style="color:red"></span>
         </div>
     </div>
@@ -105,7 +111,7 @@
     <div id="ifDev" style="display:none">
         <label asp-for="SelfIntro"></label>
         <div>
-            <textarea asp-for="SelfIntro" rows="15" cols="50"></textarea>
+            <textarea asp-for="SelfIntro" rows="15" cols="50" placeholder="max 400 char"></textarea>
             <span asp-validation-for="SelfIntro" style="color:red"></span>
         </div>
         <br>

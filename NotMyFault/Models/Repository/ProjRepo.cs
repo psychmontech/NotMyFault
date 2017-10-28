@@ -113,9 +113,10 @@ namespace NotMyFault.Models.Repository
         public Developer GetProjLeaderById(int id) => _appDbContext.Devs.Include(d => d.MyLeadingProjs).FirstOrDefault(d => d.MyLeadingProjs.Any(p => p.ProjectId == id));  //look at me
         public Developer GetInitiatorById(int id) => _appDbContext.Devs.Include(d => d.MyInitiatedProjs).FirstOrDefault(d => d.MyInitiatedProjs.Any(p => p.ProjectId == id));
         public ICollection<InternalConver> GetMyConverById(int id) => _appDbContext.InternalConver.Include(p => p.MyProj).ToList().FindAll(c => c.MyProj.ProjectId == id);
-        public bool IsThisDevInvolved(Developer dev, int id) => GetMyDevsById(id).Contains(dev);
-        public bool HasThisUserLiked(Developer dev, int id) => _appDbContext.Likes.Include(l => l.MyProj).Include(l => l.Liker).ToList().
+        public bool ThisDevIsInvolved(Developer dev, int id) => GetMyDevsById(id).Contains(dev);
+        public bool ThisUserHasLiked(Developer dev, int id) => _appDbContext.Likes.Include(l => l.MyProj).Include(l => l.Liker).ToList().
                                                                FindAll(l => l.MyProj.ProjectId == id).FirstOrDefault(l => l.Liker == dev) != null;
+        public bool ThisUserHasFollowed(User user, int id) => _appDbContext.UserProjs.Where(p => p.ProjectId == id).Select(u => u.User).Any(); 
         public int AddProj(Project proj)
         {
             _appDbContext.Projects.Add(proj);
@@ -123,5 +124,16 @@ namespace NotMyFault.Models.Repository
         }
 
         public int UpdateProj(Project proj) => _appDbContext.SaveChanges();
+
+        public int AddAFollower(User user, int id)
+        {
+            _appDbContext.UserProjs.Add(
+                new UserProject
+                {
+                    Proj = GetProjById(id),
+                    User = user
+                });
+            return _appDbContext.SaveChanges();
+        }
     }
 }

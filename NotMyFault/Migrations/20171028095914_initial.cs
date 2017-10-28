@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace NotMyFault.Migrations
 {
-    public partial class ini : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

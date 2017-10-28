@@ -9,6 +9,7 @@ namespace NotMyFault.ViewModels
     public class EditUserProfileViewModel
     {
         public int Role { get; set; }
+
         [Required(ErrorMessage = "The nick name is required"), MaxLength(20)]
         [Display(Name = "Nick name")]
         public string NickName { get; set; }

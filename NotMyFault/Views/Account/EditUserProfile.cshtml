@@ -29,7 +29,7 @@
     <div>
         <label asp-for="NickName"></label>
         <div>
-            <input asp-for="NickName" />
+            <input asp-for="NickName" placeholder="max 20 char"/>
             <span asp-validation-for="NickName" style="color:red"></span>
         </div>
     </div>
@@ -71,7 +71,7 @@
     <div id="ifDev" style="display:none">
         <label asp-for="SelfIntro"></label>
         <div>
-            <textarea asp-for="SelfIntro" rows="15" cols="50"></textarea>
+            <textarea asp-for="SelfIntro" rows="15" cols="50" placeholder="max 400 char"></textarea>
             <span asp-validation-for="SelfIntro" style="color:red"></span>
         </div>
         <br>

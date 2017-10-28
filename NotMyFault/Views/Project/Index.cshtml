@@ -10,7 +10,8 @@
             document.getElementById('notInvolved1').style.display = 'none';
             document.getElementById('notInvolved2').style.display = 'none';
         }
-        else {
+        else
+        {
             document.getElementById('notInvolved1').style.display = 'block';
             document.getElementById('notInvolved2').style.display = 'block';
             document.getElementById('involved1').style.display = 'none';
@@ -89,6 +90,15 @@ Our work repository is @Model.RepoLink
     {
         <form asp-controller="Project" asp-action="Like" asp-route-projId="@Model.projId" method="post" role="form">
             <input type="submit" value="Like"/>
+        </form>
+    }
+
+    @if (@Model.HasCurrentUserFollowed)
+    { <font>Followed</font>}
+    else
+    {
+        <form asp-controller="Project" asp-action="Follow" asp-route-projId="@Model.projId" method="post" role="form">
+            <input type="submit" value="Follow" />
         </form>
     }
 </div>

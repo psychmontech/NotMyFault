@@ -67,12 +67,12 @@
     <div>
         <label asp-for="FullDescript"></label>
         <div>
-            <textarea asp-for="FullDescript" rows="15" cols="50"></textarea>
+            <textarea asp-for="FullDescript" rows="15" cols="50" placeholder="max 1000 char"></textarea>
             <span asp-validation-for="FullDescript" style="color:red"></span>
         </div>
     </div>
     <br>
-    @*//need to ProjId inside the form otherwise it will become 0/null*@
+    @*//need to have ProjId inside the form otherwise it will become 0/null*@
     <input type="hidden" asp-for="ProjId" name="ProjId" /> 
     <div>
         <input type="submit" value="Save" />

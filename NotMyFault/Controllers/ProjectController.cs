@@ -30,7 +30,8 @@ namespace NotMyFault.Controllers
         {
             //_logger.LogCritical(1002, "Getting item {ID}", id);
             var proj = _ProjRepo.GetProjById(id);
-            var thisDev = (Developer) await _userManager.GetUserAsync(User);
+            var thisUser = await _userManager.GetUserAsync(User);
+            var thisDev = (Developer)thisUser;
             var projectDevViewModel = new ProjectDevViewModel
             {
                 projId = id,
@@ -46,9 +47,11 @@ namespace NotMyFault.Controllers
                 ProjLeader = _ProjRepo.GetProjLeaderById(id),
                 MyDevs = _ProjRepo.GetMyDevsById(id),
                 FullDescript = proj.FullDescript,
-                IsCurrentDevInvolved = _ProjRepo.IsThisDevInvolved(thisDev, id),
-                HasCurrentUserLiked = _ProjRepo.HasThisUserLiked(thisDev, id)
+                IsCurrentDevInvolved = _ProjRepo.ThisDevIsInvolved(thisDev, id),
+                HasCurrentUserLiked = _ProjRepo.ThisUserHasLiked(thisDev, id),
+                HasCurrentUserFollowed = _ProjRepo.ThisUserHasFollowed(thisUser, id)
             };
+            _logger.LogCritical(1002, "Getting item {ID}", projectDevViewModel.HasCurrentUserFollowed);
             return View(projectDevViewModel);
         }
 
@@ -156,6 +159,13 @@ namespace NotMyFault.Controllers
                 IsVisitor = false
             };
             _LikeRepo.AddThisLike(like);
+            return RedirectToAction("Index", "Project", new { id = projId });
+        }
+
+        public async Task<IActionResult> Follow(int projId)
+        {
+            var thisUser = await _userManager.GetUserAsync(User);
+            _ProjRepo.AddAFollower(thisUser, projId);
             return RedirectToAction("Index", "Project", new { id = projId });
         }
     }

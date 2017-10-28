@@ -7,7 +7,7 @@
     <div>
         <label asp-for="ProjName" ></label>
         <div>
-            <input asp-for="ProjName" />
+            <input asp-for="ProjName" placeholder="max 40 char"/>
             <span asp-validation-for="ProjName" style="color:red"></span>
         </div>
     </div>
@@ -49,7 +49,7 @@
     <div>
         <label asp-for="BriefDescript" ></label>
         <div>
-            <textarea asp-for="BriefDescript" rows="10" cols="30"></textarea>
+            <textarea asp-for="BriefDescript" rows="10" cols="30" placeholder="max 100 char"></textarea>
             <span asp-validation-for="BriefDescript" style="color:red"></span>
         </div>
     </div>
@@ -57,7 +57,7 @@
     <div>
         <label asp-for="FullDescript" ></label>
         <div>
-            <textarea asp-for="FullDescript" rows="15" cols="50"></textarea>
+            <textarea asp-for="FullDescript" rows="15" cols="50" placeholder="max 1000 char"></textarea>
             <span asp-validation-for="FullDescript" style="color:red"></span>
         </div>
     </div>
