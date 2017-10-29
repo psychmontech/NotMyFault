@@ -2,7 +2,7 @@
 {
     public static class ProjStatus
     {
-        public const int Aborted = 0;
+        public const int Aborted = 7;
         public const int Completed = 10;
         public const int Preparing = 1;
         public const int Recruiting = 2;
