@@ -19,6 +19,7 @@ namespace NotMyFault.ViewModels
         public int Progress { get; set; }
         public int Status { get; set; }
         public long Valuation { get; set; }
+        public Developer CurrentDev { get; set; }
         public Developer ProjLeader { get; set; }
         public ICollection<Developer> MyDevs { get; set; }
         public DateTime ProtdCompDate { get; set; }

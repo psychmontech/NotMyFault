@@ -47,6 +47,7 @@ namespace NotMyFault.Controllers
                 ProjLeader = _ProjRepo.GetProjLeaderById(id),
                 MyDevs = _ProjRepo.GetMyDevsById(id),
                 FullDescript = proj.FullDescript,
+                CurrentDev = thisDev,
                 IsCurrentDevInvolved = _ProjRepo.ThisDevIsInvolved(thisDev, id),
                 HasCurrentUserLiked = _ProjRepo.ThisUserHasLiked(thisDev, id),
                 HasCurrentUserFollowed = _ProjRepo.ThisUserHasFollowed(thisUser, id)

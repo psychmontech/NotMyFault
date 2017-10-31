@@ -126,26 +126,6 @@ namespace NotMyFault.Migrations
                     b.ToTable("AspNetRoles");
                 });
 
-            modelBuilder.Entity("NotMyFault.Models.ProjRelated.CandiRqrmt", b =>
-                {
-                    b.Property<int>("CandiRqrmtId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("Availability");
-
-                    b.Property<string>("Expertise");
-
-                    b.Property<int>("MaxNumPrjWkOn");
-
-                    b.Property<int>("MinCredit");
-
-                    b.Property<int>("RecruitmentForeignKey");
-
-                    b.HasKey("CandiRqrmtId");
-
-                    b.ToTable("CandiRqrmts");
-                });
-
             modelBuilder.Entity("NotMyFault.Models.ProjRelated.Distribution", b =>
                 {
                     b.Property<int>("DistributionId")
@@ -200,8 +180,7 @@ namespace NotMyFault.Migrations
                     b.HasIndex("DevIntwverForeignKey")
                         .IsUnique();
 
-                    b.HasIndex("RecruitmentForeignKey")
-                        .IsUnique();
+                    b.HasIndex("RecruitmentForeignKey");
 
                     b.ToTable("Interviews");
                 });
@@ -330,21 +309,21 @@ namespace NotMyFault.Migrations
 
                     b.Property<bool>("IsOpen");
 
+                    b.Property<int>("MaxNumPrjWkOn");
+
+                    b.Property<int>("MinCredit");
+
                     b.Property<string>("NameOfTheRole");
 
                     b.Property<int?>("ProjectForeignKey");
 
-                    b.Property<int?>("RecruitmentForeignKey");
+                    b.Property<string>("RequirDes");
 
                     b.Property<string>("RoleDescription");
 
                     b.HasKey("RecruitmentId");
 
                     b.HasIndex("ProjectForeignKey");
-
-                    b.HasIndex("RecruitmentForeignKey")
-                        .IsUnique()
-                        .HasFilter("[RecruitmentForeignKey] IS NOT NULL");
 
                     b.ToTable("Recruitments");
                 });
@@ -776,8 +755,8 @@ namespace NotMyFault.Migrations
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("NotMyFault.Models.ProjRelated.Recruitment", "MyRecruit")
-                        .WithOne("MyInterview")
-                        .HasForeignKey("NotMyFault.Models.ProjRelated.Interview", "RecruitmentForeignKey")
+                        .WithMany("MyInterviews")
+                        .HasForeignKey("RecruitmentForeignKey")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -846,10 +825,6 @@ namespace NotMyFault.Migrations
                         .WithMany("MyRecruits")
                         .HasForeignKey("ProjectForeignKey")
                         .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("NotMyFault.Models.ProjRelated.CandiRqrmt", "MyCandiRqrmts")
-                        .WithOne("MyRecruit")
-                        .HasForeignKey("NotMyFault.Models.ProjRelated.Recruitment", "RecruitmentForeignKey");
                 });
 
             modelBuilder.Entity("NotMyFault.Models.TransRelated.Transaction", b =>

@@ -33,7 +33,6 @@ namespace NotMyFault.Models.DataAccessLayer
         public DbSet<Distribution> Distributions { get; set; }
         public DbSet<Endorsment> Endorsments { get; set; }
         public DbSet<NegoEntry> NegoEntries { get; set; }
-        public DbSet<CandiRqrmt> CandiRqrmts { get; set; }
         public DbSet<Interview> Interviews { get; set; }    
         public DbSet<Review> Reviews { get; set; }
         public DbSet<DeveloperProject> DevProjs{ get; set; }
@@ -82,18 +81,6 @@ namespace NotMyFault.Models.DataAccessLayer
                 .WithOne(i => i.Mytran)
                 .HasForeignKey<Transaction>("TransactionForeignKey");
 
-            //recruitment <-> candidateRequirement
-            modelBuilder.Entity<Recruitment>()
-                .HasOne(p => p.MyCandiRqrmts)
-                .WithOne(i => i.MyRecruit)
-                .HasForeignKey<Recruitment>("RecruitmentForeignKey");
-
-            //recruitment <-> interview
-            modelBuilder.Entity<Recruitment>()
-                .HasOne(p => p.MyInterview)
-                .WithOne(i => i.MyRecruit)
-                .HasForeignKey<Interview>("RecruitmentForeignKey");
-
             //developer <-> interviewer
             modelBuilder.Entity<Developer>()
                 .HasOne(p => p.MyIntwAsViewer)
@@ -139,6 +126,12 @@ namespace NotMyFault.Models.DataAccessLayer
                 .HasOne(p => p.MyReviewee)
                 .WithMany(i => i.MyReviews)
                 .HasForeignKey("RevieweeIdForeignKey");
+
+            //recruitment <-> interviews
+            modelBuilder.Entity<Interview>()
+                .HasOne(p => p.MyRecruit)
+                .WithMany(i => i.MyInterviews)
+                .HasForeignKey("RecruitmentForeignKey");
 
             //developer <-> revieweds
             modelBuilder.Entity<Review>()
@@ -256,7 +249,6 @@ namespace NotMyFault.Models.DataAccessLayer
             modelBuilder.Entity<Distribution>().Property<int>("ProjectForeignKey");
             modelBuilder.Entity<Transaction>().Property<int>("ProjectForeignKey");
             modelBuilder.Entity<Transaction>().Property<int>("BuyerForeignKey");
-            modelBuilder.Entity<CandiRqrmt>().Property<int>("RecruitmentForeignKey");
             modelBuilder.Entity<Interview>().Property<int>("RecruitmentForeignKey");
             modelBuilder.Entity<Interview>().Property<int>("DevIntwverForeignKey");
             modelBuilder.Entity<Interview>().Property<int>("DevIntwveeForeignKey");
