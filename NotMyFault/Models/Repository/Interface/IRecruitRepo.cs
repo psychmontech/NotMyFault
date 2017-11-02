@@ -8,8 +8,10 @@ namespace NotMyFault.Models.Repository.Interface
 {
     public interface IRecruitRepo
     {
+        ICollection<Recruitment> GetAllRecruits();
         ICollection<Recruitment> GetRecruitsByProjId(int id);
         Boolean GetRecruOpenStatByRecruId(int id);
         ICollection<Interview> GetIntwByRecruId(int id);
+        int AddRecruit(Recruitment recruit);
     }
 }

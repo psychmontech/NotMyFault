@@ -25,7 +25,7 @@
 <a asp-controller="Dev" asp-action="Index">Home</a> &nbsp;|
 <a asp-controller="Project" asp-action="UpdateProject" asp-route-id="@Model.projId">Update project</a> &nbsp;|
 @if (Model.CurrentDev == Model.ProjLeader)
-{<a asp-controller="Recruit" asp-action="Create" asp-route-id="@Model.projId">Recruit People</a>}
+{<a asp-controller="Recruit" asp-action="CreateRecruit" asp-route-ProjId="@Model.projId">Recruit People</a>}
 
 <h1>Project @Model.ProjName</h1>
 @Model.BriefDescript

@@ -307,6 +307,8 @@ namespace NotMyFault.Migrations
                     b.Property<int>("RecruitmentId")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<DateTime>("DateCreated");
+
                     b.Property<bool>("IsOpen");
 
                     b.Property<int>("MaxNumPrjWkOn");
@@ -317,7 +319,7 @@ namespace NotMyFault.Migrations
 
                     b.Property<int?>("ProjectForeignKey");
 
-                    b.Property<string>("RequirDes");
+                    b.Property<string>("RequirDescript");
 
                     b.Property<string>("RoleDescription");
 

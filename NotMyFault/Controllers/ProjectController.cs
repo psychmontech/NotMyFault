@@ -28,7 +28,6 @@ namespace NotMyFault.Controllers
         }
         public async Task<ViewResult> Index(int id)
         {
-            //_logger.LogCritical(1002, "Getting item {ID}", id);
             var proj = _ProjRepo.GetProjById(id);
             var thisUser = await _userManager.GetUserAsync(User);
             var thisDev = (Developer)thisUser;
@@ -52,7 +51,6 @@ namespace NotMyFault.Controllers
                 HasCurrentUserLiked = _ProjRepo.ThisUserHasLiked(thisDev, id),
                 HasCurrentUserFollowed = _ProjRepo.ThisUserHasFollowed(thisUser, id)
             };
-            _logger.LogCritical(1002, "Getting item {ID}", projectDevViewModel.HasCurrentUserFollowed);
             return View(projectDevViewModel);
         }
 

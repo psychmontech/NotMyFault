@@ -1,0 +1,52 @@
+﻿@model CreateRecruitViewModel
+
+<form asp-controller="Recruit" asp-action="CreateRecruit" method="post" role="form">
+    <input type="hidden" asp-for="ProjId" value="@ViewBag.ProjId" /> 
+    <div>
+        <label asp-for="NameOfTheRole"></label>
+        <div>
+            <input asp-for="NameOfTheRole" placeholder="max 40 char" />
+            <span asp-validation-for="NameOfTheRole" style="color:red"></span>
+        </div>
+    </div>
+    <br>
+    <div>
+        <label asp-for="RoleDescription"></label>
+        <div>
+            <textarea asp-for="RoleDescription" rows="15" cols="50" placeholder="max 1000 char"></textarea>
+            <span asp-validation-for="RoleDescription" style="color:red"></span>
+        </div>
+    </div>
+    <br>
+    <div>
+        <label asp-for="RequirDescript"></label>
+        <div>
+            <textarea asp-for="RequirDescript" rows="15" cols="50" placeholder="max 1000 char"></textarea>
+            <span asp-validation-for="RequirDescript" style="color:red"></span>
+        </div>
+    </div>
+    <br>
+    <div>
+        <label asp-for="MinCredit"></label>
+        <div>
+            <input asp-for="MinCredit" placeholder="e.g. 60">
+            <span asp-validation-for="MinCredit" style="color:red"></span>
+        </div>
+    </div>
+    <br>
+    <div>
+        <label asp-for="MaxProjWkon"></label>
+        <div>
+            <select asp-for="MaxProjWkon">
+                <option value=0>0</option>
+                <option value=1>1</option>
+                <option value=2>2</option>
+                <option value=3>3</option>
+            </select>
+        </div>
+    </div>
+    <br>
+    <div>
+        <input type="submit" value="Create" />
+    </div>
+</form>

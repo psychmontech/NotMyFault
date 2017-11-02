@@ -15,9 +15,10 @@ namespace NotMyFault.Models.ProjRelated
         public string NameOfTheRole { get; set; }
         public virtual Project MyProj { get; set; }
         public Boolean IsOpen { get; set; }
-        public string RequirDes { get; set; } //its a description
+        public string RequirDescript { get; set; } //its a description
         public int MinCredit { get; set; }
         public int MaxNumPrjWkOn { get; set; } // how many other projects that you are working on
+        public DateTime DateCreated { get; set; }
     }
     public class Interview
     {

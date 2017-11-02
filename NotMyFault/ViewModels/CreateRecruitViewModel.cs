@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace NotMyFault.ViewModels
 {
@@ -18,13 +14,13 @@ namespace NotMyFault.ViewModels
 
         [Required(ErrorMessage = "The requirement description is required"), MaxLength(1000)]
         [Display(Name = "Requirement description")]
-        public string RequirDes { get; set; }
+        public string RequirDescript { get; set; }
 
         [Range(0, int.MaxValue, ErrorMessage = "Please enter valid integer Number")]
-        [Display(Name = "Min credit")]
+        [Display(Name = "Candidate's Min credit")]
         public int MinCredit { get; set; }
 
-        [Display(Name = "Max number of project working on")]
+        [Display(Name = "Max number of projects the candidate is working on")]
         public int MaxProjWkon { get; set; }
 
         public int ProjId { get; set; }
