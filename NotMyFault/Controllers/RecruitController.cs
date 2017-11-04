@@ -7,6 +7,7 @@ using NotMyFault.Models.UserRelated;
 using NotMyFault.ViewModels;
 using System;
 using System.Collections;
+using System.Threading.Tasks;
 
 namespace NotMyFault.Controllers
 {
@@ -26,6 +27,25 @@ namespace NotMyFault.Controllers
             _logger = logger;
             _recruitRepo = recruitRepo;
             _ProjRepo = ProjRepo;
+        }
+
+        public async Task<ViewResult> Index(int id)
+        {
+            var recruit = _recruitRepo.GetRecruitsByRecruitId(id);
+            var currentDev = (Developer) await _userManager.GetUserAsync(User);
+            var  viewRecruitViewModel = new ViewRecruitViewModel()
+            {
+                MyProj = recruit.MyProj,
+                NameOfTheRole = recruit.NameOfTheRole,
+                RoleDescription = recruit.RoleDescription,
+                RequirDescript = recruit.RequirDescript,
+                MinCredit = recruit.MinCredit,
+                MaxNumPrjWkOn = recruit.MaxNumPrjWkOn,
+                IsOpen = recruit.IsOpen,
+                DateCreated = recruit.DateCreated,
+                CurrentDev = currentDev
+            };
+            return View(viewRecruitViewModel);
         }
 
         public IActionResult CreateRecruit(int projId)
