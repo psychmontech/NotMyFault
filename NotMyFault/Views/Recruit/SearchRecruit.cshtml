@@ -1,6 +1,8 @@
 ﻿@model SearchRecruitViewModel
 
 <a asp-controller="Dev" asp-action="Index">Home</a>
+<br>
+<br>
 <table>
     <tr>
         <th>Role name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
@@ -12,27 +14,29 @@
 
     @foreach (var recruit in Model.Recruits)
     {
-        <tr>
-            <td>
-                <a asp-controller="Recruit" asp-action="Index" asp-route-id="@recruit.RecruitmentId">@recruit.NameOfTheRole</a>
-            </td>
+        if (recruit.IsOpen == true)
+        {
+            <tr>
+                <td>
+                    <a asp-controller="Recruit" asp-action="Index" asp-route-id="@recruit.RecruitmentId">@recruit.NameOfTheRole</a>
+                </td>
 
-            <td>
-                @recruit.DateCreated.ToString("dd/MM/yyy")
-            </td>
+                <td>
+                    @recruit.DateCreated.ToString("dd/MM/yyy")
+                </td>
 
-            <td>
-                <a asp-controller="Project" asp-action="Index" asp-route-id="@recruit.MyProj.ProjectId">@recruit.MyProj.ProjName</a>
-            </td>
+                <td>
+                    <a asp-controller="Project" asp-action="Index" asp-route-id="@recruit.MyProj.ProjectId">@recruit.MyProj.ProjName</a>
+                </td>
 
-            <td>
-                @recruit.MinCredit.ToString()
-            </td>
+                <td>
+                    @recruit.MinCredit.ToString()
+                </td>
 
-            <td>
-                @recruit.MaxNumPrjWkOn.ToString()
-            </td>
-
-        </tr>
+                <td>
+                    @recruit.MaxNumPrjWkOn.ToString()
+                </td>
+            </tr>
+        }
     }
 </table>

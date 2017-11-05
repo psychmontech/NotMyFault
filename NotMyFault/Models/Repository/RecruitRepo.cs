@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using NotMyFault.Models.ProjRelated;
 using NotMyFault.Models.DataAccessLayer;
 using Microsoft.EntityFrameworkCore;
+using NotMyFault.Models.UserRelated;
 
 namespace NotMyFault.Models.Repository
 {
@@ -18,15 +19,25 @@ namespace NotMyFault.Models.Repository
             _appDbContext = appDbContext;
         }
         public ICollection<Recruitment> GetAllRecruits() => _appDbContext.Recruitments.Include(r => r.MyProj).OrderBy(r => r.DateCreated).ToList();
-        public Recruitment GetRecruitsByRecruitId(int id) => _appDbContext.Recruitments.Include(r => r.MyProj).FirstOrDefault(r => r.RecruitmentId == id);
-        public ICollection<Recruitment> GetRecruitsByProjId(int id) => _appDbContext.Recruitments.Include(c => c.MyProj.ProjectId == id).OrderBy(x => x.RecruitmentId).ToList();
-        public bool GetRecruOpenStatByRecruId(int id) => _appDbContext.Recruitments.FirstOrDefault(c => c.RecruitmentId == id).IsOpen;
+        public Recruitment GetRecruitById(int id) => _appDbContext.Recruitments.Include(r => r.MyProj).FirstOrDefault(r => r.RecruitmentId == id);
+        public ICollection<Developer> GetCandiesByRecruId(int id) => _appDbContext.DevRecruits.Where(r => r.RecruitmentId == id).Select(d => d.Dev).ToList();
         public ICollection<Interview> GetIntwByRecruId(int id) => _appDbContext.Interviews.Include(c => c.MyRecruit.RecruitmentId == id).OrderBy(x => x.Time).ToList();
+        public bool ThisDevHasApplied(int id, Developer dev) => GetCandiesByRecruId(id).Contains(dev);
+        public int SaveChanges() => _appDbContext.SaveChanges();
         public int AddRecruit(Recruitment recruit)
         {
             _appDbContext.Recruitments.Add(recruit);
             return _appDbContext.SaveChanges();
         }
-
+        public int AddACandy(int id, Developer dev)
+        {
+            _appDbContext.DevRecruits.Add(
+                new DeveloperRecruitment
+                {
+                    Recruit = GetRecruitById(id),
+                    Dev = dev,
+                });
+            return _appDbContext.SaveChanges();
+        }
     }
 }

@@ -15,20 +15,20 @@ namespace NotMyFault.Controllers
     public class ProjectController : Controller
     {
         private readonly UserManager<User> _userManager;
-        public IProjRepo _ProjRepo { get; set; }
-        public ILikeRepo _LikeRepo { get; set; }
+        public IProjRepo _projRepo { get; set; }
+        public ILikeRepo _likeRepo { get; set; }
         private readonly ILogger _logger;
         public ProjectController(UserManager<User> userManager, IProjRepo ProjRepo, ILogger<ProjectController> logger,
                                 ILikeRepo LikeRepo)
         {
             _userManager = userManager;
-            _ProjRepo = ProjRepo;
-            _LikeRepo = LikeRepo;
+            _projRepo = ProjRepo;
+            _likeRepo = LikeRepo;
             _logger = logger;
         }
         public async Task<ViewResult> Index(int id)
         {
-            var proj = _ProjRepo.GetProjById(id);
+            var proj = _projRepo.GetProjById(id);
             var thisUser = await _userManager.GetUserAsync(User);
             var thisDev = (Developer)thisUser;
             var projectDevViewModel = new ProjectDevViewModel
@@ -42,14 +42,17 @@ namespace NotMyFault.Controllers
                 Status = proj.Status,
                 ProtdCompDate = proj.ProtdCompDate,
                 ProjStartingDate = proj.StartingDate,
-                Capacity = _ProjRepo.GetCapacityById(id),
-                ProjLeader = _ProjRepo.GetProjLeaderById(id),
-                MyDevs = _ProjRepo.GetMyDevsById(id),
+                Capacity = _projRepo.GetCapacityById(id),
+                ProjLeader = _projRepo.GetProjLeaderById(id),
+                MyDevs = _projRepo.GetMyDevsById(id),
                 FullDescript = proj.FullDescript,
+                NumOfFollowers = _projRepo.GetMyFollowersById(id).Count,
+                NumOfLikes = _projRepo.GetMyLikesById(id).Count,
                 CurrentDev = thisDev,
-                IsCurrentDevInvolved = _ProjRepo.ThisDevIsInvolved(thisDev, id),
-                HasCurrentUserLiked = _ProjRepo.ThisUserHasLiked(thisDev, id),
-                HasCurrentUserFollowed = _ProjRepo.ThisUserHasFollowed(thisUser, id)
+                CurrentDevIsInvolved = _projRepo.ThisDevIsInvolved(thisDev, id),
+                CurrentUserHasLiked = _projRepo.ThisUserHasLiked(thisDev, id),
+                CurrentUserHasFollowed = _projRepo.ThisUserHasFollowed(thisUser, id),
+                HasOpenRecruits = _projRepo.HasOpenRecruits(id)
             };
             return View(projectDevViewModel);
         }
@@ -82,7 +85,7 @@ namespace NotMyFault.Controllers
                     RepoLink = createProjectViewModel.RepoLink,
                     Progress = 0
                 };
-                _ProjRepo.AddProj(proj);
+                _projRepo.AddProj(proj);
                 return RedirectToAction("Index", "Project", new { id = proj.ProjectId });
             }
             return View(createProjectViewModel);
@@ -92,7 +95,7 @@ namespace NotMyFault.Controllers
         {
             SearchProjectsViewModel searchProjectsViewModel = new SearchProjectsViewModel
             {
-                Projects = _ProjRepo.GetProjs(ProjSearchCriteria.ByOpenDate, ProjSearchCriteria.OpenOnly, null)
+                Projects = _projRepo.GetProjs(ProjSearchCriteria.ByOpenDate, ProjSearchCriteria.OpenOnly, null)
             };
             return View(searchProjectsViewModel);
         }
@@ -102,14 +105,14 @@ namespace NotMyFault.Controllers
         {
             SearchProjectsViewModel searchProjectsViewModel_New = new SearchProjectsViewModel
             {
-                Projects = _ProjRepo.GetProjs(searchProjectsViewModel.SortBy, searchProjectsViewModel.StatusFilter, searchProjectsViewModel.KeyWords)
+                Projects = _projRepo.GetProjs(searchProjectsViewModel.SortBy, searchProjectsViewModel.StatusFilter, searchProjectsViewModel.KeyWords)
             };
             return View(searchProjectsViewModel_New);
         }
 
         public ViewResult UpdateProject(int id)
         {
-            var proj = _ProjRepo.GetProjById(id);
+            var proj = _projRepo.GetProjById(id);
             UpdateProjectViewModel updateProjectViewModel = new UpdateProjectViewModel
             {
                 ProjId = id,
@@ -127,7 +130,7 @@ namespace NotMyFault.Controllers
         [HttpPost]
         public IActionResult UpdateProject(UpdateProjectViewModel updateProjectViewModel)
         {
-            var proj = _ProjRepo.GetProjById(updateProjectViewModel.ProjId);
+            var proj = _projRepo.GetProjById(updateProjectViewModel.ProjId);
 
             if (ModelState.IsValid)
             {
@@ -139,7 +142,7 @@ namespace NotMyFault.Controllers
                 proj.Visibility = updateProjectViewModel.Visibility;
                 proj.Status = updateProjectViewModel.Status;
 
-                _ProjRepo.UpdateProj(proj);
+                _projRepo.SaveChanges();
                 return RedirectToAction("Index", "Project", new { id = proj.ProjectId });
             }
 
@@ -148,7 +151,7 @@ namespace NotMyFault.Controllers
 
         public async Task<IActionResult> Like(int projId)
         {
-            var thisProj = _ProjRepo.GetProjById(projId);
+            var thisProj = _projRepo.GetProjById(projId);
             var thisUser = await _userManager.GetUserAsync(User);
             Like like = new Like
             {
@@ -157,14 +160,14 @@ namespace NotMyFault.Controllers
                 Timestamp = DateTime.Now,
                 IsVisitor = false
             };
-            _LikeRepo.AddThisLike(like);
+            _likeRepo.AddThisLike(like);
             return RedirectToAction("Index", "Project", new { id = projId });
         }
 
         public async Task<IActionResult> Follow(int projId)
         {
             var thisUser = await _userManager.GetUserAsync(User);
-            _ProjRepo.AddAFollower(thisUser, projId);
+            _projRepo.AddAFollower(thisUser, projId);
             return RedirectToAction("Index", "Project", new { id = projId });
         }
     }

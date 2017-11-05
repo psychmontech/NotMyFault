@@ -208,12 +208,12 @@ namespace NotMyFault.Models.DataAccessLayer
             modelBuilder.Entity<DeveloperRecruitment>()
                 .HasOne(dp => dp.Recruit)
                 .WithMany(d => d.MyCandis)
-                .HasForeignKey(dp => dp.Id)
+                .HasForeignKey(dp => dp.RecruitmentId)
                 .OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<DeveloperRecruitment>()
                 .HasOne(dp => dp.Dev)
                 .WithMany(p => p.MyAppliedRoles)
-                .HasForeignKey(dp => dp.RecruitmentId)
+                .HasForeignKey(dp => dp.Id)
                 .OnDelete(DeleteBehavior.Restrict);
 
             //projects <-> users

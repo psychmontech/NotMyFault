@@ -41,8 +41,10 @@ namespace NotMyFault.Models.Repository.Interface
         bool ThisDevIsInvolved(Developer Dev, int id);
         bool ThisUserHasLiked(Developer dev, int id);
         bool ThisUserHasFollowed(User user, int id);
+        bool HasOpenRecruits(int id);
         int AddProj(Project proj);
-        int UpdateProj(Project proj);
+        int SaveChanges();
         int AddAFollower(User user, int id);
+        int AddADev(int id, Developer dev);
     }
 }

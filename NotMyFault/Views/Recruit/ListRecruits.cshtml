@@ -1,0 +1,19 @@
+﻿@model SearchRecruitViewModel
+<a asp-controller="Project" asp-action="Index" asp-route-id="@ViewBag.ProjId">Back to Project</a>
+<br>
+<br>
+My open recruitments are:
+<br>
+<table>
+    @foreach (var recruit in Model.Recruits)
+    {
+        if (recruit.IsOpen == true)
+        {
+            <tr>
+                <td>
+                    <a asp-controller="Recruit" asp-action="Index" asp-route-id="@recruit.RecruitmentId">@recruit.NameOfTheRole</a>
+                </td>
+            </tr>
+        }
+    }
+</table>

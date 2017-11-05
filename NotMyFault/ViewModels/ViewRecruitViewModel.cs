@@ -17,7 +17,11 @@ namespace NotMyFault.ViewModels
         public int MinCredit { get; set; }
         public bool IsOpen { get; set; }
         public DateTime DateCreated { get; set; }
+        public ICollection<Developer> Candidates { get; set; }
         public int RecruitId { get; set; }
         public Developer CurrentDev { get; set; }
+        public bool CurrentDevIsLeader { get; set; }
+        public bool CurrentDevIsInvolved { get; set; }
+        public bool CurrentDevHasApplied { get; set; }
     }
 }

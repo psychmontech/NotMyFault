@@ -18,14 +18,17 @@ namespace NotMyFault.ViewModels
         public string FullDescript { get; set; }
         public int Progress { get; set; }
         public int Status { get; set; }
+        public int NumOfLikes { get; set; }
+        public int NumOfFollowers { get; set; }
         public long Valuation { get; set; }
         public Developer CurrentDev { get; set; }
         public Developer ProjLeader { get; set; }
         public ICollection<Developer> MyDevs { get; set; }
         public DateTime ProtdCompDate { get; set; }
         public DateTime ProjStartingDate { get; set; }
-        public bool IsCurrentDevInvolved { get; set; }
-        public bool HasCurrentUserLiked { get; set; }
-        public bool HasCurrentUserFollowed { get; set; }
+        public bool CurrentDevIsInvolved { get; set; }
+        public bool CurrentUserHasLiked { get; set; }
+        public bool CurrentUserHasFollowed { get; set; }
+        public bool HasOpenRecruits { get; set; }
     }
 }

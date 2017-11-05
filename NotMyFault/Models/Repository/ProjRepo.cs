@@ -116,14 +116,15 @@ namespace NotMyFault.Models.Repository
         public bool ThisDevIsInvolved(Developer dev, int id) => GetMyDevsById(id).Contains(dev);
         public bool ThisUserHasLiked(Developer dev, int id) => _appDbContext.Likes.Include(l => l.MyProj).Include(l => l.Liker).ToList().
                                                                FindAll(l => l.MyProj.ProjectId == id).FirstOrDefault(l => l.Liker == dev) != null;
-        public bool ThisUserHasFollowed(User user, int id) => _appDbContext.UserProjs.Where(p => p.ProjectId == id).Select(u => u.User).Any(); 
+        public bool ThisUserHasFollowed(User user, int id) => GetMyFollowersById(id).Contains(user);
+        public bool HasOpenRecruits(int id) => _appDbContext.Recruitments.Include(p => p.MyProj).ToList().FindAll(r => r.MyProj.ProjectId == id && r.IsOpen == true).Any();
         public int AddProj(Project proj)
         {
             _appDbContext.Projects.Add(proj);
             return _appDbContext.SaveChanges();
         }
 
-        public int UpdateProj(Project proj) => _appDbContext.SaveChanges();
+        public int SaveChanges() => _appDbContext.SaveChanges();
 
         public int AddAFollower(User user, int id)
         {
@@ -132,6 +133,17 @@ namespace NotMyFault.Models.Repository
                 {
                     Proj = GetProjById(id),
                     User = user
+                });
+            return _appDbContext.SaveChanges();
+        }
+
+        public int AddADev(int id, Developer dev)
+        {
+            _appDbContext.DevProjs.Add(
+                new DeveloperProject
+                {
+                    Proj = GetProjById(id),
+                    Dev = dev
                 });
             return _appDbContext.SaveChanges();
         }

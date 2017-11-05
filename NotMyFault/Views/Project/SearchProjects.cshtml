@@ -1,5 +1,9 @@
 ﻿@model SearchProjectsViewModel
 
+<a asp-controller="Dev" asp-action="Index">Home</a>&nbsp;|
+<a asp-controller="Project" asp-action="SearchProjects">Recently opened</a>
+<br>
+<br>
 <form asp-controller="Project" asp-action="SearchProjects" method="post" role="form">
     <div>
         <label asp-for="SortBy"></label>
@@ -29,9 +33,7 @@
     <div>
         Search projects with key words: 
         <input asp-for="KeyWords"/>
-        <input type="submit" value="Search"/> |
-        <a asp-controller="Project" asp-action="SearchProjects">Recently opened</a> | 
-        <a asp-controller="Dev" asp-action="Index">Home</a>
+        <input type="submit" value="Search"/>
     </div>
 </form>
 <br>

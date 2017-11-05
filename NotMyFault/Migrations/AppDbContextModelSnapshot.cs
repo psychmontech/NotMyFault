@@ -882,13 +882,13 @@ namespace NotMyFault.Migrations
 
             modelBuilder.Entity("NotMyFault.Models.UserRelated.DeveloperRecruitment", b =>
                 {
-                    b.HasOne("NotMyFault.Models.ProjRelated.Recruitment", "Recruit")
-                        .WithMany("MyCandis")
+                    b.HasOne("NotMyFault.Models.UserRelated.Developer", "Dev")
+                        .WithMany("MyAppliedRoles")
                         .HasForeignKey("Id")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("NotMyFault.Models.UserRelated.Developer", "Dev")
-                        .WithMany("MyAppliedRoles")
+                    b.HasOne("NotMyFault.Models.ProjRelated.Recruitment", "Recruit")
+                        .WithMany("MyCandis")
                         .HasForeignKey("RecruitmentId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });

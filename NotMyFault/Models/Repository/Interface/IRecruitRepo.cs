@@ -1,4 +1,5 @@
 ﻿using NotMyFault.Models.ProjRelated;
+using NotMyFault.Models.UserRelated;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +10,12 @@ namespace NotMyFault.Models.Repository.Interface
     public interface IRecruitRepo
     {
         ICollection<Recruitment> GetAllRecruits();
-        Recruitment GetRecruitsByRecruitId(int id);
-        ICollection<Recruitment> GetRecruitsByProjId(int id);
-        Boolean GetRecruOpenStatByRecruId(int id);
+        Recruitment GetRecruitById(int id);
         ICollection<Interview> GetIntwByRecruId(int id);
+        ICollection<Developer> GetCandiesByRecruId(int id);
+        bool ThisDevHasApplied(int id, Developer dev);
         int AddRecruit(Recruitment recruit);
+        int AddACandy(int id, Developer dev);
+        int SaveChanges();
     }
 }

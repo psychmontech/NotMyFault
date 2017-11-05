@@ -3,7 +3,7 @@
 <script type="text/javascript">
     window.onload = function IsCurrentDevInvolvedCheck()
     {
-        if ('@(Model.IsCurrentDevInvolved)' === '@true')
+        if ('@(Model.CurrentDevIsInvolved)' === '@true')
         {
             document.getElementById('involved1').style.display = 'block';
             document.getElementById('involved2').style.display = 'block';
@@ -20,12 +20,21 @@
     }
 </script>
 
-@if(!Model.IsCurrentDevInvolved) { <p>current dev is not involved</p>}
+@if(!Model.CurrentDevIsInvolved) { <p>current dev is not involved</p>}
 
-<a asp-controller="Dev" asp-action="Index">Home</a> &nbsp;|
-<a asp-controller="Project" asp-action="UpdateProject" asp-route-id="@Model.projId">Update project</a> &nbsp;|
+<a asp-controller="Dev" asp-action="Index">Home</a>
 @if (Model.CurrentDev == Model.ProjLeader)
-{<a asp-controller="Recruit" asp-action="CreateRecruit" asp-route-ProjId="@Model.projId">Recruit People</a>}
+{
+    <font>&nbsp;|</font>
+    <a asp-controller="Project" asp-action="UpdateProject" asp-route-id="@Model.projId">Update project</a>
+    <font>&nbsp;|</font>
+    <a asp-controller="Recruit" asp-action="CreateRecruit" asp-route-ProjId="@Model.projId">Recruit people</a>
+    if (Model.HasOpenRecruits)
+    {
+        <font>&nbsp;|</font>
+        <a asp-controller="Recruit" asp-action="ListRecruits" asp-route-ProjId="@Model.projId">My open recruitments</a>
+    }
+}
 
 <h1>Project @Model.ProjName</h1>
 @Model.BriefDescript
@@ -75,7 +84,8 @@ This project is evaluated at $@Model.Valuation.
 Developers are:
 @foreach (var Dev in Model.MyDevs)
 {
-    <a asp-controller="Dev" asp-action="ViewDevProfile" asp-route-id="@Dev.Id">@Dev.NickName&nbsp;</a>
+    <a asp-controller="Dev" asp-action="ViewDevProfile" asp-route-id="@Dev.Id">@Dev.NickName</a>
+    <font>&nbsp;</font>
 }
 <br>
 Project leader is
@@ -83,10 +93,14 @@ Project leader is
 <br>
 Our work repository is @Model.RepoLink
 <br>
+This project is followed by @Model.NumOfFollowers users.
+<br>
+Likes: @Model.NumOfLikes
+<br>
 <font id="notInvolved1" style="display:none">@Model.FullDescript</font>
 <br>
 <div id="notInvolved2" style="display:none">
-    @if (@Model.HasCurrentUserLiked)
+    @if (@Model.CurrentUserHasLiked)
     { <font>Liked</font>}
     else
     {
@@ -95,7 +109,7 @@ Our work repository is @Model.RepoLink
         </form>
     }
 
-    @if (@Model.HasCurrentUserFollowed)
+    @if (@Model.CurrentUserHasFollowed)
     { <font>Followed</font>}
     else
     {
