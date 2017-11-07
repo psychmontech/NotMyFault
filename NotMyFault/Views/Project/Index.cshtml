@@ -20,8 +20,6 @@
     }
 </script>
 
-@if(!Model.CurrentDevIsInvolved) { <p>current dev is not involved</p>}
-
 <a asp-controller="Dev" asp-action="Index">Home</a>
 @if (Model.CurrentDev == Model.ProjLeader)
 {
@@ -90,10 +88,14 @@ Developers are:
 <br>
 Project leader is
 <a asp-controller="Dev" asp-action="ViewDevProfile" asp-route-id="@Model.ProjLeader.Id">@Model.ProjLeader.NickName&nbsp;</a>
+@if (Model.CurrentDevIsInvolved)
+{
+    <br>
+    <font>Our work repository is @Model.RepoLink</font>
+}
 <br>
-Our work repository is @Model.RepoLink
 <br>
-This project is followed by @Model.NumOfFollowers users.
+Followed by @Model.NumOfFollowers users
 <br>
 Likes: @Model.NumOfLikes
 <br>

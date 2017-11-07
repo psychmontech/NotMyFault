@@ -9,5 +9,6 @@ namespace NotMyFault.ViewModels
     public class SearchRecruitViewModel
     {
         public ICollection<Recruitment> Recruits { get; set; }
+        public string KeyWords { get; set; }
     }
 }

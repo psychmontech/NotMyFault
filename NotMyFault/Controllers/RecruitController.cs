@@ -93,6 +93,13 @@ namespace NotMyFault.Controllers
             return View(searchRecruitViewModel);
         }
 
+        [HttpPost]
+        public ViewResult SearchRecruit(SearchRecruitViewModel searchRecruitViewModel)
+        {
+            searchRecruitViewModel.Recruits = _recruitRepo.GetRecruitsByKeywords(searchRecruitViewModel.KeyWords);
+            return View(searchRecruitViewModel);
+        }
+
         public async Task<IActionResult> Apply(int id)
         {
             var thisDev = (Developer)await _userManager.GetUserAsync(User);
@@ -116,6 +123,42 @@ namespace NotMyFault.Controllers
             };
             ViewBag.ProjId = projId;
             return View(searchRecruitViewModel);
+        }
+
+        public ViewResult EditRecruit(int id)
+        {
+            var recruit = _recruitRepo.GetRecruitById(id);
+            CreateRecruitViewModel createRecruitViewModel = new CreateRecruitViewModel
+            {
+                ProjId = id,  //we are using projId as recruitId here
+                NameOfTheRole = recruit.NameOfTheRole,
+                RoleDescription = recruit.RoleDescription,
+                RequirDescript = recruit.RequirDescript,
+                MaxProjWkon = recruit.MaxNumPrjWkOn,
+                MinCredit = recruit.MinCredit,
+            };
+            return View(createRecruitViewModel);
+        }
+
+        [HttpPost]
+        public IActionResult EditRecruit(CreateRecruitViewModel createRecruitViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var recruit = _recruitRepo.GetRecruitById(createRecruitViewModel.ProjId); //we are using projId as recruitId here
+                if (ModelState.IsValid)
+                {
+                    recruit.NameOfTheRole = createRecruitViewModel.NameOfTheRole;
+                    recruit.RoleDescription = createRecruitViewModel.RoleDescription;
+                    recruit.RequirDescript = createRecruitViewModel.RequirDescript;
+                    recruit.MaxNumPrjWkOn = createRecruitViewModel.MaxProjWkon;
+                    recruit.MinCredit = createRecruitViewModel.MinCredit;
+                }
+
+                _recruitRepo.SaveChanges();
+                return RedirectToAction("Index", "Recruit", new { id = createRecruitViewModel.ProjId }); 
+            }
+            return View(createRecruitViewModel);
         }
     }
 }

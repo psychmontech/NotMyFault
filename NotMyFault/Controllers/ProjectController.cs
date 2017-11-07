@@ -103,11 +103,8 @@ namespace NotMyFault.Controllers
         [HttpPost]
         public ViewResult SearchProjects(SearchProjectsViewModel searchProjectsViewModel)
         {
-            SearchProjectsViewModel searchProjectsViewModel_New = new SearchProjectsViewModel
-            {
-                Projects = _projRepo.GetProjs(searchProjectsViewModel.SortBy, searchProjectsViewModel.StatusFilter, searchProjectsViewModel.KeyWords)
-            };
-            return View(searchProjectsViewModel_New);
+            searchProjectsViewModel.Projects = _projRepo.GetProjs(searchProjectsViewModel.SortBy, searchProjectsViewModel.StatusFilter, searchProjectsViewModel.KeyWords);
+            return View(searchProjectsViewModel);
         }
 
         public ViewResult UpdateProject(int id)
