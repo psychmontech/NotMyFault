@@ -24,29 +24,23 @@ namespace NotMyFault.Controllers
         public async Task<IActionResult> Index()
         {
             var user = await _userManager.GetUserAsync(User);
-            var devHomeViewModel = new DevHomeViewModel
+            var userHomeViewModel = new UserHomeViewModel
             {
                 MyLeadingProjects = _DevRepo.GetMyLeadingProjsById(user.Id),
                 MyInvolvedProjects = _DevRepo.GetMyProjsById(user.Id),
                 MyFollowingProjects = _DevRepo.GetMyFollowingsById(user.Id),
                 MyEndors= _DevRepo.GetEndorsById(user.Id),
             };
-            return View(devHomeViewModel);  
+            return View(userHomeViewModel);  
         }
 
         public IActionResult ViewDevProfile(int id)
         {
             //_logger.LogCritical(1002, "Getting item {ID}", id);
             Developer dev = _DevRepo.GetDevById(id);
-            ViewDevProfileViewModel viewUserProfileViewModel = new ViewDevProfileViewModel
+            ViewUserProfileViewModel viewUserProfileViewModel = new ViewUserProfileViewModel
             {
-                UserName = dev.UserName,
-                NickName = dev.NickName,
-                Thumbnail = dev.Thumbnail,
-                Country = dev.Country,
-                Region = dev.Region,
-                SelfIntro = dev.SelfIntro,
-                LinkedinUrl = dev.LinkedinUrl,
+                CurrentDev = dev,
                 NumProjWrkOn = _DevRepo.GetNumProjWrkOnById(id),
                 Credit = _DevRepo.GetCreditById(id)
             };

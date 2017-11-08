@@ -1,19 +1,19 @@
-﻿@model ViewDevProfileViewModel
+﻿@model ViewUserProfileViewModel
 
 <a asp-controller="Dev" asp-action="Index">Home</a>
 <br>
 <br>
-User name: @Model.UserName
+User name: @Model.CurrentDev.UserName
 <br>
-NickName: @Model.NickName,
+NickName: @Model.CurrentDev.NickName
 <br>
-Country: @Model.Country,
+Country: @Model.CurrentDev.Country
 <br>
-Region: @Model.Region,
+Region: @Model.CurrentDev.Region
 <br>
-Self introduction:  @Model.SelfIntro,
+Self introduction:  @Model.CurrentDev.SelfIntro
 <br>
-Linkedin profile = @Model.LinkedinUrl,
+Linkedin profile = @Model.LinkedinUrl
 <br>
 Number of project working on = @Model.NumProjWrkOn
 <br>

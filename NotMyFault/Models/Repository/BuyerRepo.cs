@@ -32,10 +32,13 @@ namespace NotMyFault.Models.Repository
         public string GetCompNameById(int id) => _appDbContext.Buyers.FirstOrDefault(p => p.Id == id).CompanyName;
         public string GetCompAddrById(int id) => _appDbContext.Buyers.FirstOrDefault(p => p.Id == id).CompanyAddr;
         public int GetEarnestById(int id) => _appDbContext.Buyers.FirstOrDefault(p => p.Id == id).Earnest;
-        public ICollection<UserProject> GetMyFollowingsById(int id) => _appDbContext.Buyers.FirstOrDefault(p => p.Id == id).MyFollowings;
-        public ICollection<SupptNAlleg> GetMySupNAllegById(int id) => _appDbContext.Buyers.FirstOrDefault(p => p.Id == id).MySupNAlleg;
-        public ICollection<BuyerProject> GetMyWatchingProjs(int id) => _appDbContext.Buyers.FirstOrDefault(p => p.Id == id).MyWatchingProj;
-        public ICollection<Negotiation> GetMyNegos(int id) => _appDbContext.Buyers.FirstOrDefault(p => p.Id == id).MyNegos;
+        public ICollection<Project> GetMyFollowingsById(int id) => _appDbContext.UserProjs.Where(p => p.Id == id).Select(pt => pt.Proj).ToList();
+        public ICollection<Project> GetMyWatchingProjs(int id) => _appDbContext.BuyerProjs.Where(p => p.Id == id).Select(pt => pt.Proj).ToList();
+
+
+
+
+
 
         public void SetUsernameById(int id, string username)
         {

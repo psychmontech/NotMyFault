@@ -23,10 +23,8 @@ namespace NotMyFault.Models.Repository.Interface
         string GetCompNameById(int id);
         string GetCompAddrById(int id);
         int GetEarnestById(int id);
-        ICollection<SupptNAlleg> GetMySupNAllegById(int id);
-        ICollection<UserProject> GetMyFollowingsById(int id); 
-        ICollection<BuyerProject> GetMyWatchingProjs(int id);
-        ICollection<Negotiation> GetMyNegos(int id);
+        ICollection<Project> GetMyFollowingsById(int id); 
+        ICollection<Project> GetMyWatchingProjs(int id);
 
         void SetUsernameById(int id, string username);
         void SetNickNameById(int id, string nickName);

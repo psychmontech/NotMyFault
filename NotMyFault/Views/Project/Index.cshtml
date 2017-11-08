@@ -1,4 +1,4 @@
-﻿@model ProjectDevViewModel
+﻿@model ProjectViewModel
 
 <script type="text/javascript">
     window.onload = function IsCurrentDevInvolvedCheck()
@@ -19,29 +19,33 @@
         }
     }
 </script>
+@if (@Model.CurrentUser.Role == UserRole.Dev)
+{<a asp-controller="Dev" asp-action="Index">Home</a>}
+else
+{<a asp-controller="Buyer" asp-action="Index">Home</a>}
 
-<a asp-controller="Dev" asp-action="Index">Home</a>
-@if (Model.CurrentDev == Model.ProjLeader)
+
+@if (Model.CurrentUser == Model.ProjLeader)
 {
     <font>&nbsp;|</font>
-    <a asp-controller="Project" asp-action="UpdateProject" asp-route-id="@Model.projId">Update project</a>
+    <a asp-controller="Project" asp-action="UpdateProject" asp-route-id="@Model.Proj.ProjectId">Update project</a>
     <font>&nbsp;|</font>
-    <a asp-controller="Recruit" asp-action="CreateRecruit" asp-route-ProjId="@Model.projId">Recruit people</a>
+    <a asp-controller="Recruit" asp-action="CreateRecruit" asp-route-ProjId="@Model.Proj.ProjectId">Recruit people</a>
     if (Model.HasOpenRecruits)
     {
         <font>&nbsp;|</font>
-        <a asp-controller="Recruit" asp-action="ListRecruits" asp-route-ProjId="@Model.projId">My open recruitments</a>
+        <a asp-controller="Recruit" asp-action="ListRecruits" asp-route-ProjId="@Model.Proj.ProjectId">My open recruitments</a>
     }
 }
 
-<h1>Project @Model.ProjName</h1>
-@Model.BriefDescript
+<h1>Project @Model.Proj.ProjName</h1>
+@Model.Proj.BriefDescript
 <br>
 We currently have @Model.Capacity developers working on it
 <br>
-This project was started on @Model.ProjStartingDate.ToString("dd/MM/yyy") and we have completed @Model.Progress%. The complete date is @Model.ProtdCompDate.ToString("dd/MM/yyy").
+This project was started on @Model.Proj.StartingDate.ToString("dd/MM/yyy") and we have completed @Model.Proj.Progress%. The complete date is @Model.Proj.ProtdCompDate.ToString("dd/MM/yyy").
 This project is currently
-@switch (Model.Status)
+@switch (Model.Proj.Status)
 {
     case ProjStatus.Aborted:
         <font>Abort</font>
@@ -91,7 +95,7 @@ Project leader is
 @if (Model.CurrentDevIsInvolved)
 {
     <br>
-    <font>Our work repository is @Model.RepoLink</font>
+    <font>Our work repository is @Model.Proj.RepoLink</font>
 }
 <br>
 <br>
@@ -99,14 +103,14 @@ Followed by @Model.NumOfFollowers users
 <br>
 Likes: @Model.NumOfLikes
 <br>
-<font id="notInvolved1" style="display:none">@Model.FullDescript</font>
+<font id="notInvolved1" style="display:none">@Model.Proj.FullDescript</font>
 <br>
 <div id="notInvolved2" style="display:none">
     @if (@Model.CurrentUserHasLiked)
     { <font>Liked</font>}
     else
     {
-        <form asp-controller="Project" asp-action="Like" asp-route-projId="@Model.projId" method="post" role="form">
+        <form asp-controller="Project" asp-action="Like" asp-route-projId="@Model.Proj.ProjectId" method="post" role="form">
             <input type="submit" value="Like"/>
         </form>
     }
@@ -115,10 +119,24 @@ Likes: @Model.NumOfLikes
     { <font>Followed</font>}
     else
     {
-        <form asp-controller="Project" asp-action="Follow" asp-route-projId="@Model.projId" method="post" role="form">
+        <form asp-controller="Project" asp-action="Follow" asp-route-projId="@Model.Proj.ProjectId" method="post" role="form">
             <input type="submit" value="Follow" />
         </form>
     }
+    @if (@Model.CurrentUser.Role == UserRole.Buyer)
+    {
+        if (@Model.CurrentBuyerHasWatched)
+        {
+            <font>Watched</font>}
+        else
+        {
+            <form asp-controller="Project" asp-action="Watch" asp-route-projId="@Model.Proj.ProjectId" method="post" role="form">
+                <input type="submit" value="Watch" />
+            </form>
+        }
+    }
+
+
 </div>
 
 

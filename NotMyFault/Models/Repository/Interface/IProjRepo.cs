@@ -38,13 +38,15 @@ namespace NotMyFault.Models.Repository.Interface
         Developer GetProjLeaderById(int id);
         Developer GetInitiatorById(int id);
         ICollection<InternalConver> GetMyConverById(int id);
-        bool ThisDevIsInvolved(Developer Dev, int id);
-        bool ThisUserHasLiked(Developer dev, int id);
+        bool ThisDevIsInvolved(User user, int id);
+        bool ThisUserHasLiked(User user, int id);
         bool ThisUserHasFollowed(User user, int id);
+        bool ThisBuyerHasWatched(User user, int id);
         bool HasOpenRecruits(int id);
         int AddProj(Project proj);
         int SaveChanges();
         int AddAFollower(User user, int id);
+        int AddAWatcher(Buyer buyer, int id);
         int AddADev(int id, Developer dev);
     }
 }

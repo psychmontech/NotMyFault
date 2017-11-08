@@ -1,4 +1,5 @@
 ﻿using NotMyFault.Models.ProjRelated;
+using NotMyFault.Models.UserRelated;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -15,5 +16,6 @@ namespace NotMyFault.ViewModels
         [Display(Name = "Status filter")]
         public int StatusFilter { get; set; }
         public string KeyWords { get; set; }
+        public User CurrentUser { get; set; }
     }
 }

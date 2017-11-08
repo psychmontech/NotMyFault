@@ -1,6 +1,10 @@
 ﻿@model SearchProjectsViewModel
 
-<a asp-controller="Dev" asp-action="Index">Home</a>&nbsp;|
+@if (@Model.CurrentUser.Role == UserRole.Dev)
+{<a asp-controller="Dev" asp-action="Index">Home</a>}
+else
+{<a asp-controller="Buyer" asp-action="Index">Home</a>}
+&nbsp;|
 <a asp-controller="Project" asp-action="SearchProjects">Recently opened</a>
 <br>
 <br>
@@ -30,6 +34,7 @@
         </div>
     </div>
     <br>
+    <input type="hidden" asp-for="CurrentUser" value="@Model.CurrentUser"/>
     <div>
         Search projects with key words: 
         <input asp-for="KeyWords"/>

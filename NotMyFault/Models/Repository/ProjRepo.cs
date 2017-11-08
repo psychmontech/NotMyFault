@@ -113,10 +113,11 @@ namespace NotMyFault.Models.Repository
         public Developer GetProjLeaderById(int id) => _appDbContext.Devs.Include(d => d.MyLeadingProjs).FirstOrDefault(d => d.MyLeadingProjs.Any(p => p.ProjectId == id));  //look at me
         public Developer GetInitiatorById(int id) => _appDbContext.Devs.Include(d => d.MyInitiatedProjs).FirstOrDefault(d => d.MyInitiatedProjs.Any(p => p.ProjectId == id));
         public ICollection<InternalConver> GetMyConverById(int id) => _appDbContext.InternalConver.Include(p => p.MyProj).ToList().FindAll(c => c.MyProj.ProjectId == id);
-        public bool ThisDevIsInvolved(Developer dev, int id) => GetMyDevsById(id).Contains(dev);
-        public bool ThisUserHasLiked(Developer dev, int id) => _appDbContext.Likes.Include(l => l.MyProj).Include(l => l.Liker).ToList().
-                                                               FindAll(l => l.MyProj.ProjectId == id).FirstOrDefault(l => l.Liker == dev) != null;
+        public bool ThisDevIsInvolved(User user, int id) => GetMyDevsById(id).Contains((Developer)user);
+        public bool ThisUserHasLiked(User user, int id) => _appDbContext.Likes.Include(l => l.MyProj).Include(l => l.Liker).ToList().
+                                                               FindAll(l => l.MyProj.ProjectId == id).FirstOrDefault(l => l.Liker == user) != null;
         public bool ThisUserHasFollowed(User user, int id) => GetMyFollowersById(id).Contains(user);
+        public bool ThisBuyerHasWatched(User user, int id) => GetMyWatchersById(id).Contains((Buyer)user);
         public bool HasOpenRecruits(int id) => _appDbContext.Recruitments.Include(p => p.MyProj).ToList().FindAll(r => r.MyProj.ProjectId == id && r.IsOpen == true).Any();
         public int AddProj(Project proj)
         {
@@ -133,6 +134,17 @@ namespace NotMyFault.Models.Repository
                 {
                     Proj = GetProjById(id),
                     User = user
+                });
+            return _appDbContext.SaveChanges();
+        }
+
+        public int AddAWatcher(Buyer buyer, int id)
+        {
+            _appDbContext.BuyerProjs.Add(
+                new BuyerProject
+                {
+                    Proj = GetProjById(id),
+                    Buyer = buyer
                 });
             return _appDbContext.SaveChanges();
         }
