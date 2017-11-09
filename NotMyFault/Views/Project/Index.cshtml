@@ -81,7 +81,7 @@ This project is currently
 }
 
 <br>
-This project is evaluated at $@Model.Valuation.
+This project is evaluated at $@Model.Proj.Valuation
 <br>
 Developers are:
 @foreach (var Dev in Model.MyDevs)
@@ -96,16 +96,18 @@ Project leader is
 {
     <br>
     <font>Our work repository is @Model.Proj.RepoLink</font>
+    <br>
 }
 <br>
+<br>
+<font id="notInvolved1" style="display:none">Project full description: @Model.Proj.FullDescript</font>
 <br>
 Followed by @Model.NumOfFollowers users
 <br>
 Likes: @Model.NumOfLikes
-<br>
-<font id="notInvolved1" style="display:none">@Model.Proj.FullDescript</font>
-<br>
 <div id="notInvolved2" style="display:none">
+    <br>
+    <br>
     @if (@Model.CurrentUserHasLiked)
     { <font>Liked</font>}
     else
