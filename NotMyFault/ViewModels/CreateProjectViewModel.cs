@@ -34,5 +34,13 @@ namespace NotMyFault.ViewModels
 
         [Display(Name = "Work Repository Link")]
         public string RepoLink { get; set; }
+
+        [Range(0, 100, ErrorMessage = "Please enter valid integer between 0 to 100")]
+        [Display(Name = "Progress")]
+        public int Progress { get; set; }
+
+        [Display(Name = "Status")]
+        public int Status { get; set; }
+        public int ProjId { get; set; }
     }
 }

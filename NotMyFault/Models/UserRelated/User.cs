@@ -32,7 +32,6 @@ namespace NotMyFault.Models.UserRelated
         public virtual Interview MyIntwAsViewer { get; set; }
         public virtual Interview MyIntwAsViewee { get; set; }
         public virtual ICollection<Review> MyReviews { get; set; } //reviews by other devs, conducts review -/+ 5 
-        public virtual ICollection<Review> MyReviewed { get; set; } //all that reviewed by me 
         public virtual ICollection<InternalConver> MyInterconvers { get; set; } 
     }
 

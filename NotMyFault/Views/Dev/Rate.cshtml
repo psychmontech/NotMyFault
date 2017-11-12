@@ -1,0 +1,41 @@
+﻿@model ReviewViewModel
+
+<a asp-controller="Dev" asp-action="ViewDevProfile" asp-route-id="@Model.RevieweeId">Cancel</a> 
+<br>
+You are reviewing @Model.RevieweeName from project - @Model.ProjName
+<br>
+<form asp-controller="Dev" asp-action="Rate" method="post" role="form">
+    <input type="hidden" asp-for="@Model.ProjId" />
+    <input type="hidden" asp-for="@Model.RevieweeId" />
+    <div>
+        <label asp-for="Score"></label>
+        <div>
+            <select asp-for="Score">
+                <option value=0>0</option>
+                <option value=1>1</option>
+                <option value=2>2</option>
+                <option value=3>3</option>
+                <option value=4>4</option>
+                <option value=5>5</option>
+                <option value=-1>-1</option>
+                <option value=-2>-2</option>
+                <option value=-3>-3</option>
+                <option value=-4>-4</option>
+                <option value=-5>-5</option>
+            </select>
+        </div>
+    </div>
+    <br>
+    <br>
+    <div>
+        <label asp-for="Comments"></label>
+        <div>
+            <textarea asp-for="Comments" rows="10" cols="30" placeholder="max 200 char"></textarea>
+            <span asp-validation-for="Comments" style="color:red"></span>
+        </div>
+    </div>
+    <br>
+    <div>
+        <input type="submit" value="Submit Review" />
+    </div>
+</form>

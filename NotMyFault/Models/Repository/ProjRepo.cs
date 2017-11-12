@@ -32,6 +32,7 @@ namespace NotMyFault.Models.Repository
 
                 case ProjSearchCriteria.All:
                     st.Add(ProjStatus.Completed);
+                    st.Add(ProjStatus.Aborted);
                     st.Add(ProjStatus.Preparing);
                     st.Add(ProjStatus.Recruiting);
                     st.Add(ProjStatus.Under_Development);

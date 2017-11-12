@@ -119,17 +119,20 @@ namespace NotMyFault.Controllers
         public async Task<ViewResult> SearchProjects(SearchProjectsViewModel searchProjectsViewModel)
         {
             //_logger.LogCritical(1002, "Getting item {ID}", id);
-            searchProjectsViewModel.Projects = _projRepo.GetProjs(searchProjectsViewModel.SortBy, searchProjectsViewModel.StatusFilter, searchProjectsViewModel.KeyWords);
-            searchProjectsViewModel.CurrentUser = await _userManager.GetUserAsync(User);
+            searchProjectsViewModel.Projects = _projRepo.GetProjs(searchProjectsViewModel.SortBy, 
+                                               searchProjectsViewModel.StatusFilter, searchProjectsViewModel.KeyWords);
+            searchProjectsViewModel.CurrentUser = await _userManager.GetUserAsync(User); //we can't pass current user from the view using "<input type="hidden" asp-for="CurrentUser", we can only pass string/int
             return View(searchProjectsViewModel);
         }
 
         public ViewResult UpdateProject(int id)
         {
             var proj = _projRepo.GetProjById(id);
-            UpdateProjectViewModel updateProjectViewModel = new UpdateProjectViewModel
+            CreateProjectViewModel createProjectViewModel = new CreateProjectViewModel
             {
                 ProjId = id,
+                ProjName = proj.ProjName,
+                BriefDescript = proj.BriefDescript,
                 ProtdCompDate = proj.ProtdCompDate,
                 FullDescript = proj.FullDescript,
                 Progress = proj.Progress,
@@ -138,29 +141,29 @@ namespace NotMyFault.Controllers
                 Visibility = proj.Visibility,
                 Status = proj.Status
             };
-            return View(updateProjectViewModel);
+            return View(createProjectViewModel);
         }
 
         [HttpPost]
-        public IActionResult UpdateProject(UpdateProjectViewModel updateProjectViewModel)
+        public IActionResult UpdateProject(CreateProjectViewModel createProjectViewModel)
         {
-            var proj = _projRepo.GetProjById(updateProjectViewModel.ProjId);
+            var proj = _projRepo.GetProjById(createProjectViewModel.ProjId);
 
             if (ModelState.IsValid)
             {
-                proj.ProtdCompDate = updateProjectViewModel.ProtdCompDate;
-                proj.FullDescript = updateProjectViewModel.FullDescript;
-                proj.Progress = updateProjectViewModel.Progress;
-                proj.RepoLink = updateProjectViewModel.RepoLink;
-                proj.Valuation = updateProjectViewModel.Valuation;
-                proj.Visibility = updateProjectViewModel.Visibility;
-                proj.Status = updateProjectViewModel.Status;
+                proj.ProtdCompDate = createProjectViewModel.ProtdCompDate;
+                proj.FullDescript = createProjectViewModel.FullDescript;
+                proj.Progress = createProjectViewModel.Progress;
+                proj.RepoLink = createProjectViewModel.RepoLink;
+                proj.Valuation = createProjectViewModel.Valuation;
+                proj.Visibility = createProjectViewModel.Visibility;
+                proj.Status = createProjectViewModel.Status;
 
                 _projRepo.SaveChanges();
                 return RedirectToAction("Index", "Project", new { id = proj.ProjectId });
             }
 
-            return View(updateProjectViewModel);
+            return View(createProjectViewModel);
         }
 
         public async Task<IActionResult> Like(int projId)

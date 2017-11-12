@@ -1,0 +1,14 @@
+﻿@model ICollection<Review>
+
+<a asp-controller="Dev" asp-action="ViewDevProfile" asp-route-id="@Model.First().Reviewee.Id">Cancel</a> 
+<br>
+<br>
+<table>
+    @foreach (var review in Model)
+    {
+        <tr>
+            <td>stars : @review.Score&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;on : @review.Timestamp.ToString("dd/MM/yyy")</td>
+        </tr>
+        <tr><td>comments : @review.Comments</td></tr>
+    }
+</table>

@@ -123,7 +123,7 @@ namespace NotMyFault.Models.DataAccessLayer
 
             //developer <-> reviews
             modelBuilder.Entity<Review>()
-                .HasOne(p => p.MyReviewee)
+                .HasOne(p => p.Reviewee)
                 .WithMany(i => i.MyReviews)
                 .HasForeignKey("RevieweeIdForeignKey");
 
@@ -132,13 +132,6 @@ namespace NotMyFault.Models.DataAccessLayer
                 .HasOne(p => p.MyRecruit)
                 .WithMany(i => i.MyInterviews)
                 .HasForeignKey("RecruitmentForeignKey");
-
-            //developer <-> revieweds
-            modelBuilder.Entity<Review>()
-                .HasOne(p => p.MyReviewer)
-                .WithMany(i => i.MyReviewed)
-                .HasForeignKey("ReviewerIdForeignKey")
-                .OnDelete(DeleteBehavior.Restrict);
 
             //negotiation <-> negoEntries
             modelBuilder.Entity<NegoEntry>()
@@ -253,7 +246,6 @@ namespace NotMyFault.Models.DataAccessLayer
             modelBuilder.Entity<Interview>().Property<int>("DevIntwverForeignKey");
             modelBuilder.Entity<Interview>().Property<int>("DevIntwveeForeignKey");
             modelBuilder.Entity<Review>().Property<int>("RevieweeIdForeignKey");
-            modelBuilder.Entity<Review>().Property<int>("ReviewerIdForeignKey");
             modelBuilder.Entity<BankDetails>().Property<int>("DeveloperForeignKey");    
             modelBuilder.Entity<Endorsment>().Property<int>("EndorsGivenForeignKey");
             modelBuilder.Entity<Endorsment>().Property<int>("EndorsGiverForeignKey");

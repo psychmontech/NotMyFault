@@ -58,8 +58,12 @@ namespace NotMyFault.Controllers
         public IActionResult CreateRecruit(int projId)
         {
             //_logger.LogCritical(1002, "Getting item {ID}", projId);
-            ViewBag.ProjId = projId;
-            return View();
+            var createRecruitViewModel = new CreateRecruitViewModel
+            {
+                ProjId = projId
+            };
+            //ViewBag.ProjId = projId;
+            return View(createRecruitViewModel);
         }
 
         [HttpPost]

@@ -507,17 +507,17 @@ namespace NotMyFault.Migrations
 
                     b.Property<string>("Comments");
 
+                    b.Property<int>("ProjId");
+
                     b.Property<int>("RevieweeIdForeignKey");
 
-                    b.Property<int>("ReviewerIdForeignKey");
+                    b.Property<int>("ReviewerId");
 
-                    b.Property<int>("Stars");
+                    b.Property<int>("Score");
 
                     b.HasKey("Timestamp");
 
                     b.HasIndex("RevieweeIdForeignKey");
-
-                    b.HasIndex("ReviewerIdForeignKey");
 
                     b.ToTable("Reviews");
                 });
@@ -908,15 +908,10 @@ namespace NotMyFault.Migrations
 
             modelBuilder.Entity("NotMyFault.Models.UserRelated.Review", b =>
                 {
-                    b.HasOne("NotMyFault.Models.UserRelated.Developer", "MyReviewee")
+                    b.HasOne("NotMyFault.Models.UserRelated.Developer", "Reviewee")
                         .WithMany("MyReviews")
                         .HasForeignKey("RevieweeIdForeignKey")
                         .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("NotMyFault.Models.UserRelated.Developer", "MyReviewer")
-                        .WithMany("MyReviewed")
-                        .HasForeignKey("ReviewerIdForeignKey")
-                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("NotMyFault.Models.UserRelated.SNAEntry", b =>

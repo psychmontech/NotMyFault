@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using NotMyFault.Models.Repository.Interface;
 using NotMyFault.Models.UserRelated;
 using NotMyFault.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -12,12 +13,17 @@ namespace NotMyFault.Controllers
     public class DevController : Controller
     {
         public IDevRepo _DevRepo { get; set; }
+        public IReviewRepo _ReviewRepo { get; set; }
+        public IProjRepo _ProjRepo { get; set; }
         private readonly UserManager<User> _userManager;
         private readonly ILogger _logger;
 
-        public DevController(IDevRepo DevRepo, UserManager<User> userManager, ILogger<ProjectController> logger)
+        public DevController(IDevRepo devRepo, UserManager<User> userManager, ILogger<ProjectController> logger,
+                             IReviewRepo reviewRepo, IProjRepo projRepo)
         {
-            _DevRepo = DevRepo;
+            _DevRepo = devRepo;
+            _ReviewRepo = reviewRepo;
+            _ProjRepo = projRepo;
             _userManager = userManager;
             _logger = logger;
         }
@@ -34,17 +40,55 @@ namespace NotMyFault.Controllers
             return View(userHomeViewModel);  
         }
 
-        public IActionResult ViewDevProfile(int id)
+        public async Task<IActionResult> ViewDevProfile(int id)
         {
             //_logger.LogCritical(1002, "Getting item {ID}", id);
+            var currentUser = (Developer)await _userManager.GetUserAsync(User);
             Developer dev = _DevRepo.GetDevById(id);
             ViewUserProfileViewModel viewUserProfileViewModel = new ViewUserProfileViewModel
             {
-                CurrentDev = dev,
+                CurrentDev = currentUser,
+                ViewingDev = dev,
                 NumProjWrkOn = _DevRepo.GetNumProjWrkOnById(id),
-                Credit = _DevRepo.GetCreditById(id)
+                Credit = _DevRepo.GetCreditById(id),
+                ProjsWithIfDevIsRated = _ReviewRepo.GetProjsWithIfDevIsRated(currentUser.Id, dev.Id)
             };
             return View(viewUserProfileViewModel);
+        }
+
+        public ViewResult Rate(int revieweeId, int projId)
+        {
+            ReviewViewModel reviewViewModel = new ReviewViewModel
+            {
+                RevieweeId = revieweeId,
+                RevieweeName = _DevRepo.GetDevById(revieweeId).NickName,
+                ProjId = projId,
+                ProjName = _ProjRepo.GetProjById(projId).ProjName
+            };
+            return View(reviewViewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Rate(ReviewViewModel reviewViewModel)
+        {
+            var currentUser = (Developer)await _userManager.GetUserAsync(User);
+            Review review = new Review
+            {
+                Score = reviewViewModel.Score,
+                Comments = reviewViewModel.Comments,
+                ReviewerId = currentUser.Id,
+                Reviewee = _DevRepo.GetDevById(reviewViewModel.RevieweeId),
+                Timestamp = DateTime.Now,
+                ProjId = reviewViewModel.ProjId
+            };
+            _ReviewRepo.AddReview(review);
+            return RedirectToAction("ViewDevProfile", "Dev", new { id = reviewViewModel.RevieweeId });
+        }
+
+        public ViewResult ViewReviews(int id)
+        {
+            var reviews = _ReviewRepo.GetRevByUserId(id);
+            return View(reviews);
         }
     }
 }

@@ -32,7 +32,7 @@ namespace NotMyFault.Models.Repository
         public ICollection<Project> GetMyFollowingsById(int id) => _appDbContext.UserProjs.Where(p => p.Id == id).Select(pt => pt.Proj).ToList();
         public ICollection<Project> GetMyLeadingProjsById(int id) => _appDbContext.Projects.Include(P => P.ProjLeader).ToList().FindAll(c => c.ProjLeader.Id == id);   //look at me :)
         public ICollection<Project> GetMyProjsById(int id) => _appDbContext.DevProjs.Where(p => p.Id == id).Select(pt=>pt.Proj).ToList(); //look at me :))
-        public ICollection<Review> GetMyReviewsById(int id) => _appDbContext.Reviews.Include(P => P.MyReviewee).ToList().FindAll(c => c.MyReviewee.Id == id);
+        public ICollection<Review> GetMyReviewsById(int id) => _appDbContext.Reviews.Include(P => P.Reviewee).ToList().FindAll(c => c.Reviewee.Id == id);
         public string GetSelfIntroById(int id) => _appDbContext.Devs.FirstOrDefault(p => p.Id == id).SelfIntro;
         public ICollection<SupptNAlleg> GetMySupNAllegById(int id) => _appDbContext.SupptNAllegs.Include(P => P.MyUser).ToList().FindAll(c => c.MyUser.Id == id);
         public string GetNickNameById(int id) => _appDbContext.Devs.FirstOrDefault(p => p.Id == id).NickName;
@@ -44,7 +44,7 @@ namespace NotMyFault.Models.Repository
             int sum = 0;
             foreach (Review rev in Reviews)
             {
-                sum += rev.Stars;
+                sum += rev.Score;
             }
             return sum;
         }

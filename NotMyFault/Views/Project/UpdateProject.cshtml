@@ -1,9 +1,12 @@
-﻿@model UpdateProjectViewModel
+﻿@model CreateProjectViewModel
 
 <a asp-controller="Dev" asp-action="Index">Cancel</a>
 
 <form asp-controller="Project" asp-action="UpdateProject" method="post" role="form">
     <div asp-validation-summary="All" style="color:red"></div>
+    <input type="hidden" asp-for="ProjId"/> @*//need to have ProjId inside the form otherwise it will become 0(null)*@
+    <input type="hidden" asp-for="ProjName"/>
+    <input type="hidden" asp-for="BriefDescript" />
     <div>
         <label asp-for="ProtdCompDate"></label>
         <div>
@@ -72,8 +75,6 @@
         </div>
     </div>
     <br>
-    @*//need to have ProjId inside the form otherwise it will become 0(null)*@
-    <input type="hidden" asp-for="ProjId" name="ProjId" /> 
     <div>
         <input type="submit" value="Save" />
     </div>

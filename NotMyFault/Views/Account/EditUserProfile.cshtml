@@ -26,6 +26,8 @@
 
 <form asp-controller="Account" asp-action="EditUserProfile" method="post" role="form">
     <div asp-validation-summary="All" style="color:red"></div>
+    <input type="hidden" asp-for="Role"/>  @*//need to have Role inside the form otherwise it will become 0(null)*@
+
     <div>
         <label asp-for="NickName"></label>
         <div>
@@ -76,8 +78,6 @@
         </div>
         <br>
     </div>
-    @*//need to have Role inside the form otherwise it will become 0(null)*@
-    <input type="hidden" asp-for="Role" name="Role" />
     <div>
         <input type="submit" value="Save" />
     </div>

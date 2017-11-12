@@ -3,18 +3,36 @@
 <a asp-controller="Dev" asp-action="Index">Home</a>
 <br>
 <br>
-User name: @Model.CurrentDev.UserName
+User name: @Model.ViewingDev.UserName
 <br>
-NickName: @Model.CurrentDev.NickName
+NickName: @Model.ViewingDev.NickName
 <br>
-Country: @Model.CurrentDev.Country
+Country: @Model.ViewingDev.Country
 <br>
-Region: @Model.CurrentDev.Region
+Region: @Model.ViewingDev.Region
 <br>
-Self introduction:  @Model.CurrentDev.SelfIntro
-<br>
-Linkedin profile = @Model.LinkedinUrl
+Self introduction:  @Model.ViewingDev.SelfIntro
 <br>
 Number of project working on = @Model.NumProjWrkOn
+<br>   
+Credit = <a asp-controller="Dev" asp-action="ViewReviews" asp-route-id="@Model.ViewingDev.Id">@Model.Credit</a>
 <br>
-Credit = @Model.Credit
+<br>
+<br>
+@if (Model.ProjsWithIfDevIsRated != null && Model.ViewingDev != Model.CurrentDev)
+{
+    <table>
+        @foreach (var projwithrate in Model.ProjsWithIfDevIsRated)
+        {
+            <tr>
+                @if (!projwithrate.CurrentDevHasRatedThisDev)
+                    {<td><a asp-controller="Dev" asp-action="Rate" asp-route-RevieweeId="@Model.ViewingDev.Id" asp-route-ProjId="@projwithrate.Proj.ProjectId">rate</a></td>}
+                else
+                    {<td>rated</td>}
+                
+                <td> @Model.ViewingDev.NickName on project - @projwithrate.Proj.ProjName</td>
+            </tr>
+        }
+    </table>
+
+}
