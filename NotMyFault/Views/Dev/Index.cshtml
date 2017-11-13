@@ -48,6 +48,25 @@
         </tr>
     }
 </table>
+@if (Model.MyAppliedRoles != null)
+{
+    <br>
+    <h3>My applied roles</h3>
+    <table>
+        @foreach (var recruit in Model.MyAppliedRoles)
+        {
+            if (recruit.IsOpen)
+            {
+                <tr>
+                    <td>
+                        <a asp-controller="Recruit" asp-action="Index" asp-route-id="@recruit.RecruitmentId">@recruit.NameOfTheRole</a>
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+
+}
 <br>
 <h3>My completed projects</h3>
 <table>

@@ -24,6 +24,7 @@ namespace NotMyFault.Models.Repository
                                                                                   .OrderBy(r => r.DateCreated).ToList();
         public Recruitment GetRecruitById(int id) => _appDbContext.Recruitments.Include(r => r.MyProj).FirstOrDefault(r => r.RecruitmentId == id);
         public ICollection<Developer> GetCandiesByRecruId(int id) => _appDbContext.DevRecruits.Where(r => r.RecruitmentId == id).Select(d => d.Dev).ToList();
+        public ICollection<Recruitment> GetRecruitsByCandyId(int id) => _appDbContext.DevRecruits.Where(c => c.Id == id).Select(r => r.Recruit).ToList();
         public ICollection<Interview> GetIntwByRecruId(int id) => _appDbContext.Interviews.Include(c => c.MyRecruit.RecruitmentId == id).OrderBy(x => x.Time).ToList();
         public bool ThisDevHasApplied(int id, Developer dev) => GetCandiesByRecruId(id).Contains(dev);
         public int SaveChanges() => _appDbContext.SaveChanges();

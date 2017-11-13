@@ -11,6 +11,7 @@ namespace NotMyFault.Models.Repository.Interface
     {
         ICollection<Recruitment> GetAllRecruits();
         ICollection<Recruitment> GetRecruitsByKeywords(string keywords);
+        ICollection<Recruitment> GetRecruitsByCandyId(int id);
         Recruitment GetRecruitById(int id);
         ICollection<Interview> GetIntwByRecruId(int id);
         ICollection<Developer> GetCandiesByRecruId(int id);

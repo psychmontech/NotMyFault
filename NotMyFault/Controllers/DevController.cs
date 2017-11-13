@@ -15,15 +15,17 @@ namespace NotMyFault.Controllers
         public IDevRepo _DevRepo { get; set; }
         public IReviewRepo _ReviewRepo { get; set; }
         public IProjRepo _ProjRepo { get; set; }
+        public IRecruitRepo _RecruitRepo { get; set; }
         private readonly UserManager<User> _userManager;
         private readonly ILogger _logger;
 
         public DevController(IDevRepo devRepo, UserManager<User> userManager, ILogger<ProjectController> logger,
-                             IReviewRepo reviewRepo, IProjRepo projRepo)
+                             IReviewRepo reviewRepo, IProjRepo projRepo, IRecruitRepo recruitRepo)
         {
             _DevRepo = devRepo;
             _ReviewRepo = reviewRepo;
             _ProjRepo = projRepo;
+            _RecruitRepo = recruitRepo;
             _userManager = userManager;
             _logger = logger;
         }
@@ -36,6 +38,7 @@ namespace NotMyFault.Controllers
                 MyInvolvedProjects = _DevRepo.GetMyProjsById(user.Id),
                 MyFollowingProjects = _DevRepo.GetMyFollowingsById(user.Id),
                 MyEndors= _DevRepo.GetEndorsById(user.Id),
+                MyAppliedRoles = _RecruitRepo.GetRecruitsByCandyId(user.Id)
             };
             return View(userHomeViewModel);  
         }
