@@ -1,14 +1,21 @@
-﻿@model ICollection<Review>
+﻿@model ICollection<ReviewViewModel>
 
-<a asp-controller="Dev" asp-action="ViewDevProfile" asp-route-id="@Model.First().Reviewee.Id">Cancel</a> 
+<a asp-controller="Dev" asp-action="ViewDevProfile" asp-route-id="@Model.First().RevieweeId">Go back</a> 
 <br>
 <br>
 <table>
     @foreach (var review in Model)
     {
         <tr>
-            <td>stars : @review.Score&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;on : @review.Timestamp.ToString("dd/MM/yyy")</td>
+            <td>
+                Feedback from 
+                <a asp-controller="Dev" asp-action="ViewDevProfile" asp-route-id="@review.ReviewerId">@review.ReviewerNickName</a>
+                based on project - 
+                <a asp-controller="Project" asp-action="Index" asp-route-id="@review.ProjId">@review.ProjName</a>
+                on @review.Timestamp.ToString("dd/MM/yyy")<br/>
+                stars : @review.Score<br/>
+                comments : @review.Comments<br/><br/>
+            </td>
         </tr>
-        <tr><td>comments : @review.Comments</td></tr>
     }
 </table>

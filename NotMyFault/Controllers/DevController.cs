@@ -61,7 +61,7 @@ namespace NotMyFault.Controllers
             ReviewViewModel reviewViewModel = new ReviewViewModel
             {
                 RevieweeId = revieweeId,
-                RevieweeName = _DevRepo.GetDevById(revieweeId).NickName,
+                RevieweeNickName = _DevRepo.GetDevById(revieweeId).NickName,
                 ProjId = projId,
                 ProjName = _ProjRepo.GetProjById(projId).ProjName
             };
@@ -88,7 +88,24 @@ namespace NotMyFault.Controllers
         public ViewResult ViewReviews(int id)
         {
             var reviews = _ReviewRepo.GetRevByUserId(id);
-            return View(reviews);
+            var reviewViews = new List<ReviewViewModel>(); 
+            foreach (var review in reviews)
+            {
+                reviewViews.Add(new ReviewViewModel
+                {
+                    Score = review.Score,
+                    Comments = review.Comments,
+                    Timestamp = review.Timestamp,
+                    ProjId = review.ProjId,
+                    ProjName = _ProjRepo.GetProjnameById(review.ProjId),
+                    RevieweeId = review.Reviewee.Id,
+                    RevieweeNickName = _DevRepo.GetNickNameById(review.Reviewee.Id),
+                    ReviewerId = review.ReviewerId,
+                    ReviewerNickName = _DevRepo.GetNickNameById(review.ReviewerId)
+                });
+                    
+            }
+            return View(reviewViews);
         }
     }
 }

@@ -2,7 +2,7 @@
 
 <a asp-controller="Dev" asp-action="ViewDevProfile" asp-route-id="@Model.RevieweeId">Cancel</a> 
 <br>
-You are reviewing @Model.RevieweeName from project - @Model.ProjName
+You are reviewing @Model.RevieweeNickName from project - @Model.ProjName
 <br>
 <form asp-controller="Dev" asp-action="Rate" method="post" role="form">
     <input type="hidden" asp-for="@Model.ProjId" />
