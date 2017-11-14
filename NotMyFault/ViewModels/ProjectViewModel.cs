@@ -14,6 +14,7 @@ namespace NotMyFault.ViewModels
         public int Capacity { get; set; }
         public int NumOfLikes { get; set; }
         public int NumOfFollowers { get; set; }
+        public int NumOfWatchers { get; set; }
         public long Valuation { get; set; }
         public User CurrentUser { get; set; }
         public Developer ProjLeader { get; set; }

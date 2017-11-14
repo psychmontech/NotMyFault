@@ -42,6 +42,7 @@ namespace NotMyFault.Controllers
                     MyDevs = _projRepo.GetMyDevsById(id),
                     NumOfFollowers = _projRepo.GetMyFollowersById(id).Count,
                     NumOfLikes = _projRepo.GetMyLikesById(id).Count,
+                    NumOfWatchers = _projRepo.GetMyWatchersById(id).Count,
                     CurrentDevIsInvolved = _projRepo.ThisDevIsInvolved(thisUser, id),
                     CurrentUserHasLiked = _projRepo.ThisUserHasLiked(thisUser, id),
                     CurrentUserHasFollowed = _projRepo.ThisUserHasFollowed(thisUser, id),
