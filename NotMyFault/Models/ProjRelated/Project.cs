@@ -25,7 +25,7 @@ namespace NotMyFault.Models.ProjRelated
         public int Progress { get; set; } //percentage
         public long Valuation { get; set; } //how much you expect from the buyer
         public virtual ICollection<Recruitment> MyRecruits { get; set; } //its a list because you may have a few vacancies 
-        public virtual ICollection<InternalConver> MyConver { get; set; } //within devs
+        public virtual ICollection<InterConverEntry> MyConver { get; set; } //within devs
         public virtual ICollection<PublicOpinion> MyPubOpin { get; set; }
         public virtual ICollection<Negotiation> MyNegos { get; set; } //between devs and buyers
         public virtual ICollection<Like> MyLikes { get; set; }

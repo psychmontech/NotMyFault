@@ -37,16 +37,19 @@ namespace NotMyFault.Models.Repository.Interface
         Distribution GetMyDistributById(int id);
         Developer GetProjLeaderById(int id);
         Developer GetInitiatorById(int id);
-        ICollection<InternalConver> GetMyConverById(int id);
+        ICollection<InterConverEntry> GetMyConverById(int id);
         bool ThisDevIsInvolved(User user, int id);
         bool ThisUserHasLiked(User user, int id);
         bool ThisUserHasFollowed(User user, int id);
         bool ThisBuyerHasWatched(User user, int id);
         bool HasOpenRecruits(int id);
+        bool HasAnyNegos(int id);
         int AddProj(Project proj);
         int SaveChanges();
         int AddAFollower(User user, int id);
+        int RemoveAFollower(User user, int id);
         int AddAWatcher(Buyer buyer, int id);
+        int RemoveAWatcher(Buyer buyer, int id);
         int AddADev(int id, Developer dev);
     }
 }

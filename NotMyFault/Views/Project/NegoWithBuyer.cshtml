@@ -1,0 +1,54 @@
+﻿@model NegoViewModel
+
+<script src="~/Javascript/signalr-client-1.0.0-alpha2-final.min.js"></script>
+
+<a asp-controller="Project" asp-action="TalkToBuyers" asp-route-projId="@Model.ProjId">Back</a>
+<br>
+<br>
+<font>Talk to the investor</font>
+<div>
+    <textarea rows="15" cols="30" id="display_nego">@Model.PreviousNegoConver</textarea>
+    <br>
+    <br>
+    <input id="text_nego" />
+    <br>
+    <br>
+    <input type="button" value="send" id="sendBtn_nego" onclick="GroupMessage()" />
+</div>
+<script type="text/javascript">
+                let connection = new signalR.HubConnection('/negoHub'),
+                    userId = '@Model.CurrentUser.Id',
+                    groupName = '@Model.ProjId' + '-' + '@Model.BuyerId',
+                    projId = '@Model.ProjId',
+                    userNickName = '@Model.CurrentUser.NickName',
+                    input = document.getElementById('text_nego'),
+                    sendBtn = document.getElementById('sendBtn_nego'),
+                    display = document.getElementById('display_nego'),
+                    newLine = '&#13;&#10;';
+
+                connection.on('Send', data =>
+                {
+                    var DisplayMessagesDiv = display;
+                    DisplayMessagesDiv.innerHTML += data + newLine;
+                    display.scrollTop = display.scrollHeight;
+                });
+
+                connection.start().then(() => connection.invoke('JoinGroup', groupName, userNickName));
+                window.onbeforeunload = function LeaveGroup()
+                {
+                    connection.invoke('LeaveGroup', groupName, userNickName);
+                }
+
+                function GroupMessage()
+                {
+                    var msg = input.value;
+                    connection.invoke('SendToGroup', groupName, msg, projId, userId, userNickName);
+                    input.value = null;
+                }
+
+                input.onkeypress = function (e)
+                {
+                    if (e.keyCode == 13)
+                        sendBtn.click();
+                };
+</script>

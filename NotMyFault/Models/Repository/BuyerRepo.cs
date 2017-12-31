@@ -35,11 +35,6 @@ namespace NotMyFault.Models.Repository
         public ICollection<Project> GetMyFollowingsById(int id) => _appDbContext.UserProjs.Where(p => p.Id == id).Select(pt => pt.Proj).ToList();
         public ICollection<Project> GetMyWatchingProjs(int id) => _appDbContext.BuyerProjs.Where(p => p.Id == id).Select(pt => pt.Proj).ToList();
 
-
-
-
-
-
         public void SetUsernameById(int id, string username)
         {
             _appDbContext.Buyers.FirstOrDefault(p => p.Id == id).UserName = username;

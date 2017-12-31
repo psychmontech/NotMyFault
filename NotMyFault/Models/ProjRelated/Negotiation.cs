@@ -10,7 +10,7 @@ namespace NotMyFault.Models.ProjRelated
     public class Negotiation
     {
         public int NegotiationId { get; set; }
-        public virtual Buyer MyBuyer { get; set; } //always talk to the leader of the proj
+        public int BuyerId { get; set; } //always talk to the leader of the proj
         public virtual Project MyProj { get; set; }
         public virtual ICollection<NegoEntry> MyEntries { get; set; }
     }
@@ -20,5 +20,7 @@ namespace NotMyFault.Models.ProjRelated
         public DateTime Timestamp { get; set; }
         public virtual Negotiation MyNego { get; set; }
         public string Text { get; set; }
+        public string UserNickName { get; set; }
+        public int UserId { get; set; }
     }
 }

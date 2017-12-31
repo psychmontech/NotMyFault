@@ -18,4 +18,10 @@ namespace NotMyFault.ViewModels
         public ICollection<Endorsment> Endorsments { get; set; }
         public ICollection<ProjWithIfDevIsRated> ProjsWithIfDevIsRated { get; set; }
     }
+
+    public class ProjWithIfDevIsRated
+    {
+        public Project Proj { get; set; }
+        public bool CurrentDevHasRatedThisDev { get; set; }
+    }
 }

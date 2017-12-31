@@ -113,13 +113,14 @@ namespace NotMyFault.Models.Repository
         public Distribution GetMyDistributById(int id) => _appDbContext.Distributions.Include(p => p.MyProj).ToList().FirstOrDefault(c => c.MyProj.ProjectId == id);
         public Developer GetProjLeaderById(int id) => _appDbContext.Devs.Include(d => d.MyLeadingProjs).FirstOrDefault(d => d.MyLeadingProjs.Any(p => p.ProjectId == id));  //look at me
         public Developer GetInitiatorById(int id) => _appDbContext.Devs.Include(d => d.MyInitiatedProjs).FirstOrDefault(d => d.MyInitiatedProjs.Any(p => p.ProjectId == id));
-        public ICollection<InternalConver> GetMyConverById(int id) => _appDbContext.InternalConver.Include(p => p.MyProj).ToList().FindAll(c => c.MyProj.ProjectId == id);
+        public ICollection<InterConverEntry> GetMyConverById(int id) => _appDbContext.InterConverEntries.Include(p => p.MyProj).OrderBy(x => x.Timestamp).ToList().FindAll(c => c.MyProj.ProjectId == id);
         public bool ThisDevIsInvolved(User user, int id) => GetMyDevsById(id).Contains((Developer)user);
         public bool ThisUserHasLiked(User user, int id) => _appDbContext.Likes.Include(l => l.MyProj).Include(l => l.Liker).ToList().
                                                                FindAll(l => l.MyProj.ProjectId == id).FirstOrDefault(l => l.Liker == user) != null;
         public bool ThisUserHasFollowed(User user, int id) => GetMyFollowersById(id).Contains(user);
         public bool ThisBuyerHasWatched(User user, int id) => GetMyWatchersById(id).Contains((Buyer)user);
         public bool HasOpenRecruits(int id) => _appDbContext.Recruitments.Include(p => p.MyProj).ToList().FindAll(r => r.MyProj.ProjectId == id && r.IsOpen == true).Any();
+        public bool HasAnyNegos(int id) => GetMyNegosById(id).Any();
         public int AddProj(Project proj)
         {
             _appDbContext.Projects.Add(proj);
@@ -139,6 +140,13 @@ namespace NotMyFault.Models.Repository
             return _appDbContext.SaveChanges();
         }
 
+        public int RemoveAFollower(User user, int id)
+        {
+            var userProjs = _appDbContext.UserProjs.Include(u => u.User).FirstOrDefault(u => u.User == user && u.ProjectId == id);
+            _appDbContext.UserProjs.Remove(userProjs);
+            return _appDbContext.SaveChanges();
+        }
+
         public int AddAWatcher(Buyer buyer, int id)
         {
             _appDbContext.BuyerProjs.Add(
@@ -147,6 +155,13 @@ namespace NotMyFault.Models.Repository
                     Proj = GetProjById(id),
                     Buyer = buyer
                 });
+            return _appDbContext.SaveChanges();
+        }
+
+        public int RemoveAWatcher(Buyer buyer, int id)
+        {
+            var buyerProjs = _appDbContext.BuyerProjs.Include(b => b.Buyer).FirstOrDefault(b => b.Buyer == buyer && b.ProjectId == id);
+            _appDbContext.BuyerProjs.Remove(buyerProjs);
             return _appDbContext.SaveChanges();
         }
 

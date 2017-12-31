@@ -18,4 +18,10 @@ namespace NotMyFault.ViewModels
 
         public string ReturnUrl { get; set; }
     }
+
+    public class NonLoggedInViewModel
+    {
+        public string Controller { get; set; }
+        public string Action { get; set; }
+    }
 }

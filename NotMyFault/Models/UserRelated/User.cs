@@ -32,7 +32,6 @@ namespace NotMyFault.Models.UserRelated
         public virtual Interview MyIntwAsViewer { get; set; }
         public virtual Interview MyIntwAsViewee { get; set; }
         public virtual ICollection<Review> MyReviews { get; set; } //reviews by other devs, conducts review -/+ 5 
-        public virtual ICollection<InternalConver> MyInterconvers { get; set; } 
     }
 
     public class Buyer : User
@@ -41,12 +40,11 @@ namespace NotMyFault.Models.UserRelated
         public string CompanyAddr { get; set; }
         public virtual ICollection<BuyerProject> MyWatchingProj { get; set; }
         public int Earnest { get; set; }
-        public virtual ICollection<Negotiation> MyNegos { get; set; }
         public virtual ICollection<Transaction> AssociateTrans { get; set; }
     }
 
     //many to many join tables
-    public class DeveloperProject
+    public class DeveloperProject //developers <->projects
     {
         public int ProjectId { get; set; }
         public int Id { get; set; }
@@ -61,14 +59,14 @@ namespace NotMyFault.Models.UserRelated
         public Developer Dev { get; set; }
         public Recruitment Recruit { get; set; }
     }
-    public class UserProject
+    public class UserProject //followers <->projects
     {
         public int ProjectId { get; set; }
         public int Id { get; set; }
         public User User { get; set; }
         public Project Proj { get; set; }
     }
-    public class BuyerProject
+    public class BuyerProject //watchers <->projects
     {
         public int ProjectId { get; set; }
         public int Id { get; set; }

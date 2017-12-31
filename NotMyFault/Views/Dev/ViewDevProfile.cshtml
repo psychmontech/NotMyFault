@@ -15,7 +15,15 @@ Self introduction:  @Model.ViewingDev.SelfIntro
 <br>
 Number of project working on = @Model.NumProjWrkOn
 <br>   
-Credit = <a asp-controller="Dev" asp-action="ViewReviews" asp-route-id="@Model.ViewingDev.Id">@Model.Credit</a>
+@if (@Model.Credit == 0)
+{
+    <font>Credit = 0</font>
+}
+else
+{
+    <font>Credit =</font>
+    <a asp-controller="Dev" asp-action="ViewReviews" asp-route-id="@Model.ViewingDev.Id">@Model.Credit</a>
+}
 <br>
 <br>
 <br>

@@ -7,6 +7,7 @@ using NotMyFault.Models.DataAccessLayer;
 using NotMyFault.Models.Repository.Interface;
 using NotMyFault.Models.Repository;
 using NotMyFault.Models.UserRelated;
+using NotMyFault.Hubs;
 
 namespace NotMyFault
 {
@@ -37,6 +38,7 @@ namespace NotMyFault
             services.AddTransient<IRecruitRepo, RecruitRepo>();
             services.AddTransient<ISNARepo, SNARepo>();
             services.AddMvc();
+            services.AddSignalR();
             services.AddMemoryCache();
             services.AddSession();
         }
@@ -50,13 +52,17 @@ namespace NotMyFault
             app.UseStatusCodePages();
             app.UseStaticFiles();
             app.UseAuthentication();
-
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<DevsHub>("devsHub");
+                routes.MapHub<NegoHub>("negoHub");
+            });
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                 name: "default",
                 template: "{controller=Account}/{action=Start}/{id?}");
-            });
+        });
 
             //DbInitializer.Seed(app);
         }

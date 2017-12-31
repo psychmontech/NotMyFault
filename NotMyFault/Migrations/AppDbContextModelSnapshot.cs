@@ -18,7 +18,7 @@ namespace NotMyFault.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.0.0-rtm-26452")
+                .HasAnnotation("ProductVersion", "2.0.1-rtm-125")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -143,11 +143,13 @@ namespace NotMyFault.Migrations
                     b.ToTable("Distributions");
                 });
 
-            modelBuilder.Entity("NotMyFault.Models.ProjRelated.InternalConver", b =>
+            modelBuilder.Entity("NotMyFault.Models.ProjRelated.InterConverEntry", b =>
                 {
                     b.Property<DateTime>("Timestamp");
 
-                    b.Property<int>("DeveloperForeignKey");
+                    b.Property<int>("ByDevId");
+
+                    b.Property<string>("DevNickName");
 
                     b.Property<int>("ProjectForeignKey");
 
@@ -155,11 +157,9 @@ namespace NotMyFault.Migrations
 
                     b.HasKey("Timestamp");
 
-                    b.HasIndex("DeveloperForeignKey");
-
                     b.HasIndex("ProjectForeignKey");
 
-                    b.ToTable("InternalConver");
+                    b.ToTable("InterConverEntries");
                 });
 
             modelBuilder.Entity("NotMyFault.Models.ProjRelated.Interview", b =>
@@ -212,6 +212,10 @@ namespace NotMyFault.Migrations
 
                     b.Property<string>("Text");
 
+                    b.Property<int>("UserId");
+
+                    b.Property<string>("UserNickName");
+
                     b.HasKey("Timestamp");
 
                     b.HasIndex("NegoForeignKey");
@@ -224,13 +228,11 @@ namespace NotMyFault.Migrations
                     b.Property<int>("NegotiationId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("BuyerForeignKey");
+                    b.Property<int>("BuyerId");
 
                     b.Property<int>("ProjectForeignKey");
 
                     b.HasKey("NegotiationId");
-
-                    b.HasIndex("BuyerForeignKey");
 
                     b.HasIndex("ProjectForeignKey");
 
@@ -731,13 +733,8 @@ namespace NotMyFault.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("NotMyFault.Models.ProjRelated.InternalConver", b =>
+            modelBuilder.Entity("NotMyFault.Models.ProjRelated.InterConverEntry", b =>
                 {
-                    b.HasOne("NotMyFault.Models.UserRelated.Developer", "ByDev")
-                        .WithMany("MyInterconvers")
-                        .HasForeignKey("DeveloperForeignKey")
-                        .OnDelete(DeleteBehavior.Restrict);
-
                     b.HasOne("NotMyFault.Models.ProjRelated.Project", "MyProj")
                         .WithMany("MyConver")
                         .HasForeignKey("ProjectForeignKey")
@@ -785,11 +782,6 @@ namespace NotMyFault.Migrations
 
             modelBuilder.Entity("NotMyFault.Models.ProjRelated.Negotiation", b =>
                 {
-                    b.HasOne("NotMyFault.Models.UserRelated.Buyer", "MyBuyer")
-                        .WithMany("MyNegos")
-                        .HasForeignKey("BuyerForeignKey")
-                        .OnDelete(DeleteBehavior.Restrict);
-
                     b.HasOne("NotMyFault.Models.ProjRelated.Project", "MyProj")
                         .WithMany("MyNegos")
                         .HasForeignKey("ProjectForeignKey")

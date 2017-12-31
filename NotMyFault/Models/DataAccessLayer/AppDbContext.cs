@@ -22,7 +22,7 @@ namespace NotMyFault.Models.DataAccessLayer
         public DbSet<Project> Projects { get; set; }
         public DbSet<SupptNAlleg> SupptNAllegs{ get; set; }
         public DbSet<SNAEntry> SNAEntries{ get; set; }
-        public DbSet<InternalConver> InternalConver { get; set; }
+        public DbSet<InterConverEntry> InterConverEntries { get; set; }
         public DbSet<BankDetails> BankDetails { get; set; }
         public DbSet<Like> Likes { get; set; }
         public DbSet<Negotiation> Negotiations { get; set; }
@@ -58,7 +58,7 @@ namespace NotMyFault.Models.DataAccessLayer
                 .HasForeignKey("InitiatorIdForeignKey");
 
             //project <->interconvers
-            modelBuilder.Entity<InternalConver>()
+            modelBuilder.Entity<InterConverEntry>()
                 .HasOne(p => p.MyProj)
                 .WithMany(i => i.MyConver)
                 .HasForeignKey("ProjectForeignKey");
@@ -114,13 +114,6 @@ namespace NotMyFault.Models.DataAccessLayer
                 .HasForeignKey("EndorsGiverForeignKey")
                 .OnDelete(DeleteBehavior.Restrict);
 
-            //developer <-> interconvers
-            modelBuilder.Entity<InternalConver>()
-                .HasOne(p => p.ByDev)
-                .WithMany(i => i.MyInterconvers)
-                .HasForeignKey("DeveloperForeignKey")
-                .OnDelete(DeleteBehavior.Restrict);
-
             //developer <-> reviews
             modelBuilder.Entity<Review>()
                 .HasOne(p => p.Reviewee)
@@ -151,13 +144,6 @@ namespace NotMyFault.Models.DataAccessLayer
                 .HasOne(p => p.MyProj)
                 .WithMany(i => i.MyNegos)
                 .HasForeignKey("ProjectForeignKey");
-
-            //buyer <-> negotiations
-            modelBuilder.Entity<Negotiation>()
-                .HasOne(p => p.MyBuyer)
-                .WithMany(i => i.MyNegos)
-                .HasForeignKey("BuyerForeignKey")
-                .OnDelete(DeleteBehavior.Restrict);
 
             //buyer <-> transactions
             modelBuilder.Entity<Transaction>()
@@ -237,8 +223,7 @@ namespace NotMyFault.Models.DataAccessLayer
             modelBuilder.Entity<Project>().Property<int>("DeveloperForeignKey");
             modelBuilder.Entity<Project>().Property<int>("LeaderIdForeignKey");
             modelBuilder.Entity<Project>().Property<int>("InitiatorIdForeignKey");
-            modelBuilder.Entity<InternalConver>().Property<int>("ProjectForeignKey");
-            modelBuilder.Entity<InternalConver>().Property<int>("DeveloperForeignKey");
+            modelBuilder.Entity<InterConverEntry>().Property<int>("ProjectForeignKey");
             modelBuilder.Entity<Distribution>().Property<int>("ProjectForeignKey");
             modelBuilder.Entity<Transaction>().Property<int>("ProjectForeignKey");
             modelBuilder.Entity<Transaction>().Property<int>("BuyerForeignKey");
@@ -251,7 +236,6 @@ namespace NotMyFault.Models.DataAccessLayer
             modelBuilder.Entity<Endorsment>().Property<int>("EndorsGiverForeignKey");
             modelBuilder.Entity<NegoEntry>().Property<int>("NegoForeignKey");
             modelBuilder.Entity<Negotiation>().Property<int>("ProjectForeignKey");
-            modelBuilder.Entity<Negotiation>().Property<int>("BuyerForeignKey");
             modelBuilder.Entity<PublicOpinion>().Property<int>("ProjectForeignKey");
             modelBuilder.Entity<Like>().Property<int>("ProjectForeignKey");
             modelBuilder.Entity<Like>().Property<int>("UserForeignKey");
@@ -259,7 +243,7 @@ namespace NotMyFault.Models.DataAccessLayer
 
             // Configure Primary Key
             modelBuilder.Entity<SNAEntry>().HasKey(s => s.Timestamp);
-            modelBuilder.Entity<InternalConver>().HasKey(s => s.Timestamp);
+            modelBuilder.Entity<InterConverEntry>().HasKey(s => s.Timestamp);
             modelBuilder.Entity<Interview>().HasKey(s => s.Time);
             modelBuilder.Entity<Like>().HasKey(s => s.Timestamp);
             modelBuilder.Entity<NegoEntry>().HasKey(s => s.Timestamp);
