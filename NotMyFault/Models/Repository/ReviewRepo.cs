@@ -16,12 +16,10 @@ namespace NotMyFault.Models.Repository
     public class ReviewRepo : IReviewRepo
     {
         private readonly AppDbContext _appDbContext;
-        private readonly ILogger _logger;
 
-        public ReviewRepo(AppDbContext appDbContext, ILogger<ReviewRepo> logger)
+        public ReviewRepo(AppDbContext appDbContext)
         {
             _appDbContext = appDbContext;
-            _logger = logger;
         }
 
         public ICollection<Review> GetRevByUserId(int id) => _appDbContext.Reviews.Include(r=>r.Reviewee).Where(c => c.Reviewee.Id == id).OrderByDescending(x => x.Timestamp).ToList();
@@ -34,8 +32,6 @@ namespace NotMyFault.Models.Repository
             {
                 if (_appDbContext.DevProjs.Where(p => p.ProjectId == proj.ProjectId).Select(d => d.Dev).ToList().Contains(reviewee))
                 {
-                    _logger.LogCritical(1002, "$$$$$$$$$$$ proj.ProjectId {ID}", proj.ProjectId);
-                    _logger.LogCritical(1002, "$$$$$$$$$$$ revieweeId {ID}", revieweeId);
                     result.Add(new ProjWithIfDevIsRated
                     {
                         Proj = proj,
