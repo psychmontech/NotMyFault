@@ -43,7 +43,7 @@ namespace NotMyFault.Models.Repository.Interface
         bool ThisUserHasFollowed(User user, int id);
         bool ThisBuyerHasWatched(User user, int id);
         bool HasOpenRecruits(int id);
-        bool HasAnyNegos(int id);
+        bool HasAnyNegosToLookat(int id);
         int AddProj(Project proj);
         int SaveChanges();
         int AddAFollower(User user, int id);

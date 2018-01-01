@@ -120,7 +120,21 @@ namespace NotMyFault.Models.Repository
         public bool ThisUserHasFollowed(User user, int id) => GetMyFollowersById(id).Contains(user);
         public bool ThisBuyerHasWatched(User user, int id) => GetMyWatchersById(id).Contains((Buyer)user);
         public bool HasOpenRecruits(int id) => _appDbContext.Recruitments.Include(p => p.MyProj).ToList().FindAll(r => r.MyProj.ProjectId == id && r.IsOpen == true).Any();
-        public bool HasAnyNegos(int id) => GetMyNegosById(id).Any();
+        public bool HasAnyNegosToLookat(int id)
+        {
+            if (!GetMyNegosById(id).Any())
+                return false;
+            else
+            {
+                foreach (var nego in GetMyNegosById(id))
+                {
+                    var buyer = _appDbContext.Buyers.FirstOrDefault(b => b.Id == nego.BuyerId);
+                    if (ThisBuyerHasWatched(buyer, id))
+                        return true;
+                }
+                return false;
+            }
+        }
         public int AddProj(Project proj)
         {
             _appDbContext.Projects.Add(proj);

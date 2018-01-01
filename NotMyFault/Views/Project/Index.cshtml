@@ -1,31 +1,20 @@
 ﻿@model ProjectViewModel
 
-<script type="text/javascript">
-    window.onload = function IsCurrentDevInvolvedCheck()
-    {
-        if ('@(Model.CurrentDevIsInvolved)' === '@true')
-        {
-            document.getElementById('involved1').style.display = 'block';
-            document.getElementById('involved2').style.display = 'block';
-            document.getElementById('notInvolved1').style.display = 'none';
-            document.getElementById('notInvolved2').style.display = 'none';
-        }
-        else
-        {
-            document.getElementById('notInvolved1').style.display = 'block';
-            document.getElementById('notInvolved2').style.display = 'block';
-            document.getElementById('involved1').style.display = 'none';
-            document.getElementById('involved2').style.display = 'none';
-        }
-    }
-</script>
-
+<script src="~/Javascript/ProjectDisplaySetting.js"></script>
 <script src="~/Javascript/signalr-client-1.0.0-alpha2-final.min.js"></script>
+<script>
+    var userId = '@Model.CurrentUser.Id';
+    var projId = '@Model.Proj.ProjectId';
+    var userNickName = '@Model.CurrentUser.NickName';
+    var CurrentDevIsInvolved = '@Model.CurrentDevIsInvolved';
+    var groupName_interConver = projId;
+    var groupName_negoConver = projId + '-' + userId;
+</script>
 
 @if (@Model.CurrentUser.Role == UserRole.Dev)
 {
     <a asp-controller="Dev" asp-action="Index">Home</a>
-    if (Model.HasAnyNegos)
+    if (Model.HasAnyNegosToLookat)
     {
         <font>&nbsp;|</font>
         <a asp-controller="Project" asp-action="TalkToBuyers" asp-route-projId="@Model.Proj.ProjectId">Talk to investors</a>
@@ -47,7 +36,7 @@ else
         <a asp-controller="Recruit" asp-action="ListRecruits" asp-route-ProjId="@Model.Proj.ProjectId">My open recruitments</a>
     }
 }
-else if (Model.HasOpenRecruits)
+else if (Model.HasOpenRecruits && Model.CurrentDevIsInvolved)
 {
     <font>&nbsp;|</font>
     <a asp-controller="Recruit" asp-action="ListRecruits" asp-route-ProjId="@Model.Proj.ProjectId">Open recruitments</a>
@@ -67,7 +56,7 @@ This project is currently
         break;
 
     case ProjStatus.Completed:
-        <font>Complelted</font>
+        <font>Completed</font>
         break;
 
     case ProjStatus.Preparing:
@@ -136,9 +125,9 @@ Followed by @Model.NumOfFollowers users
 Likes: @Model.NumOfLikes
 <br>
 Watched by: @Model.NumOfWatchers investors
+<br>
+<br>
 <div id="notInvolved2" style="display:none">
-    <br>
-    <br>
     @if (@Model.CurrentUserHasLiked)
     { <font>Liked</font>}
     else
@@ -151,7 +140,7 @@ Watched by: @Model.NumOfWatchers investors
     @if (@Model.CurrentUserHasFollowed)
     {
         <form asp-controller="Project" asp-action="Unfollow" asp-route-projId="@Model.Proj.ProjectId" method="post" role="form">
-        <input type="submit" value="unfollow" />
+        <input type="submit" value="Unfollow" />
         </form>
     }
     else
@@ -165,59 +154,13 @@ Watched by: @Model.NumOfWatchers investors
         if (@Model.CurrentBuyerHasWatched)
         {
             <form asp-controller="Project" asp-action="Unwatch" asp-route-projId="@Model.Proj.ProjectId" method="post" role="form">
-                <input type="submit" value="unwatch" />
+                <input type="submit" value="Unwatch" />
             </form>
             <br>
             <br>
-            //***************************************************************
             <font>Talk to developers</font>
-            <div>
-                <textarea rows="15" cols="30" id="display_nego">@Model.PreviousNegoConver</textarea>
-                <br>
-                <br>
-                <input id="text_nego" />
-                <br>
-                <br>
-                <input type="button" value="send" id="sendBtn_nego" onclick="GroupMessage()" />
-            </div>
-            <script type="text/javascript">
-                let connection = new signalR.HubConnection('/negoHub'),
-                    userId = '@Model.CurrentUser.Id',
-                    groupName = '@Model.Proj.ProjectId' + '-' + userId,
-                    projId = '@Model.Proj.ProjectId',
-                    userNickName = '@Model.CurrentUser.NickName',
-                    input = document.getElementById('text_nego'),
-                    sendBtn = document.getElementById('sendBtn_nego'),
-                    display = document.getElementById('display_nego'),
-                    newLine = '&#13;&#10;';
-
-                connection.on('Send', data =>
-                {
-                    var DisplayMessagesDiv = display;
-                    DisplayMessagesDiv.innerHTML += data + newLine;
-                    display.scrollTop = display.scrollHeight;
-                });
-
-                connection.start().then(() => connection.invoke('JoinGroup', groupName, userNickName));
-                window.onbeforeunload = function LeaveGroup()
-                {
-                    connection.invoke('LeaveGroup', groupName, userNickName);
-                }
-
-                function GroupMessage()
-                {
-                    var msg = input.value;
-                    connection.invoke('SendToGroup', groupName, msg, projId, userId, userNickName);
-                    input.value = null;
-                }
-
-                input.onkeypress = function (e)
-                {
-                    if (e.keyCode == 13)
-                        sendBtn.click();
-                };
-            </script>
-            //***************************************************************
+            @Html.Partial("_Conversation", @Model.PreviousNegoConver)
+            <script src="~/Javascript/SingalR_NegoConver.js"></script>
         }
         else
         {
@@ -232,52 +175,7 @@ Watched by: @Model.NumOfWatchers investors
 @if (Model.CurrentDevIsInvolved)
 {
     <font>Internal communication</font>
-    <div>
-        <textarea rows="15" cols="30" id="display_interDev">@Model.PreviousInterConver</textarea>
-        <br>
-        <br>
-        <input id="text_interDev" />
-        <br>
-        <br>
-        <input type="button" value="send" id="sendBtn_interDev" onclick="GroupMessage()" />
-    </div>
-    <script type="text/javascript">
-        let connection = new signalR.HubConnection('/devsHub'),
-            groupName = '@Model.Proj.ProjectId',
-            projId = '@Model.Proj.ProjectId',
-            userId = '@Model.CurrentUser.Id',
-            userNickName = '@Model.CurrentUser.NickName',
-            input = document.getElementById("text_interDev"),
-            sendBtn = document.getElementById('sendBtn_interDev'),
-            display = document.getElementById('display_interDev'),
-            newLine = '&#13;&#10;';
-
-        connection.on('Send', data =>
-        {
-            var DisplayMessagesDiv = display;
-            DisplayMessagesDiv.innerHTML += data + newLine;
-            display.scrollTop = display.scrollHeight;
-        });
-
-        connection.start().then(() => connection.invoke('JoinGroup', groupName, userNickName));
-        window.onbeforeunload = function LeaveGroup() 
-        {
-            connection.invoke('LeaveGroup', groupName, userNickName);
-        }
-
-        function GroupMessage()
-        {
-            var msg = input.value;
-            connection.invoke('SendToGroup', groupName, msg, projId, userId, userNickName);
-            input.value = null;
-        }
-
-        input.onkeypress = function (e)
-        {
-            if (e.keyCode == 13)
-                sendBtn.click();
-        };
-    </script>
-
+    @Html.Partial("_Conversation", @Model.PreviousInterConver)
+    <script src="~/Javascript/SingalR_InterConver.js"></script>
 }
 

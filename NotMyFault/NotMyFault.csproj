@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\Javascript\example.js" />
     <Content Remove="wwwroot\Javascript\SignalR.js" />
   </ItemGroup>
 

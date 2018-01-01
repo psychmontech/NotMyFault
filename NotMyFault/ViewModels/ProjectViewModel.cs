@@ -26,6 +26,6 @@ namespace NotMyFault.ViewModels
         public bool CurrentUserHasFollowed { get; set; }
         public bool CurrentBuyerHasWatched { get; set; }
         public bool HasOpenRecruits { get; set; }
-        public bool HasAnyNegos { get; set; }
+        public bool HasAnyNegosToLookat { get; set; }
     }
 }
