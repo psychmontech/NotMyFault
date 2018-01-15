@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NotMyFault.ViewModels
 {
-    public class SearchRecruitViewModel
+    public class SearchRecruitViewModel // this viewmodel is shared by SearchRecruit and ListRecruits
     {
         public ICollection<Recruitment> Recruits { get; set; }
         public string KeyWords { get; set; }

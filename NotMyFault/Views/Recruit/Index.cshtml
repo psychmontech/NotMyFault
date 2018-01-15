@@ -57,15 +57,19 @@ This recruitment was opened on @Model.DateCreated.ToString("dd/MM/yyy")
     {
         if (Model.CurrentDevHasApplied)
         {
-            <font>Applied</font>
+            <a asp-controller="Recruit" asp-action="Withdraw" asp-route-id="@Model.RecruitId">Applied, but withdraw</a>
         }
-        else
+        else if (@Model.CurrentDevIsEligibleToApply)
         {
             <form asp-controller="Recruit" asp-action="Apply" asp-route-id="@Model.RecruitId" method="post" role="form">
                 <div>
                     <input type="submit" name="apply" value="Apply"/>
                 </div>
             </form>
+        }
+        else
+        {
+            <font>this role may not suit you</font>
         }
     }
 </div>

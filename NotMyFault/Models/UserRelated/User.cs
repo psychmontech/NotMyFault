@@ -28,7 +28,7 @@ namespace NotMyFault.Models.UserRelated
         public virtual ICollection<Project> MyLeadingProjs { get; set; }
         public virtual ICollection<Project> MyInitiatedProjs { get; set; }
         public virtual ICollection<DeveloperRecruitment> MyAppliedRoles { get; set; }
-        public virtual BankDetails MyBankDetails { get; set; }
+        public virtual CrypCurAddr MyCrypCurAddr { get; set; }
         public virtual Interview MyIntwAsViewer { get; set; }
         public virtual Interview MyIntwAsViewee { get; set; }
         public virtual ICollection<Review> MyReviews { get; set; } //reviews by other devs, conducts review -/+ 5 
@@ -52,7 +52,7 @@ namespace NotMyFault.Models.UserRelated
         public Project Proj { get; set; }
     }
 
-    public class DeveloperRecruitment
+    public class DeveloperRecruitment //candidates
     {
         public int RecruitmentId { get; set; }
         public int Id { get; set; }

@@ -23,5 +23,6 @@ namespace NotMyFault.ViewModels
         public bool CurrentDevIsLeader { get; set; }
         public bool CurrentDevIsInvolved { get; set; }
         public bool CurrentDevHasApplied { get; set; }
+        public bool CurrentDevIsEligibleToApply { get; set; }
     }
 }

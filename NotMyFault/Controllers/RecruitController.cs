@@ -50,7 +50,9 @@ namespace NotMyFault.Controllers
                 CurrentDev = thisDev,
                 CurrentDevIsInvolved = _ProjRepo.ThisDevIsInvolved(thisDev, recruit.MyProj.ProjectId),
                 CurrentDevIsLeader = thisDev == _ProjRepo.GetProjLeaderById(recruit.MyProj.ProjectId),
-                CurrentDevHasApplied = _recruitRepo.ThisDevHasApplied(id, thisDev)
+                CurrentDevHasApplied = _recruitRepo.ThisDevHasApplied(id, thisDev),
+                CurrentDevIsEligibleToApply = (_devRepo.GetNumProjWrkOnById(thisDev.Id) <= recruit.MaxNumPrjWkOn || recruit.MaxNumPrjWkOn == 0)
+                                               && (_devRepo.GetCreditById(thisDev.Id) >= recruit.MinCredit)
             };
             return View(viewRecruitViewModel);
         }
@@ -62,7 +64,6 @@ namespace NotMyFault.Controllers
             {
                 ProjId = projId
             };
-            //ViewBag.ProjId = projId;
             return View(createRecruitViewModel);
         }
 
@@ -113,9 +114,12 @@ namespace NotMyFault.Controllers
 
         public IActionResult Accept(int id, int projId, int devId)
         {
-            _ProjRepo.AddADev(projId, _devRepo.GetDevById(devId));
+            Developer dev = _devRepo.GetDevById(devId);
+            _ProjRepo.AddADev(projId, dev);
+            if (_ProjRepo.ThisUserHasFollowed(dev, projId))
+                _ProjRepo.RemoveAFollower(dev, projId);
             _recruitRepo.GetRecruitById(id).IsOpen = false;
-            _recruitRepo.SaveChanges();
+            _recruitRepo.RemoveAllCandies(id); //this includes "_recruitRepo.SaveChanges()" which saves the changes made in the statement above
             return RedirectToAction("Index", "Project", new { id = projId });
         }
 
@@ -163,6 +167,19 @@ namespace NotMyFault.Controllers
                 return RedirectToAction("Index", "Recruit", new { id = createRecruitViewModel.ProjId }); 
             }
             return View(createRecruitViewModel);
+        }
+
+        public IActionResult RemoveRecruit(int id, int ProjId)
+        {
+            _recruitRepo.RemoveRecruit(id);
+            return RedirectToAction("ListRecruits", "Recruit", new { projId = ProjId });
+        }
+
+        public async Task<IActionResult> Withdraw(int id)
+        {
+            var thisDev = (Developer)await _userManager.GetUserAsync(User);
+            _recruitRepo.RemoveACandy(id, thisDev);
+            return RedirectToAction("Index", "Recruit", new { id = id });
         }
     }
 }

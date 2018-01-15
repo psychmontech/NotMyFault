@@ -43,7 +43,6 @@ namespace NotMyFault.Hubs
 
         public Task SendToGroup(string groupName, string message, int projId, int userId, string userNickName)
         {
-            _logger.LogCritical(1002, "$$$$$$$$ project id = {ID}", userId);
             Project proj = _projRepo.GetProjById(projId);
             Negotiation nego;
             int buyerId = Int32.Parse(groupName.Substring(groupName.LastIndexOf('-') + 1));

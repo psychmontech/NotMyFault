@@ -23,7 +23,7 @@ namespace NotMyFault.Models.DataAccessLayer
         public DbSet<SupptNAlleg> SupptNAllegs{ get; set; }
         public DbSet<SNAEntry> SNAEntries{ get; set; }
         public DbSet<InterConverEntry> InterConverEntries { get; set; }
-        public DbSet<BankDetails> BankDetails { get; set; }
+        public DbSet<CrypCurAddr> CrypCurAddr { get; set; }
         public DbSet<Like> Likes { get; set; }
         public DbSet<Negotiation> Negotiations { get; set; }
         public DbSet<PublicOpinion> PublicOpinions { get; set; }
@@ -95,11 +95,11 @@ namespace NotMyFault.Models.DataAccessLayer
                 .HasForeignKey<Interview>("DevIntwveeForeignKey")
                 .OnDelete(DeleteBehavior.Restrict);
 
-            //developer <-> bankdetails
+            //developer <-> crypCurAddr
             modelBuilder.Entity<Developer>()
-                .HasOne(p => p.MyBankDetails)
+                .HasOne(p => p.MyCrypCurAddr)
                 .WithOne(i => i.MyDev)
-                .HasForeignKey<BankDetails>("DeveloperForeignKey");
+                .HasForeignKey<CrypCurAddr>("DeveloperForeignKey");
 
             //developer <-> endorsgiven
             modelBuilder.Entity<Endorsment>()
@@ -231,7 +231,7 @@ namespace NotMyFault.Models.DataAccessLayer
             modelBuilder.Entity<Interview>().Property<int>("DevIntwverForeignKey");
             modelBuilder.Entity<Interview>().Property<int>("DevIntwveeForeignKey");
             modelBuilder.Entity<Review>().Property<int>("RevieweeIdForeignKey");
-            modelBuilder.Entity<BankDetails>().Property<int>("DeveloperForeignKey");    
+            modelBuilder.Entity<CrypCurAddr>().Property<int>("DeveloperForeignKey");    
             modelBuilder.Entity<Endorsment>().Property<int>("EndorsGivenForeignKey");
             modelBuilder.Entity<Endorsment>().Property<int>("EndorsGiverForeignKey");
             modelBuilder.Entity<NegoEntry>().Property<int>("NegoForeignKey");

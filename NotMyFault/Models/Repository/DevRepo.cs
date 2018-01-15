@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using NotMyFault.Constants;
 using NotMyFault.Models.DataAccessLayer;
 using NotMyFault.Models.ProjRelated;
 using NotMyFault.Models.Repository.Interface;
@@ -28,10 +29,11 @@ namespace NotMyFault.Models.Repository
         public int GetIdByName(string Name) => _appDbContext.Devs.FirstOrDefault(p => p.UserName == Name).Id;
         public string GetLinkedinById(int id) => _appDbContext.Devs.FirstOrDefault(p => p.Id == id).LinkedinUrl;
         public ICollection<Recruitment> GetMyAppliedRolesById(int id) => _appDbContext.DevRecruits.Where(p => p.Id == id).Select(pt => pt.Recruit).ToList(); 
-        public BankDetails GetMyBankDetailsById(int id) => _appDbContext.BankDetails.Include(P => P.MyDev).ToList().FirstOrDefault(c => c.MyDev.Id == id);
+        public CrypCurAddr GetCrypCurAddrById(int id) => _appDbContext.CrypCurAddr.Include(P => P.MyDev).ToList().FirstOrDefault(c => c.MyDev.Id == id);
         public ICollection<Project> GetMyFollowingsById(int id) => _appDbContext.UserProjs.Where(p => p.Id == id).Select(pt => pt.Proj).ToList();
         public ICollection<Project> GetMyLeadingProjsById(int id) => _appDbContext.Projects.Include(P => P.ProjLeader).ToList().FindAll(c => c.ProjLeader.Id == id);   //look at me :)
         public ICollection<Project> GetMyProjsById(int id) => _appDbContext.DevProjs.Where(p => p.Id == id).Select(pt=>pt.Proj).ToList(); //look at me :))
+        public ICollection<Project> GetMyCompletedProjsById(int id) => _appDbContext.DevProjs.Where(p => p.Id == id).Select(pt=>pt.Proj).ToList().FindAll(p=>p.Status == ProjStatus.Completed); //look at me :))
         public ICollection<Review> GetMyReviewsById(int id) => _appDbContext.Reviews.Include(P => P.Reviewee).ToList().FindAll(c => c.Reviewee.Id == id);
         public string GetSelfIntroById(int id) => _appDbContext.Devs.FirstOrDefault(p => p.Id == id).SelfIntro;
         public ICollection<SupptNAlleg> GetMySupNAllegById(int id) => _appDbContext.SupptNAllegs.Include(P => P.MyUser).ToList().FindAll(c => c.MyUser.Id == id);

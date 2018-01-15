@@ -26,10 +26,11 @@ namespace NotMyFault.Models.Repository.Interface
         ICollection<Project> GetMyFollowingsById(int id);
         ICollection<Endorsment> GetEndorsById(int id);
         ICollection<Project> GetMyProjsById(int id);
+        ICollection<Project> GetMyCompletedProjsById(int id);
         ICollection<Project> GetMyLeadingProjsById(int id);
         ICollection<Recruitment> GetMyAppliedRolesById(int id);
         ICollection<Review> GetMyReviewsById(int id);
         string GetSelfIntroById(int id);
-        BankDetails GetMyBankDetailsById(int id);
+        CrypCurAddr GetCrypCurAddrById(int id);
     }
 }

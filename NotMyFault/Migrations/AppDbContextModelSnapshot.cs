@@ -419,29 +419,6 @@ namespace NotMyFault.Migrations
                     b.ToTable("Admins");
                 });
 
-            modelBuilder.Entity("NotMyFault.Models.UserRelated.BankDetails", b =>
-                {
-                    b.Property<int>("BankDetailsId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("AcctName");
-
-                    b.Property<string>("AcctNo");
-
-                    b.Property<string>("BankName");
-
-                    b.Property<int>("DeveloperForeignKey");
-
-                    b.Property<string>("SwiftCode");
-
-                    b.HasKey("BankDetailsId");
-
-                    b.HasIndex("DeveloperForeignKey")
-                        .IsUnique();
-
-                    b.ToTable("BankDetails");
-                });
-
             modelBuilder.Entity("NotMyFault.Models.UserRelated.BuyerProject", b =>
                 {
                     b.Property<int>("Id");
@@ -453,6 +430,27 @@ namespace NotMyFault.Migrations
                     b.HasIndex("ProjectId");
 
                     b.ToTable("BuyerProjs");
+                });
+
+            modelBuilder.Entity("NotMyFault.Models.UserRelated.CrypCurAddr", b =>
+                {
+                    b.Property<int>("CrypCurAddrId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("BitCoinAddr");
+
+                    b.Property<int>("DeveloperForeignKey");
+
+                    b.Property<string>("EthereumAddr");
+
+                    b.Property<string>("LitecoinAddr");
+
+                    b.HasKey("CrypCurAddrId");
+
+                    b.HasIndex("DeveloperForeignKey")
+                        .IsUnique();
+
+                    b.ToTable("CrypCurAddr");
                 });
 
             modelBuilder.Entity("NotMyFault.Models.UserRelated.DeveloperProject", b =>
@@ -838,14 +836,6 @@ namespace NotMyFault.Migrations
                         .HasForeignKey("NotMyFault.Models.TransRelated.Transaction", "TransactionForeignKey");
                 });
 
-            modelBuilder.Entity("NotMyFault.Models.UserRelated.BankDetails", b =>
-                {
-                    b.HasOne("NotMyFault.Models.UserRelated.Developer", "MyDev")
-                        .WithOne("MyBankDetails")
-                        .HasForeignKey("NotMyFault.Models.UserRelated.BankDetails", "DeveloperForeignKey")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("NotMyFault.Models.UserRelated.BuyerProject", b =>
                 {
                     b.HasOne("NotMyFault.Models.UserRelated.Buyer", "Buyer")
@@ -857,6 +847,14 @@ namespace NotMyFault.Migrations
                         .WithMany("MyWatchers")
                         .HasForeignKey("ProjectId")
                         .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("NotMyFault.Models.UserRelated.CrypCurAddr", b =>
+                {
+                    b.HasOne("NotMyFault.Models.UserRelated.Developer", "MyDev")
+                        .WithOne("MyCrypCurAddr")
+                        .HasForeignKey("NotMyFault.Models.UserRelated.CrypCurAddr", "DeveloperForeignKey")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("NotMyFault.Models.UserRelated.DeveloperProject", b =>

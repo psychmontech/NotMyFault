@@ -33,6 +33,17 @@ namespace NotMyFault.Models.Repository
             _appDbContext.Recruitments.Add(recruit);
             return _appDbContext.SaveChanges();
         }
+        public int RemoveACandy(int id, Developer dev)
+        {
+            _appDbContext.DevRecruits.Remove(_appDbContext.DevRecruits.Where(r => r.RecruitmentId == id && r.Id == dev.Id).First());
+            return _appDbContext.SaveChanges();
+        }
+        public int RemoveRecruit(int id)
+        {
+            if (RemoveAllCandies(id) == 1) 
+                _appDbContext.Recruitments.Remove(GetRecruitById(id));
+            return _appDbContext.SaveChanges();
+        }
         public int AddACandy(int id, Developer dev)
         {
             _appDbContext.DevRecruits.Add(
@@ -41,6 +52,14 @@ namespace NotMyFault.Models.Repository
                     Recruit = GetRecruitById(id),
                     Dev = dev,
                 });
+            return _appDbContext.SaveChanges();
+        }
+        public int RemoveAllCandies(int id)
+        {
+            foreach (Developer candy in GetCandiesByRecruId(id))
+            {
+                _appDbContext.DevRecruits.Remove(_appDbContext.DevRecruits.Where(r => r.RecruitmentId == id && r.Id == candy.Id).First());
+            }
             return _appDbContext.SaveChanges();
         }
     }

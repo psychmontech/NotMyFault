@@ -25,7 +25,7 @@ namespace NotMyFault
             services.AddDbContextPool<AppDbContext>(options =>
                              options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddIdentity<User, ApplicationRole>().AddEntityFrameworkStores<AppDbContext>();
-            services.AddTransient<IBankDetailsRepo, BankDetailsRepo>();
+            services.AddTransient<ICrypCurAddrRepo, CrypCurAddrRepo>();
             services.AddTransient<IBuyerRepo, BuyerRepo>();
             services.AddTransient<IDevRepo, DevRepo>();
             services.AddTransient<IDistributRepo, DistributRepo>();

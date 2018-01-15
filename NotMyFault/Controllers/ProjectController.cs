@@ -253,5 +253,12 @@ namespace NotMyFault.Controllers
             };
             return View(negoViewMode);
         }
+
+        public IActionResult DismissADev(int id, int devId)
+        {
+            _projRepo.DismissADev(id, devId);
+            return RedirectToAction("Index", "Project", new { id = id });
+        }
+        
     }
 }

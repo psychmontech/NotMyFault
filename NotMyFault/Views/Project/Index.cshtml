@@ -88,16 +88,20 @@ This project is currently
 This project is evaluated at $@Model.Proj.Valuation
 <br>
 Developers are:
-@foreach (var Dev in Model.MyDevs)
+@foreach (var dev in Model.MyDevs)
 {
     @if (@Model.CurrentUser.Role == UserRole.Dev)
     {
-        <a asp-controller="Dev" asp-action="ViewDevProfile" asp-route-id="@Dev.Id">@Dev.NickName</a>
-        <font>&nbsp;</font>
+        <a asp-controller="Dev" asp-action="ViewDevProfile" asp-route-id="@dev.Id">@dev.NickName</a>
+        if (Model.CurrentUser == Model.ProjLeader && Model.CurrentUser != dev)
+        {
+            <a asp-controller="Project" asp-action="DismissADev" asp-route-id="@Model.Proj.ProjectId" asp-route-devId="@dev.Id">(dismiss)</a>
+        }
+        <font>&nbsp;&nbsp;</font>
     }
     else
     {
-        <font>@Dev.NickName&nbsp;</font>
+        <font>@dev.NickName&nbsp;</font>
     }
 }
 <br>

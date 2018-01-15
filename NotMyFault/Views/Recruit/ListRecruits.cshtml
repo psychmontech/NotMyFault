@@ -13,6 +13,11 @@ Open recruitments are:
                 <td>
                     <a asp-controller="Recruit" asp-action="Index" asp-route-id="@recruit.RecruitmentId">@recruit.NameOfTheRole</a>
                 </td>
+                <td>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a asp-controller="Recruit" asp-action="RemoveRecruit" asp-route-id="@recruit.RecruitmentId" asp-route-ProjId="@recruit.MyProj.ProjectId">delete</a>
+                </td>
+
             </tr>
         }
     }

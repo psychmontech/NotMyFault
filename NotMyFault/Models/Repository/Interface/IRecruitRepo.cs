@@ -17,6 +17,9 @@ namespace NotMyFault.Models.Repository.Interface
         ICollection<Developer> GetCandiesByRecruId(int id);
         bool ThisDevHasApplied(int id, Developer dev);
         int AddRecruit(Recruitment recruit);
+        int RemoveRecruit(int id);
+        int RemoveACandy(int id, Developer dev);
+        int RemoveAllCandies(int id);
         int AddACandy(int id, Developer dev);
         int SaveChanges();
     }

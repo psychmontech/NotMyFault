@@ -189,5 +189,11 @@ namespace NotMyFault.Models.Repository
                 });
             return _appDbContext.SaveChanges();
         }
+        public int DismissADev(int id, int devId)
+        {
+            _appDbContext.DevProjs.Remove(_appDbContext.DevProjs.Where(r => r.ProjectId == id && r.Id == devId).First());
+            return _appDbContext.SaveChanges();
+        }
+
     }
 }

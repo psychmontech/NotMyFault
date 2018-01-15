@@ -7,11 +7,49 @@
 <a asp-controller="Recruit" asp-action="SearchRecruit">Job vacancies</a>
 
 <br>
-<h3>My working projects</h3>
-<table>
-    @foreach (var proj in Model.MyInvolvedProjects)
-    {
-        if (!(proj.Status == ProjStatus.Completed || proj.Status == ProjStatus.Aborted))
+@if (Model.MyInvolvedProjects.Count != 0)
+{
+    <h3>My working projects</h3>
+    <table>
+        @foreach (var proj in Model.MyInvolvedProjects)
+        {
+            if (!(proj.Status == ProjStatus.Completed || proj.Status == ProjStatus.Aborted))
+            {
+                <tr>
+                    <td>
+                        <a asp-controller="Project" asp-action="Index" asp-route-id="@proj.ProjectId">@proj.ProjName</a>
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+}
+
+@if (Model.MyLeadingProjects.Count != 0)
+{
+    <br>
+    <h3>My leading projects</h3>
+    <table>
+        @foreach (var proj in Model.MyLeadingProjects)
+        {
+            if (!(proj.Status == ProjStatus.Completed || proj.Status == ProjStatus.Aborted))
+            {
+                <tr>
+                    <td>
+                        <a asp-controller="Project" asp-action="Index" asp-route-id="@proj.ProjectId">@proj.ProjName</a>
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+}
+
+@if (Model.MyFollowingProjects.Count != 0)
+{
+    <br>
+    <h3>Projects that I follow</h3>
+    <table>
+        @foreach (var proj in Model.MyFollowingProjects)
         {
             <tr>
                 <td>
@@ -19,40 +57,13 @@
                 </td>
             </tr>
         }
-    }
-</table>
-<br>
-<h3>My leading projects</h3>
-<table>
-    @foreach (var proj in Model.MyLeadingProjects)
-    {
-        if (!(proj.Status == ProjStatus.Completed || proj.Status == ProjStatus.Aborted))
-        {
-            <tr>
-                <td>
-                    <a asp-controller="Project" asp-action="Index" asp-route-id="@proj.ProjectId">@proj.ProjName</a>
-                </td>
-            </tr>
-        }
-    }
-</table>
-<br>
-<h3>Projects that I follow</h3>
-<table>
-    @foreach (var proj in Model.MyFollowingProjects)
-    {
-        <tr>
-            <td>
-                <a asp-controller="Project" asp-action="Index" asp-route-id="@proj.ProjectId">@proj.ProjName</a>
-            </td>
-        </tr>
-    }
-</table>
-@if (Model.MyAppliedRoles != null)
+    </table>
+}
+@if (Model.MyAppliedRoles.Count != 0)
 {
     <br>
     <h3>My applied roles</h3>
-    <table>
+    <table> 
         @foreach (var recruit in Model.MyAppliedRoles)
         {
             if (recruit.IsOpen)
@@ -65,14 +76,14 @@
             }
         }
     </table>
-
 }
-<br>
-<h3>My completed projects</h3>
-<table>
-    @foreach (var proj in Model.MyInvolvedProjects)
-    {
-        if (proj.Status == ProjStatus.Completed)
+
+@if (Model.MyCompletedProjects.Count != 0)
+{
+    <br>
+    <h3>My completed projects</h3>
+    <table>
+        @foreach (var proj in Model.MyCompletedProjects)
         {
             <tr>
                 <td>
@@ -80,16 +91,21 @@
                 </td>
             </tr>
         }
-    }
-</table>
-<br>
-<h3>My endorsments</h3>
-<table>
-    @foreach (var endors in Model.MyEndors)
-    {
-        <tr><td>@endors.Subject</td></tr>
-    }
-</table>
+    </table>
+}
+
+@if (Model.MyEndors.Count != 0)
+{
+    <br>
+    <h3>My endorsments</h3>
+    <table>
+        @foreach (var endors in Model.MyEndors)
+        {
+            <tr><td>@endors.Subject</td></tr>
+        }
+    </table>
+}
+
 
 
 

@@ -37,6 +37,7 @@ namespace NotMyFault.Controllers
                 MyLeadingProjects = _DevRepo.GetMyLeadingProjsById(user.Id),
                 MyInvolvedProjects = _DevRepo.GetMyProjsById(user.Id),
                 MyFollowingProjects = _DevRepo.GetMyFollowingsById(user.Id),
+                MyCompletedProjects = _DevRepo.GetMyCompletedProjsById(user.Id),
                 MyEndors= _DevRepo.GetEndorsById(user.Id),
                 MyAppliedRoles = _RecruitRepo.GetRecruitsByCandyId(user.Id)
             };

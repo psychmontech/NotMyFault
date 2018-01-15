@@ -51,5 +51,6 @@ namespace NotMyFault.Models.Repository.Interface
         int AddAWatcher(Buyer buyer, int id);
         int RemoveAWatcher(Buyer buyer, int id);
         int AddADev(int id, Developer dev);
+        int DismissADev(int id, int devId);
     }
 }
