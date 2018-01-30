@@ -126,6 +126,27 @@ namespace NotMyFault.Migrations
                     b.ToTable("AspNetRoles");
                 });
 
+            modelBuilder.Entity("NotMyFault.Models.ProjRelated.CryptcurValue", b =>
+                {
+                    b.Property<int>("CryptcurValueId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<double>("BitcoinValue");
+
+                    b.Property<double>("EthereumValue");
+
+                    b.Property<double>("LitecoinValue");
+
+                    b.Property<int>("ProjectForeignKey");
+
+                    b.HasKey("CryptcurValueId");
+
+                    b.HasIndex("ProjectForeignKey")
+                        .IsUnique();
+
+                    b.ToTable("CryptcurValues");
+                });
+
             modelBuilder.Entity("NotMyFault.Models.ProjRelated.Distribution", b =>
                 {
                     b.Property<int>("DistributionId")
@@ -272,8 +293,6 @@ namespace NotMyFault.Migrations
 
                     b.Property<byte>("Thumbnail");
 
-                    b.Property<long>("Valuation");
-
                     b.Property<int>("Visibility");
 
                     b.HasKey("ProjectId");
@@ -373,8 +392,6 @@ namespace NotMyFault.Migrations
 
                     b.Property<int>("BuyerForeignKey");
 
-                    b.Property<int>("Currency");
-
                     b.Property<DateTime>("DateAborted");
 
                     b.Property<DateTime>("DateCompleted");
@@ -385,7 +402,7 @@ namespace NotMyFault.Migrations
 
                     b.Property<int>("ProjectForeignKey");
 
-                    b.Property<long>("TranAmount");
+                    b.Property<decimal>("TranAmount");
 
                     b.Property<int?>("TransactionForeignKey");
 
@@ -432,25 +449,25 @@ namespace NotMyFault.Migrations
                     b.ToTable("BuyerProjs");
                 });
 
-            modelBuilder.Entity("NotMyFault.Models.UserRelated.CrypCurAddr", b =>
+            modelBuilder.Entity("NotMyFault.Models.UserRelated.CryptcurAddr", b =>
                 {
-                    b.Property<int>("CrypCurAddrId")
+                    b.Property<int>("CryptcurAddrId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("BitCoinAddr");
-
-                    b.Property<int>("DeveloperForeignKey");
+                    b.Property<string>("BitcoinAddr");
 
                     b.Property<string>("EthereumAddr");
 
                     b.Property<string>("LitecoinAddr");
 
-                    b.HasKey("CrypCurAddrId");
+                    b.Property<int>("UserForeignKey");
 
-                    b.HasIndex("DeveloperForeignKey")
+                    b.HasKey("CryptcurAddrId");
+
+                    b.HasIndex("UserForeignKey")
                         .IsUnique();
 
-                    b.ToTable("CrypCurAddr");
+                    b.ToTable("CryptcurAddrs");
                 });
 
             modelBuilder.Entity("NotMyFault.Models.UserRelated.DeveloperProject", b =>
@@ -723,6 +740,14 @@ namespace NotMyFault.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("NotMyFault.Models.ProjRelated.CryptcurValue", b =>
+                {
+                    b.HasOne("NotMyFault.Models.ProjRelated.Project", "MyProj")
+                        .WithOne("Valuation")
+                        .HasForeignKey("NotMyFault.Models.ProjRelated.CryptcurValue", "ProjectForeignKey")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("NotMyFault.Models.ProjRelated.Distribution", b =>
                 {
                     b.HasOne("NotMyFault.Models.ProjRelated.Project", "MyProj")
@@ -849,11 +874,11 @@ namespace NotMyFault.Migrations
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
-            modelBuilder.Entity("NotMyFault.Models.UserRelated.CrypCurAddr", b =>
+            modelBuilder.Entity("NotMyFault.Models.UserRelated.CryptcurAddr", b =>
                 {
-                    b.HasOne("NotMyFault.Models.UserRelated.Developer", "MyDev")
-                        .WithOne("MyCrypCurAddr")
-                        .HasForeignKey("NotMyFault.Models.UserRelated.CrypCurAddr", "DeveloperForeignKey")
+                    b.HasOne("NotMyFault.Models.UserRelated.User", "MyUser")
+                        .WithOne("MyCryptcurAddr")
+                        .HasForeignKey("NotMyFault.Models.UserRelated.CryptcurAddr", "UserForeignKey")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

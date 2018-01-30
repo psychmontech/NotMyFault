@@ -25,10 +25,8 @@ namespace NotMyFault
             services.AddDbContextPool<AppDbContext>(options =>
                              options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddIdentity<User, ApplicationRole>().AddEntityFrameworkStores<AppDbContext>();
-            services.AddTransient<ICrypCurAddrRepo, CrypCurAddrRepo>();
             services.AddTransient<IBuyerRepo, BuyerRepo>();
             services.AddTransient<IDevRepo, DevRepo>();
-            services.AddTransient<IDistributRepo, DistributRepo>();
             services.AddTransient<IEndorsRepo, EndorsRepo>();
             services.AddTransient<IInterConverRepo, InterConverRepo>();
             services.AddTransient<ILikeRepo, LikeRepo>();
@@ -37,6 +35,7 @@ namespace NotMyFault
             services.AddTransient<IReviewRepo, ReviewRepo>();
             services.AddTransient<IRecruitRepo, RecruitRepo>();
             services.AddTransient<ISNARepo, SNARepo>();
+            services.AddTransient<IPubOpinRepo, PubOpinRepo>();
             services.AddMvc();
             services.AddSignalR();
             services.AddMemoryCache();

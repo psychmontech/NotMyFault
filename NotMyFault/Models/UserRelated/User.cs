@@ -11,6 +11,7 @@ namespace NotMyFault.Models.UserRelated
         public string NickName { get; set; }
         public string Country { get; set; }
         public string Region { get; set; }  
+        public virtual CryptcurAddr MyCryptcurAddr { get; set; }
         public int Role { get; set; }
         public byte Thumbnail { get; set; }
         public virtual ICollection<SupptNAlleg> MySupNAlleg { get; set; }
@@ -28,7 +29,6 @@ namespace NotMyFault.Models.UserRelated
         public virtual ICollection<Project> MyLeadingProjs { get; set; }
         public virtual ICollection<Project> MyInitiatedProjs { get; set; }
         public virtual ICollection<DeveloperRecruitment> MyAppliedRoles { get; set; }
-        public virtual CrypCurAddr MyCrypCurAddr { get; set; }
         public virtual Interview MyIntwAsViewer { get; set; }
         public virtual Interview MyIntwAsViewee { get; set; }
         public virtual ICollection<Review> MyReviews { get; set; } //reviews by other devs, conducts review -/+ 5 

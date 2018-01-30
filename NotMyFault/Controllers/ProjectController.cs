@@ -9,6 +9,7 @@ using NotMyFault.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using static NotMyFault.Models.ProjRelated.Project;
 
 namespace NotMyFault.Controllers
 {
@@ -37,11 +38,12 @@ namespace NotMyFault.Controllers
                 Proj = proj,
                 Capacity = _projRepo.GetCapacityById(id),
                 ProjLeader = _projRepo.GetProjLeaderById(id),
+                Valuation = _projRepo.GetValuationById(id),
                 MyDevs = _projRepo.GetMyDevsById(id),
                 NumOfFollowers = _projRepo.GetMyFollowersById(id).Count,
                 NumOfLikes = _projRepo.GetMyLikesById(id).Count,
                 NumOfWatchers = _projRepo.GetMyWatchersById(id).Count,
-            HasOpenRecruits = _projRepo.HasOpenRecruits(id)
+                HasOpenRecruits = _projRepo.HasOpenRecruits(id)
             };
 
             if (thisUser.Role == UserRole.Dev)
@@ -96,7 +98,12 @@ namespace NotMyFault.Controllers
                     ProjName = createProjectViewModel.ProjName,
                     BriefDescript = createProjectViewModel.BriefDescript,
                     FullDescript = createProjectViewModel.FullDescript,
-                    Valuation = createProjectViewModel.Valuation,
+                    Valuation = new CryptcurValue
+                    {
+                        BitcoinValue = createProjectViewModel.Value_bitcoin,
+                        EthereumValue = createProjectViewModel.Value_ethereum,
+                        LitecoinValue = createProjectViewModel.Value_litecoin
+                    },
                     Visibility = createProjectViewModel.Visibility,
                     ProjLeader = thisDev,
                     Initiator = thisDev,
@@ -115,9 +122,14 @@ namespace NotMyFault.Controllers
 
         public async Task<ViewResult> SearchProjects()
         {
+            ICollection<Project> projects = _projRepo.GetProjs(ProjSearchCriteria.ByOpenDate, ProjSearchCriteria.OpenOnly, null);
+            foreach (Project proj in projects)
+            {
+                proj.Valuation = _projRepo.GetValuationById(proj.ProjectId);
+            }
             SearchProjectsViewModel searchProjectsViewModel = new SearchProjectsViewModel
             {
-                Projects = _projRepo.GetProjs(ProjSearchCriteria.ByOpenDate, ProjSearchCriteria.OpenOnly, null),
+                Projects = projects,
                 CurrentUser = await _userManager.GetUserAsync(User)
             };
             return View(searchProjectsViewModel);
@@ -127,8 +139,13 @@ namespace NotMyFault.Controllers
         public async Task<ViewResult> SearchProjects(SearchProjectsViewModel searchProjectsViewModel)
         {
             //_logger.LogCritical(1002, "Getting item {ID}", id);
-            searchProjectsViewModel.Projects = _projRepo.GetProjs(searchProjectsViewModel.SortBy,
+            ICollection<Project> projects = _projRepo.GetProjs(searchProjectsViewModel.SortBy,
                                                searchProjectsViewModel.StatusFilter, searchProjectsViewModel.KeyWords);
+            foreach (Project proj in projects)
+            {
+                proj.Valuation = _projRepo.GetValuationById(proj.ProjectId);
+            }
+            searchProjectsViewModel.Projects = projects;
             searchProjectsViewModel.CurrentUser = await _userManager.GetUserAsync(User); //we can't pass current user from the view using "<input type="hidden" asp-for="CurrentUser", we can only pass string/int
             return View(searchProjectsViewModel);
         }
@@ -136,6 +153,7 @@ namespace NotMyFault.Controllers
         public ViewResult UpdateProject(int id)
         {
             var proj = _projRepo.GetProjById(id);
+            CryptcurValue cryptcurValue = _projRepo.GetValuationById(id);
             CreateProjectViewModel createProjectViewModel = new CreateProjectViewModel
             {
                 ProjId = id,
@@ -145,7 +163,9 @@ namespace NotMyFault.Controllers
                 FullDescript = proj.FullDescript,
                 Progress = proj.Progress,
                 RepoLink = proj.RepoLink,
-                Valuation = proj.Valuation,
+                Value_bitcoin = cryptcurValue.BitcoinValue,
+                Value_ethereum = cryptcurValue.EthereumValue,
+                Value_litecoin = cryptcurValue.LitecoinValue,
                 Visibility = proj.Visibility,
                 Status = proj.Status
             };
@@ -156,6 +176,10 @@ namespace NotMyFault.Controllers
         public IActionResult UpdateProject(CreateProjectViewModel createProjectViewModel)
         {
             var proj = _projRepo.GetProjById(createProjectViewModel.ProjId);
+            CryptcurValue cryptcurValue = _projRepo.GetValuationById(proj.ProjectId);
+            cryptcurValue.BitcoinValue = createProjectViewModel.Value_bitcoin;
+            cryptcurValue.EthereumValue = createProjectViewModel.Value_ethereum;
+            cryptcurValue.LitecoinValue = createProjectViewModel.Value_litecoin;
 
             if (ModelState.IsValid)
             {
@@ -163,10 +187,9 @@ namespace NotMyFault.Controllers
                 proj.FullDescript = createProjectViewModel.FullDescript;
                 proj.Progress = createProjectViewModel.Progress;
                 proj.RepoLink = createProjectViewModel.RepoLink;
-                proj.Valuation = createProjectViewModel.Valuation;
                 proj.Visibility = createProjectViewModel.Visibility;
                 proj.Status = createProjectViewModel.Status;
-
+                proj.Valuation = cryptcurValue;
                 _projRepo.SaveChanges();
                 return RedirectToAction("Index", "Project", new { id = proj.ProjectId });
             }

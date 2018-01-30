@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using static NotMyFault.Models.ProjRelated.Project;
 
 namespace NotMyFault.Models.Repository.Interface
 {
@@ -20,12 +21,12 @@ namespace NotMyFault.Models.Repository.Interface
         byte GetGallaryById(int id);
         string GetRepoLinkById(int id);
         int GetProgressById(int id);
-        long GetValuationById(int id);
         int GetVisibilityById(int id);
         int GetStatusById(int id);
         DateTime GetStartDateById(int id);
         DateTime GetNxtMeetDateById(int id);    
         DateTime GetProCompDateById(int id);
+        CryptcurValue GetValuationById(int id);
         ICollection<Developer> GetMyDevsById(int id);
         ICollection<Recruitment> GetMyRecruitsById(int id);
         ICollection<PublicOpinion> GetMyPubOpinById(int id);

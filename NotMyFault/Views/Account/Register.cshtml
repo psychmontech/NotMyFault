@@ -63,6 +63,31 @@
     </div>
     <br>
     <div>
+        <label asp-for="BitcoinAddr"></label>
+        <div>
+            <input asp-for="BitcoinAddr" placeholder="34 char"/>
+            <span asp-validation-for="BitcoinAddr" style="color:red"></span>
+
+        </div>
+    </div>
+    <br>
+    <div>
+        <label asp-for="EthereumAddr"></label>
+        <div>
+            <input asp-for="EthereumAddr" placeholder="40 char"/>
+            <span asp-validation-for="EthereumAddr" style="color:red"></span>
+        </div>
+    </div>
+    <br>
+    <div>
+        <label asp-for="LitecoinAddr"></label>
+        <div>
+            <input asp-for="LitecoinAddr" placeholder="34 char"/>
+            <span asp-validation-for="LitecoinAddr" style="color:red"></span>
+        </div>
+    </div>
+    <br>
+    <div>
         <label asp-for="Country"></label>
         <div>
             <input asp-for="Country" />

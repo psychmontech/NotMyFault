@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using NotMyFault.Constants;
+using NotMyFault.Models.Repository.Interface;
 using NotMyFault.Models.UserRelated;
 using NotMyFault.ViewModels;
 using System.Linq;
@@ -15,12 +16,17 @@ namespace NotMyFault.Controllers
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly ILogger _logger;
+        public IDevRepo _devRepo { get; set; }
+        public IBuyerRepo _buyerRepo { get; set; }
 
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, ILogger<ProjectController> logger)
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, ILogger<ProjectController> logger,
+                                 IDevRepo devRepo, IBuyerRepo buyerRepo)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
+            _devRepo = devRepo;
+            _buyerRepo = buyerRepo;
         }
 
         [AllowAnonymous]
@@ -94,7 +100,13 @@ namespace NotMyFault.Controllers
                         Email = registerViewModel.Email,
                         Country = registerViewModel.Country,
                         Region = registerViewModel.Region,
-                        SelfIntro = registerViewModel.SelfIntro
+                        SelfIntro = registerViewModel.SelfIntro,
+                        MyCryptcurAddr = new CryptcurAddr
+                        {
+                            BitcoinAddr = registerViewModel.BitcoinAddr,
+                            EthereumAddr = registerViewModel.EthereumAddr,
+                            LitecoinAddr = registerViewModel.LitecoinAddr
+                        }
                     };
                     var result = await _userManager.CreateAsync(dev, registerViewModel.Password);
                     return result.Succeeded ? RedirectToAction("Login", "Account") : RedirectToAction("Index", "ErrorPage");
@@ -111,6 +123,12 @@ namespace NotMyFault.Controllers
                         CompanyAddr = registerViewModel.CompanyAddr,
                         Country = registerViewModel.Country,
                         Region = registerViewModel.Region,
+                        MyCryptcurAddr = new CryptcurAddr
+                        {
+                            BitcoinAddr = registerViewModel.BitcoinAddr,
+                            EthereumAddr = registerViewModel.EthereumAddr,
+                            LitecoinAddr = registerViewModel.LitecoinAddr
+                        }
                     };
                     var result = await _userManager.CreateAsync(buyer, registerViewModel.Password);
                     return result.Succeeded ? RedirectToAction("Login", "Account") : RedirectToAction("Index", "ErrorPage");
@@ -122,6 +140,7 @@ namespace NotMyFault.Controllers
         public async Task<IActionResult> EditUserProfile()
         {
             User user = await _userManager.GetUserAsync(User);
+            CryptcurAddr cryptcurAddr = _devRepo.GetCrypCurAddrById(user.Id);
             EditUserProfileViewModel editUserProfileViewModel = null;
             if (user.Role == UserRole.Dev)
             {
@@ -133,7 +152,10 @@ namespace NotMyFault.Controllers
                     Email = dev.Email,
                     Country = dev.Country,
                     Region = dev.Region,
-                    SelfIntro = dev.SelfIntro
+                    SelfIntro = dev.SelfIntro,
+                    BitcoinAddr = cryptcurAddr.BitcoinAddr,
+                    EthereumAddr = cryptcurAddr.EthereumAddr,
+                    LitecoinAddr = cryptcurAddr.LitecoinAddr
                 };
                 return View(editUserProfileViewModel);
             }
@@ -149,7 +171,10 @@ namespace NotMyFault.Controllers
                     Country = buyer.Country,
                     Region = buyer.Region,
                     CompanyName = buyer.CompanyName,
-                    CompanyAddr = buyer.CompanyAddr
+                    CompanyAddr = buyer.CompanyAddr,
+                    BitcoinAddr = cryptcurAddr.BitcoinAddr,
+                    EthereumAddr = cryptcurAddr.EthereumAddr,
+                    LitecoinAddr = cryptcurAddr.LitecoinAddr
                 };
             }
 
@@ -160,6 +185,10 @@ namespace NotMyFault.Controllers
         public async Task<IActionResult> EditUserProfile(EditUserProfileViewModel editUserProfileViewModel)
         {
             User user = await _userManager.GetUserAsync(User);
+            CryptcurAddr cryptcurAddr = _devRepo.GetCrypCurAddrById(user.Id);
+            cryptcurAddr.BitcoinAddr = editUserProfileViewModel.BitcoinAddr;
+            cryptcurAddr.EthereumAddr = editUserProfileViewModel.EthereumAddr;
+            cryptcurAddr.LitecoinAddr = editUserProfileViewModel.LitecoinAddr;
             if (ModelState.IsValid)
             {
                 if (user.Role == UserRole.Dev)
@@ -170,6 +199,7 @@ namespace NotMyFault.Controllers
                     dev.Country = editUserProfileViewModel.Country;
                     dev.Region = editUserProfileViewModel.Region;
                     dev.SelfIntro = editUserProfileViewModel.SelfIntro;
+                    dev.MyCryptcurAddr = cryptcurAddr;
 
                     var result = await _userManager.UpdateAsync(dev);
                     return result.Succeeded ? RedirectToAction("Index", "Dev") : RedirectToAction("Index", "ErrorPage");
@@ -183,6 +213,7 @@ namespace NotMyFault.Controllers
                     buyer.Region = editUserProfileViewModel.Region;
                     buyer.CompanyName = editUserProfileViewModel.CompanyName;
                     buyer.CompanyAddr = editUserProfileViewModel.CompanyAddr;
+                    buyer.MyCryptcurAddr = cryptcurAddr;
 
                     var result = await _userManager.UpdateAsync(buyer);
                     return result.Succeeded ? RedirectToAction("Index", "Buyer") : RedirectToAction("Index", "ErrorPage");

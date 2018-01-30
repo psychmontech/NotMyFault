@@ -9,6 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using NotMyFault.Models.Repository.Interface;
 using NotMyFault.Constants;
+using static NotMyFault.Models.ProjRelated.Project;
 
 namespace NotMyFault.Models.Repository
 {
@@ -79,7 +80,7 @@ namespace NotMyFault.Models.Repository
 
                 case ProjSearchCriteria.ByValuation:
                     return _appDbContext.Projects.Where(x => st.Contains(x.Status) && (words == null || (x.ProjName.Contains(words) 
-                        || x.BriefDescript.Contains(words) || x.FullDescript.Contains(words)))).OrderByDescending(x => x.Valuation).ToList();
+                        || x.BriefDescript.Contains(words) || x.FullDescript.Contains(words)))).OrderByDescending(x => x.Valuation.BitcoinValue).ToList();
 
                 default:
                     return _appDbContext.Projects.Where(x => st.Contains(x.Status) && (words == null || (x.ProjName.Contains(words) 
@@ -98,10 +99,10 @@ namespace NotMyFault.Models.Repository
         public int GetProgressById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).Progress;
         public int GetStatusById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).Status;
         public int GetVisibilityById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).Visibility;
-        public long GetValuationById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).Valuation;
         public DateTime GetStartDateById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).StartingDate;
         public DateTime GetNxtMeetDateById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).NextMeetingDate;
         public DateTime GetProCompDateById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).ProtdCompDate;
+        public CryptcurValue GetValuationById(int id) => _appDbContext.CryptcurValues.Include(p => p.MyProj).ToList().FirstOrDefault(c => c.MyProj.ProjectId == id);
         public ICollection<Developer> GetMyDevsById(int id) => _appDbContext.DevProjs.Where(p => p.ProjectId == id).Select(d => d.Dev).ToList(); //look at me
         public ICollection<Recruitment> GetMyRecruitsById(int id) => _appDbContext.Recruitments.Include(p => p.MyProj).ToList().FindAll(c => c.MyProj.ProjectId == id);
         public ICollection<PublicOpinion> GetMyPubOpinById(int id) => _appDbContext.PublicOpinions.Include(p => p.MyProj).ToList().FindAll(c => c.MyProj.ProjectId == id); //look at me
@@ -189,11 +190,11 @@ namespace NotMyFault.Models.Repository
                 });
             return _appDbContext.SaveChanges();
         }
+
         public int DismissADev(int id, int devId)
         {
             _appDbContext.DevProjs.Remove(_appDbContext.DevProjs.Where(r => r.ProjectId == id && r.Id == devId).First());
             return _appDbContext.SaveChanges();
         }
-
     }
 }

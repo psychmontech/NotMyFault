@@ -4,8 +4,8 @@
 
 <form asp-controller="Project" asp-action="UpdateProject" method="post" role="form">
     <div asp-validation-summary="All" style="color:red"></div>
-    <input type="hidden" asp-for="ProjId"/> @*//need to have ProjId inside the form otherwise it will become 0(null)*@
-    <input type="hidden" asp-for="ProjName"/>
+    <input type="hidden" asp-for="ProjId" /> @*//need to have ProjId inside the form otherwise it will become 0(null)*@
+    <input type="hidden" asp-for="ProjName" />
     <input type="hidden" asp-for="BriefDescript" />
     <div>
         <label asp-for="ProtdCompDate"></label>
@@ -52,10 +52,27 @@
     </div>
     <br>
     <div>
-        <label asp-for="Valuation"></label>
+        <label asp-for="Value_bitcoin"></label>
         <div>
-            <input asp-for="Valuation" />
-            <span asp-validation-for="Valuation" style="color:red"></span>
+            <input asp-for="Value_bitcoin" />
+            <span asp-validation-for="Value_bitcoin" style="color:red"></span>
+
+        </div>
+    </div>
+    <br>
+    <div>
+        <label asp-for="Value_ethereum"></label>
+        <div>
+            <input asp-for="Value_ethereum" />
+            <span asp-validation-for="Value_ethereum" style="color:red"></span>
+        </div>
+    </div>
+    <br>
+    <div>
+        <label asp-for="Value_litecoin"></label>
+        <div>
+            <input asp-for="Value_litecoin" />
+            <span asp-validation-for="Value_litecoin" style="color:red"></span>
         </div>
     </div>
     <br>

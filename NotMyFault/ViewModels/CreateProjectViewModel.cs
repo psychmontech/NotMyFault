@@ -25,9 +25,17 @@ namespace NotMyFault.ViewModels
         [Display(Name = "Projected complete date")]
         public DateTime ProtdCompDate { get; set; }
 
-        [Range(0, long.MaxValue, ErrorMessage = "Please enter valid integer Number")]
-        [Display(Name = "Estimated valuation of the finished product")]
-        public long Valuation { get; set; }
+        [Range(0, double.MaxValue, ErrorMessage = "Please enter a valid bitcoin value")]
+        [Display(Name = "Expecting value in bitcoins")]
+        public double Value_bitcoin { get; set; }
+
+        [Range(0, double.MaxValue, ErrorMessage = "Please enter a valid ethereum value")]
+        [Display(Name = "Expecting value in ethereum")]
+        public double Value_ethereum { get; set; }
+
+        [Range(0, double.MaxValue, ErrorMessage = "Please enter a valid litecoin value")]
+        [Display(Name = "Expecting value in litecoin")]
+        public double Value_litecoin { get; set; }
 
         [Display(Name = "Project visibility")]
         public int Visibility { get; set; }

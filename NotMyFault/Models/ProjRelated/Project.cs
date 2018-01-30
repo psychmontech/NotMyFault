@@ -23,7 +23,7 @@ namespace NotMyFault.Models.ProjRelated
         public byte Thumbnail { get; set; }  //profile photo
         public string RepoLink { get; set; } //github url
         public int Progress { get; set; } //percentage
-        public long Valuation { get; set; } //how much you expect from the buyer
+        public virtual CryptcurValue Valuation { get; set; } //how much you expect from the buyer
         public virtual ICollection<Recruitment> MyRecruits { get; set; } //its a list because you may have a few vacancies 
         public virtual ICollection<InterConverEntry> MyConver { get; set; } //within devs
         public virtual ICollection<PublicOpinion> MyPubOpin { get; set; }

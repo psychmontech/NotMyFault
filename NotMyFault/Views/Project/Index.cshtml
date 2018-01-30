@@ -84,8 +84,26 @@ This project is currently
         break;
 }
 
-<br>
-This project is evaluated at $@Model.Proj.Valuation
+@if (Model.Valuation.BitcoinValue != 0 || Model.Valuation.EthereumValue != 0 || Model.Valuation.LitecoinValue != 0)
+{
+    <br>
+    <font> Developers are expecting either:</font>
+}
+@if (Model.Valuation.BitcoinValue != 0)
+{
+    <br>
+    <font>&nbsp;&nbsp;&nbsp;&nbsp;Bitcoin: @Model.Valuation.BitcoinValue</font>
+}
+@if (Model.Valuation.EthereumValue != 0)
+{
+    <br>
+    <font>&nbsp;&nbsp;&nbsp;&nbsp;Ethereum: @Model.Valuation.EthereumValue</font>
+}
+@if (Model.Valuation.LitecoinValue != 0)
+{
+    <br>
+    <font>&nbsp;&nbsp;&nbsp;&nbsp;Litecoin: @Model.Valuation.LitecoinValue</font>
+}
 <br>
 Developers are:
 @foreach (var dev in Model.MyDevs)
@@ -105,14 +123,14 @@ Developers are:
     }
 }
 <br>
-Project leader is
+    Project leader is
 @if (@Model.CurrentUser.Role == UserRole.Dev)
 {
     <a asp-controller="Dev" asp-action="ViewDevProfile" asp-route-id="@Model.ProjLeader.Id">@Model.ProjLeader.NickName&nbsp;</a>
 }
 else
 {
-    <font>@Model.ProjLeader.NickName&nbsp;</font>
+    <font>@Model.ProjLeader.NickName &nbsp;</font>
 }
 @if (Model.CurrentDevIsInvolved)
 {
@@ -121,65 +139,64 @@ else
     <br>
 }
 <br>
-<br>
 <font id="notInvolved1" style="display:none">Project full description: @Model.Proj.FullDescript</font>
-<br>
-Followed by @Model.NumOfFollowers users
-<br>
-Likes: @Model.NumOfLikes
-<br>
-Watched by: @Model.NumOfWatchers investors
-<br>
-<br>
-<div id="notInvolved2" style="display:none">
-    @if (@Model.CurrentUserHasLiked)
-    { <font>Liked</font>}
-    else
-    {
-        <form asp-controller="Project" asp-action="Like" asp-route-projId="@Model.Proj.ProjectId" method="post" role="form">
-            <input type="submit" value="Like" />
-        </form>
-    }
+    Followed by @Model.NumOfFollowers users
+    <br>
+    Likes: @Model.NumOfLikes
+    <br>
+    Watched by: @Model.NumOfWatchers investors
 
-    @if (@Model.CurrentUserHasFollowed)
-    {
-        <form asp-controller="Project" asp-action="Unfollow" asp-route-projId="@Model.Proj.ProjectId" method="post" role="form">
-        <input type="submit" value="Unfollow" />
-        </form>
-    }
-    else
-    {
-        <form asp-controller="Project" asp-action="Follow" asp-route-projId="@Model.Proj.ProjectId" method="post" role="form">
-            <input type="submit" value="Follow" />
-        </form>
-    }
-    @if (@Model.CurrentUser.Role == UserRole.Buyer)
-    {
-        if (@Model.CurrentBuyerHasWatched)
+    <div id="notInvolved2" style="display:none">
+        <br>
+        <br>
+        @if (@Model.CurrentUserHasLiked)
+        {<font>Liked</font>}
+        else
         {
-            <form asp-controller="Project" asp-action="Unwatch" asp-route-projId="@Model.Proj.ProjectId" method="post" role="form">
-                <input type="submit" value="Unwatch" />
+            <form asp-controller="Project" asp-action="Like" asp-route-projId="@Model.Proj.ProjectId" method="post" role="form">
+                <input type="submit" value="Like" />
             </form>
-            <br>
-            <br>
-            <font>Talk to developers</font>
-            @Html.Partial("_Conversation", @Model.PreviousNegoConver)
-            <script src="~/Javascript/SingalR_NegoConver.js"></script>
+        }
+
+        @if (@Model.CurrentUserHasFollowed)
+        {
+            <form asp-controller="Project" asp-action="Unfollow" asp-route-projId="@Model.Proj.ProjectId" method="post" role="form">
+                <input type="submit" value="Unfollow" />
+            </form>
         }
         else
         {
-            <form asp-controller="Project" asp-action="Watch" asp-route-projId="@Model.Proj.ProjectId" method="post" role="form">
-                <input type="submit" value="Watch" />
+            <form asp-controller="Project" asp-action="Follow" asp-route-projId="@Model.Proj.ProjectId" method="post" role="form">
+                <input type="submit" value="Follow" />
             </form>
         }
+        @if (@Model.CurrentUser.Role == UserRole.Buyer)
+        {
+            if (@Model.CurrentBuyerHasWatched)
+            {
+                <form asp-controller="Project" asp-action="Unwatch" asp-route-projId="@Model.Proj.ProjectId" method="post" role="form">
+                    <input type="submit" value="Unwatch" />
+                </form>
+                <br>
+                <br>
+                <font>Talk to developers</font>
+                @Html.Partial("_Conversation", @Model.PreviousNegoConver)
+                <script src="~/Javascript/SingalR_NegoConver.js"></script>
+            }
+            else
+            {
+                <form asp-controller="Project" asp-action="Watch" asp-route-projId="@Model.Proj.ProjectId" method="post" role="form">
+                    <input type="submit" value="Watch" />
+                </form>
+            }
+        }
+    </div>
+    <br>
+    <br>
+    @if (Model.CurrentDevIsInvolved)
+    {
+        <font>Internal communication</font>
+        @Html.Partial("_Conversation", @Model.PreviousInterConver)
+        <script src="~/Javascript/SingalR_InterConver.js"></script>
     }
-</div>
-<br>
-<br>
-@if (Model.CurrentDevIsInvolved)
-{
-    <font>Internal communication</font>
-    @Html.Partial("_Conversation", @Model.PreviousInterConver)
-    <script src="~/Javascript/SingalR_InterConver.js"></script>
-}
 

@@ -40,8 +40,9 @@ namespace NotMyFault.Models.Repository
         }
         public int RemoveRecruit(int id)
         {
-            if (RemoveAllCandies(id) == 1) 
-                _appDbContext.Recruitments.Remove(GetRecruitById(id));
+            if (GetCandiesByRecruId(id).Count != 0)
+                RemoveAllCandies(id);
+            _appDbContext.Recruitments.Remove(GetRecruitById(id));
             return _appDbContext.SaveChanges();
         }
         public int AddACandy(int id, Developer dev)

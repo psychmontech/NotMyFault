@@ -29,7 +29,7 @@ namespace NotMyFault.Models.Repository
         public int GetIdByName(string Name) => _appDbContext.Devs.FirstOrDefault(p => p.UserName == Name).Id;
         public string GetLinkedinById(int id) => _appDbContext.Devs.FirstOrDefault(p => p.Id == id).LinkedinUrl;
         public ICollection<Recruitment> GetMyAppliedRolesById(int id) => _appDbContext.DevRecruits.Where(p => p.Id == id).Select(pt => pt.Recruit).ToList(); 
-        public CrypCurAddr GetCrypCurAddrById(int id) => _appDbContext.CrypCurAddr.Include(P => P.MyDev).ToList().FirstOrDefault(c => c.MyDev.Id == id);
+        public CryptcurAddr GetCrypCurAddrById(int id) => _appDbContext.CryptcurAddrs.Include(P => P.MyUser).ToList().FirstOrDefault(c => c.MyUser.Id == id);
         public ICollection<Project> GetMyFollowingsById(int id) => _appDbContext.UserProjs.Where(p => p.Id == id).Select(pt => pt.Proj).ToList();
         public ICollection<Project> GetMyLeadingProjsById(int id) => _appDbContext.Projects.Include(P => P.ProjLeader).ToList().FindAll(c => c.ProjLeader.Id == id);   //look at me :)
         public ICollection<Project> GetMyProjsById(int id) => _appDbContext.DevProjs.Where(p => p.Id == id).Select(pt=>pt.Proj).ToList(); //look at me :))

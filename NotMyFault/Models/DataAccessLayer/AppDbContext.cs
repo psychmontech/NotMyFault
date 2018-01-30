@@ -23,7 +23,8 @@ namespace NotMyFault.Models.DataAccessLayer
         public DbSet<SupptNAlleg> SupptNAllegs{ get; set; }
         public DbSet<SNAEntry> SNAEntries{ get; set; }
         public DbSet<InterConverEntry> InterConverEntries { get; set; }
-        public DbSet<CrypCurAddr> CrypCurAddr { get; set; }
+        public DbSet<CryptcurAddr> CryptcurAddrs { get; set; }
+        public DbSet<CryptcurValue> CryptcurValues { get; set; }
         public DbSet<Like> Likes { get; set; }
         public DbSet<Negotiation> Negotiations { get; set; }
         public DbSet<PublicOpinion> PublicOpinions { get; set; }
@@ -63,6 +64,12 @@ namespace NotMyFault.Models.DataAccessLayer
                 .WithMany(i => i.MyConver)
                 .HasForeignKey("ProjectForeignKey");
 
+            //project <->valuation
+            modelBuilder.Entity<Project>()
+                .HasOne(p => p.Valuation)
+                .WithOne(i => i.MyProj)
+                .HasForeignKey<CryptcurValue>("ProjectForeignKey");
+
             //project <-> distribution
             modelBuilder.Entity<Project>()
                 .HasOne(p => p.MyDistribut)
@@ -95,11 +102,11 @@ namespace NotMyFault.Models.DataAccessLayer
                 .HasForeignKey<Interview>("DevIntwveeForeignKey")
                 .OnDelete(DeleteBehavior.Restrict);
 
-            //developer <-> crypCurAddr
-            modelBuilder.Entity<Developer>()
-                .HasOne(p => p.MyCrypCurAddr)
-                .WithOne(i => i.MyDev)
-                .HasForeignKey<CrypCurAddr>("DeveloperForeignKey");
+            //user <-> crypCurAddr
+            modelBuilder.Entity<User>()
+                .HasOne(p => p.MyCryptcurAddr)
+                .WithOne(i => i.MyUser)
+                .HasForeignKey<CryptcurAddr>("UserForeignKey");
 
             //developer <-> endorsgiven
             modelBuilder.Entity<Endorsment>()
@@ -224,6 +231,7 @@ namespace NotMyFault.Models.DataAccessLayer
             modelBuilder.Entity<Project>().Property<int>("LeaderIdForeignKey");
             modelBuilder.Entity<Project>().Property<int>("InitiatorIdForeignKey");
             modelBuilder.Entity<InterConverEntry>().Property<int>("ProjectForeignKey");
+            modelBuilder.Entity<CryptcurValue>().Property<int>("ProjectForeignKey");
             modelBuilder.Entity<Distribution>().Property<int>("ProjectForeignKey");
             modelBuilder.Entity<Transaction>().Property<int>("ProjectForeignKey");
             modelBuilder.Entity<Transaction>().Property<int>("BuyerForeignKey");
@@ -231,7 +239,7 @@ namespace NotMyFault.Models.DataAccessLayer
             modelBuilder.Entity<Interview>().Property<int>("DevIntwverForeignKey");
             modelBuilder.Entity<Interview>().Property<int>("DevIntwveeForeignKey");
             modelBuilder.Entity<Review>().Property<int>("RevieweeIdForeignKey");
-            modelBuilder.Entity<CrypCurAddr>().Property<int>("DeveloperForeignKey");    
+            modelBuilder.Entity<CryptcurAddr>().Property<int>("UserForeignKey");    
             modelBuilder.Entity<Endorsment>().Property<int>("EndorsGivenForeignKey");
             modelBuilder.Entity<Endorsment>().Property<int>("EndorsGiverForeignKey");
             modelBuilder.Entity<NegoEntry>().Property<int>("NegoForeignKey");

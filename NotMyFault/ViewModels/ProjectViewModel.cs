@@ -15,10 +15,10 @@ namespace NotMyFault.ViewModels
         public int NumOfLikes { get; set; }
         public int NumOfFollowers { get; set; }
         public int NumOfWatchers { get; set; }
-        public long Valuation { get; set; }
         public User CurrentUser { get; set; }
         public Developer ProjLeader { get; set; }
         public ICollection<Developer> MyDevs { get; set; }
+        public CryptcurValue Valuation { get; set; }
         public string PreviousInterConver { get; set; }
         public string PreviousNegoConver { get; set; }
         public bool CurrentDevIsInvolved { get; set; }

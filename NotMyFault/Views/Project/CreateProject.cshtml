@@ -5,15 +5,15 @@
     <a asp-controller="Dev" asp-action="Index">Cancel</a>
     <div asp-validation-summary="All" style="color:red"></div>
     <div>
-        <label asp-for="ProjName" ></label>
+        <label asp-for="ProjName"></label>
         <div>
-            <input asp-for="ProjName" placeholder="max 40 char"/>
+            <input asp-for="ProjName" placeholder="max 40 char" />
             <span asp-validation-for="ProjName" style="color:red"></span>
         </div>
     </div>
     <br>
     <div>
-        <label asp-for="ProtdCompDate" ></label>
+        <label asp-for="ProtdCompDate"></label>
         <div>
             <input asp-for="ProtdCompDate" />
             <span asp-validation-for="ProtdCompDate" style="color:red"></span>
@@ -21,7 +21,7 @@
     </div>
     <br>
     <div>
-        <label asp-for="Visibility" ></label>
+        <label asp-for="Visibility"></label>
         <div>
             <select asp-for="Visibility">
                 <option value=@ProjVisibility.Visible_To_Everyone>Visible To Everyone</option>
@@ -33,21 +33,39 @@
     </div>
     <br>
     <div>
-        <label asp-for="RepoLink" ></label>
+        <label asp-for="RepoLink"></label>
         <div>
             <input asp-for="RepoLink" />
         </div>
     </div>
     <br>
     <div>
-        <label asp-for="Valuation" ></label>
+        <label asp-for="Value_bitcoin"></label>
         <div>
-            <input asp-for="Valuation" />
+            <input asp-for="Value_bitcoin" value="0"/>
+            <span asp-validation-for="Value_bitcoin" style="color:red"></span>
+
         </div>
     </div>
     <br>
     <div>
-        <label asp-for="BriefDescript" ></label>
+        <label asp-for="Value_ethereum"></label>
+        <div>
+            <input asp-for="Value_ethereum" value="0"/>
+            <span asp-validation-for="Value_ethereum" style="color:red"></span>
+        </div>
+    </div>
+    <br>
+    <div>
+        <label asp-for="Value_litecoin"></label>
+        <div>
+            <input asp-for="Value_litecoin" value="0"/>
+            <span asp-validation-for="Value_litecoin" style="color:red"></span>
+        </div>
+    </div>
+    <br>
+    <div>
+        <label asp-for="BriefDescript"></label>
         <div>
             <textarea asp-for="BriefDescript" rows="10" cols="30" placeholder="max 100 char"></textarea>
             <span asp-validation-for="BriefDescript" style="color:red"></span>
@@ -55,7 +73,7 @@
     </div>
     <br>
     <div>
-        <label asp-for="FullDescript" ></label>
+        <label asp-for="FullDescript"></label>
         <div>
             <textarea asp-for="FullDescript" rows="15" cols="50" placeholder="max 1000 char"></textarea>
             <span asp-validation-for="FullDescript" style="color:red"></span>

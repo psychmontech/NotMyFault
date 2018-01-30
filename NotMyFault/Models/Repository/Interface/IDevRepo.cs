@@ -31,6 +31,6 @@ namespace NotMyFault.Models.Repository.Interface
         ICollection<Recruitment> GetMyAppliedRolesById(int id);
         ICollection<Review> GetMyReviewsById(int id);
         string GetSelfIntroById(int id);
-        CrypCurAddr GetCrypCurAddrById(int id);
+        CryptcurAddr GetCrypCurAddrById(int id);
     }
 }

@@ -53,6 +53,18 @@ namespace NotMyFault.ViewModels
         [Display(Name = "Company address")]
         public string CompanyAddr { get; set; }
 
+        [Display(Name = "Bitcoin wallet address")]
+        [StringLength(34, MinimumLength =34, ErrorMessage = "invalid bitcoin wallet address")]
+        public string BitcoinAddr { get; set; }
+
+        [Display(Name = "Ethereum wallet address")]
+        [StringLength(40, MinimumLength =40, ErrorMessage = "invalid ethereum wallet address")]
+        public string EthereumAddr { get; set; }
+
+        [Display(Name = "Litecoin wallet address")]
+        [StringLength(34, MinimumLength =34, ErrorMessage = "invalid litecoin wallet address")]
+        public string LitecoinAddr { get; set; }
+
         [MaxLength(400)]
         [Display(Name = "Self introduction, skills etc")]
         public string SelfIntro { get; set; }

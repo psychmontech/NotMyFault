@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NotMyFault.Models.DataAccessLayer;
 using NotMyFault.Models.ProjRelated;
+using NotMyFault.Models.Repository.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace NotMyFault.Models.Repository
 {
-    public class PubOpinRepo
+    public class PubOpinRepo : IPubOpinRepo
     {
         private readonly AppDbContext _appDbContext;
 

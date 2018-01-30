@@ -5,6 +5,31 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20180114071431_init.cs" />
+    <Compile Remove="Migrations\20180114071431_init.Designer.cs" />
+    <Compile Remove="Migrations\20180128014012_test.cs" />
+    <Compile Remove="Migrations\20180128014012_test.Designer.cs" />
+    <Compile Remove="Migrations\20180128014044_test.cs" />
+    <Compile Remove="Migrations\20180128014044_test.Designer.cs" />
+    <Compile Remove="Migrations\20180128022403_test.cs" />
+    <Compile Remove="Migrations\20180128022403_test.Designer.cs" />
+    <Compile Remove="Migrations\20180128023243_test.cs" />
+    <Compile Remove="Migrations\20180128023243_test.Designer.cs" />
+    <Compile Remove="Migrations\20180128040554_test.cs" />
+    <Compile Remove="Migrations\20180128040554_test.Designer.cs" />
+    <Compile Remove="Migrations\20180128073429_init.cs" />
+    <Compile Remove="Migrations\20180128073429_init.Designer.cs" />
+    <Compile Remove="Migrations\20180128102403_init.cs" />
+    <Compile Remove="Migrations\20180128102403_init.Designer.cs" />
+    <Compile Remove="Migrations\20180128105111_Init.cs" />
+    <Compile Remove="Migrations\20180128105111_Init.Designer.cs" />
+    <Compile Remove="Migrations\20180129090538_Init.cs" />
+    <Compile Remove="Migrations\20180129090538_Init.Designer.cs" />
+    <Compile Remove="Migrations\20180129091240_Init.cs" />
+    <Compile Remove="Migrations\20180129091240_Init.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.3" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics" Version="2.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.0.1" />
