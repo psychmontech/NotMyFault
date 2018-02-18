@@ -10,7 +10,7 @@ namespace NotMyFault.Models.ProjRelated
     public class Negotiation
     {
         public int NegotiationId { get; set; }
-        public int BuyerId { get; set; } //always talk to the leader of the proj
+        public int BuyerId { get; set; } 
         public virtual Project MyProj { get; set; }
         public virtual ICollection<NegoEntry> MyEntries { get; set; }
     }

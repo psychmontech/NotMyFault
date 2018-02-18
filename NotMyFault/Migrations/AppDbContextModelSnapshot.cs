@@ -131,6 +131,12 @@ namespace NotMyFault.Migrations
                     b.Property<int>("CryptcurValueId")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<bool>("AcceptBitcoid");
+
+                    b.Property<bool>("AcceptEthereum");
+
+                    b.Property<bool>("AcceptLitecoin");
+
                     b.Property<double>("BitcoinValue");
 
                     b.Property<double>("EthereumValue");
@@ -258,6 +264,26 @@ namespace NotMyFault.Migrations
                     b.HasIndex("ProjectForeignKey");
 
                     b.ToTable("Negotiations");
+                });
+
+            modelBuilder.Entity("NotMyFault.Models.ProjRelated.Offer", b =>
+                {
+                    b.Property<int>("OfferId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("BuyerId");
+
+                    b.Property<int>("Currency");
+
+                    b.Property<int>("ProjectForeignKey");
+
+                    b.Property<double>("Value");
+
+                    b.HasKey("OfferId");
+
+                    b.HasIndex("ProjectForeignKey");
+
+                    b.ToTable("Offers");
                 });
 
             modelBuilder.Entity("NotMyFault.Models.ProjRelated.Project", b =>
@@ -807,6 +833,14 @@ namespace NotMyFault.Migrations
                 {
                     b.HasOne("NotMyFault.Models.ProjRelated.Project", "MyProj")
                         .WithMany("MyNegos")
+                        .HasForeignKey("ProjectForeignKey")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("NotMyFault.Models.ProjRelated.Offer", b =>
+                {
+                    b.HasOne("NotMyFault.Models.ProjRelated.Project", "MyProj")
+                        .WithMany("MyOffers")
                         .HasForeignKey("ProjectForeignKey")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

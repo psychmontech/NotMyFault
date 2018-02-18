@@ -20,7 +20,10 @@ window.onbeforeunload = function LeaveGroup()
 function GroupMessage()
 {
     var msg = input.value;
-    connection.invoke('SendToGroup', groupName_negoConver, msg, projId, userId, userNickName);
+    if (msg)
+    {
+        connection.invoke('SendToGroup', groupName_negoConver, msg, projId, userId, userNickName);
+    }
     input.value = null;
 }
 

@@ -1,0 +1,50 @@
+﻿@model MakeAnOfferViewModel
+
+<form asp-controller="Transaction" asp-action="MakeAnOffer" method="post" role="form">
+    <a asp-controller="Project" asp-action="Index" asp-route-id="@Model.ProjId">Back to Project</a>
+    <div asp-validation-summary="All" style="color:red"></div>
+    <input type="hidden" asp-for="ProjId" />
+    <input type="hidden" asp-for="BuyerId" />
+    <div>
+        <label asp-for="Currency"></label>
+        <div>
+            <select asp-for="Currency">
+                @foreach (var i in Model.AcceptCurrency)
+                {
+                    if (i == Cryptocurrency.Bitcoin)
+                    {
+                        <option value=@i>Bitcoin</option>
+                    }
+
+                    if (i == Cryptocurrency.Ethereum)
+                    {
+                        <option value=@i>Ethereum</option>
+                    }
+
+                    if (i == Cryptocurrency.Litecoin)
+                    {
+                        <option value=@i>Litecoin</option>
+                    }
+                }
+            </select>
+        </div>
+    </div>
+    <br>
+    <div>
+        <label asp-for="Value"></label>
+        <div>
+            <input asp-for="Value" />
+            <span asp-validation-for="Value" style="color:red"></span>
+        </div>
+    </div>
+    <br>
+    <div>
+        <input type="submit" value="Make an Offer" />
+    </div>
+
+    @for (int i = 0; i < Model.AcceptCurrency.Count; i++)  //this is to bring AcceptCurrency back in case failed model checking
+    {
+        <input type="hidden" asp-for="AcceptCurrency[i]"/>
+    }
+
+</form>

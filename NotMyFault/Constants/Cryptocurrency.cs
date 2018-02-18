@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace NotMyFault.Constants
 {
-    public static class CryptcurSet
+    public static class Cryptocurrency
     {
         public const int Bitcoin = 1;
         public const int Ethereum = 2;

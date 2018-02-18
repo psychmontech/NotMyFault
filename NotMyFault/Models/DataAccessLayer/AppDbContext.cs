@@ -27,6 +27,7 @@ namespace NotMyFault.Models.DataAccessLayer
         public DbSet<CryptcurValue> CryptcurValues { get; set; }
         public DbSet<Like> Likes { get; set; }
         public DbSet<Negotiation> Negotiations { get; set; }
+        public DbSet<Offer> Offers { get; set; }
         public DbSet<PublicOpinion> PublicOpinions { get; set; }
         public DbSet<Recruitment> Recruitments { get; set; }
         public DbSet<TradeBox> TradeBoxes { get; set; }
@@ -146,6 +147,12 @@ namespace NotMyFault.Models.DataAccessLayer
                 .HasForeignKey("ProjectForeignKey")
                 .OnDelete(DeleteBehavior.Restrict);
 
+            //project <-> offers
+            modelBuilder.Entity<Offer>()
+                .HasOne(p => p.MyProj)
+                .WithMany(i => i.MyOffers)
+                .HasForeignKey("ProjectForeignKey");
+
             //project <-> negotiations
             modelBuilder.Entity<Negotiation>()
                 .HasOne(p => p.MyProj)
@@ -244,6 +251,7 @@ namespace NotMyFault.Models.DataAccessLayer
             modelBuilder.Entity<Endorsment>().Property<int>("EndorsGiverForeignKey");
             modelBuilder.Entity<NegoEntry>().Property<int>("NegoForeignKey");
             modelBuilder.Entity<Negotiation>().Property<int>("ProjectForeignKey");
+            modelBuilder.Entity<Offer>().Property<int>("ProjectForeignKey");
             modelBuilder.Entity<PublicOpinion>().Property<int>("ProjectForeignKey");
             modelBuilder.Entity<Like>().Property<int>("ProjectForeignKey");
             modelBuilder.Entity<Like>().Property<int>("UserForeignKey");

@@ -33,6 +33,7 @@ namespace NotMyFault
             services.AddTransient<INegoRepo, NegoRepo>();
             services.AddTransient<IProjRepo, ProjRepo>();
             services.AddTransient<IReviewRepo, ReviewRepo>();
+            services.AddTransient<ITransRepo, TransRepo>();
             services.AddTransient<IRecruitRepo, RecruitRepo>();
             services.AddTransient<ISNARepo, SNARepo>();
             services.AddTransient<IPubOpinRepo, PubOpinRepo>();

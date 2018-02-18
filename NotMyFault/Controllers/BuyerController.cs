@@ -34,7 +34,7 @@ namespace NotMyFault.Controllers
 
         public IActionResult ViewBuyerProfile(int id)
         {
-            //_logger.LogCritical(1002, "Getting item {ID}", id);
+            _logger.LogCritical(1002, "Getting item {ID}", id);
             Buyer buyer = _BuyerRepo.GetBuyerById(id);
             ViewUserProfileViewModel viewUserProfileViewModel = new ViewUserProfileViewModel
             {

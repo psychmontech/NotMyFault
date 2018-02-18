@@ -24,8 +24,10 @@ namespace NotMyFault.ViewModels
         public bool CurrentDevIsInvolved { get; set; }
         public bool CurrentUserHasLiked { get; set; }
         public bool CurrentUserHasFollowed { get; set; }
+        public bool CurrentBuyerHasOffered { get; set; }
         public bool CurrentBuyerHasWatched { get; set; }
         public bool HasOpenRecruits { get; set; }
+        public bool HasOffers { get; set; }
         public bool HasAnyNegosToLookat { get; set; }
     }
 }

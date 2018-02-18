@@ -19,6 +19,11 @@
         <font>&nbsp;|</font>
         <a asp-controller="Project" asp-action="TalkToBuyers" asp-route-projId="@Model.Proj.ProjectId">Talk to investors</a>
     }
+    if (Model.HasOffers)
+    {
+        <font>&nbsp;|</font>
+        <a asp-controller="Transaction" asp-action="SeeOffers" asp-route-projId="@Model.Proj.ProjectId">See my offers</a>
+    }
 }
 else
 {<a asp-controller="Buyer" asp-action="Index">Home</a>}
@@ -182,6 +187,17 @@ else
                 <font>Talk to developers</font>
                 @Html.Partial("_Conversation", @Model.PreviousNegoConver)
                 <script src="~/Javascript/SingalR_NegoConver.js"></script>
+                <br>
+                <br>
+                if (Model.CurrentBuyerHasOffered)
+                {
+                    <a asp-controller="Transaction" asp-action="WithdrawAnOffer" asp-route-projId="@Model.Proj.ProjectId" asp-route-buyerId="@Model.CurrentUser.Id">Withdraw an offer</a>
+
+                }
+                else
+                {
+                    <a asp-controller="Transaction" asp-action="MakeAnOffer" asp-route-projId="@Model.Proj.ProjectId" asp-route-buyerId="@Model.CurrentUser.Id">Make an offer</a>
+                }
             }
             else
             {

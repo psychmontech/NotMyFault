@@ -1,0 +1,27 @@
+﻿@model ICollection<MakeAnOfferViewModel>
+
+<a asp-controller="Project" asp-action="Index" asp-route-id="@Model.First().ProjId">Back to Project</a>
+<br>
+<br>
+@foreach (var offer in Model)
+{
+    <font>@offer.Value</font>
+    switch (offer.Currency)
+    {
+        case Cryptocurrency.Bitcoin:
+            <font>of Bitcoin</font>
+            break;
+        case Cryptocurrency.Ethereum:
+            <font>of Ethereum</font>
+            break;
+        case Cryptocurrency.Litecoin:
+            <font>of Litecoin</font>
+            break;
+    }
+    var companyName = offer.Buyer.CompanyName ?? "unknow organisation";
+    var projId = offer.ProjId;
+    <font>offered by</font>
+    <a asp-controller="Buyer" asp-action="ViewBuyerProfile" asp-route-id="@offer.BuyerId">@offer.Buyer.NickName</a>
+    <font>, from @companyName</font>
+}
+

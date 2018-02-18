@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using NotMyFault.Constants;
 using NotMyFault.Models.ProjRelated;
 using NotMyFault.Models.Repository.Interface;
+using NotMyFault.Models.TransRelated;
 using NotMyFault.Models.UserRelated;
 using NotMyFault.ViewModels;
 using System;
@@ -19,15 +20,17 @@ namespace NotMyFault.Controllers
         public IProjRepo _projRepo { get; set; }
         public ILikeRepo _likeRepo { get; set; }
         public INegoRepo _negoRepo { get; set; }
+        public ITransRepo _transRepo { get; set; }
         private readonly ILogger _logger;
         public ProjectController(UserManager<User> userManager, IProjRepo ProjRepo, ILogger<ProjectController> logger,
-                                ILikeRepo LikeRepo, INegoRepo negoRepo)
+                                ILikeRepo LikeRepo, INegoRepo negoRepo, ITransRepo transRepo)
         {
             _userManager = userManager;
             _projRepo = ProjRepo;
             _likeRepo = LikeRepo;
             _negoRepo = negoRepo;
             _logger = logger;
+            _transRepo = transRepo;
         }
         public async Task<ViewResult> Index(int id)
         {
@@ -61,6 +64,7 @@ namespace NotMyFault.Controllers
                 projectViewModel.CurrentUserHasFollowed = _projRepo.ThisUserHasFollowed(thisUser, id);
                 projectViewModel.CurrentBuyerHasWatched = false;
                 projectViewModel.HasAnyNegosToLookat = _projRepo.HasAnyNegosToLookat(id);
+                projectViewModel.HasOffers = _transRepo.GetMyOffersByProjId(id).Count != 0;
             }
             else
             {
@@ -76,6 +80,7 @@ namespace NotMyFault.Controllers
                 projectViewModel.CurrentUserHasLiked = _projRepo.ThisUserHasLiked(thisUser, id);
                 projectViewModel.CurrentUserHasFollowed = _projRepo.ThisUserHasFollowed(thisUser, id);
                 projectViewModel.CurrentBuyerHasWatched = _projRepo.ThisBuyerHasWatched(thisUser, id);
+                projectViewModel.CurrentBuyerHasOffered = _transRepo.ThisBuyerHasOffered(thisUser, id);
             }
 
             return View(projectViewModel);
@@ -102,7 +107,10 @@ namespace NotMyFault.Controllers
                     {
                         BitcoinValue = createProjectViewModel.Value_bitcoin,
                         EthereumValue = createProjectViewModel.Value_ethereum,
-                        LitecoinValue = createProjectViewModel.Value_litecoin
+                        LitecoinValue = createProjectViewModel.Value_litecoin,
+                        AcceptBitcoid = createProjectViewModel.Value_bitcoin != 0,
+                        AcceptEthereum = createProjectViewModel.Value_ethereum != 0,
+                        AcceptLitecoin = createProjectViewModel.Value_litecoin != 0
                     },
                     Visibility = createProjectViewModel.Visibility,
                     ProjLeader = thisDev,
@@ -180,6 +188,9 @@ namespace NotMyFault.Controllers
             cryptcurValue.BitcoinValue = createProjectViewModel.Value_bitcoin;
             cryptcurValue.EthereumValue = createProjectViewModel.Value_ethereum;
             cryptcurValue.LitecoinValue = createProjectViewModel.Value_litecoin;
+            cryptcurValue.AcceptBitcoid = createProjectViewModel.Value_bitcoin != 0;
+            cryptcurValue.AcceptEthereum = createProjectViewModel.Value_ethereum != 0;
+            cryptcurValue.AcceptLitecoin = createProjectViewModel.Value_litecoin != 0;
 
             if (ModelState.IsValid)
             {
@@ -282,6 +293,5 @@ namespace NotMyFault.Controllers
             _projRepo.DismissADev(id, devId);
             return RedirectToAction("Index", "Project", new { id = id });
         }
-        
     }
 }

@@ -29,6 +29,7 @@ namespace NotMyFault.Models.ProjRelated
         public virtual ICollection<PublicOpinion> MyPubOpin { get; set; }
         public virtual ICollection<Negotiation> MyNegos { get; set; } //between devs and buyers
         public virtual ICollection<Like> MyLikes { get; set; }
+        public virtual ICollection<Offer> MyOffers { get; set; }
         public virtual ICollection<BuyerProject> MyWatchers { get; set; } //buys who are watching it
         public virtual ICollection<UserProject> MyFollowers { get; set; } //users who are interested in it
         public virtual Transaction MyTran { get; set; }
