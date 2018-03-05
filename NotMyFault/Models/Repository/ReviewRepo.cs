@@ -23,9 +23,10 @@ namespace NotMyFault.Models.Repository
         }
 
         public ICollection<Review> GetRevByUserId(int id) => _appDbContext.Reviews.Include(r=>r.Reviewee).Where(c => c.Reviewee.Id == id).OrderByDescending(x => x.Timestamp).ToList();
+        public bool ThisUserHasReviews(int id) => GetRevByUserId(id).Any();
         public ICollection<ProjWithIfDevIsRated> GetProjsWithIfDevIsRated(int reviewerId, int revieweeId)
         {
-            ICollection<Project> projsThatHasThisReviewer = _appDbContext.DevProjs.Where(d => d.Dev.Id == reviewerId).Select(p => p.Proj).Where(p => p.Status == ProjStatus.Aborted || p.Status == ProjStatus.Completed).ToList();
+            ICollection<Project> projsThatHasThisReviewer = _appDbContext.DevProjs.Where(d => d.Dev.Id == reviewerId).Select(p => p.Proj).ToList();
             ICollection<ProjWithIfDevIsRated> result = new List<ProjWithIfDevIsRated>();
             Developer reviewee = _appDbContext.Devs.FirstOrDefault(p => p.Id == revieweeId);
             foreach (var proj in projsThatHasThisReviewer)

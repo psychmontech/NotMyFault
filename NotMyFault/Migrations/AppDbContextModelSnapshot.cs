@@ -266,26 +266,6 @@ namespace NotMyFault.Migrations
                     b.ToTable("Negotiations");
                 });
 
-            modelBuilder.Entity("NotMyFault.Models.ProjRelated.Offer", b =>
-                {
-                    b.Property<int>("OfferId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("BuyerId");
-
-                    b.Property<int>("Currency");
-
-                    b.Property<int>("ProjectForeignKey");
-
-                    b.Property<double>("Value");
-
-                    b.HasKey("OfferId");
-
-                    b.HasIndex("ProjectForeignKey");
-
-                    b.ToTable("Offers");
-                });
-
             modelBuilder.Entity("NotMyFault.Models.ProjRelated.Project", b =>
                 {
                     b.Property<int>("ProjectId")
@@ -309,15 +289,17 @@ namespace NotMyFault.Migrations
 
                     b.Property<string>("ProjName");
 
+                    b.Property<int>("ProjStatus");
+
                     b.Property<DateTime>("ProtdCompDate");
 
                     b.Property<string>("RepoLink");
 
                     b.Property<DateTime>("StartingDate");
 
-                    b.Property<int>("Status");
-
                     b.Property<byte>("Thumbnail");
+
+                    b.Property<int>("TradingStatus");
 
                     b.Property<int>("Visibility");
 
@@ -375,6 +357,28 @@ namespace NotMyFault.Migrations
                     b.HasIndex("ProjectForeignKey");
 
                     b.ToTable("Recruitments");
+                });
+
+            modelBuilder.Entity("NotMyFault.Models.TransRelated.Offer", b =>
+                {
+                    b.Property<int>("OfferId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("BuyerId");
+
+                    b.Property<int>("Currency");
+
+                    b.Property<int>("ProjectForeignKey");
+
+                    b.Property<int>("Status");
+
+                    b.Property<double>("Value");
+
+                    b.HasKey("OfferId");
+
+                    b.HasIndex("ProjectForeignKey");
+
+                    b.ToTable("Offers");
                 });
 
             modelBuilder.Entity("NotMyFault.Models.TransRelated.TradeBox", b =>
@@ -837,14 +841,6 @@ namespace NotMyFault.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("NotMyFault.Models.ProjRelated.Offer", b =>
-                {
-                    b.HasOne("NotMyFault.Models.ProjRelated.Project", "MyProj")
-                        .WithMany("MyOffers")
-                        .HasForeignKey("ProjectForeignKey")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("NotMyFault.Models.ProjRelated.Project", b =>
                 {
                     b.HasOne("NotMyFault.Models.UserRelated.Developer", "Initiator")
@@ -876,6 +872,14 @@ namespace NotMyFault.Migrations
                         .WithMany("MyRecruits")
                         .HasForeignKey("ProjectForeignKey")
                         .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("NotMyFault.Models.TransRelated.Offer", b =>
+                {
+                    b.HasOne("NotMyFault.Models.ProjRelated.Project", "MyProj")
+                        .WithMany("MyOffers")
+                        .HasForeignKey("ProjectForeignKey")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("NotMyFault.Models.TransRelated.Transaction", b =>

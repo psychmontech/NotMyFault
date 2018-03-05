@@ -64,7 +64,7 @@ namespace NotMyFault.Controllers
                 projectViewModel.CurrentUserHasFollowed = _projRepo.ThisUserHasFollowed(thisUser, id);
                 projectViewModel.CurrentBuyerHasWatched = false;
                 projectViewModel.HasAnyNegosToLookat = _projRepo.HasAnyNegosToLookat(id);
-                projectViewModel.HasOffers = _transRepo.GetMyOffersByProjId(id).Count != 0;
+                projectViewModel.HasOffers = _transRepo.GetMyPendingOffersByProjId(id).Count != 0;
             }
             else
             {
@@ -80,7 +80,6 @@ namespace NotMyFault.Controllers
                 projectViewModel.CurrentUserHasLiked = _projRepo.ThisUserHasLiked(thisUser, id);
                 projectViewModel.CurrentUserHasFollowed = _projRepo.ThisUserHasFollowed(thisUser, id);
                 projectViewModel.CurrentBuyerHasWatched = _projRepo.ThisBuyerHasWatched(thisUser, id);
-                projectViewModel.CurrentBuyerHasOffered = _transRepo.ThisBuyerHasOffered(thisUser, id);
             }
 
             return View(projectViewModel);
@@ -112,11 +111,12 @@ namespace NotMyFault.Controllers
                         AcceptEthereum = createProjectViewModel.Value_ethereum != 0,
                         AcceptLitecoin = createProjectViewModel.Value_litecoin != 0
                     },
-                    Visibility = createProjectViewModel.Visibility,
+                    Visibility = ProjVisibility.Visible_To_Everyone,
                     ProjLeader = thisDev,
                     Initiator = thisDev,
                     MyDevs = devproj,
-                    Status = ProjStatus.Preparing,
+                    ProjStatus = ProjStatus.Preparing,
+                    TradingStatus = ProjStatus.No_Contact_Yet,
                     ProtdCompDate = createProjectViewModel.ProtdCompDate,
                     StartingDate = DateTime.Now,
                     RepoLink = createProjectViewModel.RepoLink,
@@ -175,7 +175,7 @@ namespace NotMyFault.Controllers
                 Value_ethereum = cryptcurValue.EthereumValue,
                 Value_litecoin = cryptcurValue.LitecoinValue,
                 Visibility = proj.Visibility,
-                Status = proj.Status
+                ProjectStatus = proj.ProjStatus,
             };
             return View(createProjectViewModel);
         }
@@ -199,7 +199,7 @@ namespace NotMyFault.Controllers
                 proj.Progress = createProjectViewModel.Progress;
                 proj.RepoLink = createProjectViewModel.RepoLink;
                 proj.Visibility = createProjectViewModel.Visibility;
-                proj.Status = createProjectViewModel.Status;
+                proj.ProjStatus = createProjectViewModel.ProjectStatus;
                 proj.Valuation = cryptcurValue;
                 _projRepo.SaveChanges();
                 return RedirectToAction("Index", "Project", new { id = proj.ProjectId });
@@ -291,7 +291,7 @@ namespace NotMyFault.Controllers
         public IActionResult DismissADev(int id, int devId)
         {
             _projRepo.DismissADev(id, devId);
-            return RedirectToAction("Index", "Project", new { id = id });
+            return RedirectToAction("Index", "Project", new { id });
         }
     }
 }

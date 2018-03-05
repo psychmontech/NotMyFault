@@ -64,7 +64,7 @@ else
                 @proj.Valuation.BitcoinValue
             </td>
 
-            @switch (proj.Status)
+            @switch (proj.ProjStatus)
             {
                 case ProjStatus.Aborted:
                     <td>
@@ -72,7 +72,7 @@ else
                     </td>
                     break;
 
-                case ProjStatus.Completed:
+                case ProjStatus.Development_Completed:
                     <td>
                         Complelted
                     </td>
@@ -96,21 +96,15 @@ else
                     </td>
                     break;
 
-                case ProjStatus.Transaction_Processing:
+                case ProjStatus.Closed:
                     <td>
-                        Transaction Processing
+                        Closed
                     </td>
                     break;
 
                 case ProjStatus.Under_Development:
                     <td>
                         Under Development
-                    </td>
-                    break;
-
-                case ProjStatus.Under_Negotiation:
-                    <td>
-                        Under Negotiation
                     </td>
                     break;
             }

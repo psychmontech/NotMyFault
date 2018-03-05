@@ -1,4 +1,5 @@
 ﻿using NotMyFault.Models.ProjRelated;
+using NotMyFault.Models.TransRelated;
 using NotMyFault.Models.UserRelated;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ namespace NotMyFault.ViewModels
 {
     public class MakeAnOfferViewModel  //this is shared by makeAnOffer and SeeOffers
     {
+        public int OfferId { get; set; }
         public int ProjId { get; set; }
         public int BuyerId { get; set; }
         public Buyer Buyer { get; set; } //this is used by 'seeOffers' not by 'makeAnOffer'
@@ -17,5 +19,7 @@ namespace NotMyFault.ViewModels
         [Range(0, double.MaxValue, ErrorMessage = "Please enter a valid cryptocurrency value")]
         public double Value { get; set; }
         public List<int> AcceptCurrency { get; set; }
+        public List<Offer> HistoryOffers { get; set; }
+        public bool ThisProjHasPendingOffer { get; set; }
     }
 }

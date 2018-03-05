@@ -34,7 +34,8 @@ namespace NotMyFault.Models.ProjRelated
         public virtual ICollection<UserProject> MyFollowers { get; set; } //users who are interested in it
         public virtual Transaction MyTran { get; set; }
         public virtual Distribution MyDistribut { get; set; } //money division within devs
-        public int Status { get; set; }
+        public int ProjStatus { get; set; }
+        public int TradingStatus { get; set; }
         public int Visibility { get; set; }
     }
 }

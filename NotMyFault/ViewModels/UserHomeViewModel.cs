@@ -14,5 +14,7 @@ using System.Collections.Generic;
         public Interview MyComingupIntws { get; set; }
         public ICollection<Endorsment> MyEndors{ get; set; }
         public ICollection<Recruitment> MyAppliedRoles{ get; set; }
+        public bool IHaveReviews { get; set; }
+        public int MyUserId { get; set; }
     }
 }

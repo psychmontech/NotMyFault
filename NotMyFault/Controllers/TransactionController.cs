@@ -35,16 +35,20 @@ namespace NotMyFault.Controllers
         {
             Project proj = _projRepo.GetProjById(projId);
             CryptcurValue cryptcurValue = _projRepo.GetValuationById(projId);
+            bool thisBuyerHasPendingOffer = _transRepo.ThisBuyerHasPendingOffer(buyerId, projId);
             List<int> acceptCurrency = new List<int>();
             if (cryptcurValue.AcceptBitcoid) acceptCurrency.Add(Cryptocurrency.Bitcoin);
             if (cryptcurValue.AcceptEthereum) acceptCurrency.Add(Cryptocurrency.Ethereum);
             if (cryptcurValue.AcceptLitecoin) acceptCurrency.Add(Cryptocurrency.Litecoin);
+            List<Offer> historyOffers = _transRepo.GetMyOffersByProjIdBuyerId(projId, buyerId).ToList();
 
             MakeAnOfferViewModel makeAnOfferViewModel = new MakeAnOfferViewModel
             {
                 ProjId = projId,
                 BuyerId = buyerId,
-                AcceptCurrency = acceptCurrency
+                AcceptCurrency = acceptCurrency,
+                HistoryOffers = historyOffers,
+                ThisProjHasPendingOffer = thisBuyerHasPendingOffer
             };
             return View(makeAnOfferViewModel);
         }
@@ -54,30 +58,47 @@ namespace NotMyFault.Controllers
             if (ModelState.IsValid)
             {
                 int projId = makeAnOfferViewModel.ProjId;
+                Project proj = _projRepo.GetProjById(projId);
+                int buyerId = makeAnOfferViewModel.BuyerId;
+                //you can make an offer when you already have, your last offer will be removed
+                //therefore there is only one pending offer for one buyer at a time
+                if (_transRepo.ThisBuyerHasPendingOffer(buyerId, projId)) WithdrawAnOffer(projId, buyerId);
+
+                if (proj.TradingStatus != ProjStatus.Under_Offer) proj.TradingStatus = ProjStatus.Under_Offer;  //use AddAnOfferToProj below to saveChanges
+
                 Offer offer = new Offer
                 {
                     MyProj = _projRepo.GetProjById(projId),
                     Value = makeAnOfferViewModel.Value,
                     Currency = makeAnOfferViewModel.Currency,
-                    BuyerId = makeAnOfferViewModel.BuyerId
+                    BuyerId = buyerId,
+                    Status = OfferStatus.Pending
                 };
                 _transRepo.AddAnOfferToProj(offer, projId);
-                return RedirectToAction("Index", "Project", new { id = projId });
+
+                return RedirectToAction("MakeAnOffer", "Transaction", new { projId, buyerId });
             }
             return View(makeAnOfferViewModel);
         }
 
         public IActionResult WithdrawAnOffer(int projId, int buyerId)
         {
-            _transRepo.RemoveAnOffer(projId, buyerId);
-            return RedirectToAction("Index", "Project", new { id = projId });
+            Offer offer = _transRepo.GetPendingOfferByProjIdBuyerId(projId, buyerId);
+            offer.Status = OfferStatus.Withdrawn;
+            if (!_transRepo.GetMyPendingOffersByProjId(projId).Any())
+            {
+                Project proj = _projRepo.GetProjById(projId);
+                proj.TradingStatus = ProjStatus.Under_Negotiation;
+            }
+            _transRepo.SaveChanges();
+            return RedirectToAction("MakeAnOffer", "Transaction", new { projId, buyerId });
         }
 
         public ViewResult SeeOffers(int projId)
         {
-            ICollection<Offer> offers = _transRepo.GetMyOffersByProjId(projId);
+            ICollection<Offer> offers = _transRepo.GetMyPendingOffersByProjId(projId);
             ICollection<MakeAnOfferViewModel> offersViewModel = new List<MakeAnOfferViewModel>();
-            foreach (var offer in offers)
+            foreach (var offer in offers) if (offer.Status == OfferStatus.Pending)
             {
                 offersViewModel.Add(new MakeAnOfferViewModel
                 {
@@ -85,10 +106,33 @@ namespace NotMyFault.Controllers
                     BuyerId = offer.BuyerId,
                     Currency = offer.Currency,
                     Value = offer.Value,
-                    ProjId = offer.MyProj.ProjectId
+                    ProjId = offer.MyProj.ProjectId,
+                    OfferId = offer.OfferId
                 });
             }
             return View(offersViewModel);
+        }
+
+        public IActionResult RejectAnOffer(int projId, int offerId)
+        {
+            Offer offer = _transRepo.FindOfferById(offerId);
+            offer.Status = OfferStatus.Rejected;
+
+            if (!_transRepo.GetMyPendingOffersByProjId(projId).Any())
+                _projRepo.GetProjById(projId).TradingStatus = ProjStatus.Under_Negotiation;
+
+            _transRepo.SaveChanges();
+            return RedirectToAction("Index", "Project", new { id = projId });
+        }
+
+        public IActionResult AcceptAnOffer(int projId, int offerId)
+        {
+            Offer offer = _transRepo.FindOfferById(offerId);
+            offer.Status = OfferStatus.Accepted;
+            Project proj = _projRepo.GetProjById(projId);
+            proj.TradingStatus = ProjStatus.In_Trade;
+            _transRepo.SaveChanges();
+            return RedirectToAction("Index", "Project", new { id = projId });
         }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NotMyFault.ViewModels
 {
-    public class CreateProjectViewModel
+    public class CreateProjectViewModel  //this is shared by createProject and updateProject
     {
         [Required(ErrorMessage = "The project name is required"), MaxLength(40)]
         [Display(Name = "Project name")]
@@ -37,7 +37,7 @@ namespace NotMyFault.ViewModels
         [Display(Name = "Expecting value in litecoin")]
         public double Value_litecoin { get; set; }
 
-        [Display(Name = "Project visibility")]
+        //[Display(Name = "Project visibility")]
         public int Visibility { get; set; }
 
         [Display(Name = "Work Repository Link")]
@@ -48,7 +48,8 @@ namespace NotMyFault.ViewModels
         public int Progress { get; set; }
 
         [Display(Name = "Status")]
-        public int Status { get; set; }
+        public int ProjectStatus { get; set; }
+        public int TradingStatus { get; set; }
         public int ProjId { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using NotMyFault.Constants;
 using NotMyFault.Models.DataAccessLayer;
 using NotMyFault.Models.Repository.Interface;
 using NotMyFault.Models.TransRelated;
@@ -19,9 +20,17 @@ namespace NotMyFault.Models.Repository
             _appDbContext = appDbContext;
         }
 
-        public ICollection<Offer> GetMyOffersByProjId(int id) => _appDbContext.Offers.Include(p => p.MyProj).ToList().FindAll(c => c.MyProj.ProjectId == id);
+        public Offer FindOfferById(int id) => _appDbContext.Offers.FirstOrDefault(o => o.OfferId== id);
 
-        public bool ThisBuyerHasOffered(User user, int id) => GetMyOffersByProjId(id).ToList().FindAll(o => o.BuyerId == user.Id).Any();
+        public ICollection<Offer> GetMyPendingOffersByProjId(int id) => _appDbContext.Offers.Include(p => p.MyProj).ToList()
+                                                            .FindAll(c => c.MyProj.ProjectId == id && c.Status == OfferStatus.Pending);
+
+        public ICollection<Offer> GetMyOffersByProjIdBuyerId(int projId, int buyerId) => _appDbContext.Offers.Include(p => p.MyProj).OrderByDescending(o => o.OfferId).ToList()
+                                                    .FindAll(c => c.MyProj.ProjectId == projId && c.BuyerId == buyerId);
+
+        public Offer GetPendingOfferByProjIdBuyerId(int projId, int buyerId) => _appDbContext.Offers.Include(p => p.MyProj).ToList()
+                                                    .FirstOrDefault(o => o.MyProj.ProjectId == projId && o.BuyerId == buyerId && o.Status == OfferStatus.Pending);
+        public bool ThisBuyerHasPendingOffer(int buyerId, int projId) => GetMyPendingOffersByProjId(projId).ToList().FindAll(o => o.BuyerId == buyerId).Any();
 
         public int AddAnOfferToProj(Offer offer, int id)
         {
@@ -29,12 +38,7 @@ namespace NotMyFault.Models.Repository
             return _appDbContext.SaveChanges();
         }
 
-        public int RemoveAnOffer(int id, int buyerId)
-        {
-            _appDbContext.Offers.Remove(_appDbContext.Offers.Include(b => b.MyProj).FirstOrDefault(b => b.MyProj.ProjectId == id && b.BuyerId == buyerId));
-
-            return _appDbContext.SaveChanges();
-        }
+        public int SaveChanges() => _appDbContext.SaveChanges();
 
     }
 }

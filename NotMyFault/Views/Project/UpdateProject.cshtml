@@ -14,7 +14,7 @@
             <span asp-validation-for="ProtdCompDate" style="color:red"></span>
         </div>
     </div>
-    <br>
+    @*<br>
     <div>
         <label asp-for="Visibility"></label>
         <div>
@@ -25,20 +25,18 @@
                 <option value=@ProjVisibility.Invisible>Invisible</option>
             </select>
         </div>
-    </div>
+    </div>*@
     <br>
     <div>
-        <label asp-for="Status"></label>
+        <label asp-for="ProjectStatus"></label>
         <div>
-            <select asp-for="Status">
-                <option value=@ProjStatus.Aborted>Aborted</option>
-                <option value=@ProjStatus.Completed>Completed</option>
+            <select asp-for="ProjectStatus">
                 <option value=@ProjStatus.Preparing>Preparing</option>
                 <option value=@ProjStatus.Recruiting>Recruiting</option>
-                <option value=@ProjStatus.Suspended>Suspended</option>
-                <option value=@ProjStatus.Transaction_Processing>Transaction Processing</option>
                 <option value=@ProjStatus.Under_Development>Under Development</option>
-                <option value=@ProjStatus.Under_Negotiation>Under Negotiation</option>
+                <option value=@ProjStatus.Suspended>Suspended</option>
+                <option value=@ProjStatus.Development_Completed>Development Completed</option>
+                <option value=@ProjStatus.Aborted>Aborted</option>
             </select>
         </div>
     </div>

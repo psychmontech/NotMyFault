@@ -5,6 +5,10 @@
 <a asp-controller="Project" asp-action="SearchProjects">Recently opened projects</a> &nbsp;|
 <a asp-controller="Account" asp-action="EditUserProfile">Edit profile</a> &nbsp;|
 <a asp-controller="Recruit" asp-action="SearchRecruit">Job vacancies</a>
+@if (Model.IHaveReviews)
+{
+    <a asp-controller="Dev" asp-action="ViewReviews" asp-route-id="@Model.MyUserId"> |My reviews</a>
+}
 
 <br>
 @if (Model.MyInvolvedProjects.Count != 0)
@@ -13,7 +17,7 @@
     <table>
         @foreach (var proj in Model.MyInvolvedProjects)
         {
-            if (!(proj.Status == ProjStatus.Completed || proj.Status == ProjStatus.Aborted))
+            if (!(proj.ProjStatus == ProjStatus.Development_Completed || proj.ProjStatus == ProjStatus.Aborted))
             {
                 <tr>
                     <td>
@@ -32,7 +36,7 @@
     <table>
         @foreach (var proj in Model.MyLeadingProjects)
         {
-            if (!(proj.Status == ProjStatus.Completed || proj.Status == ProjStatus.Aborted))
+            if (!(proj.ProjStatus == ProjStatus.Development_Completed || proj.ProjStatus == ProjStatus.Aborted))
             {
                 <tr>
                     <td>
@@ -63,7 +67,7 @@
 {
     <br>
     <h3>My applied roles</h3>
-    <table> 
+    <table>
         @foreach (var recruit in Model.MyAppliedRoles)
         {
             if (recruit.IsOpen)

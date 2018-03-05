@@ -12,6 +12,7 @@ namespace NotMyFault.Models.Repository.Interface
     {
         ICollection<Review> GetRevByUserId(int id);
         ICollection<ProjWithIfDevIsRated> GetProjsWithIfDevIsRated(int reviewerId, int revieweeId);
+        bool ThisUserHasReviews(int id);
         int AddReview(Review review);
     }
 }

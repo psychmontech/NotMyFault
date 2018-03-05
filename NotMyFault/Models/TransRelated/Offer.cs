@@ -13,5 +13,6 @@ namespace NotMyFault.Models.TransRelated
         public virtual Project MyProj { get; set; }
         public int Currency { get; set; }
         public double Value { get; set; }
+        public int Status { get; set; }
     }
 }

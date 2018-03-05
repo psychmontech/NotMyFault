@@ -52,16 +52,17 @@ else if (Model.HasOpenRecruits && Model.CurrentDevIsInvolved)
 <br>
 We currently have @Model.Capacity developers working on it
 <br>
-This project was started on @Model.Proj.StartingDate.ToString("dd/MM/yyy") and we have completed @Model.Proj.Progress%. The complete date is @Model.Proj.ProtdCompDate.ToString("dd/MM/yyy").
+This project was started on @Model.Proj.StartingDate.ToString("dd/MM/yyy") and we have completed @Model.Proj.Progress%. The projected complete date is @Model.Proj.ProtdCompDate.ToString("dd/MM/yyy").
+<br>
 This project is currently
-@switch (Model.Proj.Status)
+@switch (Model.Proj.ProjStatus)
 {
     case ProjStatus.Aborted:
         <font>Abort</font>
         break;
 
-    case ProjStatus.Completed:
-        <font>Completed</font>
+    case ProjStatus.Development_Completed:
+        <font>Development completed</font>
         break;
 
     case ProjStatus.Preparing:
@@ -76,16 +77,27 @@ This project is currently
         <font>Suspended</font>
         break;
 
-    case ProjStatus.Transaction_Processing:
-        <font>Transaction Processing</font>
-        break;
-
     case ProjStatus.Under_Development:
         <font>Under Development</font>
         break;
+}
 
+@switch (Model.Proj.TradingStatus)
+{
     case ProjStatus.Under_Negotiation:
-        <font>Under Negotiation</font>
+        <font> and Under negotiation</font>
+        break;
+
+    case ProjStatus.Under_Offer:
+        <font> and Under offer</font>
+        break;
+
+    case ProjStatus.In_Trade:
+        <font> and In trade</font>
+        break;
+
+    case ProjStatus.Traded:
+        <font> and Traded</font>
         break;
 }
 
@@ -155,64 +167,63 @@ else
         <br>
         <br>
         @if (@Model.CurrentUserHasLiked)
-        {<font>Liked</font>}
-        else
-        {
-            <form asp-controller="Project" asp-action="Like" asp-route-projId="@Model.Proj.ProjectId" method="post" role="form">
-                <input type="submit" value="Like" />
-            </form>
-        }
+    {<font>Liked</font>}
+else
+{
+    <form asp-controller="Project" asp-action="Like" asp-route-projId="@Model.Proj.ProjectId" method="post" role="form">
+        <input type="submit" value="Like" />
+    </form>
+}
 
-        @if (@Model.CurrentUserHasFollowed)
-        {
-            <form asp-controller="Project" asp-action="Unfollow" asp-route-projId="@Model.Proj.ProjectId" method="post" role="form">
-                <input type="submit" value="Unfollow" />
-            </form>
-        }
-        else
-        {
-            <form asp-controller="Project" asp-action="Follow" asp-route-projId="@Model.Proj.ProjectId" method="post" role="form">
-                <input type="submit" value="Follow" />
-            </form>
-        }
-        @if (@Model.CurrentUser.Role == UserRole.Buyer)
-        {
-            if (@Model.CurrentBuyerHasWatched)
-            {
-                <form asp-controller="Project" asp-action="Unwatch" asp-route-projId="@Model.Proj.ProjectId" method="post" role="form">
-                    <input type="submit" value="Unwatch" />
-                </form>
-                <br>
-                <br>
-                <font>Talk to developers</font>
-                @Html.Partial("_Conversation", @Model.PreviousNegoConver)
-                <script src="~/Javascript/SingalR_NegoConver.js"></script>
-                <br>
-                <br>
-                if (Model.CurrentBuyerHasOffered)
-                {
-                    <a asp-controller="Transaction" asp-action="WithdrawAnOffer" asp-route-projId="@Model.Proj.ProjectId" asp-route-buyerId="@Model.CurrentUser.Id">Withdraw an offer</a>
-
-                }
-                else
-                {
-                    <a asp-controller="Transaction" asp-action="MakeAnOffer" asp-route-projId="@Model.Proj.ProjectId" asp-route-buyerId="@Model.CurrentUser.Id">Make an offer</a>
-                }
-            }
-            else
-            {
-                <form asp-controller="Project" asp-action="Watch" asp-route-projId="@Model.Proj.ProjectId" method="post" role="form">
-                    <input type="submit" value="Watch" />
-                </form>
-            }
-        }
-    </div>
-    <br>
-    <br>
-    @if (Model.CurrentDevIsInvolved)
+@if (@Model.CurrentUserHasFollowed)
+{
+    <form asp-controller="Project" asp-action="Unfollow" asp-route-projId="@Model.Proj.ProjectId" method="post" role="form">
+        <input type="submit" value="Unfollow" />
+    </form>
+}
+else
+{
+    <form asp-controller="Project" asp-action="Follow" asp-route-projId="@Model.Proj.ProjectId" method="post" role="form">
+        <input type="submit" value="Follow" />
+    </form>
+}
+@if (@Model.CurrentUser.Role == UserRole.Buyer)
+{
+    if (@Model.CurrentBuyerHasWatched)
     {
-        <font>Internal communication</font>
-        @Html.Partial("_Conversation", @Model.PreviousInterConver)
-        <script src="~/Javascript/SingalR_InterConver.js"></script>
+        <form asp-controller="Project" asp-action="Unwatch" asp-route-projId="@Model.Proj.ProjectId" method="post" role="form">
+            <input type="submit" value="Unwatch" />
+        </form>
+        <br>
+        <br>
+        <font>Talk to developers</font>
+        @Html.Partial("_Conversation", @Model.PreviousNegoConver)
+        <script src="~/Javascript/SingalR_NegoConver.js"></script>
+        <br>
+        <br>
+        if (Model.Proj.TradingStatus == ProjStatus.In_Trade)
+        {
+        <font>This project is in trade</font>
+        }
+        else
+        {
+        <a asp-controller="Transaction" asp-action="MakeAnOffer" asp-route-projId="@Model.Proj.ProjectId" asp-route-buyerId="@Model.CurrentUser.Id">Make an offer</a>
+        }
     }
+    else
+    {
+    <form asp-controller="Project" asp-action="Watch" asp-route-projId="@Model.Proj.ProjectId" method="post" role="form">
+        <input type="submit" value="Watch" />
+    </form>
+    }
+}
+</div>
+<br>
+<br>
+@if (Model.CurrentDevIsInvolved)
+{
+    <font>Internal communication</font>
+    @Html.Partial("_Conversation", @Model.PreviousInterConver)
+    <script src="~/Javascript/SingalR_InterConver.js"></script>
+}
 

@@ -28,35 +28,33 @@ namespace NotMyFault.Models.Repository
             switch (status)
             {
                 case  ProjSearchCriteria.CompletedOnly:
-                    st.Add(ProjStatus.Completed);
+                    st.Add(ProjStatus.Development_Completed);
                     break;
 
                 case ProjSearchCriteria.All:
-                    st.Add(ProjStatus.Completed);
+                    st.Add(ProjStatus.Development_Completed);
                     st.Add(ProjStatus.Aborted);
+                    st.Add(ProjStatus.Closed);
                     st.Add(ProjStatus.Preparing);
                     st.Add(ProjStatus.Recruiting);
                     st.Add(ProjStatus.Under_Development);
-                    st.Add(ProjStatus.Under_Negotiation);
-                    st.Add(ProjStatus.Transaction_Processing);
                     break;
 
                 case ProjSearchCriteria.OpenInclSusp:
                     st.Add(ProjStatus.Preparing);
                     st.Add(ProjStatus.Recruiting);
                     st.Add(ProjStatus.Under_Development);
-                    st.Add(ProjStatus.Under_Negotiation);
-                    st.Add(ProjStatus.Transaction_Processing);
+                    st.Add(ProjStatus.Development_Completed);
                     st.Add(ProjStatus.Suspended);
                     break;
 
                 case ProjSearchCriteria.AllInclSusp:
-                    st.Add(ProjStatus.Completed);
+                    st.Add(ProjStatus.Development_Completed);
                     st.Add(ProjStatus.Preparing);
+                    st.Add(ProjStatus.Aborted);
+                    st.Add(ProjStatus.Closed);
                     st.Add(ProjStatus.Recruiting);
                     st.Add(ProjStatus.Under_Development);
-                    st.Add(ProjStatus.Under_Negotiation);
-                    st.Add(ProjStatus.Transaction_Processing);
                     st.Add(ProjStatus.Suspended);
                     break;
 
@@ -64,30 +62,28 @@ namespace NotMyFault.Models.Repository
                     st.Add(ProjStatus.Preparing);
                     st.Add(ProjStatus.Recruiting);
                     st.Add(ProjStatus.Under_Development);
-                    st.Add(ProjStatus.Under_Negotiation);
-                    st.Add(ProjStatus.Transaction_Processing);
+                    st.Add(ProjStatus.Development_Completed);
                     break;
             }
             switch (by)
             {
                 case ProjSearchCriteria.ByPopularity:
-                    return _appDbContext.Projects.Where(x => st.Contains(x.Status) && (words == null || (x.ProjName.Contains(words) 
+                    return _appDbContext.Projects.Where(x => st.Contains(x.ProjStatus) && (words == null || (x.ProjName.Contains(words) 
                         || x.BriefDescript.Contains(words) || x.FullDescript.Contains(words)))).OrderByDescending(x => x.MyLikes.Count).ToList();
 
                 case ProjSearchCriteria.ByProgress:
-                    return _appDbContext.Projects.Where(x => st.Contains(x.Status) && (words == null || (x.ProjName.Contains(words) 
+                    return _appDbContext.Projects.Where(x => st.Contains(x.ProjStatus) && (words == null || (x.ProjName.Contains(words) 
                         || x.BriefDescript.Contains(words) || x.FullDescript.Contains(words)))).OrderByDescending(x => x.Progress).ToList();
 
                 case ProjSearchCriteria.ByValuation:
-                    return _appDbContext.Projects.Where(x => st.Contains(x.Status) && (words == null || (x.ProjName.Contains(words) 
+                    return _appDbContext.Projects.Where(x => st.Contains(x.ProjStatus) && (words == null || (x.ProjName.Contains(words) 
                         || x.BriefDescript.Contains(words) || x.FullDescript.Contains(words)))).OrderByDescending(x => x.Valuation.BitcoinValue).ToList();
 
                 default:
-                    return _appDbContext.Projects.Where(x => st.Contains(x.Status) && (words == null || (x.ProjName.Contains(words) 
+                    return _appDbContext.Projects.Where(x => st.Contains(x.ProjStatus) && (words == null || (x.ProjName.Contains(words) 
                         || x.BriefDescript.Contains(words) || x.FullDescript.Contains(words)))).OrderByDescending(x => x.StartingDate).ToList();
             }
         }
-
         public Project GetProjById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id);
         public string GetProjnameById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).ProjName;
         public string GetBriefDesById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).BriefDescript;
@@ -97,7 +93,7 @@ namespace NotMyFault.Models.Repository
         public byte GetGallaryById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).MyGallery;
         public string GetRepoLinkById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).RepoLink;
         public int GetProgressById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).Progress;
-        public int GetStatusById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).Status;
+        public int GetStatusById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).ProjStatus;
         public int GetVisibilityById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).Visibility;
         public DateTime GetStartDateById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).StartingDate;
         public DateTime GetNxtMeetDateById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).NextMeetingDate;

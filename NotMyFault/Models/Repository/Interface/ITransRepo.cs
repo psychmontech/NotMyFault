@@ -9,9 +9,12 @@ namespace NotMyFault.Models.Repository.Interface
 {
     public interface ITransRepo
     {
-        ICollection<Offer> GetMyOffersByProjId(int projId);
+        Offer FindOfferById(int id);
+        ICollection<Offer> GetMyPendingOffersByProjId(int projId);
+        ICollection<Offer> GetMyOffersByProjIdBuyerId(int projId, int buyerId);
+        Offer GetPendingOfferByProjIdBuyerId(int projId, int buyerId);
         int AddAnOfferToProj(Offer offer, int projId);
-        bool ThisBuyerHasOffered(User user, int projId);
-        int RemoveAnOffer(int projId, int buyerId);
+        bool ThisBuyerHasPendingOffer(int buyerId, int projId);
+        int SaveChanges();
     }
 }

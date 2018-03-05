@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using NotMyFault.Models.ProjRelated;
 using NotMyFault.Models.Repository.Interface;
+using NotMyFault.Constants;
 
 
 namespace NotMyFault.Hubs
@@ -57,6 +58,10 @@ namespace NotMyFault.Hubs
                     MyProj = proj,
                     BuyerId = userId
                 };
+
+                if (proj.TradingStatus == ProjStatus.No_Contact_Yet && !_projRepo.HasAnyNegosToLookat(projId))
+                    proj.TradingStatus = ProjStatus.Under_Negotiation;
+
                 _negoRepo.AddNego(nego);
             };
 

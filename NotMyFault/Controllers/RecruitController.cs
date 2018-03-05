@@ -109,7 +109,7 @@ namespace NotMyFault.Controllers
         {
             var thisDev = (Developer)await _userManager.GetUserAsync(User);
             _recruitRepo.AddACandy(id, thisDev);
-            return  RedirectToAction("Index", "Recruit", new { id = id });
+            return  RedirectToAction("Index", "Recruit", new { id });
         } 
 
         public IActionResult Accept(int id, int projId, int devId)
@@ -179,7 +179,7 @@ namespace NotMyFault.Controllers
         {
             var thisDev = (Developer)await _userManager.GetUserAsync(User);
             _recruitRepo.RemoveACandy(id, thisDev);
-            return RedirectToAction("Index", "Recruit", new { id = id });
+            return RedirectToAction("Index", "Recruit", new { id });
         }
     }
 }

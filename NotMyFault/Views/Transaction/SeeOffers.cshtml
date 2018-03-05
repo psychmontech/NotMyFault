@@ -22,6 +22,9 @@
     var projId = offer.ProjId;
     <font>offered by</font>
     <a asp-controller="Buyer" asp-action="ViewBuyerProfile" asp-route-id="@offer.BuyerId">@offer.Buyer.NickName</a>
-    <font>, from @companyName</font>
+    <font>, from @companyName &nbsp;&nbsp;</font>
+    <a asp-controller="Transaction" asp-action="AcceptAnOffer" asp-route-projId="@offer.ProjId" asp-route-offerId="@offer.OfferId">accept</a>
+    <font>&nbsp;&nbsp;</font>
+    <a asp-controller="Transaction" asp-action="RejectAnOffer" asp-route-projId="@offer.ProjId" asp-route-offerId="@offer.OfferId">reject</a>
 }
 
