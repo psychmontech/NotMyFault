@@ -14,12 +14,12 @@
 @if (@Model.CurrentUser.Role == UserRole.Dev)
 {
     <a asp-controller="Dev" asp-action="Index">Home</a>
-    if (Model.HasAnyNegosToLookat)
+    if (Model.HasAnyNegosToLookat && Model.Proj.ProjStatus != ProjStatus.Aborted)
     {
         <font>&nbsp;|</font>
         <a asp-controller="Project" asp-action="TalkToBuyers" asp-route-projId="@Model.Proj.ProjectId">Talk to investors</a>
     }
-    if (Model.HasOffers)
+    if (Model.HasOffers && Model.Proj.ProjStatus != ProjStatus.Aborted)
     {
         <font>&nbsp;|</font>
         <a asp-controller="Transaction" asp-action="SeeOffers" asp-route-projId="@Model.Proj.ProjectId">See my offers</a>
@@ -29,7 +29,7 @@ else
 {<a asp-controller="Buyer" asp-action="Index">Home</a>}
 
 
-@if (Model.CurrentUser == Model.ProjLeader)
+@if (Model.CurrentUser == Model.ProjLeader && Model.Proj.ProjStatus != ProjStatus.Aborted)
 {
     <font>&nbsp;|</font>
     <a asp-controller="Project" asp-action="UpdateProject" asp-route-id="@Model.Proj.ProjectId">Update project</a>
@@ -41,7 +41,7 @@ else
         <a asp-controller="Recruit" asp-action="ListRecruits" asp-route-ProjId="@Model.Proj.ProjectId">My open recruitments</a>
     }
 }
-else if (Model.HasOpenRecruits && Model.CurrentDevIsInvolved)
+else if (Model.HasOpenRecruits && Model.CurrentDevIsInvolved && Model.Proj.ProjStatus != ProjStatus.Aborted)
 {
     <font>&nbsp;|</font>
     <a asp-controller="Recruit" asp-action="ListRecruits" asp-route-ProjId="@Model.Proj.ProjectId">Open recruitments</a>
@@ -58,7 +58,7 @@ This project is currently
 @switch (Model.Proj.ProjStatus)
 {
     case ProjStatus.Aborted:
-        <font>Abort</font>
+        <font>Aborted</font>
         break;
 
     case ProjStatus.Development_Completed:

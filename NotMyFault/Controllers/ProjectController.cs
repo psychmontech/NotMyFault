@@ -208,6 +208,13 @@ namespace NotMyFault.Controllers
             return View(createProjectViewModel);
         }
 
+        public IActionResult AbortProject(int projId)
+        {
+            _projRepo.GetProjById(projId).ProjStatus = ProjStatus.Aborted;
+            _projRepo.SaveChanges();
+            return RedirectToAction("Index", "Project", new { id = projId });
+        }
+
         public async Task<IActionResult> Like(int projId)
         {
             var thisProj = _projRepo.GetProjById(projId);

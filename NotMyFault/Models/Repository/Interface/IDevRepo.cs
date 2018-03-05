@@ -27,6 +27,8 @@ namespace NotMyFault.Models.Repository.Interface
         ICollection<Endorsment> GetEndorsById(int id);
         ICollection<Project> GetMyProjsById(int id);
         ICollection<Project> GetMyCompletedProjsById(int id);
+        ICollection<Project> GetMyTradedProjsById(int id);
+        ICollection<Project> GetMyAbortedProjsById(int id);
         ICollection<Project> GetMyLeadingProjsById(int id);
         ICollection<Recruitment> GetMyAppliedRolesById(int id);
         ICollection<Review> GetMyReviewsById(int id);

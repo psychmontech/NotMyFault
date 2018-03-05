@@ -34,6 +34,8 @@ namespace NotMyFault.Models.Repository
         public ICollection<Project> GetMyLeadingProjsById(int id) => _appDbContext.Projects.Include(P => P.ProjLeader).ToList().FindAll(c => c.ProjLeader.Id == id);   //look at me :)
         public ICollection<Project> GetMyProjsById(int id) => _appDbContext.DevProjs.Where(p => p.Id == id).Select(pt=>pt.Proj).ToList(); //look at me :))
         public ICollection<Project> GetMyCompletedProjsById(int id) => _appDbContext.DevProjs.Where(p => p.Id == id).Select(pt=>pt.Proj).ToList().FindAll(p=>p.ProjStatus == ProjStatus.Development_Completed); //look at me :))
+        public ICollection<Project> GetMyTradedProjsById(int id) => _appDbContext.DevProjs.Where(p => p.Id == id).Select(pt=>pt.Proj).ToList().FindAll(p=>p.TradingStatus == ProjStatus.Traded);
+        public ICollection<Project> GetMyAbortedProjsById(int id) => _appDbContext.DevProjs.Where(p => p.Id == id).Select(pt=>pt.Proj).ToList().FindAll(p=>p.ProjStatus == ProjStatus.Aborted);
         public ICollection<Review> GetMyReviewsById(int id) => _appDbContext.Reviews.Include(P => P.Reviewee).ToList().FindAll(c => c.Reviewee.Id == id);
         public string GetSelfIntroById(int id) => _appDbContext.Devs.FirstOrDefault(p => p.Id == id).SelfIntro;
         public ICollection<SupptNAlleg> GetMySupNAllegById(int id) => _appDbContext.SupptNAllegs.Include(P => P.MyUser).ToList().FindAll(c => c.MyUser.Id == id);

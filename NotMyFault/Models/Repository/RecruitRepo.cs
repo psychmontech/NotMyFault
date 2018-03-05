@@ -7,6 +7,7 @@ using NotMyFault.Models.ProjRelated;
 using NotMyFault.Models.DataAccessLayer;
 using Microsoft.EntityFrameworkCore;
 using NotMyFault.Models.UserRelated;
+using NotMyFault.Constants;
 
 namespace NotMyFault.Models.Repository
 {
@@ -19,6 +20,8 @@ namespace NotMyFault.Models.Repository
             _appDbContext = appDbContext;
         }
         public ICollection<Recruitment> GetAllRecruits() => _appDbContext.Recruitments.Include(r => r.MyProj).OrderBy(r => r.DateCreated).ToList();
+        public ICollection<Recruitment> GetAllRecruitsFromOngoingProjs() => _appDbContext.Recruitments.Include(r => r.MyProj).OrderBy(r => r.DateCreated).ToList()
+                                                                            .FindAll(r => r.MyProj.ProjStatus == ProjStatus.Recruiting || r.MyProj.ProjStatus == ProjStatus.Under_Development);
         public ICollection<Recruitment> GetRecruitsByKeywords(string keywords) => _appDbContext.Recruitments.Include(r => r.MyProj).Where(r=> r.NameOfTheRole.Contains(keywords) || 
                                                                                   r.RoleDescription.Contains(keywords) || r.RequirDescript.Contains(keywords) || (keywords == null))
                                                                                   .OrderBy(r => r.DateCreated).ToList();

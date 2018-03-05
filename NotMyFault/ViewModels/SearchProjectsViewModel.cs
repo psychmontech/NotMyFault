@@ -13,7 +13,7 @@ namespace NotMyFault.ViewModels
         public ICollection<Project> Projects { get; set; }
         [Display(Name = "Sort By")]
         public int SortBy { get; set; }
-        [Display(Name = "Status filter")]
+        [Display(Name = "Project status")]
         public int StatusFilter { get; set; }
         public string KeyWords { get; set; }
         public User CurrentUser { get; set; }

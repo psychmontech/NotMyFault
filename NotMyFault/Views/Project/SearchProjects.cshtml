@@ -27,7 +27,7 @@ else
             <select asp-for="StatusFilter">
                 <option value=@ProjSearchCriteria.OpenOnly>Open Only</option>
                 <option value=@ProjSearchCriteria.All>All</option>
-                <option value=@ProjSearchCriteria.CompletedOnly>Completed Only</option>
+                <option value=@ProjSearchCriteria.CompletedOnly>Dev completed Only</option>
                 <option value=@ProjSearchCriteria.OpenInclSusp>Open Include Suspended</option>
                 <option value=@ProjSearchCriteria.AllInclSusp>All Include Suspended</option>
             </select>
@@ -74,7 +74,7 @@ else
 
                 case ProjStatus.Development_Completed:
                     <td>
-                        Complelted
+                        Dev completed
                     </td>
                     break;
 

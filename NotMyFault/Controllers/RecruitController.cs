@@ -93,7 +93,7 @@ namespace NotMyFault.Controllers
         {
             SearchRecruitViewModel searchRecruitViewModel = new SearchRecruitViewModel
             {
-                Recruits = _recruitRepo.GetAllRecruits()
+                Recruits = _recruitRepo.GetAllRecruitsFromOngoingProjs()
             };
             return View(searchRecruitViewModel);
         }

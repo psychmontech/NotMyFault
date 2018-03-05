@@ -10,6 +10,7 @@ namespace NotMyFault.Models.Repository.Interface
     public interface IRecruitRepo
     {
         ICollection<Recruitment> GetAllRecruits();
+        ICollection<Recruitment> GetAllRecruitsFromOngoingProjs();
         ICollection<Recruitment> GetRecruitsByKeywords(string keywords);
         ICollection<Recruitment> GetRecruitsByCandyId(int id);
         Recruitment GetRecruitById(int id);

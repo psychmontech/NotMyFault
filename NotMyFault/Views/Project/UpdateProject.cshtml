@@ -1,6 +1,7 @@
 ﻿@model CreateProjectViewModel
 
-<a asp-controller="Dev" asp-action="Index">Cancel</a>
+<a asp-controller="Dev" asp-action="Index">Cancel</a> &nbsp;|
+<a asp-controller="Project" asp-action="AbortProject" asp-route-projId="@Model.ProjId">Abort this project</a>
 
 <form asp-controller="Project" asp-action="UpdateProject" method="post" role="form">
     <div asp-validation-summary="All" style="color:red"></div>
@@ -15,17 +16,17 @@
         </div>
     </div>
     @*<br>
-    <div>
-        <label asp-for="Visibility"></label>
         <div>
-            <select asp-for="Visibility">
-                <option value=@ProjVisibility.Visible_To_Everyone>Visible To Everyone</option>
-                <option value=@ProjVisibility.Visible_To_All_Users>Visible To All Users</option>
-                <option value=@ProjVisibility.Only_Visible_To_Buyers>Only Visible To Buyers</option>
-                <option value=@ProjVisibility.Invisible>Invisible</option>
-            </select>
-        </div>
-    </div>*@
+            <label asp-for="Visibility"></label>
+            <div>
+                <select asp-for="Visibility">
+                    <option value=@ProjVisibility.Visible_To_Everyone>Visible To Everyone</option>
+                    <option value=@ProjVisibility.Visible_To_All_Users>Visible To All Users</option>
+                    <option value=@ProjVisibility.Only_Visible_To_Buyers>Only Visible To Buyers</option>
+                    <option value=@ProjVisibility.Invisible>Invisible</option>
+                </select>
+            </div>
+        </div>*@
     <br>
     <div>
         <label asp-for="ProjectStatus"></label>
@@ -36,7 +37,6 @@
                 <option value=@ProjStatus.Under_Development>Under Development</option>
                 <option value=@ProjStatus.Suspended>Suspended</option>
                 <option value=@ProjStatus.Development_Completed>Development Completed</option>
-                <option value=@ProjStatus.Aborted>Aborted</option>
             </select>
         </div>
     </div>
