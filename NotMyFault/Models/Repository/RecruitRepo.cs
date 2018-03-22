@@ -24,7 +24,8 @@ namespace NotMyFault.Models.Repository
                                                                             .FindAll(r => r.MyProj.ProjStatus == ProjStatus.Recruiting || r.MyProj.ProjStatus == ProjStatus.Under_Development);
         public ICollection<Recruitment> GetRecruitsByKeywords(string keywords) => _appDbContext.Recruitments.Include(r => r.MyProj).Where(r=> r.NameOfTheRole.Contains(keywords) || 
                                                                                   r.RoleDescription.Contains(keywords) || r.RequirDescript.Contains(keywords) || (keywords == null))
-                                                                                  .OrderBy(r => r.DateCreated).ToList();
+                                                                                  .OrderBy(r => r.DateCreated).ToList()
+                                                                                  .FindAll(r => r.MyProj.ProjStatus == ProjStatus.Recruiting || r.MyProj.ProjStatus == ProjStatus.Under_Development);
         public Recruitment GetRecruitById(int id) => _appDbContext.Recruitments.Include(r => r.MyProj).FirstOrDefault(r => r.RecruitmentId == id);
         public ICollection<Developer> GetCandiesByRecruId(int id) => _appDbContext.DevRecruits.Where(r => r.RecruitmentId == id).Select(d => d.Dev).ToList();
         public ICollection<Recruitment> GetRecruitsByCandyId(int id) => _appDbContext.DevRecruits.Where(c => c.Id == id).Select(r => r.Recruit).ToList();
