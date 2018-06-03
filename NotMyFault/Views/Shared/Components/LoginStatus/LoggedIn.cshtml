@@ -1,29 +1,19 @@
 ﻿@model User
 
-<div style="text-align:left;">
-    <font size="3" color="blue">
-        Hi
-    </font>
-
-    <font size="3" color="red">
-        @Model.NickName
-    </font>
-
-    @if (Model.Role == UserRole.Dev)
-    {
-        <font size="3" color="blue">
-            , remember if you accidentally changed the world it's not your fault!
-        </font>
-    }
-    else
-    {
-        <font size="3" color="blue">
-            , have a nice day!
-        </font>
-    }
-
-    <span style="float:right;">
-        <a asp-area="" asp-controller="Account" asp-action="Logout">Log off</a>
-    </span>
+<div class="container">
+    <ul class="list-inline">
+        <li class="list-inline-item" style="color:dodgerblue">
+            Hi @Model.NickName
+            @if (Model.Role == UserRole.Dev)
+            {
+                <font>, remember if you accidentally changed the world it's not your fault!</font>
+            }
+            else
+            {
+                <font>, have a nice day!</font>
+            }
+        </li>
+        <li class="list-inline-item float-right"><a class="btn" asp-controller="Account" asp-action="Logout">Log off</a></li>
+    </ul>
 </div>
 

@@ -3,125 +3,136 @@
 <script src="~/Javascript/RegisterDisplaySetting.js"></script>
 
 <form asp-controller="Account" asp-action="Register" method="post" role="form">
-    <div asp-validation-summary="All" style="color:red"></div>
-    <div>
-        <label asp-for="Role"></label>
-        <div>
-            Developer <input asp-for="Role" type="radio" value="@UserRole.Dev" onclick="javascript:devBuyerCheck();" id="devCheck">
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            Investor <input asp-for="Role" type="radio" value="@UserRole.Buyer" onclick="javascript:devBuyerCheck();" id="buyerCheck">
-            <span asp-validation-for="Role" style="color:red"></span>
+    <br />
+    <div class="row form-group">
+        <label asp-for="Role" style="color:darkblue"></label>
+        <div class="col-md-1">
+            <label style="color:darkblue">Developer</label>
+            <input asp-for="Role" type="radio" value="@UserRole.Dev" onclick="javascript:devBuyerCheck();" id="devCheck" class="form-control">
+        </div>
+        <div class="col-md-1">
+            <label style="color:darkblue">Investor</label>
+            <input asp-for="Role" type="radio" value="@UserRole.Buyer" onclick="javascript:devBuyerCheck();" id="buyerCheck" class="form-control">
         </div>
     </div>
-    <br>
-    <div>
-        <label asp-for="UserName"></label>
-        <div>
-            <input asp-for="UserName" placeholder="max 20 char" />
-            <span asp-validation-for="UserName" style="color:red"></span>
+    <br />
+    <div class="row form-group">
+        <div class="col-md-3">
+            <label asp-for="UserName"></label>
+            <div>
+                <input asp-for="UserName" placeholder="max 20 char" class="form-control" maxlength="20" required />
+                <span asp-validation-for="UserName" style="color:red"></span>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <label asp-for="NickName"></label>
+            <div>
+                <input asp-for="NickName" placeholder="max 20 char" class="form-control" maxlength="20" required />
+                <span asp-validation-for="NickName" style="color:red"></span>
+            </div>
         </div>
     </div>
-    <br>
-    <div>
-        <label asp-for="Password"></label>
-        <div>
-            <input asp-for="Password" />
-            <span asp-validation-for="Password" style="color:red"></span>
+    <br />
+    <div class="row form-group">
+        <div class="col-md-3">
+            <label asp-for="Password"></label>
+            <div>
+                <input asp-for="Password" class="form-control" required />
+                <span asp-validation-for="Password" style="color:red"></span>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <label asp-for="ConfirmPassword"></label>
+            <div>
+                <input asp-for="ConfirmPassword" class="form-control" required />
+                <span asp-validation-for="ConfirmPassword" style="color:red"></span>
+            </div>
         </div>
     </div>
-    <br>
-    <div>
-        <label asp-for="ConfirmPassword"></label>
-        <div>
-            <input asp-for="ConfirmPassword" />
-            <span asp-validation-for="ConfirmPassword" style="color:red"></span>
+    <br />
+    <div class="row form-group">
+        <div class="col-md-3">
+            <label asp-for="Email"></label>
+            <div>
+                <input asp-for="Email" class="form-control" required />
+                <span asp-validation-for="Email" style="color:red"></span>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <label asp-for="ConfirmEmail"></label>
+            <div>
+                <input asp-for="ConfirmEmail" class="form-control" required />
+                <span asp-validation-for="ConfirmEmail" style="color:red"></span>
+            </div>
         </div>
     </div>
-    <br>
-    <div>
-        <label asp-for="NickName"></label>
-        <div>
-            <input asp-for="NickName" placeholder="max 20 char" />
-            <span asp-validation-for="NickName" style="color:red"></span>
+    <br />
+    <div class="row form-group">
+        <div class="col-md-3">
+            <label asp-for="BitcoinAddr"></label>
+            <div>
+                <input asp-for="BitcoinAddr" placeholder="34 char" class="form-control" />
+                <span asp-validation-for="BitcoinAddr" style="color:red"></span>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <label asp-for="EthereumAddr"></label>
+            <div>
+                <input asp-for="EthereumAddr" placeholder="40 char" class="form-control" />
+                <span asp-validation-for="EthereumAddr" style="color:red"></span>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <label asp-for="LitecoinAddr"></label>
+            <div>
+                <input asp-for="LitecoinAddr" placeholder="34 char" class="form-control" />
+                <span asp-validation-for="LitecoinAddr" style="color:red"></span>
+            </div>
         </div>
     </div>
-    <br>
-    <div>
-        <label asp-for="Email"></label>
-        <div>
-            <input asp-for="Email" />
-            <span asp-validation-for="Email" style="color:red"></span>
+    <br />
+    <div class="row form-group">
+        <div class="col-md-3">
+            <label asp-for="Country"></label>
+            <div>
+                <input asp-for="Country" class="form-control" required/>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <label asp-for="Region"></label>
+            <div>
+                <input asp-for="Region" class="form-control" required/>
+            </div>
         </div>
     </div>
-    <br>
-    <div>
-        <label asp-for="ConfirmEmail"></label>
-        <div>
-            <input asp-for="ConfirmEmail" />
-            <span asp-validation-for="ConfirmEmail" style="color:red"></span>
+    <br />
+    <div class="row form-group" id="ifBuyer">
+        <div class="col-md-3">
+            <label asp-for="CompanyName"></label>
+            <div>
+                <input asp-for="CompanyName" class="form-control" />
+            </div>
         </div>
+        <div class="col-md-3">
+            <label asp-for="CompanyAddr"></label>
+            <div>
+                <input asp-for="CompanyAddr" class="form-control" />
+            </div>
+        </div>
+        <br />
     </div>
-    <br>
-    <div>
-        <label asp-for="BitcoinAddr"></label>
-        <div>
-            <input asp-for="BitcoinAddr" placeholder="34 char"/>
-            <span asp-validation-for="BitcoinAddr" style="color:red"></span>
 
+    <div class="row form-group" id="ifDev">
+        <div class="col-md-6">
+            <label asp-for="SelfIntro"></label>
+            <div>
+                <textarea asp-for="SelfIntro" rows="6" cols="50" placeholder="max 400 char" class="form-control" maxlength="400" required></textarea>
+                <span asp-validation-for="SelfIntro" style="color:red"></span>
+            </div>
         </div>
     </div>
-    <br>
-    <div>
-        <label asp-for="EthereumAddr"></label>
-        <div>
-            <input asp-for="EthereumAddr" placeholder="40 char"/>
-            <span asp-validation-for="EthereumAddr" style="color:red"></span>
-        </div>
-    </div>
-    <br>
-    <div>
-        <label asp-for="LitecoinAddr"></label>
-        <div>
-            <input asp-for="LitecoinAddr" placeholder="34 char"/>
-            <span asp-validation-for="LitecoinAddr" style="color:red"></span>
-        </div>
-    </div>
-    <br>
-    <div>
-        <label asp-for="Country"></label>
-        <div>
-            <input asp-for="Country" />
-        </div>
-    </div>
-    <br>
-    <div>
-        <label asp-for="Region"></label>
-        <div>
-            <input asp-for="Region" />
-        </div>
-    </div>
-    <br>
-    <div id="ifBuyer" style="display:none">
-        <label asp-for="CompanyName"></label>
-        <div>
-            <input asp-for="CompanyName" />
-        </div>
-        <br>
-        <label asp-for="CompanyAddr"></label>
-        <div>
-            <input asp-for="CompanyAddr" />
-        </div>
-        <br>
-    </div>
-    <div id="ifDev" style="display:none">
-        <label asp-for="SelfIntro"></label>
-        <div>
-            <textarea asp-for="SelfIntro" rows="15" cols="50" placeholder="max 400 char"></textarea>
-            <span asp-validation-for="SelfIntro" style="color:red"></span>
-        </div>
-        <br>
-    </div>
-    <div>
-        <input type="submit" value="Register" />
-    </div>
+    <br />
+    <input type="submit" class="btn btn-block btn-outline-success btn-signin" value="Register" />
+    <br />
+    <br />
 </form>

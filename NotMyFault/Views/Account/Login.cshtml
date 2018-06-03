@@ -1,26 +1,22 @@
 ﻿@model LoginViewModel
 
-<form asp-controller="Account" asp-action="Login" method="post" role="form">
-    <div asp-validation-summary="All" style="color:red"></div>
-    <input type="hidden" asp-for="ReturnUrl" />
-
-    <div >
-        <label asp-for="UserName"></label>
-        <div>
-            <input asp-for="UserName"/>
-            <span asp-validation-for="UserName" style="color:red"></span>
-        </div>
+<div class="row justify-content-center" >
+    <div class="col-md-5">
+        <form asp-controller="Account" asp-action="Login" method="post" role="form" class="form-signin">
+            <br>
+            <img class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
+            <br>
+            <div>
+                <input asp-for="UserName" placeholder="username" class="form-control" required autofocus />
+                <span asp-validation-for="UserName" style="color:red"></span>
+            </div>
+            <br>
+            <div>
+                <input asp-for="Password" placeholder="password" class="form-control" required />
+                <span asp-validation-for="Password" style="color:red"></span>
+            </div>
+            <br>
+            <input type="submit" class="btn btn-block btn-outline-success btn-signin" value="Log in" />
+        </form>
     </div>
-    <br>
-    <div >
-        <label asp-for="Password"></label>
-        <div>
-            <input asp-for="Password"/>
-            <span asp-validation-for="Password" style="color:red"></span>
-        </div>
-    </div>
-    <br>
-    <div>
-        <input type="submit" name="login" value="Log in" />
-    </div>
-</form>
+</div>

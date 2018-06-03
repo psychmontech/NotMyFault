@@ -10,7 +10,7 @@ namespace NotMyFault.ViewModels
     public class RegisterViewModel
     {
         [Range(UserRole.Dev, UserRole.Buyer, ErrorMessage = "Please select one")]
-        [Display(Name = "Please select the type of account to register")]
+        [Display(Name = "Which type of account do you want to open?")]
         public int Role { get; set; }
 
         [Required(ErrorMessage = "The user name is required"), MaxLength(20)]
@@ -23,6 +23,7 @@ namespace NotMyFault.ViewModels
 
         [Required(ErrorMessage = "The confirm password is required")]
         [DataType(DataType.Password)]
+        [Display(Name = "Confirm Password")]
         [Compare("Password", ErrorMessage = "Confirm password doesn't match, Type again !")]
         public string ConfirmPassword { get; set; }
 
