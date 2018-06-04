@@ -11,41 +11,40 @@
     var groupName_negoConver = projId + '-' + userId;
 </script>
 
-@if (@Model.CurrentUser.Role == UserRole.Dev)
-{
-    <a asp-controller="Dev" asp-action="Index">Home</a>
-    if (Model.HasAnyNegosToLookat && Model.Proj.ProjStatus != ProjStatus.Aborted)
-    {
-        <font>&nbsp;|</font>
-        <a asp-controller="Project" asp-action="TalkToBuyers" asp-route-projId="@Model.Proj.ProjectId">Talk to investors</a>
-    }
-    if (Model.HasOffers && Model.Proj.ProjStatus != ProjStatus.Aborted)
-    {
-        <font>&nbsp;|</font>
-        <a asp-controller="Transaction" asp-action="SeeOffers" asp-route-projId="@Model.Proj.ProjectId">See my offers</a>
-    }
-}
-else
-{<a asp-controller="Buyer" asp-action="Index">Home</a>}
+<nav class="navbar  navbar-light bg-light">
+    <div class="container-fluid">
+        <ul class="nav">
+            @if (@Model.CurrentUser.Role == UserRole.Dev)
+            {
+                <li class="nav-item"><a class="nav-link" asp-controller="Dev" asp-action="Index">Home</a></li>
+                if (Model.HasAnyNegosToLookat && Model.Proj.ProjStatus != ProjStatus.Aborted)
+                {
+                    <li class="nav-item"><a class="nav-link" asp-controller="Project" asp-action="TalkToBuyers" asp-route-projId="@Model.Proj.ProjectId">Talk to investors</a></li>
+                }
+                if (Model.HasOffers && Model.Proj.ProjStatus != ProjStatus.Aborted)
+                {
+                    <li class="nav-item"><a class="nav-link" asp-controller="Transaction" asp-action="SeeOffers" asp-route-projId="@Model.Proj.ProjectId">See my offers</a></li>
+                }
+            }
+            else
+            {
+                <li class="nav-item"><a class="nav-link" asp-controller="Buyer" asp-action="Index">Home</a></li>
+            }
 
 
-@if (Model.CurrentUser == Model.ProjLeader && Model.Proj.ProjStatus != ProjStatus.Aborted)
-{
-    <font>&nbsp;|</font>
-    <a asp-controller="Project" asp-action="UpdateProject" asp-route-id="@Model.Proj.ProjectId">Update project</a>
-    <font>&nbsp;|</font>
-    <a asp-controller="Recruit" asp-action="CreateRecruit" asp-route-ProjId="@Model.Proj.ProjectId">Recruit people</a>
-    if (Model.HasOpenRecruits)
-    {
-        <font>&nbsp;|</font>
-        <a asp-controller="Recruit" asp-action="ListRecruits" asp-route-ProjId="@Model.Proj.ProjectId">My open recruitments</a>
-    }
-}
-else if (Model.HasOpenRecruits && Model.CurrentDevIsInvolved && Model.Proj.ProjStatus != ProjStatus.Aborted)
-{
-    <font>&nbsp;|</font>
-    <a asp-controller="Recruit" asp-action="ListRecruits" asp-route-ProjId="@Model.Proj.ProjectId">Open recruitments</a>
-}
+            @if (Model.CurrentUser == Model.ProjLeader && Model.Proj.ProjStatus != ProjStatus.Aborted)
+            {
+                <li class="nav-item"><a class="nav-link" asp-controller="Project" asp-action="UpdateProject" asp-route-id="@Model.Proj.ProjectId">Update project</a></li>
+                <li class="nav-item"><a class="nav-link" asp-controller="Recruit" asp-action="CreateRecruit" asp-route-ProjId="@Model.Proj.ProjectId">Recruit people</a></li>
+            }
+
+            @if (Model.HasOpenRecruits && Model.CurrentDevIsInvolved && Model.Proj.ProjStatus != ProjStatus.Aborted)
+            {
+                <li class="nav-item"><a class="nav-link" asp-controller="Recruit" asp-action="ListRecruits" asp-route-ProjId="@Model.Proj.ProjectId">Open recruitments</a></li>
+            }
+        </ul>
+    </div>
+</nav>
 
 <h1>Project @Model.Proj.ProjName</h1>
 @Model.Proj.BriefDescript
@@ -167,63 +166,63 @@ else
         <br>
         <br>
         @if (@Model.CurrentUserHasLiked)
-    {<font>Liked</font>}
-else
-{
-    <form asp-controller="Project" asp-action="Like" asp-route-projId="@Model.Proj.ProjectId" method="post" role="form">
-        <input type="submit" value="Like" />
-    </form>
-}
-
-@if (@Model.CurrentUserHasFollowed)
-{
-    <form asp-controller="Project" asp-action="Unfollow" asp-route-projId="@Model.Proj.ProjectId" method="post" role="form">
-        <input type="submit" value="Unfollow" />
-    </form>
-}
-else
-{
-    <form asp-controller="Project" asp-action="Follow" asp-route-projId="@Model.Proj.ProjectId" method="post" role="form">
-        <input type="submit" value="Follow" />
-    </form>
-}
-@if (@Model.CurrentUser.Role == UserRole.Buyer)
-{
-    if (@Model.CurrentBuyerHasWatched)
-    {
-        <form asp-controller="Project" asp-action="Unwatch" asp-route-projId="@Model.Proj.ProjectId" method="post" role="form">
-            <input type="submit" value="Unwatch" />
-        </form>
-        <br>
-        <br>
-        <font>Talk to developers</font>
-        @Html.Partial("_Conversation", @Model.PreviousNegoConver)
-        <script src="~/Javascript/SingalR_NegoConver.js"></script>
-        <br>
-        <br>
-        if (Model.Proj.TradingStatus == ProjStatus.In_Trade)
+        {<font>Liked</font>}
+        else
         {
-        <font>This project is in trade</font>
+            <form asp-controller="Project" asp-action="Like" asp-route-projId="@Model.Proj.ProjectId" method="post" role="form">
+                <input type="submit" value="Like" />
+            </form>
+        }
+
+        @if (@Model.CurrentUserHasFollowed)
+        {
+            <form asp-controller="Project" asp-action="Unfollow" asp-route-projId="@Model.Proj.ProjectId" method="post" role="form">
+                <input type="submit" value="Unfollow" />
+            </form>
         }
         else
         {
-        <a asp-controller="Transaction" asp-action="MakeAnOffer" asp-route-projId="@Model.Proj.ProjectId" asp-route-buyerId="@Model.CurrentUser.Id">Make an offer</a>
+            <form asp-controller="Project" asp-action="Follow" asp-route-projId="@Model.Proj.ProjectId" method="post" role="form">
+                <input type="submit" value="Follow" />
+            </form>
         }
-    }
-    else
+        @if (@Model.CurrentUser.Role == UserRole.Buyer)
+        {
+            if (@Model.CurrentBuyerHasWatched)
+            {
+                <form asp-controller="Project" asp-action="Unwatch" asp-route-projId="@Model.Proj.ProjectId" method="post" role="form">
+                    <input type="submit" value="Unwatch" />
+                </form>
+                <br>
+                <br>
+                <font>Talk to developers</font>
+                @Html.Partial("_Conversation", @Model.PreviousNegoConver)
+                <script src="~/Javascript/SingalR_NegoConver.js"></script>
+                <br>
+                <br>
+                if (Model.Proj.TradingStatus == ProjStatus.In_Trade)
+                {
+                    <font>This project is in trade</font>
+                }
+                else
+                {
+                    <a asp-controller="Transaction" asp-action="MakeAnOffer" asp-route-projId="@Model.Proj.ProjectId" asp-route-buyerId="@Model.CurrentUser.Id">Make an offer</a>
+                }
+            }
+            else
+            {
+                <form asp-controller="Project" asp-action="Watch" asp-route-projId="@Model.Proj.ProjectId" method="post" role="form">
+                    <input type="submit" value="Watch" />
+                </form>
+            }
+        }
+    </div>
+    <br>
+    <br>
+    @if (Model.CurrentDevIsInvolved)
     {
-    <form asp-controller="Project" asp-action="Watch" asp-route-projId="@Model.Proj.ProjectId" method="post" role="form">
-        <input type="submit" value="Watch" />
-    </form>
+        <font>Internal communication</font>
+        @Html.Partial("_Conversation", @Model.PreviousInterConver)
+        <script src="~/Javascript/SingalR_InterConver.js"></script>
     }
-}
-</div>
-<br>
-<br>
-@if (Model.CurrentDevIsInvolved)
-{
-    <font>Internal communication</font>
-    @Html.Partial("_Conversation", @Model.PreviousInterConver)
-    <script src="~/Javascript/SingalR_InterConver.js"></script>
-}
 

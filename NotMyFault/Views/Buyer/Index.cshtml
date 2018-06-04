@@ -1,38 +1,55 @@
 ﻿@model UserHomeViewModel
-<h2>This is buyer Home page</h2>
-<a asp-controller="Project" asp-action="SearchProjects">Search projects</a>&nbsp;|
-<a asp-controller="Account" asp-action="EditUserProfile">Edit profile</a> 
 
+<nav class="navbar  navbar-light bg-light">
+    <div class="container-fluid">
+        <ul class="nav">
+            <li class="nav-item"><a class="nav-link" asp-controller="Project" asp-action="SearchProjects">Search projects</a></li>
+            <li class="nav-item"><a class="nav-link" asp-controller="Account" asp-action="EditUserProfile">My profile</a></li>
+        </ul>
+    </div>
+</nav>
+
+<br>
 @if (Model.MyWatchingProjects.Count != 0)
 {
-    <br>
-    <h3>Projects that I am watching</h3>
-    <table>
+    <p class="h3" style="color:deepskyblue">Projects that I am watching</p>
+    <div class="row form-group">
         @foreach (var proj in Model.MyWatchingProjects)
         {
-            <tr>
-                <td>
-                    <a asp-controller="Project" asp-action="Index" asp-route-id="@proj.ProjectId">@proj.ProjName</a>
-                </td>
-            </tr>
+            <div class="col-md-3">
+                <div class="card" style="width: 12rem;">
+                    <a asp-controller="Project" asp-action="Index" asp-route-id="@proj.ProjectId">
+                        <img class="card-img-top" src="~/Images/project.png" alt="Card image cap">
+                        <div class="card-body">
+                            <h6 class="card-title">@proj.ProjName</h6>
+                            <p class="card-text">status: @proj.ProjStatus</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
         }
-    </table>
+    </div>
 }
 
 @if (Model.MyFollowingProjects.Count != 0)
 {
-    <br>
-    <h3>Projects that I follow</h3>
-    <table>
+    <p class="h3" style="color:deepskyblue">Projects that I follow</p>
+    <div class="row form-group">
         @foreach (var proj in Model.MyFollowingProjects)
         {
-            <tr>
-                <td>
-                    <a asp-controller="Project" asp-action="Index" asp-route-id="@proj.ProjectId">@proj.ProjName</a>
-                </td>
-            </tr>
+            <div class="col-md-3">
+                <div class="card" style="width: 12rem;">
+                    <a asp-controller="Project" asp-action="Index" asp-route-id="@proj.ProjectId">
+                        <img class="card-img-top" src="~/Images/project.png" alt="Card image cap">
+                        <div class="card-body">
+                            <h6 class="card-title">@proj.ProjName</h6>
+                            <p class="card-text">status: @proj.ProjStatus</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
         }
-    </table>
+    </div>
 }
 
 
