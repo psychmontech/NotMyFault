@@ -1,145 +1,181 @@
 ﻿@model UserHomeViewModel
 
-<h2>This is developer Home page</h2>
-<a asp-controller="Project" asp-action="CreateProject">Create a project</a> &nbsp;|
-<a asp-controller="Project" asp-action="SearchProjects">Recently opened projects</a> &nbsp;|
-<a asp-controller="Account" asp-action="EditUserProfile">Edit profile</a> &nbsp;|
-<a asp-controller="Recruit" asp-action="SearchRecruit">Job vacancies</a>
-@if (Model.IHaveReviews)
-{
-    <a asp-controller="Dev" asp-action="ViewReviews" asp-route-id="@Model.MyUserId"> |My reviews</a>
-}
+<nav class="navbar  navbar-light bg-light">
+    <div class="container-fluid">
+        <ul class="nav">
+            <li class="nav-item"><a class="nav-link" asp-controller="Project" asp-action="CreateProject">Create a project</a></li>
+            <li class="nav-item"><a class="nav-link" asp-controller="Project" asp-action="SearchProjects">Recently opened projects</a></li>
+            <li class="nav-item"><a class="nav-link" asp-controller="Account" asp-action="EditUserProfile">Edit profile</a></li>
+            <li class="nav-item"><a class="nav-link" asp-controller="Recruit" asp-action="SearchRecruit">Job vacancies</a></li>
+            @if (Model.IHaveReviews)
+            {
+                <li class="nav-item"><a class="nav-link" asp-controller="Dev" asp-action="ViewReviews" asp-route-id="@Model.MyUserId">My reviews</a></li>
+            }
+        </ul>
+    </div>
+</nav>
 
 <br>
 @if (Model.MyInvolvedProjects.Count != 0)
 {
-    <h3>My on-going projects</h3>
-    <table>
+    <p class="h3" style="color:deepskyblue">My on-going projects</p>
+    <div class="row form-group">
         @foreach (var proj in Model.MyInvolvedProjects)
         {
             if (!(proj.ProjStatus == ProjStatus.Development_Completed || proj.ProjStatus == ProjStatus.Aborted))
             {
-                <tr>
-                    <td>
-                        <a asp-controller="Project" asp-action="Index" asp-route-id="@proj.ProjectId">@proj.ProjName</a>
-                    </td>
-                </tr>
+                <div class="col-md-3">
+                    <div class="card" style="width: 12rem;">
+                        <a asp-controller="Project" asp-action="Index" asp-route-id="@proj.ProjectId">
+                            <img class="card-img-top" src="~/Images/project.png" alt="Card image cap">
+                            <div class="card-body">
+                                <h6 class="card-title">@proj.ProjName</h6>
+                                <p class="card-text">progress: @proj.Progress%</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
             }
         }
-    </table>
+    </div>
 }
 
+<br>
 @if (Model.MyLeadingProjects.Count != 0)
 {
-    <br>
-    <h3>My leading projects</h3>
-    <table>
+    <p class="h3" style="color:deepskyblue">My leading projects</p>
+    <div class="row form-group">
         @foreach (var proj in Model.MyLeadingProjects)
         {
             if (!(proj.ProjStatus == ProjStatus.Development_Completed || proj.ProjStatus == ProjStatus.Aborted))
             {
-                <tr>
-                    <td>
-                        <a asp-controller="Project" asp-action="Index" asp-route-id="@proj.ProjectId">@proj.ProjName</a>
-                    </td>
-                </tr>
+                <div class="col-md-3">
+                    <div class="card" style="width: 12rem;">
+                        <a asp-controller="Project" asp-action="Index" asp-route-id="@proj.ProjectId">
+                            <img class="card-img-top" src="~/Images/project.png" alt="Card image cap">
+                            <div class="card-body">
+                                <h6 class="card-title">@proj.ProjName</h6>
+                                <p class="card-text">progress: @proj.Progress%</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
             }
         }
-    </table>
+    </div>
 }
 
+<br>
 @if (Model.MyFollowingProjects.Count != 0)
 {
-    <br>
-    <h3>Projects that I follow</h3>
-    <table>
+    <p class="h3" style="color:deepskyblue">Projects that I follow</p>
+    <div class="row form-group">
         @foreach (var proj in Model.MyFollowingProjects)
         {
-            <tr>
-                <td>
-                    <a asp-controller="Project" asp-action="Index" asp-route-id="@proj.ProjectId">@proj.ProjName</a>
-                </td>
-            </tr>
+            <div class="col-md-3">
+                <div class="card" style="width: 12rem;">
+                    <a asp-controller="Project" asp-action="Index" asp-route-id="@proj.ProjectId">
+                        <img class="card-img-top" src="~/Images/project.png" alt="Card image cap">
+                        <div class="card-body">
+                            <h6 class="card-title">@proj.ProjName</h6>
+                            <p class="card-text">progress: @proj.Progress%</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
         }
-    </table>
+    </div>
 }
+
+<br>
 @if (Model.MyAppliedRoles.Count != 0)
 {
-    <br>
-    <h3>My applied roles</h3>
-    <table>
+    <p class="h3" style="color:deepskyblue">My applied roles</p>
+    <div class="row form-group">
         @foreach (var recruit in Model.MyAppliedRoles)
         {
             if (recruit.IsOpen)
             {
-                <tr>
-                    <td>
-                        <a asp-controller="Recruit" asp-action="Index" asp-route-id="@recruit.RecruitmentId">@recruit.NameOfTheRole</a>
-                    </td>
-                </tr>
+                <div class="col-md-3">
+                    <div class="card" style="width: 12rem;">
+                        <a asp-controller="Recruit" asp-action="Index" asp-route-id="@recruit.RecruitmentId">
+                            <img class="card-img-top" src="~/Images/jobOpportunity.jpg" alt="Card image cap">
+                            <div class="card-body">
+                                <h6 class="card-title">@recruit.NameOfTheRole</h6>
+                                <p class="card-text">@recruit.MyProj.ProjName</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
             }
         }
-    </table>
+    </div>
 }
 
+<br>
 @if (Model.MyCompletedProjects.Count != 0)
 {
-    <br>
-    <h3>My completed projects</h3>
-    <table>
+    <p class="h3" style="color:deepskyblue">My completed projects</p>
+    <div class="row form-group">
         @foreach (var proj in Model.MyCompletedProjects)
         {
-            <tr>
-                <td>
-                    <a asp-controller="Project" asp-action="Index" asp-route-id="@proj.ProjectId">@proj.ProjName</a>
-                </td>
-            </tr>
+            <div class="col-md-3">
+                <div class="card" style="width: 12rem;">
+                    <a asp-controller="Project" asp-action="Index" asp-route-id="@proj.ProjectId">
+                        <img class="card-img-top" src="~/Images/project.png" alt="Card image cap">
+                        <div class="card-body">
+                            <h6 class="card-title">@proj.ProjName</h6>
+                            <p class="card-text">progress: @proj.Progress%</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
         }
-    </table>
+    </div>
 }
 
+<br>
 @if (Model.MyTradedProjects.Count != 0)
 {
-    <br>
-    <h3>My traded projects</h3>
-    <table>
+    <p class="h3" style="color:deepskyblue">My traded projects</p>
+    <div class="row form-group">
         @foreach (var proj in Model.MyTradedProjects)
         {
-            <tr>
-                <td>
-                    <a asp-controller="Project" asp-action="Index" asp-route-id="@proj.ProjectId">@proj.ProjName</a>
-                </td>
-            </tr>
+            <div class="col-md-3">
+                <div class="card" style="width: 12rem;">
+                    <a asp-controller="Project" asp-action="Index" asp-route-id="@proj.ProjectId">
+                        <img class="card-img-top" src="~/Images/project.png" alt="Card image cap">
+                        <div class="card-body">
+                            <h6 class="card-title">@proj.ProjName</h6>
+                            <p class="card-text">progress: @proj.Progress%</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
         }
-    </table>
+    </div>
 }
 
+<br>
 @if (Model.MyAbortedProjects.Count != 0)
 {
-    <br>
-    <h3>My aborted projects</h3>
-    <table>
+    <p class="h3" style="color:deepskyblue">My aborted projects</p>
+    <div class="row form-group">
         @foreach (var proj in Model.MyAbortedProjects)
         {
-            <tr>
-                <td>
-                    <a asp-controller="Project" asp-action="Index" asp-route-id="@proj.ProjectId">@proj.ProjName</a>
-                </td>
-            </tr>
+            <div class="col-md-3">
+                <div class="card" style="width: 12rem;">
+                    <a asp-controller="Project" asp-action="Index" asp-route-id="@proj.ProjectId">
+                        <img class="card-img-top" src="~/Images/project.png" alt="Card image cap">
+                        <div class="card-body">
+                            <h6 class="card-title">@proj.ProjName</h6>
+                            <p class="card-text">progress: @proj.Progress%</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
         }
-    </table>
-}
-
-@if (Model.MyEndors.Count != 0)
-{
-    <br>
-    <h3>My endorsments</h3>
-    <table>
-        @foreach (var endors in Model.MyEndors)
-        {
-            <tr><td>@endors.Subject</td></tr>
-        }
-    </table>
+    </div>
 }
 
 

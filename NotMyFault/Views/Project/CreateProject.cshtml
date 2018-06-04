@@ -1,86 +1,88 @@
 ﻿@model CreateProjectViewModel
 
+<nav class="navbar  navbar-light bg-light">
+    <div class="container-fluid">
+        <ul class="nav">
+            <li class="nav-item"><a class="nav-link" asp-controller="Dev" asp-action="Index">Cancel</a></li>
+        </ul>
+    </div>
+</nav>
 <form asp-controller="Project" asp-action="CreateProject" method="post" role="form">
-    Create a project |
-    <a asp-controller="Dev" asp-action="Index">Cancel</a>
-    <div asp-validation-summary="All" style="color:red"></div>
-    <div>
-        <label asp-for="ProjName"></label>
-        <div>
-            <input asp-for="ProjName" placeholder="max 40 char" />
-            <span asp-validation-for="ProjName" style="color:red"></span>
+    <br>
+    <div class="row form-group">
+        <div class="col-md-3">
+            <label asp-for="ProjName"></label>
+            <div>
+                <input asp-for="ProjName" placeholder="max 40 char" class="form-control" maxlength="40" required />
+                <span asp-validation-for="ProjName" style="color:red"></span>
+            </div>
         </div>
     </div>
     <br>
-    <div>
-        <label asp-for="ProtdCompDate"></label>
-        <div>
-            <input asp-for="ProtdCompDate" />
-            <span asp-validation-for="ProtdCompDate" style="color:red"></span>
-        </div>
-    </div>
-    @*<br>
-    <div>
-        <label asp-for="Visibility"></label>
-        <div>
-            <select asp-for="Visibility">
-                <option value=@ProjVisibility.Visible_To_Everyone>Visible To Everyone</option>
-                <option value=@ProjVisibility.Visible_To_All_Users>Visible To All Users</option>
-                <option value=@ProjVisibility.Only_Visible_To_Buyers>Only Visible To Buyers</option>
-                <option value=@ProjVisibility.Invisible>Invisible</option>
-            </select>
-        </div>
-    </div>*@
-    <br>
-    <div>
-        <label asp-for="RepoLink"></label>
-        <div>
-            <input asp-for="RepoLink" />
+    <div class="row form-group">
+        <div class="col-md-3">
+            <label asp-for="ProtdCompDate"></label>
+            <div>
+                <input asp-for="ProtdCompDate" class="form-control" required />
+                <span asp-validation-for="ProtdCompDate" style="color:red"></span>
+            </div>
         </div>
     </div>
     <br>
-    <div>
-        <label asp-for="Value_bitcoin"></label>
-        <div>
-            <input asp-for="Value_bitcoin" value="0"/>
-            <span asp-validation-for="Value_bitcoin" style="color:red"></span>
-
+    <div class="row form-group">
+        <div class="col-md-3">
+            <label asp-for="RepoLink"></label>
+            <div>
+                <input asp-for="RepoLink" class="form-control"/>
+                <span asp-validation-for="RepoLink" style="color:red"></span>
+            </div>
         </div>
     </div>
     <br>
-    <div>
-        <label asp-for="Value_ethereum"></label>
-        <div>
-            <input asp-for="Value_ethereum" value="0"/>
-            <span asp-validation-for="Value_ethereum" style="color:red"></span>
+    <div class="row form-group">
+        <div class="col-md-3">
+            <label asp-for="Value_bitcoin"></label>
+            <div>
+                <input asp-for="Value_bitcoin" value="0" class="form-control" />
+                <span asp-validation-for="Value_bitcoin" style="color:red"></span>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <label asp-for="Value_ethereum"></label>
+            <div>
+                <input asp-for="Value_ethereum" value="0" class="form-control" />
+                <span asp-validation-for="Value_ethereum" style="color:red"></span>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <label asp-for="Value_litecoin"></label>
+            <div>
+                <input asp-for="Value_litecoin" value="0" class="form-control" />
+                <span asp-validation-for="Value_litecoin" style="color:red"></span>
+            </div>
         </div>
     </div>
     <br>
-    <div>
-        <label asp-for="Value_litecoin"></label>
-        <div>
-            <input asp-for="Value_litecoin" value="0"/>
-            <span asp-validation-for="Value_litecoin" style="color:red"></span>
+    <div class="row form-group">
+        <div class="col-md-6">
+            <label asp-for="BriefDescript"></label>
+            <div>
+                <textarea asp-for="BriefDescript" rows="5" placeholder="max 100 char" class="form-control" maxlength="100" required></textarea>
+                <span asp-validation-for="BriefDescript" style="color:red"></span>
+            </div>
         </div>
     </div>
     <br>
-    <div>
-        <label asp-for="BriefDescript"></label>
-        <div>
-            <textarea asp-for="BriefDescript" rows="10" cols="30" placeholder="max 100 char"></textarea>
-            <span asp-validation-for="BriefDescript" style="color:red"></span>
+    <div class="row form-group">
+        <div class="col-md-6">
+            <label asp-for="FullDescript"></label>
+            <div>
+                <textarea asp-for="FullDescript" rows="8" placeholder="max 1000 char" class="form-control" maxlength="1000" required></textarea>
+                <span asp-validation-for="FullDescript" style="color:red"></span>
+            </div>
         </div>
     </div>
     <br>
-    <div>
-        <label asp-for="FullDescript"></label>
-        <div>
-            <textarea asp-for="FullDescript" rows="15" cols="50" placeholder="max 1000 char"></textarea>
-            <span asp-validation-for="FullDescript" style="color:red"></span>
-        </div>
-    </div>
+    <input type="submit" class="btn btn-block btn-outline-success btn-signin" value="Create Project" />
     <br>
-    <div>
-        <input type="submit" value="Create" />
-    </div>
 </form>

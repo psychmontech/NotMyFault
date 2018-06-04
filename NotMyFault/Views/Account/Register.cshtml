@@ -3,7 +3,7 @@
 <script src="~/Javascript/RegisterDisplaySetting.js"></script>
 
 <form asp-controller="Account" asp-action="Register" method="post" role="form">
-    <br />
+    <br>
     <div class="row form-group">
         <label asp-for="Role" style="color:darkblue"></label>
         <div class="col-md-1">
@@ -15,7 +15,7 @@
             <input asp-for="Role" type="radio" value="@UserRole.Buyer" onclick="javascript:devBuyerCheck();" id="buyerCheck" class="form-control">
         </div>
     </div>
-    <br />
+    <br>
     <div class="row form-group">
         <div class="col-md-3">
             <label asp-for="UserName"></label>
@@ -32,7 +32,7 @@
             </div>
         </div>
     </div>
-    <br />
+    <br>
     <div class="row form-group">
         <div class="col-md-3">
             <label asp-for="Password"></label>
@@ -49,7 +49,7 @@
             </div>
         </div>
     </div>
-    <br />
+    <br>
     <div class="row form-group">
         <div class="col-md-3">
             <label asp-for="Email"></label>
@@ -66,7 +66,7 @@
             </div>
         </div>
     </div>
-    <br />
+    <br>
     <div class="row form-group">
         <div class="col-md-3">
             <label asp-for="BitcoinAddr"></label>
@@ -90,7 +90,7 @@
             </div>
         </div>
     </div>
-    <br />
+    <br>
     <div class="row form-group">
         <div class="col-md-3">
             <label asp-for="Country"></label>
@@ -105,7 +105,7 @@
             </div>
         </div>
     </div>
-    <br />
+    <br>
     <div class="row form-group" id="ifBuyer">
         <div class="col-md-3">
             <label asp-for="CompanyName"></label>
@@ -119,7 +119,7 @@
                 <input asp-for="CompanyAddr" class="form-control" />
             </div>
         </div>
-        <br />
+        <br>
     </div>
 
     <div class="row form-group" id="ifDev">
@@ -131,8 +131,8 @@
             </div>
         </div>
     </div>
-    <br />
+    <br>
     <input type="submit" class="btn btn-block btn-outline-success btn-signin" value="Register" />
-    <br />
-    <br />
+    <br>
+    <br>
 </form>
