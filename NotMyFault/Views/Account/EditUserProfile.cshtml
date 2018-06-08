@@ -34,8 +34,7 @@
 
 <form asp-controller="Account" asp-action="EditUserProfile" method="post" role="form">
     <input type="hidden" asp-for="Role" />  @*//need to have Role inside the form otherwise it will become 0(null)*@
-    <br>
-    <div class="row form-group">
+    <div class="row form-group mt-4">
         <div class="col-md-3">
             <label asp-for="NickName"></label>
             <div>
@@ -44,8 +43,7 @@
             </div>
         </div>
     </div>
-    <br>
-    <div class="row form-group">
+    <div class="row form-group mt-5">
         <div class="col-md-3">
             <label asp-for="Email"></label>
             <div>
@@ -54,8 +52,7 @@
             </div>
         </div>
     </div>
-    <br>
-    <div class="row form-group">
+    <div class="row form-group mt-5">
         <div class="col-md-3">
             <label asp-for="BitcoinAddr"></label>
             <div>
@@ -78,8 +75,7 @@
             </div>
         </div>
     </div>
-    <br>
-    <div class="row form-group">
+    <div class="row form-group mt-5">
         <div class="col-md-3">
             <label asp-for="Country"></label>
             <div>
@@ -93,24 +89,21 @@
             </div>
         </div>
     </div>
-    <br>
-    <div class="row form-group" id="ifBuyer">
+    <div class="row form-group mt-5" id="ifBuyer">
         <div class="col-md-3">
             <label asp-for="CompanyName"></label>
             <div>
-                <input asp-for="CompanyName" class="form-control" required/>
+                <input asp-for="CompanyName" class="form-control" required />
             </div>
         </div>
         <div class="col-md-3">
             <label asp-for="CompanyAddr"></label>
             <div>
-                <input asp-for="CompanyAddr" class="form-control" required/>
+                <input asp-for="CompanyAddr" class="form-control" required />
             </div>
         </div>
-        <br>
     </div>
-
-    <div class="row form-group" id="ifDev">
+    <div class="row form-group mt-5" id="ifDev">
         <div class="col-md-6">
             <label asp-for="SelfIntro"></label>
             <div>
@@ -119,8 +112,5 @@
             </div>
         </div>
     </div>
-    <br>
-    <input type="submit" class="btn btn-block btn-outline-success btn-signin" value="Save" />
-    <br>
-    <br>
+    <input type="submit" class="btn btn-block btn-outline-success btn-signin mt-5 mb-5" value="Save" />
 </form>

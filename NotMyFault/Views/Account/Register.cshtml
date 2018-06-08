@@ -3,8 +3,7 @@
 <script src="~/Javascript/RegisterDisplaySetting.js"></script>
 
 <form asp-controller="Account" asp-action="Register" method="post" role="form">
-    <br>
-    <div class="row form-group">
+    <div class="row form-group mt-4">
         <label asp-for="Role" style="color:darkblue"></label>
         <div class="col-md-1">
             <label style="color:darkblue">Developer</label>
@@ -15,8 +14,7 @@
             <input asp-for="Role" type="radio" value="@UserRole.Buyer" onclick="javascript:devBuyerCheck();" id="buyerCheck" class="form-control">
         </div>
     </div>
-    <br>
-    <div class="row form-group">
+    <div class="row form-group mt-5">
         <div class="col-md-3">
             <label asp-for="UserName"></label>
             <div>
@@ -32,8 +30,7 @@
             </div>
         </div>
     </div>
-    <br>
-    <div class="row form-group">
+    <div class="row form-group mt-5">
         <div class="col-md-3">
             <label asp-for="Password"></label>
             <div>
@@ -49,8 +46,7 @@
             </div>
         </div>
     </div>
-    <br>
-    <div class="row form-group">
+    <div class="row form-group mt-5">
         <div class="col-md-3">
             <label asp-for="Email"></label>
             <div>
@@ -66,8 +62,7 @@
             </div>
         </div>
     </div>
-    <br>
-    <div class="row form-group">
+    <div class="row form-group mt-5">
         <div class="col-md-3">
             <label asp-for="BitcoinAddr"></label>
             <div>
@@ -90,8 +85,7 @@
             </div>
         </div>
     </div>
-    <br>
-    <div class="row form-group">
+    <div class="row form-group mt-5">
         <div class="col-md-3">
             <label asp-for="Country"></label>
             <div>
@@ -105,8 +99,7 @@
             </div>
         </div>
     </div>
-    <br>
-    <div class="row form-group" id="ifBuyer">
+    <div class="row form-group mt-5" id="ifBuyer">
         <div class="col-md-3">
             <label asp-for="CompanyName"></label>
             <div>
@@ -119,10 +112,9 @@
                 <input asp-for="CompanyAddr" class="form-control" />
             </div>
         </div>
-        <br>
     </div>
 
-    <div class="row form-group" id="ifDev">
+    <div class="row form-group mt-5" id="ifDev">
         <div class="col-md-6">
             <label asp-for="SelfIntro"></label>
             <div>
@@ -131,8 +123,5 @@
             </div>
         </div>
     </div>
-    <br>
-    <input type="submit" class="btn btn-block btn-outline-success btn-signin" value="Register" />
-    <br>
-    <br>
+    <input type="submit" class="btn btn-block btn-outline-success btn-signin mt-5 mb-5" value="Register" />
 </form>

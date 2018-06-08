@@ -46,183 +46,206 @@
     </div>
 </nav>
 
-<h1>Project @Model.Proj.ProjName</h1>
-@Model.Proj.BriefDescript
-<br>
-We currently have @Model.Capacity developers working on it
-<br>
-This project was started on @Model.Proj.StartingDate.ToString("dd/MM/yyy") and we have completed @Model.Proj.Progress%. The projected complete date is @Model.Proj.ProtdCompDate.ToString("dd/MM/yyy").
-<br>
-This project is currently
-@switch (Model.Proj.ProjStatus)
-{
-    case ProjStatus.Aborted:
-        <font>Aborted</font>
-        break;
+<div class="row m-4 form-group">
+    <div class="col-md-6 mr-5">
+        <p class="h4" style="color:deepskyblue">@Model.Proj.ProjName</p>
+        <p class="font-weight-normal" style="color:deepskyblue">@Model.Proj.BriefDescript</p>
+    </div>
+    <div class="col-md-4 ml-5">
+        <p class="font-weight-normal" style="color:deepskyblue">Followers: @Model.NumOfFollowers</p>
+        <p class="font-weight-normal" style="color:deepskyblue">Likes    : @Model.NumOfLikes</p>
+        <p class="font-weight-normal" style="color:deepskyblue">Watchers : @Model.NumOfWatchers</p>
+    </div>
+</div>
 
-    case ProjStatus.Development_Completed:
-        <font>Development completed</font>
-        break;
+<div class="row m-4 form-group">
+    <p>
+        <button class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#projectDescription" aria-expanded="false" aria-controls="projectDescription">
+            Project description
+        </button>
+    </p>
+    <div class="collapse" id="projectDescription">
+        <p class="font-weight-normal" style="color:deepskyblue">@Model.Proj.FullDescript</p>
+    </div>
+</div>
 
-    case ProjStatus.Preparing:
-        <font>Preparing</font>
-        break;
+<div class="row m-4 form-group">
+        <div class="col-md-6 mr-5">
+            <p class="font-weight-normal" style="color:deepskyblue">Started on: @Model.Proj.StartingDate.ToString("dd/MM/yyy")</p>
+            <p class="font-weight-normal" style="color:deepskyblue">Projected complete date: @Model.Proj.ProtdCompDate.ToString("dd/MM/yyy")</p>
+            <p class="font-weight-normal" style="color:deepskyblue">
+                Project status:
+                @switch (Model.Proj.ProjStatus)
+                {
+                    case ProjStatus.Aborted:
+                        <font>Aborted</font>
+                        break;
 
-    case ProjStatus.Recruiting:
-        <font>Recruiting</font>
-        break;
+                    case ProjStatus.Development_Completed:
+                        <font>Development completed</font>
+                        break;
 
-    case ProjStatus.Suspended:
-        <font>Suspended</font>
-        break;
+                    case ProjStatus.Preparing:
+                        <font>Preparing</font>
+                        break;
 
-    case ProjStatus.Under_Development:
-        <font>Under Development</font>
-        break;
-}
+                    case ProjStatus.Recruiting:
+                        <font>Recruiting</font>
+                        break;
 
-@switch (Model.Proj.TradingStatus)
-{
-    case ProjStatus.Under_Negotiation:
-        <font> and Under negotiation</font>
-        break;
+                    case ProjStatus.Suspended:
+                        <font>Suspended</font>
+                        break;
 
-    case ProjStatus.Under_Offer:
-        <font> and Under offer</font>
-        break;
+                    case ProjStatus.Under_Development:
+                        <font>Under Development</font>
+                        break;
+                }
 
-    case ProjStatus.In_Trade:
-        <font> and In trade</font>
-        break;
+                @switch (Model.Proj.TradingStatus)
+                {
+                    case ProjStatus.Under_Negotiation:
+                        <font> and Under negotiation</font>
+                        break;
 
-    case ProjStatus.Traded:
-        <font> and Traded</font>
-        break;
-}
+                    case ProjStatus.Under_Offer:
+                        <font> and Under offer</font>
+                        break;
 
-@if (Model.Valuation.BitcoinValue != 0 || Model.Valuation.EthereumValue != 0 || Model.Valuation.LitecoinValue != 0)
-{
-    <br>
-    <font> Developers are expecting either:</font>
-}
-@if (Model.Valuation.BitcoinValue != 0)
-{
-    <br>
-    <font>&nbsp;&nbsp;&nbsp;&nbsp;Bitcoin: @Model.Valuation.BitcoinValue</font>
-}
-@if (Model.Valuation.EthereumValue != 0)
-{
-    <br>
-    <font>&nbsp;&nbsp;&nbsp;&nbsp;Ethereum: @Model.Valuation.EthereumValue</font>
-}
-@if (Model.Valuation.LitecoinValue != 0)
-{
-    <br>
-    <font>&nbsp;&nbsp;&nbsp;&nbsp;Litecoin: @Model.Valuation.LitecoinValue</font>
-}
-<br>
-Developers are:
-@foreach (var dev in Model.MyDevs)
-{
-    @if (@Model.CurrentUser.Role == UserRole.Dev)
-    {
-        <a asp-controller="Dev" asp-action="ViewDevProfile" asp-route-id="@dev.Id">@dev.NickName</a>
-        if (Model.CurrentUser == Model.ProjLeader && Model.CurrentUser != dev)
-        {
-            <a asp-controller="Project" asp-action="DismissADev" asp-route-id="@Model.Proj.ProjectId" asp-route-devId="@dev.Id">(dismiss)</a>
-        }
-        <font>&nbsp;&nbsp;</font>
-    }
-    else
-    {
-        <font>@dev.NickName&nbsp;</font>
-    }
-}
-<br>
-    Project leader is
-@if (@Model.CurrentUser.Role == UserRole.Dev)
-{
-    <a asp-controller="Dev" asp-action="ViewDevProfile" asp-route-id="@Model.ProjLeader.Id">@Model.ProjLeader.NickName&nbsp;</a>
-}
-else
-{
-    <font>@Model.ProjLeader.NickName &nbsp;</font>
-}
-@if (Model.CurrentDevIsInvolved)
-{
-    <br>
-    <font>Our work repository is @Model.Proj.RepoLink</font>
-    <br>
-}
-<br>
-<font id="notInvolved1" style="display:none">Project full description: @Model.Proj.FullDescript</font>
-    Followed by @Model.NumOfFollowers users
-    <br>
-    Likes: @Model.NumOfLikes
-    <br>
-    Watched by: @Model.NumOfWatchers investors
+                    case ProjStatus.In_Trade:
+                        <font> and In trade</font>
+                        break;
 
-    <div id="notInvolved2" style="display:none">
-        <br>
-        <br>
-        @if (@Model.CurrentUserHasLiked)
-        {<font>Liked</font>}
-        else
-        {
-            <form asp-controller="Project" asp-action="Like" asp-route-projId="@Model.Proj.ProjectId" method="post" role="form">
-                <input type="submit" value="Like" />
-            </form>
-        }
-
-        @if (@Model.CurrentUserHasFollowed)
-        {
-            <form asp-controller="Project" asp-action="Unfollow" asp-route-projId="@Model.Proj.ProjectId" method="post" role="form">
-                <input type="submit" value="Unfollow" />
-            </form>
-        }
-        else
-        {
-            <form asp-controller="Project" asp-action="Follow" asp-route-projId="@Model.Proj.ProjectId" method="post" role="form">
-                <input type="submit" value="Follow" />
-            </form>
-        }
-        @if (@Model.CurrentUser.Role == UserRole.Buyer)
-        {
-            if (@Model.CurrentBuyerHasWatched)
+                    case ProjStatus.Traded:
+                        <font> and Traded</font>
+                        break;
+                }
+            </p>
+            <p class="font-weight-normal" style="color:deepskyblue">
+                Progress made:
+                <div class="progress">
+                    <div class="progress-bar" style="width:@Model.Proj.Progress%">@Model.Proj.Progress%</div>
+                </div>
+            </p>
+        </div>
+        <div class="col-md-4 ml-5">
+            @if (Model.Valuation.BitcoinValue != 0 || Model.Valuation.EthereumValue != 0 || Model.Valuation.LitecoinValue != 0)
             {
-                <form asp-controller="Project" asp-action="Unwatch" asp-route-projId="@Model.Proj.ProjectId" method="post" role="form">
-                    <input type="submit" value="Unwatch" />
-                </form>
-                <br>
-                <br>
-                <font>Talk to developers</font>
+                <p class="font-weight-normal" style="color:deepskyblue">Developers are expecting either:</p>
+                @if (Model.Valuation.BitcoinValue != 0)
+                {
+                    <p class="font-weight-normal" style="color:deepskyblue">Bitcoin: @Model.Valuation.BitcoinValue</p>
+                }
+                @if (Model.Valuation.EthereumValue != 0)
+                {
+                    <p class="font-weight-normal" style="color:deepskyblue">Ethereum: @Model.Valuation.EthereumValue</p>
+                }
+                @if (Model.Valuation.LitecoinValue != 0)
+                {
+                    <p class="font-weight-normal" style="color:deepskyblue">Litecoin: @Model.Valuation.LitecoinValue</p>
+                }
+            }
+        </div>
+    </div>
+
+<div class="row m-4 form-group">
+        <div class="col-md-6 mr-5">
+            @if (Model.CurrentDevIsInvolved)
+            {
+                <font class="font-weight-normal" style="color:deepskyblue">Internal communication</font>
+                @Html.Partial("_Conversation", @Model.PreviousInterConver)
+                <script src="~/Javascript/SingalR_InterConver.js"></script>
+            }
+            else if (@Model.CurrentUser.Role == UserRole.Buyer && @Model.CurrentBuyerHasWatched)
+            {
+                <font class="font-weight-normal" style="color:deepskyblue">Talk to developers</font>
                 @Html.Partial("_Conversation", @Model.PreviousNegoConver)
                 <script src="~/Javascript/SingalR_NegoConver.js"></script>
-                <br>
-                <br>
-                if (Model.Proj.TradingStatus == ProjStatus.In_Trade)
+            }
+        </div>
+        <div class="col-md-4 ml-5">
+            <p class="font-weight-normal" style="color:deepskyblue">We have @Model.Capacity developers</p>
+            @foreach (var dev in Model.MyDevs)
+            {
+                <p class="font-weight-normal" style="color:deepskyblue">
+                    @if (@Model.CurrentUser.Role == UserRole.Dev)
+                    {
+                        <a asp-controller="Dev" asp-action="ViewDevProfile" asp-route-id="@dev.Id">@dev.NickName</a>
+                        if (Model.CurrentUser == Model.ProjLeader && Model.CurrentUser != dev)
+                        {
+                            <a asp-controller="Project" asp-action="DismissADev" asp-route-id="@Model.Proj.ProjectId" asp-route-devId="@dev.Id">(dismiss)</a>
+                        }
+                    }
+                    else
+                    {
+                        @dev.NickName
+                    }
+                </p>
+            }
+            <p class="font-weight-normal" style="color:deepskyblue">
+                Project leader is  &nbsp;
+                @if (@Model.CurrentUser.Role == UserRole.Dev)
                 {
-                    <font>This project is in trade</font>
+                    <a asp-controller="Dev" asp-action="ViewDevProfile" asp-route-id="@Model.ProjLeader.Id">@Model.ProjLeader.NickName</a>
                 }
                 else
                 {
-                    <a asp-controller="Transaction" asp-action="MakeAnOffer" asp-route-projId="@Model.Proj.ProjectId" asp-route-buyerId="@Model.CurrentUser.Id">Make an offer</a>
+                    <font>@Model.ProjLeader.NickName</font>
                 }
+            </p>
+            @if (Model.CurrentDevIsInvolved)
+            {
+                <p class="font-weight-normal" style="color:deepskyblue">Our work repository is @Model.Proj.RepoLink</p>
             }
             else
             {
-                <form asp-controller="Project" asp-action="Watch" asp-route-projId="@Model.Proj.ProjectId" method="post" role="form">
-                    <input type="submit" value="Watch" />
-                </form>
-            }
-        }
-    </div>
-    <br>
-    <br>
-    @if (Model.CurrentDevIsInvolved)
-    {
-        <font>Internal communication</font>
-        @Html.Partial("_Conversation", @Model.PreviousInterConver)
-        <script src="~/Javascript/SingalR_InterConver.js"></script>
-    }
+                @if (@Model.CurrentUserHasLiked)
+                {<font class="font-weight-normal m-2" style="color:deepskyblue">Liked</font>}
+                else
+                {
+                    <a asp-controller="Project" asp-action="Like" asp-route-projId="@Model.Proj.ProjectId">
+                        <input type="button" value="Like" class="btn btn-info m-2"/>
+                    </a>
+                }
 
+                @if (@Model.CurrentUserHasFollowed)
+                {
+                    <a asp-controller="Project" asp-action="Unfollow" asp-route-projId="@Model.Proj.ProjectId">
+                        <input type="button" value="Unfollow" class="btn btn-light m-2" />
+                    </a>
+                }
+                else
+                {
+                    <a asp-controller="Project" asp-action="Follow" asp-route-projId="@Model.Proj.ProjectId">
+                        <input type="button" value="Follow" class="btn btn-primary m-2" />
+                    </a>
+                }
+                @if (@Model.CurrentUser.Role == UserRole.Buyer)
+                {
+                    if (@Model.CurrentBuyerHasWatched)
+                    {
+                        <a asp-controller="Project" asp-action="Unwatch" asp-route-projId="@Model.Proj.ProjectId">
+                            <input type="button" value="Unwatch" class="btn btn-light m-2" />
+                        </a>
+
+                        if (Model.Proj.TradingStatus == ProjStatus.In_Trade)
+                        {
+                            <font class="font-weight-normal" style="color:deepskyblue">Project is in trade</font>
+                        }
+                        else
+                        {
+                            <a asp-controller="Transaction" asp-action="MakeAnOffer" asp-route-projId="@Model.Proj.ProjectId" asp-route-buyerId="@Model.CurrentUser.Id">
+                                <input type="button" value="Make an offer" class="btn btn-danger m-2" />
+                            </a>
+                        }
+                    }
+                    else
+                    {
+                        <a asp-controller="Project" asp-action="Watch" asp-route-projId="@Model.Proj.ProjectId">
+                            <input type="button" value="Watch" class="btn btn-success m-2" />
+                        </a>
+                    }
+                }
+            }
+        </div>
+    </div>

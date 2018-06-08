@@ -8,8 +8,7 @@
     </div>
 </nav>
 <form asp-controller="Project" asp-action="CreateProject" method="post" role="form">
-    <br>
-    <div class="row form-group">
+    <div class="row form-group mt-4">
         <div class="col-md-3">
             <label asp-for="ProjName"></label>
             <div>
@@ -18,8 +17,7 @@
             </div>
         </div>
     </div>
-    <br>
-    <div class="row form-group">
+    <div class="row form-group mt-5">
         <div class="col-md-3">
             <label asp-for="ProtdCompDate"></label>
             <div>
@@ -28,8 +26,7 @@
             </div>
         </div>
     </div>
-    <br>
-    <div class="row form-group">
+    <div class="row form-group mt-5">
         <div class="col-md-3">
             <label asp-for="RepoLink"></label>
             <div>
@@ -38,8 +35,7 @@
             </div>
         </div>
     </div>
-    <br>
-    <div class="row form-group">
+    <div class="row form-group mt-5">
         <div class="col-md-3">
             <label asp-for="Value_bitcoin"></label>
             <div>
@@ -62,27 +58,23 @@
             </div>
         </div>
     </div>
-    <br>
-    <div class="row form-group">
+    <div class="row form-group mt-5">
         <div class="col-md-6">
             <label asp-for="BriefDescript"></label>
             <div>
-                <textarea asp-for="BriefDescript" rows="5" placeholder="max 100 char" class="form-control" maxlength="100" required></textarea>
+                <textarea asp-for="BriefDescript" rows="5" placeholder="max 200 char" class="form-control" maxlength="200" required></textarea>
                 <span asp-validation-for="BriefDescript" style="color:red"></span>
             </div>
         </div>
     </div>
-    <br>
-    <div class="row form-group">
+    <div class="row form-group mt-5">
         <div class="col-md-6">
             <label asp-for="FullDescript"></label>
             <div>
-                <textarea asp-for="FullDescript" rows="8" placeholder="max 1000 char" class="form-control" maxlength="1000" required></textarea>
+                <textarea asp-for="FullDescript" rows="8" placeholder="max 2000 char" class="form-control" maxlength="2000" required></textarea>
                 <span asp-validation-for="FullDescript" style="color:red"></span>
             </div>
         </div>
     </div>
-    <br>
-    <input type="submit" class="btn btn-block btn-outline-success btn-signin" value="Create Project" />
-    <br>
+    <input type="submit" class="btn btn-block btn-outline-success btn-signin mt-5 mb-5" value="Create Project" />
 </form>

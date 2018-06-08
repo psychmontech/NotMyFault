@@ -1,10 +1,11 @@
 ﻿@model String
 <div>
-    <textarea rows="15" cols="30" id="display">@Model</textarea>
-    <br>
-    <br>
-    <input id="text" />
-    <br>
-    <br>
-    <input type="button" value="send" id="sendBtn" onclick="GroupMessage()" />
+    <textarea class="form-control" rows="10" id="display" readonly>@Model</textarea>
+    <div class="input-group">
+        <input id="text" type="text" class="form-control input-sm chat_input"  placeholder="Write your message here..." />
+        <span class="input-group-btn">
+            <button type="button" class="btn btn-primary" id="sendBtn" onclick="GroupMessage()">Send</button>
+        </span>
+    </div>
 </div>
+

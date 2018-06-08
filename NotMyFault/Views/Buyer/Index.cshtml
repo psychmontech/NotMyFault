@@ -22,7 +22,54 @@
                         <img class="card-img-top" src="~/Images/project.png" alt="Card image cap">
                         <div class="card-body">
                             <h6 class="card-title">@proj.ProjName</h6>
-                            <p class="card-text">status: @proj.ProjStatus</p>
+                            <p class="card-text">status: 
+                            
+                            @switch (proj.ProjStatus)
+                            {
+                                case ProjStatus.Aborted:
+                                    <font>Aborted</font>
+                                    break;
+
+                                case ProjStatus.Development_Completed:
+                                    <font>Development completed</font>
+                                    break;
+
+                                case ProjStatus.Preparing:
+                                    <font>Preparing</font>
+                                    break;
+
+                                case ProjStatus.Recruiting:
+                                    <font>Recruiting</font>
+                                    break;
+
+                                case ProjStatus.Suspended:
+                                    <font>Suspended</font>
+                                    break;
+
+                                case ProjStatus.Under_Development:
+                                    <font>Under Development</font>
+                                    break;
+                            }
+
+                            @switch (@proj.TradingStatus)
+                            {
+                                case ProjStatus.Under_Negotiation:
+                                    <font> and Under negotiation</font>
+                                    break;
+
+                                case ProjStatus.Under_Offer:
+                                    <font> and Under offer</font>
+                                    break;
+
+                                case ProjStatus.In_Trade:
+                                    <font> and In trade</font>
+                                    break;
+
+                                case ProjStatus.Traded:
+                                    <font> and Traded</font>
+                                    break;
+                            }
+                            </p>
                         </div>
                     </a>
                 </div>
@@ -33,7 +80,7 @@
 
 @if (Model.MyFollowingProjects.Count != 0)
 {
-    <p class="h3" style="color:deepskyblue">Projects that I follow</p>
+    <p class="h3" style="color:deepskyblue">Projects that I am following</p>
     <div class="row form-group">
         @foreach (var proj in Model.MyFollowingProjects)
         {
@@ -43,7 +90,53 @@
                         <img class="card-img-top" src="~/Images/project.png" alt="Card image cap">
                         <div class="card-body">
                             <h6 class="card-title">@proj.ProjName</h6>
-                            <p class="card-text">status: @proj.ProjStatus</p>
+                            <p class="card-text">status: 
+                            @switch (proj.ProjStatus)
+                            {
+                                case ProjStatus.Aborted:
+                                    <font>Aborted</font>
+                                    break;
+
+                                case ProjStatus.Development_Completed:
+                                    <font>Development completed</font>
+                                    break;
+
+                                case ProjStatus.Preparing:
+                                    <font>Preparing</font>
+                                    break;
+
+                                case ProjStatus.Recruiting:
+                                    <font>Recruiting</font>
+                                    break;
+
+                                case ProjStatus.Suspended:
+                                    <font>Suspended</font>
+                                    break;
+
+                                case ProjStatus.Under_Development:
+                                    <font>Under Development</font>
+                                    break;
+                            }
+
+                            @switch (@proj.TradingStatus)
+                            {
+                                case ProjStatus.Under_Negotiation:
+                                    <font> and Under negotiation</font>
+                                    break;
+
+                                case ProjStatus.Under_Offer:
+                                    <font> and Under offer</font>
+                                    break;
+
+                                case ProjStatus.In_Trade:
+                                    <font> and In trade</font>
+                                    break;
+
+                                case ProjStatus.Traded:
+                                    <font> and Traded</font>
+                                    break;
+                            }
+                            </p>
                         </div>
                     </a>
                 </div>

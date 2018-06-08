@@ -12,11 +12,11 @@ namespace NotMyFault.ViewModels
         [Display(Name = "Project name")]
         public string ProjName { get; set; }
 
-        [Required(ErrorMessage = "The brief description is required"), MaxLength(100)]
+        [Required(ErrorMessage = "The brief description is required"), MaxLength(200)]
         [Display(Name = "Project brief description")]
         public string BriefDescript { get; set; }
 
-        [Required(ErrorMessage = "The full description is required"), MaxLength(1000)]
+        [Required(ErrorMessage = "The full description is required"), MaxLength(2000)]
         [Display(Name = "Full description")]
         public string FullDescript { get; set; }
 
