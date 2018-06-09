@@ -10,9 +10,16 @@
     var userNickName = '@Model.CurrentUser.NickName';
 </script>
 
-<a asp-controller="Project" asp-action="TalkToBuyers" asp-route-projId="@Model.ProjId">Back</a>
-<br>
-<br>
-<font>Talk to the investor</font>
-@Html.Partial("_Conversation", @Model.PreviousNegoConver)
+<nav class="navbar  navbar-light bg-light">
+    <div class="container-fluid">
+        <ul class="nav">
+            <li class="nav-item"><a class="nav-link" asp-controller="Project" asp-action="TalkToBuyers" asp-route-projId="@Model.ProjId">Back</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="col-md-8 mt-4">
+    <p class="font-weight-normal" style="color:deepskyblue">Talking to the investor</p>
+    @Html.Partial("_Conversation", @Model.PreviousNegoConver)
+</div>
 <script src="~/Javascript/SingalR_NegoConver.js"></script>

@@ -1,21 +1,26 @@
 ﻿@model ICollection<ReviewViewModel>
 
-<a asp-controller="Dev" asp-action="ViewDevProfile" asp-route-id="@Model.First().RevieweeId">Go back</a> 
-<br>
-<br>
-<table>
+<nav class="navbar  navbar-light bg-light">
+    <div class="container-fluid">
+        <ul class="nav">
+            <li class="nav-item"><a class="nav-link" asp-controller="Dev" asp-action="ViewDevProfile" asp-route-id="@Model.First().RevieweeId">Go back</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="col-md-8">
     @foreach (var review in Model)
     {
-        <tr>
-            <td>
-                Feedback from 
-                <a asp-controller="Dev" asp-action="ViewDevProfile" asp-route-id="@review.ReviewerId">@review.ReviewerNickName</a>
-                based on project - 
-                <a asp-controller="Project" asp-action="Index" asp-route-id="@review.ProjId">@review.ProjName</a>
-                on @review.Timestamp.ToString("dd/MM/yyy")<br/>
-                stars : @review.Score<br/>
-                comments : @review.Comments<br/><br/>
-            </td>
-        </tr>
+        <p class="font-weight-normal mt-4" style="color:deepskyblue">
+            stars : @review.Score<br />
+            comments : @review.Comments<br />
+            from
+            <a asp-controller="Dev" asp-action="ViewDevProfile" asp-route-id="@review.ReviewerId">@review.ReviewerNickName</a>
+            based on project -
+            <a asp-controller="Project" asp-action="Index" asp-route-id="@review.ProjId">@review.ProjName</a>
+            on @review.Timestamp.ToString("dd/MM/yyy")
+            <hr />
+        </p>
     }
-</table>
+</div>
+

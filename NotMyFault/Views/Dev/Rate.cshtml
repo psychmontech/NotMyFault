@@ -1,16 +1,25 @@
 ﻿@model ReviewViewModel
 
-<a asp-controller="Dev" asp-action="ViewDevProfile" asp-route-id="@Model.RevieweeId">Cancel</a> 
-<br>
-You are reviewing @Model.RevieweeNickName from project - @Model.ProjName
-<br>
-<form asp-controller="Dev" asp-action="Rate" method="post" role="form">
-    <input type="hidden" asp-for="@Model.ProjId" />
-    <input type="hidden" asp-for="@Model.RevieweeId" />
-    <div>
-        <label asp-for="Score"></label>
+<nav class="navbar  navbar-light bg-light">
+    <div class="container-fluid">
+        <ul class="nav">
+            <li class="nav-item"><a class="nav-link" asp-controller="Dev" asp-action="ViewDevProfile" asp-route-id="@Model.RevieweeId">Cancel</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="col-md-4 mt-4">
+    <p class="font-weight-normal" style="color:deepskyblue">
+        You are reviewing @Model.RevieweeNickName based on project - @Model.ProjName    
+    </p>
+
+    <form asp-controller="Dev" asp-action="Rate" method="post" role="form">
+        <input type="hidden" asp-for="@Model.ProjId" />
+        <input type="hidden" asp-for="@Model.RevieweeId" />
+
+        <label asp-for="Score" class="mt-4"></label>
         <div>
-            <select asp-for="Score">
+            <select asp-for="Score" class="form-control">
                 <option value=0>0</option>
                 <option value=1>1</option>
                 <option value=2>2</option>
@@ -24,18 +33,14 @@ You are reviewing @Model.RevieweeNickName from project - @Model.ProjName
                 <option value=-5>-5</option>
             </select>
         </div>
-    </div>
-    <br>
-    <br>
-    <div>
-        <label asp-for="Comments"></label>
+
+        <label asp-for="Comments" class="mt-4"></label>
         <div>
-            <textarea asp-for="Comments" rows="10" cols="30" placeholder="max 200 char"></textarea>
+            <textarea asp-for="Comments" rows="10" cols="30" placeholder="max 200 char" class="form-control" maxlength="200" required></textarea>
             <span asp-validation-for="Comments" style="color:red"></span>
         </div>
-    </div>
-    <br>
-    <div>
-        <input type="submit" value="Submit Review" />
-    </div>
-</form>
+        <input type="submit" class="btn btn-block btn-outline-success btn-signin mt-4 mb-4" value="Submit Review" />
+    </form>
+</div>
+
+

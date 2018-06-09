@@ -9,10 +9,9 @@
     </div>
 </nav>
 
-<br>
 @if (Model.MyWatchingProjects.Count != 0)
 {
-    <p class="h3" style="color:deepskyblue">Projects that I am watching</p>
+    <p class="h3 mt-4" style="color:deepskyblue">Projects that I am watching</p>
     <div class="row form-group">
         @foreach (var proj in Model.MyWatchingProjects)
         {
@@ -80,7 +79,7 @@
 
 @if (Model.MyFollowingProjects.Count != 0)
 {
-    <p class="h3" style="color:deepskyblue">Projects that I am following</p>
+    <p class="h3 mt-5" style="color:deepskyblue">Projects that I am following</p>
     <div class="row form-group">
         @foreach (var proj in Model.MyFollowingProjects)
         {

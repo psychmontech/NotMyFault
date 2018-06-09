@@ -1,18 +1,24 @@
 ﻿@model NegoViewModel
 
-<a asp-controller="Project" asp-action="Index" asp-route-id="@Model.ProjId">Back to Project</a>
-<br>
-<br>
-<table>
+<nav class="navbar  navbar-light bg-light">
+    <div class="container-fluid">
+        <ul class="nav">
+            <li class="nav-item"><a class="nav-link" asp-controller="Project" asp-action="Index" asp-route-id="@Model.ProjId">Back to Project</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="col-md-8 mt-4">
     @foreach (var buyer in Model.Buyers)
     {
         var companyName = buyer.CompanyName ?? "unknow organisation";
-        <tr>
-            <td>
-                <a asp-controller="Project" asp-action="NegoWithBuyer" asp-route-buyerId="@buyer.Id"
-                   asp-route-projId="@Model.ProjId">@buyer.NickName from @companyName</a>
-            </td>
-        </tr>
+        <p class="font-weight-normal" style="color:deepskyblue">
+            <a asp-controller="Project" asp-action="NegoWithBuyer" asp-route-buyerId="@buyer.Id" asp-route-projId="@Model.ProjId">
+                @buyer.NickName from @companyName
+            </a>
+        </p>
     }
-</table>
+</div>
+
+
 

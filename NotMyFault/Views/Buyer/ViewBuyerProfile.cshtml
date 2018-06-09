@@ -1,16 +1,18 @@
 ﻿@model ViewUserProfileViewModel
 
-<a asp-controller="Buyer" asp-action="Index">Home</a>
-<br>
-<br>
-User name: @Model.CurrentBuyer.UserName
-<br>
-NickName: @Model.CurrentBuyer.NickName
-<br>
-Country: @Model.CurrentBuyer.Country
-<br>
-Region: @Model.CurrentBuyer.Region
-<br>
-Company name: @Model.CurrentBuyer.CompanyName
-<br>
-Company address: @Model.CurrentBuyer.CompanyAddr
+<nav class="navbar  navbar-light bg-light">
+    <div class="container-fluid">
+        <ul class="nav">
+            <li class="nav-item"><a class="nav-link" asp-controller="Dev" asp-action="Index">Home</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="col-md-8  mt-4">
+    <p class="font-weight-normal" style="color:deepskyblue">User name: @Model.CurrentBuyer.UserName</p>
+    <p class="font-weight-normal" style="color:deepskyblue">NickName: @Model.CurrentBuyer.NickName</p>
+    <p class="font-weight-normal" style="color:deepskyblue">Country: @Model.CurrentBuyer.Country</p>
+    <p class="font-weight-normal" style="color:deepskyblue">Region: @Model.CurrentBuyer.Region</p>
+    <p class="font-weight-normal" style="color:deepskyblue">Company name: @Model.CurrentBuyer.CompanyName</p>
+    <p class="font-weight-normal" style="color:deepskyblue">Company address: @Model.CurrentBuyer.CompanyAddr</p>
+</div>

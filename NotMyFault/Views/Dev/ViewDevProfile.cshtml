@@ -1,46 +1,52 @@
 ﻿@model ViewUserProfileViewModel
 
-<a asp-controller="Dev" asp-action="Index">Home</a>
-<br>
-<br>
-User name: @Model.ViewingDev.UserName
-<br>
-NickName: @Model.ViewingDev.NickName
-<br>
-Country: @Model.ViewingDev.Country
-<br>
-Region: @Model.ViewingDev.Region
-<br>
-Self introduction:  @Model.ViewingDev.SelfIntro
-<br>
-Number of project working on = @Model.NumProjWrkOn
-<br>   
-@if (@Model.Credit == 0)
-{
-    <font>Credit = 0</font>
-}
-else
-{
-    <font>Credit =</font>
-    <a asp-controller="Dev" asp-action="ViewReviews" asp-route-id="@Model.ViewingDev.Id">@Model.Credit</a>
-}
-<br>
-<br>
-<br>
-@if (Model.ProjsWithIfDevIsRated != null && Model.ViewingDev != Model.CurrentDev)
-{
-    <table>
-        @foreach (var projwithrate in Model.ProjsWithIfDevIsRated)
-        {
-            <tr>
-                @if (!projwithrate.CurrentDevHasRatedThisDev)
-                    {<td><a asp-controller="Dev" asp-action="Rate" asp-route-RevieweeId="@Model.ViewingDev.Id" asp-route-ProjId="@projwithrate.Proj.ProjectId">rate</a></td>}
-                else
-                    {<td>rated</td>}
-                
-                <td> @Model.ViewingDev.NickName on project - @projwithrate.Proj.ProjName</td>
-            </tr>
-        }
-    </table>
+<nav class="navbar  navbar-light bg-light">
+    <div class="container-fluid">
+        <ul class="nav">
+            <li class="nav-item"><a class="nav-link" asp-controller="Dev" asp-action="Index">Home</a></li>
+        </ul>
+    </div>
+</nav>
 
-}
+<div class="col-md-8 mt-4">
+    <p class="font-weight-normal" style="color:deepskyblue">User name: @Model.ViewingDev.UserName</p>
+    <p class="font-weight-normal" style="color:deepskyblue">NickName: @Model.ViewingDev.NickName</p>
+    <p class="font-weight-normal" style="color:deepskyblue">Country: @Model.ViewingDev.Country</p>
+    <p class="font-weight-normal" style="color:deepskyblue">Region: @Model.ViewingDev.Region</p>
+    <p class="font-weight-normal" style="color:deepskyblue">Self introduction:  @Model.ViewingDev.SelfIntro</p>
+    <p class="font-weight-normal" style="color:deepskyblue">Number of project working on = @Model.NumProjWrkOn</p>
+
+    <p class="font-weight-normal" style="color:deepskyblue">
+        Credit = 
+        @if (@Model.Credit == 0)
+        {
+            <font>0</font>
+        }
+        else
+        {
+            <a asp-controller="Dev" asp-action="ViewReviews" asp-route-id="@Model.ViewingDev.Id">@Model.Credit</a>
+        }
+    </p>
+
+    <hr class="mb-3"/>
+
+    <p class="font-weight-normal" style="color:deepskyblue">
+        @if (Model.ProjsWithIfDevIsRated != null && Model.ViewingDev != Model.CurrentDev)
+        {
+            @foreach (var projwithrate in Model.ProjsWithIfDevIsRated)
+            {
+                @if (!projwithrate.CurrentDevHasRatedThisDev)
+                {
+                    <a asp-controller="Dev" asp-action="Rate" asp-route-RevieweeId="@Model.ViewingDev.Id" asp-route-ProjId="@projwithrate.Proj.ProjectId">rate</a>}
+                else
+                {
+                    <font>rated</font>
+                }
+                <font> @Model.ViewingDev.NickName on project - @projwithrate.Proj.ProjName</font>
+                <br />
+            }
+        }
+    </p>
+</div>
+
+

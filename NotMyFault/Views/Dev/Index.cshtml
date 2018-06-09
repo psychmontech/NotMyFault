@@ -15,10 +15,9 @@
     </div>
 </nav>
 
-<br>
 @if (Model.MyInvolvedProjects.Count != 0)
 {
-    <p class="h3" style="color:deepskyblue">My on-going projects</p>
+    <p class="h3 mt-4" style="color:deepskyblue">My on-going projects</p>
     <div class="row form-group">
         @foreach (var proj in Model.MyInvolvedProjects)
         {
@@ -40,10 +39,9 @@
     </div>
 }
 
-<br>
 @if (Model.MyLeadingProjects.Count != 0)
 {
-    <p class="h3" style="color:deepskyblue">My leading projects</p>
+    <p class="h3 mt-5" style="color:deepskyblue">My leading projects</p>
     <div class="row form-group">
         @foreach (var proj in Model.MyLeadingProjects)
         {
@@ -65,10 +63,9 @@
     </div>
 }
 
-<br>
 @if (Model.MyFollowingProjects.Count != 0)
 {
-    <p class="h3" style="color:deepskyblue">Projects that I am following</p>
+    <p class="h3 mt-5" style="color:deepskyblue">Projects that I am following</p>
     <div class="row form-group">
         @foreach (var proj in Model.MyFollowingProjects)
         {
@@ -87,10 +84,9 @@
     </div>
 }
 
-<br>
 @if (Model.MyAppliedRoles.Count != 0)
 {
-    <p class="h3" style="color:deepskyblue">My applied roles</p>
+    <p class="h3 mt-5" style="color:deepskyblue">My applied roles</p>
     <div class="row form-group">
         @foreach (var recruit in Model.MyAppliedRoles)
         {
@@ -112,10 +108,9 @@
     </div>
 }
 
-<br>
 @if (Model.MyCompletedProjects.Count != 0)
 {
-    <p class="h3" style="color:deepskyblue">My completed projects</p>
+    <p class="h3 mt-5" style="color:deepskyblue">My completed projects</p>
     <div class="row form-group">
         @foreach (var proj in Model.MyCompletedProjects)
         {
@@ -134,10 +129,9 @@
     </div>
 }
 
-<br>
 @if (Model.MyTradedProjects.Count != 0)
 {
-    <p class="h3" style="color:deepskyblue">My traded projects</p>
+    <p class="h3 mt-5" style="color:deepskyblue">My traded projects</p>
     <div class="row form-group">
         @foreach (var proj in Model.MyTradedProjects)
         {
@@ -156,10 +150,9 @@
     </div>
 }
 
-<br>
 @if (Model.MyAbortedProjects.Count != 0)
 {
-    <p class="h3" style="color:deepskyblue">My aborted projects</p>
+    <p class="h3 mt-5" style="color:deepskyblue">My aborted projects</p>
     <div class="row form-group">
         @foreach (var proj in Model.MyAbortedProjects)
         {

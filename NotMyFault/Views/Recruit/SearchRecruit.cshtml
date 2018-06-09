@@ -1,51 +1,70 @@
 ﻿@model SearchRecruitViewModel
 
-<a asp-controller="Dev" asp-action="Index">Home</a>&nbsp;|
-<a asp-controller="Recruit" asp-action="SearchRecruit">Recently opened</a>
-<br>
-<br>
+<nav class="navbar  navbar-light bg-light">
+    <div class="container-fluid">
+        <ul class="nav">
+            <li class="nav-item"><a class="nav-link" asp-controller="Dev" asp-action="Index">Home</a></li>
+            <li class="nav-item"><a class="nav-link" asp-controller="Recruit" asp-action="SearchRecruit">Recently opened</a></li>
+        </ul>
+    </div>
+</nav>
+
 <form asp-controller="Recruit" asp-action="SearchRecruit" method="post" role="form">
-    <div>
-        Search vacancies with key words:
-        <input asp-for="KeyWords" />
-        <input type="submit" value="Search" />
+    <div class="col-md-6 mt-4">
+        <div class="input-group">
+            <input asp-for="KeyWords" type="text" class="form-control input-sm" placeholder="Search vacancies with key words" />
+            <span class="input-group-btn">
+                <button type="submit" class="btn btn-primary">Search</button>
+            </span>
+        </div>
     </div>
 </form>
-<br>
-<table>
-    <tr>
-        <th>Role name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-        <th>started on&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-        <th>Project name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-        <th>Min credit&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-        <th>Max projects on&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-    </tr>
 
-    @foreach (var recruit in Model.Recruits)
-    {
-        if (recruit.IsOpen == true)
-        {
+
+<div class="table-responsive mt-5">
+    <table class="table table-striped">
+        <thead>
             <tr>
-                <td>
-                    <a asp-controller="Recruit" asp-action="Index" asp-route-id="@recruit.RecruitmentId">@recruit.NameOfTheRole</a>
-                </td>
-
-                <td>
-                    @recruit.DateCreated.ToString("dd/MM/yyy")
-                </td>
-
-                <td>
-                    <a asp-controller="Project" asp-action="Index" asp-route-id="@recruit.MyProj.ProjectId">@recruit.MyProj.ProjName</a>
-                </td>
-
-                <td>
-                    @recruit.MinCredit.ToString()
-                </td>
-
-                <td>
-                    @recruit.MaxNumPrjWkOn.ToString()
-                </td>
+                <th scope="col">Role name</th>
+                <th scope="col">started on</th>
+                <th scope="col">Project name</th>
+                <th scope="col">Min credit</th>
+                <th scope="col">Max projects on</th>
             </tr>
-        }
-    }
-</table>
+        </thead>
+        <tbody>
+            @foreach (var recruit in Model.Recruits)
+            {
+                if (recruit.IsOpen == true)
+                {
+                    <tr>
+                        <td>
+                            <a asp-controller="Recruit" asp-action="Index" asp-route-id="@recruit.RecruitmentId">@recruit.NameOfTheRole</a>
+                        </td>
+
+                        <td>
+                            @recruit.DateCreated.ToString("dd/MM/yyy")
+                        </td>
+
+                        <td>
+                            <a asp-controller="Project" asp-action="Index" asp-route-id="@recruit.MyProj.ProjectId">@recruit.MyProj.ProjName</a>
+                        </td>
+
+                        <td>
+                            @recruit.MinCredit.ToString()
+                        </td>
+
+                        <td>
+                            @recruit.MaxNumPrjWkOn.ToString()
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+
+
+
+

@@ -1,116 +1,133 @@
 ﻿@model SearchProjectsViewModel
 
-@if (@Model.CurrentUser.Role == UserRole.Dev)
-{<a asp-controller="Dev" asp-action="Index">Home</a>}
-else
-{<a asp-controller="Buyer" asp-action="Index">Home</a>}
-&nbsp;|
-<a asp-controller="Project" asp-action="SearchProjects">Recently opened</a>
-<br>
-<br>
+<nav class="navbar  navbar-light bg-light">
+    <div class="container-fluid">
+        <ul class="nav">
+            @if (@Model.CurrentUser.Role == UserRole.Dev)
+            {
+                <li class="nav-item"><a class="nav-link" asp-controller="Dev" asp-action="Index">Home</a></li>}
+            else
+            {
+                <li class="nav-item"><a class="nav-link" asp-controller="Buyer" asp-action="Index">Home</a></li>}
+            <li class="nav-item"><a class="nav-link" asp-controller="Project" asp-action="SearchProjects">Recently opened</a></li>
+        </ul>
+    </div>
+</nav>
+
 <form asp-controller="Project" asp-action="SearchProjects" method="post" role="form">
-    <div>
-        <label asp-for="SortBy"></label>
-        <div>
-            <select asp-for="SortBy">
-                <option value=@ProjSearchCriteria.ByOpenDate>OpenDate</option>
-                <option value=@ProjSearchCriteria.ByPopularity>Popularity</option>
-                <option value=@ProjSearchCriteria.ByProgress>Progress</option>
-                <option value=@ProjSearchCriteria.ByValuation>Valuation</option>
-            </select>
+    <div class="row form-group mt-4">
+        <div class="col-md-3 mr-5">
+            <label asp-for="SortBy"></label>
+            <div>
+                <select asp-for="SortBy" class="form-control">
+                    <option value=@ProjSearchCriteria.ByOpenDate>OpenDate</option>
+                    <option value=@ProjSearchCriteria.ByPopularity>Popularity</option>
+                    <option value=@ProjSearchCriteria.ByProgress>Progress</option>
+                    <option value=@ProjSearchCriteria.ByValuation>Valuation</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-3 mr-5">
+            <label asp-for="StatusFilter"></label>
+            <div>
+                <select asp-for="StatusFilter" class="form-control">
+                    <option value=@ProjSearchCriteria.OpenOnly>Open Only</option>
+                    <option value=@ProjSearchCriteria.All>All</option>
+                    <option value=@ProjSearchCriteria.CompletedOnly>Dev completed Only</option>
+                    <option value=@ProjSearchCriteria.OpenInclSusp>Open Include Suspended</option>
+                    <option value=@ProjSearchCriteria.AllInclSusp>All Include Suspended</option>
+                </select>
+            </div>
         </div>
     </div>
-    <br>
-    <div>
-        <label asp-for="StatusFilter"></label>
-        <div>
-            <select asp-for="StatusFilter">
-                <option value=@ProjSearchCriteria.OpenOnly>Open Only</option>
-                <option value=@ProjSearchCriteria.All>All</option>
-                <option value=@ProjSearchCriteria.CompletedOnly>Dev completed Only</option>
-                <option value=@ProjSearchCriteria.OpenInclSusp>Open Include Suspended</option>
-                <option value=@ProjSearchCriteria.AllInclSusp>All Include Suspended</option>
-            </select>
+    <div class="row form-group mt-5">
+        <div class="col-md-6">
+            <div class="input-group">
+                <input asp-for="KeyWords" type="text" class="form-control input-sm" placeholder="Search projects with key words" />
+                <span class="input-group-btn">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </span>
+            </div>
         </div>
-    </div>
-    <br>
-    <div>
-        Search projects with key words: 
-        <input asp-for="KeyWords"/>
-        <input type="submit" value="Search"/>
     </div>
 </form>
-<br>
-<table>
-    <tr>
-        <th>Project Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-        <th>Starting Date&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-        <th>Valuation&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-        <th>Status&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-        <th>Progress&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-    </tr>
-    @foreach (var proj in Model.Projects)
-    {
-        <tr>
-            <td>
-                <a asp-controller="Project" asp-action="Index" asp-route-id="@proj.ProjectId">@proj.ProjName</a>
-            </td>
 
-            <td>
-                @proj.StartingDate.ToString("dd/MM/yyy")
-            </td>
-
-            <td>
-                @proj.Valuation.BitcoinValue
-            </td>
-
-            @switch (proj.ProjStatus)
+<div class="table-responsive mt-5">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Project Name</th>
+                <th scope="col">Starting Date</th>
+                <th scope="col">Valuation</th>
+                <th scope="col">Status</th>
+                <th scope="col">Progress</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var proj in Model.Projects)
             {
-                case ProjStatus.Aborted:
+                <tr>
                     <td>
-                        Abort
+                        <a asp-controller="Project" asp-action="Index" asp-route-id="@proj.ProjectId">@proj.ProjName</a>
                     </td>
-                    break;
 
-                case ProjStatus.Development_Completed:
                     <td>
-                        Dev completed
+                        @proj.StartingDate.ToString("dd/MM/yyy")
                     </td>
-                    break;
 
-                case ProjStatus.Preparing:
                     <td>
-                        Preparing
+                        @proj.Valuation.BitcoinValue
                     </td>
-                    break;
 
-                case ProjStatus.Recruiting:
-                    <td>
-                        Recruiting
-                    </td>
-                    break;
+                    @switch (proj.ProjStatus)
+                    {
+                        case ProjStatus.Aborted:
+                            <td>
+                                Abort
+                            </td>
+                            break;
 
-                case ProjStatus.Suspended:
-                    <td>
-                        Suspended
-                    </td>
-                    break;
+                        case ProjStatus.Development_Completed:
+                            <td>
+                                Dev completed
+                            </td>
+                            break;
 
-                case ProjStatus.Closed:
-                    <td>
-                        Closed
-                    </td>
-                    break;
+                        case ProjStatus.Preparing:
+                            <td>
+                                Preparing
+                            </td>
+                            break;
 
-                case ProjStatus.Under_Development:
+                        case ProjStatus.Recruiting:
+                            <td>
+                                Recruiting
+                            </td>
+                            break;
+
+                        case ProjStatus.Suspended:
+                            <td>
+                                Suspended
+                            </td>
+                            break;
+
+                        case ProjStatus.Closed:
+                            <td>
+                                Closed
+                            </td>
+                            break;
+
+                        case ProjStatus.Under_Development:
+                            <td>
+                                Under Development
+                            </td>
+                            break;
+                    }
                     <td>
-                        Under Development
+                        @proj.Progress%
                     </td>
-                    break;
+                </tr>
             }
-            <td>
-                @proj.Progress%
-            </td>
-        </tr>
-    }
-</table>
+        </tbody>
+    </table>
+</div>
