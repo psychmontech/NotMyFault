@@ -1,30 +1,42 @@
 ﻿@model ICollection<MakeAnOfferViewModel>
 
-<a asp-controller="Project" asp-action="Index" asp-route-id="@Model.First().ProjId">Back to Project</a>
-<br>
-<br>
-@foreach (var offer in Model)
-{
-    <font>@offer.Value</font>
-    switch (offer.Currency)
-    {
-        case Cryptocurrency.Bitcoin:
-            <font>of Bitcoin</font>
-            break;
-        case Cryptocurrency.Ethereum:
-            <font>of Ethereum</font>
-            break;
-        case Cryptocurrency.Litecoin:
-            <font>of Litecoin</font>
-            break;
-    }
-    var companyName = offer.Buyer.CompanyName ?? "unknow organisation";
-    var projId = offer.ProjId;
-    <font>offered by</font>
-    <a asp-controller="Buyer" asp-action="ViewBuyerProfile" asp-route-id="@offer.BuyerId">@offer.Buyer.NickName</a>
-    <font>, from @companyName &nbsp;&nbsp;</font>
-    <a asp-controller="Transaction" asp-action="AcceptAnOffer" asp-route-projId="@offer.ProjId" asp-route-offerId="@offer.OfferId">accept</a>
-    <font>&nbsp;&nbsp;</font>
-    <a asp-controller="Transaction" asp-action="RejectAnOffer" asp-route-projId="@offer.ProjId" asp-route-offerId="@offer.OfferId">reject</a>
-}
+<nav class="navbar  navbar-light bg-light">
+    <div class="container-fluid">
+        <ul class="nav">
+            <li class="nav-item"><a class="nav-link" asp-controller="Project" asp-action="Index" asp-route-id="@Model.First().ProjId">Back to Project</a></li>
+        </ul>
+    </div>
+</nav>
 
+<div class="col-md-8 mt-4">
+    @foreach (var offer in Model)
+    {
+        var companyName = offer.Buyer.CompanyName ?? "unknow organisation";
+        var projId = offer.ProjId;
+        <p class="font-weight-normal" style="color:deepskyblue">
+            <font>@offer.Value</font>
+            @switch (offer.Currency)
+            {
+                case Cryptocurrency.Bitcoin:
+                    <font>of Bitcoin</font>
+                    break;
+                case Cryptocurrency.Ethereum:
+                    <font>of Ethereum</font>
+                    break;
+                case Cryptocurrency.Litecoin:
+                    <font>of Litecoin</font>
+                    break;
+            }
+            <font>offered by</font>
+            <a asp-controller="Buyer" asp-action="ViewBuyerProfile" asp-route-id="@offer.BuyerId">
+                @offer.Buyer.NickName
+            </a>
+            <font>, from @companyName</font>
+            <a asp-controller="Transaction" asp-action="AcceptAnOffer" asp-route-projId="@offer.ProjId"
+               asp-route-offerId="@offer.OfferId" class="ml-4" style="color:green">accept</a>
+
+            <a asp-controller="Transaction" asp-action="RejectAnOffer" asp-route-projId="@offer.ProjId"
+               asp-route-offerId="@offer.OfferId" class="ml-4" style="color:darkred">reject</a>
+        </p>
+    }
+</div>

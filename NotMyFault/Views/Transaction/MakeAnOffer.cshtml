@@ -1,91 +1,97 @@
 ﻿@model MakeAnOfferViewModel
 
-<a asp-controller="Project" asp-action="Index" asp-route-id="@Model.ProjId">Back to Project</a>
-<form asp-controller="Transaction" asp-action="MakeAnOffer" method="post" role="form">
-    <div asp-validation-summary="All" style="color:red"></div>
-    <input type="hidden" asp-for="ProjId" />
-    <input type="hidden" asp-for="BuyerId" />
-    <input type="hidden" asp-for="OfferId" />
-    <div>
-        <label asp-for="Currency"></label>
-        <div>
-            <select asp-for="Currency">
-                @foreach (var i in Model.AcceptCurrency)
-                {
-                    if (i == Cryptocurrency.Bitcoin)
-                    {
-                        <option value=@i>Bitcoin</option>
-                    }
-
-                    if (i == Cryptocurrency.Ethereum)
-                    {
-                        <option value=@i>Ethereum</option>
-                    }
-
-                    if (i == Cryptocurrency.Litecoin)
-                    {
-                        <option value=@i>Litecoin</option>
-                    }
-                }
-            </select>
-        </div>
+<nav class="navbar  navbar-light bg-light">
+    <div class="container-fluid">
+        <ul class="nav">
+            <li class="nav-item"><a class="nav-link" asp-controller="Project" asp-action="Index" asp-route-id="@Model.ProjId">Back to Project</a></li>
+        </ul>
     </div>
-    <br>
-    <div>
-        <label asp-for="Value"></label>
+</nav>
+
+<div class="col-md-3 mt-4">
+    <form asp-controller="Transaction" asp-action="MakeAnOffer" method="post" role="form">
+        <input type="hidden" asp-for="ProjId" />
+        <input type="hidden" asp-for="BuyerId" />
+        <input type="hidden" asp-for="OfferId" />
+
+        <label asp-for="Currency"></label>
+        <select asp-for="Currency" class="form-control">
+            @foreach (var i in Model.AcceptCurrency)
+            {
+                if (i == Cryptocurrency.Bitcoin)
+                {
+                    <option value=@i>Bitcoin</option>
+                }
+
+                if (i == Cryptocurrency.Ethereum)
+                {
+                    <option value=@i>Ethereum</option>
+                }
+
+                if (i == Cryptocurrency.Litecoin)
+                {
+                    <option value=@i>Litecoin</option>
+                }
+            }
+        </select>
+
+        <label asp-for="Value" class="mt-5"></label>
         <div>
-            <input asp-for="Value" />
+            <input asp-for="Value" class="form-control" required />
             <span asp-validation-for="Value" style="color:red"></span>
         </div>
-    </div>
-    <br>
-    <div>
-        <input type="submit" value="Make an offer" />
-    </div>
 
-    @for (int i = 0; i < Model.AcceptCurrency.Count; i++)  //this is to bring AcceptCurrency back, in case failed model checking
-    {
-        <input type="hidden" asp-for="AcceptCurrency[i]" />
-    }
-</form>
-@if (Model.ThisProjHasPendingOffer)
-{
-    <br>
-    <form asp-controller="Transaction" asp-action="WithdrawAnOffer" asp-route-projId="@Model.ProjId" asp-route-buyerId="@Model.BuyerId" method="post" role="form">
-        <input type="submit" value="Withdraw a pending offer" />
+        <input type="submit" class="btn btn-block btn-outline-success btn-signin mt-5 mb-5" value="Make an offer" />
+
+        @for (int i = 0; i < Model.AcceptCurrency.Count; i++)  //this is to bring AcceptCurrency back, in case failed model checking
+        {
+            <input type="hidden" asp-for="AcceptCurrency[i]" />
+        }
     </form>
-}
+    @if (Model.ThisProjHasPendingOffer)
+    {
+        <a asp-controller="Transaction" asp-action="WithdrawAnOffer" asp-route-projId="@Model.ProjId" asp-route-buyerId="@Model.BuyerId">
+            <input type="button" value="Withdraw" class="btn btn-outline-primary" />
+        </a>
 
-<br>
-<br>
---------------- offer history ------------------
-<br>
-@foreach (var offer in Model.HistoryOffers)
-{
-    <font>@offer.Value</font>
-    switch (offer.Currency)
-    {
-        case Cryptocurrency.Bitcoin:
-            <font>of Bitcoin</font>
-            break;
-        case Cryptocurrency.Ethereum:
-            <font>of Ethereum</font>
-            break;
-        case Cryptocurrency.Litecoin:
-            <font>of Litecoin</font>
-            break;
     }
-    switch (offer.Status)
-    {
-        case OfferStatus.Pending:
-            <font> -- pending</font>
-            break;
-        case OfferStatus.Rejected:
-            <font> -- not accepted</font>
-            break;
-        case OfferStatus.Withdrawn:
-            <font> -- withdrawn</font>
-            break;
-    }
-    <br>
-}
+</div>
+
+<div class="col-md-8 mt-5">
+    <p class="font-weight-normal" style="color:cornflowerblue">
+        <b>offer history:</b>
+    </p>
+    <hr />
+    <p class="font-weight-normal" style="color:deepskyblue">
+        @foreach (var offer in Model.HistoryOffers)
+        {
+            <font>@offer.Value</font>
+            switch (offer.Currency)
+            {
+                case Cryptocurrency.Bitcoin:
+                    <font>of Bitcoin</font>
+                    break;
+                case Cryptocurrency.Ethereum:
+                    <font>of Ethereum</font>
+                    break;
+                case Cryptocurrency.Litecoin:
+                    <font>of Litecoin</font>
+                    break;
+            }
+            switch (offer.Status)
+            {
+                case OfferStatus.Pending:
+                    <font> -- pending</font>
+                    break;
+                case OfferStatus.Rejected:
+                    <font> -- not accepted</font>
+                    break;
+                case OfferStatus.Withdrawn:
+                    <font> -- withdrawn</font>
+                    break;
+            }
+            <br>
+        }
+    </p>
+</div>
+

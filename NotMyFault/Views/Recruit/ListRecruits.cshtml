@@ -1,24 +1,24 @@
 ﻿@model SearchRecruitViewModel
-<a asp-controller="Project" asp-action="Index" asp-route-id="@ViewBag.ProjId">Back to Project</a>
-<br>
-<br>
-Open recruitments are:
-<br>
-<table>
-    @foreach (var recruit in Model.Recruits)
-    {
-        if (recruit.IsOpen == true)
-        {
-            <tr>
-                <td>
-                    <a asp-controller="Recruit" asp-action="Index" asp-route-id="@recruit.RecruitmentId">@recruit.NameOfTheRole</a>
-                </td>
-                <td>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <a asp-controller="Recruit" asp-action="RemoveRecruit" asp-route-id="@recruit.RecruitmentId" asp-route-ProjId="@recruit.MyProj.ProjectId">delete</a>
-                </td>
 
-            </tr>
+<nav class="navbar  navbar-light bg-light">
+    <div class="container-fluid">
+        <ul class="nav">
+            <li class="nav-item"><a class="nav-link" asp-controller="Project" asp-action="Index" asp-route-id="@ViewBag.ProjId">Back to Project</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="col-md-8">
+    </p>
+        @foreach (var recruit in Model.Recruits)
+        {
+            if (recruit.IsOpen == true)
+            {
+            <p class="font-weight-normal mt-4" style="color:deepskyblue">
+                <a asp-controller="Recruit" asp-action="Index" asp-route-id="@recruit.RecruitmentId">@recruit.NameOfTheRole</a>
+                <a asp-controller="Recruit" asp-action="RemoveRecruit" asp-route-id="@recruit.RecruitmentId" 
+                   asp-route-ProjId="@recruit.MyProj.ProjectId" class="ml-4" style="color:cadetblue">delete</a>
+            </p>
         }
     }
-</table>
+    </div>
