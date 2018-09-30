@@ -69,24 +69,24 @@ namespace NotMyFault.Models.Repository
             {
                 case ProjSearchCriteria.ByPopularity:
                     return _appDbContext.Projects.Where(x => st.Contains(x.ProjStatus) && (words == null || (x.ProjName.Contains(words) 
-                        || x.BriefDescript.Contains(words) || x.FullDescript.Contains(words)))).OrderByDescending(x => x.MyLikes.Count).ToList();
+                        || x.MissionStatement.Contains(words) || x.FullDescript.Contains(words)))).OrderByDescending(x => x.MyLikes.Count).ToList();
 
                 case ProjSearchCriteria.ByProgress:
                     return _appDbContext.Projects.Where(x => st.Contains(x.ProjStatus) && (words == null || (x.ProjName.Contains(words) 
-                        || x.BriefDescript.Contains(words) || x.FullDescript.Contains(words)))).OrderByDescending(x => x.Progress).ToList();
+                        || x.MissionStatement.Contains(words) || x.FullDescript.Contains(words)))).OrderByDescending(x => x.Progress).ToList();
 
                 case ProjSearchCriteria.ByValuation:
                     return _appDbContext.Projects.Where(x => st.Contains(x.ProjStatus) && (words == null || (x.ProjName.Contains(words) 
-                        || x.BriefDescript.Contains(words) || x.FullDescript.Contains(words)))).OrderByDescending(x => x.Valuation.BitcoinValue).ToList();
+                        || x.MissionStatement.Contains(words) || x.FullDescript.Contains(words)))).OrderByDescending(x => x.Valuation.BitcoinValue).ToList();
 
                 default:
                     return _appDbContext.Projects.Where(x => st.Contains(x.ProjStatus) && (words == null || (x.ProjName.Contains(words) 
-                        || x.BriefDescript.Contains(words) || x.FullDescript.Contains(words)))).OrderByDescending(x => x.StartingDate).ToList();
+                        || x.MissionStatement.Contains(words) || x.FullDescript.Contains(words)))).OrderByDescending(x => x.StartingDate).ToList();
             }
         }
         public Project GetProjById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id);
         public string GetProjnameById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).ProjName;
-        public string GetBriefDesById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).BriefDescript;
+        public string GetMissStateById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).MissionStatement;
         public string GetFullDesById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).FullDescript;
         public int GetCapacityById(int id) => _appDbContext.DevProjs.Include(d => d.Dev).Where(p => p.ProjectId == id).ToList().Count;
         public byte GetThumbnailById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).Thumbnail;
@@ -95,9 +95,11 @@ namespace NotMyFault.Models.Repository
         public int GetProgressById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).Progress;
         public int GetStatusById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).ProjStatus;
         public int GetVisibilityById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).Visibility;
-        public DateTime GetStartDateById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).StartingDate;
-        public DateTime GetNxtMeetDateById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).NextMeetingDate;
-        public DateTime GetProCompDateById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).ProtdCompDate;
+        public Nullable<DateTime> GetStartDateById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).StartingDate;
+        public Nullable<DateTime> GetNxtMeetDateById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).NextMeetingDate;
+        public Nullable<DateTime> GetProCompDateById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).ProtdCompDate;
+        public Nullable<DateTime> GetCompleteDateById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).CompleteDate;
+        public Nullable<DateTime> GetAbortDateById(int id) => _appDbContext.Projects.FirstOrDefault(p => p.ProjectId == id).AbortDate;
         public CryptcurValue GetValuationById(int id) => _appDbContext.CryptcurValues.Include(p => p.MyProj).ToList().FirstOrDefault(c => c.MyProj.ProjectId == id);
         public ICollection<Developer> GetMyDevsById(int id) => _appDbContext.DevProjs.Where(p => p.ProjectId == id).Select(d => d.Dev).ToList(); //look at me
         public ICollection<Recruitment> GetMyRecruitsById(int id) => _appDbContext.Recruitments.Include(p => p.MyProj).ToList().FindAll(c => c.MyProj.ProjectId == id);

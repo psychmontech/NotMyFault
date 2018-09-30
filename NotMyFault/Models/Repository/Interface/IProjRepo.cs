@@ -14,7 +14,7 @@ namespace NotMyFault.Models.Repository.Interface
         ICollection<Project> GetProjs(int by, int status, string words);
         Project GetProjById(int id);
         string GetProjnameById(int id);
-        string GetBriefDesById(int id);
+        string GetMissStateById(int id);
         string GetFullDesById(int id);
         int GetCapacityById(int id);
         byte GetThumbnailById(int id);
@@ -23,9 +23,9 @@ namespace NotMyFault.Models.Repository.Interface
         int GetProgressById(int id);
         int GetVisibilityById(int id);
         int GetStatusById(int id);
-        DateTime GetStartDateById(int id);
-        DateTime GetNxtMeetDateById(int id);    
-        DateTime GetProCompDateById(int id);
+        Nullable<DateTime> GetStartDateById(int id);
+        Nullable<DateTime> GetNxtMeetDateById(int id);
+        Nullable<DateTime> GetProCompDateById(int id);
         CryptcurValue GetValuationById(int id);
         ICollection<Developer> GetMyDevsById(int id);
         ICollection<Recruitment> GetMyRecruitsById(int id);
@@ -53,5 +53,7 @@ namespace NotMyFault.Models.Repository.Interface
         int RemoveAWatcher(Buyer buyer, int id);
         int AddADev(int id, Developer dev);
         int DismissADev(int id, int devId);
+        Nullable<DateTime> GetCompleteDateById(int id);
+        Nullable<DateTime> GetAbortDateById(int id);
     }
 }

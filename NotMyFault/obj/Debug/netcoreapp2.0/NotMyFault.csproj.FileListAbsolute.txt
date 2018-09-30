@@ -20,3 +20,14 @@ C:\NotMyFault\NotMyFault\obj\Debug\netcoreapp2.0\NotMyFault.AssemblyInfoInputs.c
 C:\NotMyFault\NotMyFault\obj\Debug\netcoreapp2.0\NotMyFault.AssemblyInfo.cs
 C:\NotMyFault\NotMyFault\obj\Debug\netcoreapp2.0\NotMyFault.dll
 C:\NotMyFault\NotMyFault\obj\Debug\netcoreapp2.0\NotMyFault.pdb
+C:\my work\NotMyFault\NotMyFault\bin\Debug\netcoreapp2.0\NotMyFault.deps.json
+C:\my work\NotMyFault\NotMyFault\bin\Debug\netcoreapp2.0\NotMyFault.runtimeconfig.json
+C:\my work\NotMyFault\NotMyFault\bin\Debug\netcoreapp2.0\NotMyFault.runtimeconfig.dev.json
+C:\my work\NotMyFault\NotMyFault\bin\Debug\netcoreapp2.0\NotMyFault.dll
+C:\my work\NotMyFault\NotMyFault\bin\Debug\netcoreapp2.0\NotMyFault.pdb
+C:\my work\NotMyFault\NotMyFault\obj\Debug\netcoreapp2.0\NotMyFault.csprojAssemblyReference.cache
+C:\my work\NotMyFault\NotMyFault\obj\Debug\netcoreapp2.0\NotMyFault.csproj.CoreCompileInputs.cache
+C:\my work\NotMyFault\NotMyFault\obj\Debug\netcoreapp2.0\NotMyFault.AssemblyInfoInputs.cache
+C:\my work\NotMyFault\NotMyFault\obj\Debug\netcoreapp2.0\NotMyFault.AssemblyInfo.cs
+C:\my work\NotMyFault\NotMyFault\obj\Debug\netcoreapp2.0\NotMyFault.dll
+C:\my work\NotMyFault\NotMyFault\obj\Debug\netcoreapp2.0\NotMyFault.pdb

@@ -15,7 +15,7 @@ connection.start().then(() => connection.invoke('JoinGroup', groupName_negoConve
 window.onbeforeunload = function LeaveGroup()
 {
     connection.invoke('LeaveGroup', groupName_negoConver, userNickName);
-}
+};
 
 function GroupMessage()
 {
@@ -29,6 +29,6 @@ function GroupMessage()
 
 input.onkeypress = function (e)
 {
-    if (e.keyCode == 13)
+    if (e.keyCode === 13)
         sendBtn.click();
 };

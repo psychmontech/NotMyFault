@@ -12,9 +12,9 @@ namespace NotMyFault.ViewModels
         [Display(Name = "Project name")]
         public string ProjName { get; set; }
 
-        [Required(ErrorMessage = "The brief description is required"), MaxLength(200)]
-        [Display(Name = "Project brief description")]
-        public string BriefDescript { get; set; }
+        [Required(ErrorMessage = "The mission statement is required"), MaxLength(200)]
+        [Display(Name = "Project mission statement")]
+        public string MissionState { get; set; }
 
         [Required(ErrorMessage = "The full description is required"), MaxLength(2000)]
         [Display(Name = "Full description")]
@@ -23,7 +23,7 @@ namespace NotMyFault.ViewModels
         [Required(ErrorMessage = "The projected complete date is required")]
         [DataType(DataType.Date)]
         [Display(Name = "Projected complete date")]
-        public DateTime ProtdCompDate { get; set; }
+        public Nullable<DateTime> ProtdCompDate { get; set; }
 
         [Range(0, double.MaxValue, ErrorMessage = "Please enter a valid bitcoin value")]
         [Display(Name = "Expecting value in bitcoins")]

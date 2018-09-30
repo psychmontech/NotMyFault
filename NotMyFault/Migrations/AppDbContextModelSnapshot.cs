@@ -271,7 +271,9 @@ namespace NotMyFault.Migrations
                     b.Property<int>("ProjectId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("BriefDescript");
+                    b.Property<DateTime?>("AbortDate");
+
+                    b.Property<DateTime?>("CompleteDate");
 
                     b.Property<int>("DeveloperForeignKey");
 
@@ -281,9 +283,11 @@ namespace NotMyFault.Migrations
 
                     b.Property<int>("LeaderIdForeignKey");
 
+                    b.Property<string>("MissionStatement");
+
                     b.Property<byte>("MyGallery");
 
-                    b.Property<DateTime>("NextMeetingDate");
+                    b.Property<DateTime?>("NextMeetingDate");
 
                     b.Property<int>("Progress");
 
@@ -291,11 +295,11 @@ namespace NotMyFault.Migrations
 
                     b.Property<int>("ProjStatus");
 
-                    b.Property<DateTime>("ProtdCompDate");
+                    b.Property<DateTime?>("ProtdCompDate");
 
                     b.Property<string>("RepoLink");
 
-                    b.Property<DateTime>("StartingDate");
+                    b.Property<DateTime?>("StartingDate");
 
                     b.Property<byte>("Thumbnail");
 

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace NotMyFault.Migrations
 {
-    public partial class Init : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -276,19 +276,21 @@ namespace NotMyFault.Migrations
                 {
                     ProjectId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    BriefDescript = table.Column<string>(nullable: true),
+                    AbortDate = table.Column<DateTime>(nullable: true),
+                    CompleteDate = table.Column<DateTime>(nullable: true),
                     DeveloperForeignKey = table.Column<int>(nullable: false),
                     FullDescript = table.Column<string>(nullable: true),
                     InitiatorIdForeignKey = table.Column<int>(nullable: false),
                     LeaderIdForeignKey = table.Column<int>(nullable: false),
+                    MissionStatement = table.Column<string>(nullable: true),
                     MyGallery = table.Column<byte>(nullable: false),
-                    NextMeetingDate = table.Column<DateTime>(nullable: false),
+                    NextMeetingDate = table.Column<DateTime>(nullable: true),
                     Progress = table.Column<int>(nullable: false),
                     ProjName = table.Column<string>(nullable: true),
                     ProjStatus = table.Column<int>(nullable: false),
-                    ProtdCompDate = table.Column<DateTime>(nullable: false),
+                    ProtdCompDate = table.Column<DateTime>(nullable: true),
                     RepoLink = table.Column<string>(nullable: true),
-                    StartingDate = table.Column<DateTime>(nullable: false),
+                    StartingDate = table.Column<DateTime>(nullable: true),
                     Thumbnail = table.Column<byte>(nullable: false),
                     TradingStatus = table.Column<int>(nullable: false),
                     Visibility = table.Column<int>(nullable: false)

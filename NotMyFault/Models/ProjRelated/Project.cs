@@ -11,15 +11,15 @@ namespace NotMyFault.Models.ProjRelated
     {
         public int ProjectId { get; set; }
         public string ProjName { get; set; }
-        public string BriefDescript { get; set; }
+        public string MissionStatement { get; set; }
         public string FullDescript { get; set; }
         public virtual ICollection<DeveloperProject> MyDevs { get; set; }
-        public DateTime StartingDate { get; set; }
+        public Nullable<DateTime> StartingDate { get; set; }
         public Developer ProjLeader { get; set; }
         public Developer Initiator { get; set; }
         public byte MyGallery { get; set; } //for ad
-        public DateTime NextMeetingDate { get; set; }
-        public DateTime ProtdCompDate { get; set; } //projected complete date
+        public Nullable<DateTime> NextMeetingDate { get; set; }
+        public Nullable<DateTime> ProtdCompDate { get; set; } //projected complete date
         public byte Thumbnail { get; set; }  //profile photo
         public string RepoLink { get; set; } //github url
         public int Progress { get; set; } //percentage
@@ -37,5 +37,7 @@ namespace NotMyFault.Models.ProjRelated
         public int ProjStatus { get; set; }
         public int TradingStatus { get; set; }
         public int Visibility { get; set; }
+        public Nullable<DateTime> CompleteDate { get; set; }
+        public Nullable<DateTime> AbortDate { get; set; }
     }
 }

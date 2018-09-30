@@ -121,6 +121,7 @@
                         <div class="card-body">
                             <h6 class="card-title">@proj.ProjName</h6>
                             <p class="card-text">progress: @proj.Progress%</p>
+                            <p class="card-text">Date Completed: @proj.CompleteDate.Value.ToShortDateString()</p>
                         </div>
                     </a>
                 </div>
@@ -163,6 +164,7 @@
                         <div class="card-body">
                             <h6 class="card-title">@proj.ProjName</h6>
                             <p class="card-text">progress: @proj.Progress%</p>
+                            <p class="card-text">Date Aborted: @proj.AbortDate.Value.ToShortDateString()</p>
                         </div>
                     </a>
                 </div>

@@ -29,6 +29,6 @@ function GroupMessage()
 
 input.onkeypress = function (e)
 {
-    if (e.keyCode == 13)
+    if (e.keyCode === 13)
         sendBtn.click();
 };

@@ -20,8 +20,8 @@ namespace NotMyFault.Models.DataAccessLayer
             ICollection<UserProject> userproj1 = new List<UserProject> { new UserProject { User = thirdDev }, new UserProject { User = secDev } };
             ICollection<UserProject> userproj2 = new List<UserProject> { new UserProject { User = thirdDev }, new UserProject { User = secDev } };
 
-            Project proj1 = new Project { ProjName = "dummyProj1", BriefDescript = "i am being watched", Initiator = thirdDev, ProjLeader = thirdDev, MyFollowers = userproj1 };
-            Project proj2 = new Project { ProjName = "dummyProj2", BriefDescript = "i am being watched as well", Initiator = firstDev, ProjLeader = secDev, MyFollowers = userproj2 };
+            Project proj1 = new Project { ProjName = "dummyProj1", MissionStatement = "i am being watched", Initiator = thirdDev, ProjLeader = thirdDev, MyFollowers = userproj1 };
+            Project proj2 = new Project { ProjName = "dummyProj2", MissionStatement = "i am being watched as well", Initiator = firstDev, ProjLeader = secDev, MyFollowers = userproj2 };
 
             //context.Endorsments.AddRange
             //(

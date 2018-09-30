@@ -100,7 +100,7 @@ namespace NotMyFault.Controllers
                 Project proj = new Project
                 {
                     ProjName = createProjectViewModel.ProjName,
-                    BriefDescript = createProjectViewModel.BriefDescript,
+                    MissionStatement = createProjectViewModel.MissionState,
                     FullDescript = createProjectViewModel.FullDescript,
                     Valuation = new CryptcurValue
                     {
@@ -166,7 +166,7 @@ namespace NotMyFault.Controllers
             {
                 ProjId = id,
                 ProjName = proj.ProjName,
-                BriefDescript = proj.BriefDescript,
+                MissionState = proj.MissionStatement,
                 ProtdCompDate = proj.ProtdCompDate,
                 FullDescript = proj.FullDescript,
                 Progress = proj.Progress,
@@ -200,6 +200,17 @@ namespace NotMyFault.Controllers
                 proj.RepoLink = createProjectViewModel.RepoLink;
                 proj.Visibility = createProjectViewModel.Visibility;
                 proj.ProjStatus = createProjectViewModel.ProjectStatus;
+                if (proj.ProjStatus == ProjStatus.Development_Completed)
+                {
+                    if (proj.CompleteDate == null)
+                    {
+                        proj.CompleteDate = DateTime.Today;
+                    }
+                }
+                else
+                {
+                    proj.CompleteDate = null;
+                }
                 proj.Valuation = cryptcurValue;
                 _projRepo.SaveChanges();
                 return RedirectToAction("Index", "Project", new { id = proj.ProjectId });
@@ -211,6 +222,7 @@ namespace NotMyFault.Controllers
         public IActionResult AbortProject(int projId)
         {
             _projRepo.GetProjById(projId).ProjStatus = ProjStatus.Aborted;
+            _projRepo.GetProjById(projId).AbortDate = DateTime.Today;
             _projRepo.SaveChanges();
             return RedirectToAction("Index", "Project", new { id = projId });
         }
